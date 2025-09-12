@@ -6,3 +6,7 @@ collections:
   season:
     output: true
     permalink: /:collection/:name/
+
+sass:
+  sass_dir: _sass
+  style: compressed
