@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: 原初之星
 ---
 
 <div class="home container">
@@ -150,7 +150,7 @@ title: Home
             if (document.getElementById('text-score-pet'))
                 document.getElementById('text-score-pet').textContent = `Score: ${res_pet}`;
             if (document.getElementById('text-score-total'))
-                document.getElementById('text-score-toal').textContent = `Score: ${res_total_round}`;
+                document.getElementById('text-score-total').textContent = `✨ Total Stars: ${res_total_round} ✨`;
             
             console.log("Calculation complete:", {
                 level: res_level,
