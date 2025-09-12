@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 
-<div class="home">
+<div class="home container">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">原初之星</h5>
@@ -20,7 +20,7 @@ title: Home
             <div class="mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-level">Level</span>
-                    <input type="number" class="form-control" aria-label="Level" aria-describedby="text-level">
+                    <input type="number" class="form-control" id="i-level" aria-label="Level" aria-describedby="text-level">
                 </div>
             </div>
             <div class="form-text" id="text-score-level"></div>
@@ -28,7 +28,7 @@ title: Home
             <div class="mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-gear">Gear</span>
-                    <input type="number" class="form-control" aria-label="Gear" aria-describedby="text-gear">
+                    <input type="number" class="form-control" id="i-gear" aria-label="Gear" aria-describedby="text-gear">
                 </div>
             </div>
             <div class="form-text" id="text-score-gear"></div>
@@ -36,7 +36,7 @@ title: Home
             <div class="mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-skill">Skill</span>
-                    <input type="number" class="form-control" aria-label="Skill" aria-describedby="text-skill">
+                    <input type="number" class="form-control" id="i-skill" aria-label="Skill" aria-describedby="text-skill">
                 </div>
             </div>
             <div class="form-text" id="text-score-skill"></div>
@@ -44,7 +44,7 @@ title: Home
             <div class="mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-relics">Relics</span>
-                    <input type="number" class="form-control" aria-label="Relics" aria-describedby="text-relics">
+                    <input type="number" class="form-control" id="i-relics" aria-label="Relics" aria-describedby="text-relics">
                 </div>
             </div>
             <div class="form-text" id="text-score-relics"></div>
@@ -52,7 +52,7 @@ title: Home
             <div class="mb-3">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-pet">Pet</span>
-                    <input type="number" class="form-control" aria-label="Pet" aria-describedby="text-pet">
+                    <input type="number" class="form-control" id="i-pet" aria-label="Pet" aria-describedby="text-pet">
                 </div>
             </div>
             <div class="form-text" id="text-score-pet"></div>
@@ -67,32 +67,32 @@ title: Home
 
     console.log(seasonData); // Now you can use seasonData
 
-    document.getElementById('text-level').addEventListener('change', function(event) {
+    document.getElementById('i-level').addEventListener('change', function(event) {
         calcScore();
     });
 
-    document.getElementById('text-gear').addEventListener('change', function(event) {
+    document.getElementById('i-gear').addEventListener('change', function(event) {
         calcScore();
     });
 
-    document.getElementById('text-skill').addEventListener('change', function(event) {
+    document.getElementById('i-skill').addEventListener('change', function(event) {
         calcScore();
     });
 
-    document.getElementById('text-relics').addEventListener('change', function(event) {
+    document.getElementById('i-relics').addEventListener('change', function(event) {
         calcScore();
     });
 
-    document.getElementById('text-pet').addEventListener('change', function(event) {
+    document.getElementById('i-pet').addEventListener('change', function(event) {
         calcScore();
     });
 
     function calcScore(){
-        let n_level = document.getElementById('text-level').value;
-        let n_gear = document.getElementById('text-gaer').value;
-        let n_skill = document.getElementById('text-skill').value;
-        let n_relics = document.getElementById('text-relics').value;
-        let n_pet = document.getElementById('text-pet').value;
+        let n_level = document.getElementById('i-level').value;
+        let n_gear = document.getElementById('i-gaer').value;
+        let n_skill = document.getElementById('i-skill').value;
+        let n_relics = document.getElementById('i-relics').value;
+        let n_pet = document.getElementById('i-pet').value;
         let n_season = document.getElementById('target-season').value;
         let season_data = null;
         let score = 0;
