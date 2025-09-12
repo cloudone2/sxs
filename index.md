@@ -3,18 +3,18 @@ layout: default
 title: 原初之星
 ---
 
-<div class="home container">
+<div class="home container mt-5">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">原初之星</h5>
 
             <div class="input-group mb-3">
+                <label class="input-group-text" for="target-season">賽季</label>
                 <select class="form-select" id="target-season">
                     {% for item in site.data.seasons %}
                     <option value="{{ item.season_number }}">{{ item.title }}</option>
                     {% endfor %}
                 </select>
-                <label class="input-group-text" for="target-season">賽季</label>
             </div>
 
             <div class="">
@@ -61,7 +61,7 @@ title: 原初之星
                 <div class="form-text mb-3" id="text-score-pet"></div>
             </div>
             
-            <div class="form-text text-red" id="text-score-total"></div>
+            <div class="form-text text-danger" id="text-score-total"></div>
         </div>
     </div>
 
@@ -123,8 +123,8 @@ title: 原初之星
             n_level = (fixed_level > n_level) ? 0 : (n_level - fixed_level);
             n_gear = (fixed_level > n_gear) ? 0 : (n_gear - fixed_level);
             n_skill = (fixed_level > n_skill) ? 0 : (n_skill - fixed_level);
-            n_relics = (fixed_level > n_relics) ? 0 : (n_relics - fixed_level);
-            n_pet = (fixed_pet_level > n_pet) ? 0 : (n_pet - fixed_pet_level);
+            n_relics = (fixed_level > n_relics) ? 0 : (n_relics - fixed_relics_level);
+            n_pet = (fixed_pet_level > n_pet) ? 0 : (n_pet - fixed_level);
             
             // Set default score multipliers if not in your data
             const scoreMultipliers = {

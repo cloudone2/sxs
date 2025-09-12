@@ -3,7 +3,7 @@
   season_number: 1
   release_date: 2025-07-26
   fixed_level: 100
-  fixed_pet_level: 10
+  fixed_relics_level: 10
   score_div: 100
   score_level: 100
   score_gear: 38
@@ -17,7 +17,7 @@
   season_number: 2
   release_date: 2025-08-30
   fixed_level: 130
-  fixed_pet_level: 13
+  fixed_relics_level: 13
   score_level: 100
   score_div: 27
   score_gear: 18
