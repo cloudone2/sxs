@@ -64,7 +64,7 @@ title: 原初之星
             <div class="">
                 <div class="input-group">
                     <span class="input-group-text" id="text-current-star">Current Star</span>
-                    <input type="number" class="form-control" id="i-current-start" aria-label="Current Star" aria-describedby="text-current-star">
+                    <input type="number" class="form-control" id="i-current-star" aria-label="Current Star" aria-describedby="text-current-star">
                 </div>
             </div>
             
