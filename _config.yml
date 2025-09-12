@@ -1,8 +1,3 @@
 theme: jekyll-theme-minimal
 title: SXS Calculator
 description: Hi~
-
-collections:
-  season:
-    output: true
-    permalink: /:collection/:name/
