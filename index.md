@@ -20,5 +20,4 @@ title: Home
   </div>
 
   <!-- Optional: Add pagination if you have many posts -->
-  <!-- {% include pagination.html %} -->
 </div>
