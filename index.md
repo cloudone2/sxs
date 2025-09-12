@@ -125,26 +125,15 @@ title: 原初之星
             let n_relics = (fixed_relics_level > orig_relics) ? 0 : (orig_relics - fixed_relics_level);
             let n_pet = (fixed_level > orig_pet) ? 0 : (orig_pet - fixed_level); // No pet-specific level in data
             
-            // Score multipliers from season data
-            const scoreMultipliers = {
-                level: season_data.score_level || 1,
-                gear: season_data.score_gear || 5,
-                skill: season_data.score_skill || 8,
-                relics: season_data.score_relics || 20,
-                pet: season_data.score_pet || 4,
-                div: season_data.score_div || 100,
-                star_start: season_data.star_start || 0
-            };
-            
             // Calculate scores
-            let res_level = n_level * scoreMultipliers.level;
-            let res_gear = n_gear * scoreMultipliers.gear;
-            let res_skill = n_skill * scoreMultipliers.skill;
-            let res_relics = n_relics * scoreMultipliers.relics;
-            let res_pet = n_pet * scoreMultipliers.pet;
+            let res_level = n_level * season_data.level * 1;
+            let res_gear = n_gear * season_data.gear * 5;
+            let res_skill = n_skill * season_data.skill * 8;
+            let res_relics = n_relics * season_data.relics * 20;
+            let res_pet = n_pet * season_data.pet * 4;
             
             let res_total = ((res_level + res_gear + res_skill + res_relics + res_pet) / 
-                          scoreMultipliers.div) + scoreMultipliers.star_start;
+                          season_data.div) + season_data.star_start;
             let res_total_round = Math.max(0, Math.round(res_total));
             
             // Update display with season-specific thresholds
