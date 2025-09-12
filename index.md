@@ -61,7 +61,7 @@ title: 原初之星
                 <div class="form-text mb-3" id="text-score-pet"></div>
             </div>
             
-            <div class="form-text text-danger" id="text-score-total"></div>
+            <div class="form-text fw-bold text-danger" id="text-score-total"></div>
         </div>
     </div>
 
@@ -69,12 +69,10 @@ title: 原初之星
 </div>
 
 <script>
-    // Wait for DOM to be fully loaded before accessing elements
     document.addEventListener('DOMContentLoaded', function() {
         const seasonData = {{ site.data.seasons | jsonify }};
         console.log("Season data loaded:", seasonData); 
 
-        // Add event listeners only after confirming elements exist
         const elements = {
             level: document.getElementById('i-level'),
             gear: document.getElementById('i-gear'),
@@ -84,7 +82,7 @@ title: 原初之星
             season: document.getElementById('target-season')
         };
         
-        // Check if all elements exist
+        // Add event listeners
         for (const [key, element] of Object.entries(elements)) {
             if (!element) {
                 console.error(`Element ${key} (id: i-${key}) not found!`);
@@ -98,15 +96,15 @@ title: 原初之星
         calcScore();
         
         function calcScore() {
-            // Safely get values with error checking
-            let n_level = elements.level ? parseInt(elements.level.value) || 0 : 0;
-            let n_gear = elements.gear ? parseInt(elements.gear.value) || 0 : 0;
-            let n_skill = elements.skill ? parseInt(elements.skill.value) || 0 : 0;
-            let n_relics = elements.relics ? parseInt(elements.relics.value) || 0 : 0;
-            let n_pet = elements.pet ? parseInt(elements.pet.value) || 0 : 0;
+            // Get input values
+            let orig_level = elements.level ? parseInt(elements.level.value) || 0 : 0;
+            let orig_gear = elements.gear ? parseInt(elements.gear.value) || 0 : 0;
+            let orig_skill = elements.skill ? parseInt(elements.skill.value) || 0 : 0;
+            let orig_relics = elements.relics ? parseInt(elements.relics.value) || 0 : 0;
+            let orig_pet = elements.pet ? parseInt(elements.pet.value) || 0 : 0;
             let n_season = elements.season ? parseInt(elements.season.value) : 1;
             
-            // Find season data safely - MUST BE BEFORE USING season_data
+            // Get season data
             let season_data = seasonData.find(season => season.season_number === n_season);
             
             if (!season_data) {
@@ -116,17 +114,18 @@ title: 原初之星
             
             console.log("Using season data:", season_data);
             
-            // Apply fixed level adjustments AFTER season_data is defined
+            // Apply fixed level adjustments using the correct properties
             let fixed_level = season_data.fixed_level || 0;
-            let fixed_pet_level = season_data.pet_level || 0; // Note: changed from fixed_pet_level
+            let fixed_relics_level = season_data.fixed_relics_level || 0;
             
-            n_level = (fixed_level > n_level) ? 0 : (n_level - fixed_level);
-            n_gear = (fixed_level > n_gear) ? 0 : (n_gear - fixed_level);
-            n_skill = (fixed_level > n_skill) ? 0 : (n_skill - fixed_level);
-            n_relics = (fixed_level > n_relics) ? 0 : (n_relics - fixed_relics_level);
-            n_pet = (fixed_pet_level > n_pet) ? 0 : (n_pet - fixed_level);
+            // Calculate effective levels with proper adjustments
+            let n_level = (fixed_level > orig_level) ? 0 : (orig_level - fixed_level);
+            let n_gear = (fixed_level > orig_gear) ? 0 : (orig_gear - fixed_level);
+            let n_skill = (fixed_level > orig_skill) ? 0 : (orig_skill - fixed_level);
+            let n_relics = (fixed_relics_level > orig_relics) ? 0 : (orig_relics - fixed_relics_level);
+            let n_pet = (fixed_level > orig_pet) ? 0 : (orig_pet - fixed_level); // No pet-specific level in data
             
-            // Set default score multipliers if not in your data
+            // Score multipliers from season data
             const scoreMultipliers = {
                 level: season_data.score_level || 1,
                 gear: season_data.score_gear || 5,
@@ -137,8 +136,8 @@ title: 原初之星
                 star_start: season_data.star_start || 0
             };
             
-            // Calculate scores - fixed division by season_data object
-            let res_level = n_level * scoreMultipliers.level;  // Removed incorrect division
+            // Calculate scores
+            let res_level = n_level * scoreMultipliers.level;
             let res_gear = n_gear * scoreMultipliers.gear;
             let res_skill = n_skill * scoreMultipliers.skill;
             let res_relics = n_relics * scoreMultipliers.relics;
@@ -146,36 +145,36 @@ title: 原初之星
             
             let res_total = ((res_level + res_gear + res_skill + res_relics + res_pet) / 
                           scoreMultipliers.div) + scoreMultipliers.star_start;
-            let res_total_round = Math.round(res_total);  
+            let res_total_round = Math.max(0, Math.round(res_total));
             
-            // Update display if elements exist
+            // Update display with season-specific thresholds
             if (document.getElementById('text-score-level'))
                 document.getElementById('text-score-level').textContent = 
-                    `Score: ${res_level} (Input: ${n_level + fixed_level}, Above: ${n_level})`;
+                    `Score: ${res_level} (Input: ${orig_level}, Fixed: ${fixed_level})`;
             if (document.getElementById('text-score-gear'))
                 document.getElementById('text-score-gear').textContent = 
-                    `Score: ${res_gear} (Input: ${n_gear + fixed_level}, Above: ${n_gear})`;
+                    `Score: ${res_gear} (Input: ${orig_gear}, Fixed: ${fixed_level})`;
             if (document.getElementById('text-score-skill'))
                 document.getElementById('text-score-skill').textContent = 
-                    `Score: ${res_skill} (Input: ${n_skill + fixed_level}, Above: ${n_skill})`;
+                    `Score: ${res_skill} (Input: ${orig_skill}, Fixed: ${fixed_level})`;
             if (document.getElementById('text-score-relics'))
                 document.getElementById('text-score-relics').textContent = 
-                    `Score: ${res_relics} (Input: ${n_relics + fixed_level}, Above: ${n_relics})`;
+                    `Score: ${res_relics} (Input: ${orig_relics}, Fixed: ${fixed_relics_level})`;
             if (document.getElementById('text-score-pet'))
                 document.getElementById('text-score-pet').textContent = 
-                    `Score: ${res_pet} (Input: ${n_pet + fixed_pet_level}, Above: ${n_pet})`;
+                    `Score: ${res_pet} (Input: ${orig_pet}, Fixed: ${fixed_level})`;
             if (document.getElementById('text-score-total'))
-                document.getElementById('text-score-total').textContent = `✨ Total Stars: ${res_total_round} ✨`;
+                document.getElementById('text-score-total').textContent = 
+                    `✨ Total Stars: ${res_total_round} (Season ${n_season}: ${season_data.title}) ✨`;
             
             console.log("Calculation complete:", {
-                level: res_level,
-                gear: res_gear,
-                skill: res_skill,
-                relics: res_relics,
-                pet: res_pet,
-                total: res_total,
-                fixed_level,
-                fixed_pet_level
+                level: {input: orig_level, adjusted: n_level, score: res_level},
+                gear: {input: orig_gear, adjusted: n_gear, score: res_gear},
+                skill: {input: orig_skill, adjusted: n_skill, score: res_skill},
+                relics: {input: orig_relics, adjusted: n_relics, score: res_relics, fixed_level: fixed_relics_level},
+                pet: {input: orig_pet, adjusted: n_pet, score: res_pet},
+                total: res_total_round,
+                season: season_data.title
             });
             
             return false;
