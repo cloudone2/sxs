@@ -66,4 +66,56 @@ title: Home
     const seasonData = {{ site.data.seasons | jsonify }};
 
     console.log(seasonData); // Now you can use seasonData
+
+    document.getElementById('text-level').addEventListener('change', function(event) {
+        calcScore();
+    });
+
+    document.getElementById('text-gear').addEventListener('change', function(event) {
+        calcScore();
+    });
+
+    document.getElementById('text-skill').addEventListener('change', function(event) {
+        calcScore();
+    });
+
+    document.getElementById('text-relics').addEventListener('change', function(event) {
+        calcScore();
+    });
+
+    document.getElementById('text-pet').addEventListener('change', function(event) {
+        calcScore();
+    });
+
+    function calcScore(n_level, n_gear, n_skill, n_relics, n_pet, season){
+        let n_level = document.getElementById('text-level').value;
+        let n_gear = document.getElementById('text-gaer').value;
+        let n_skill = document.getElementById('text-skill').value;
+        let n_relics = document.getElementById('text-relics').value;
+        let n_pet = document.getElementById('text-pet').value;
+        let n_season = document.getElementById('target-season').value;
+        let season_data = null;
+        let score = 0;
+
+        if ( seasonData[n_season-1] !== undefined ){
+            season_data = seasonData[n_season-1];
+
+            let res_level = n_level * season_data.score_level;
+            console.log("Level Score: " + res_level);
+            let res_gear = n_gear * season_data.score_gear*5;
+            console.log("Gear Score: " + res_gear);
+            let res_skill = n_skill * season_data.score_skill*8;
+            console.log("Skill Score: " + res_skill);
+            let res_relics = n_relics * season_data.score_relics*20;
+            console.log("Relics Score: " + res_relics);
+            let res_pet = n_pet * season_data.score_pet*4;
+            console.log("Pet Score: " + res_pet);
+            let res_total = ( (res_level + res_gear + res_skill + res_relics + res_pet) / season_data.score_div ) + season_data.star_start;
+            console.log("Total Score: " + res_total);
+        }else{
+            return false;
+        }
+
+        return false;
+    }
 </script>

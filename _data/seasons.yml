@@ -4,9 +4,24 @@
   release_date: 2025-07-26
   fixed_level: 100
   pet_level: 10
+  score_div: 100
+  score_level: 100
+  score_gear: 38
+  score_skill: 13
+  score_relics: 57
+  score_pet: 14
+  star_start: 10
+
 - id: 's2'
   title: 'S2: 渊虹邂羽'
   season_number: 2
   release_date: 2025-08-30
   fixed_level: 130
   pet_level: 13
+  score_level: 100
+  score_div: 27
+  score_gear: 18
+  score_skill: 7
+  score_relics: 33
+  score_pet: 8
+  star_start: 45
