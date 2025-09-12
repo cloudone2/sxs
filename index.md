@@ -87,7 +87,7 @@ title: Home
         calcScore();
     });
 
-    function calcScore(n_level, n_gear, n_skill, n_relics, n_pet, season){
+    function calcScore(){
         let n_level = document.getElementById('text-level').value;
         let n_gear = document.getElementById('text-gaer').value;
         let n_skill = document.getElementById('text-skill').value;
