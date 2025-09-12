@@ -63,16 +63,7 @@ title: Home
 </div>
 
 <script>
-  const seasonData = [
-    {% for season in site.data.seasons %}
-    {
-      id: "{{ season.id }}",
-      title: "{{ season.title }}",
-      episodes: "{{ season.episodes }}",
-      year: "{{ season.year }}"
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ];
-  
-  console.log(seasonData); // Now you can use seasonData
+    const seasonData = {{ site.data.seasons | jsonify }};
+
+    console.log(seasonData); // Now you can use seasonData
 </script>
