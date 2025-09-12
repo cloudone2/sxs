@@ -135,15 +135,15 @@ title: 原初之星
             let n_pet = (fixed_level > orig_pet) ? 0 : (orig_pet - fixed_level);
             
             // Calculate scores using correct property names
-            let res_level = n_level * (season_data.score_level || 1);
-            let res_gear = n_gear * (season_data.score_gear || 5);
-            let res_skill = n_skill * (season_data.score_skill || 8);
-            let res_relics = n_relics * (season_data.score_relics || 20);
-            let res_pet = n_pet * (season_data.score_pet || 4);
+            let res_level = n_level * (season_data.score_level * 1);
+            let res_gear = n_gear * (season_data.score_gear * 5);
+            let res_skill = n_skill * (season_data.score_skill * 8);
+            let res_relics = n_relics * (season_data.score_relics * 20);
+            let res_pet = n_pet * (season_data.score_pet * 4);
             
             // Add current stars before rounding for more accurate calculation
             let res_total = ((res_level + res_gear + res_skill + res_relics + res_pet) / 
-                          (season_data.score_div || 100)) + (season_data.star_start || 0) + n_current_star;
+                          (season_data.score_div)) + (season_data.star_start) + n_current_star;
             let res_total_round = Math.max(0, Math.round(res_total));
             
             // Update display with season-specific thresholds
