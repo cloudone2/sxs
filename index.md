@@ -106,7 +106,7 @@ title: 原初之星
             let n_pet = elements.pet ? parseInt(elements.pet.value) || 0 : 0;
             let n_season = elements.season ? parseInt(elements.season.value) : 1;
             
-            // Find season data safely
+            // Find season data safely - MUST BE BEFORE USING season_data
             let season_data = seasonData.find(season => season.season_number === n_season);
             
             if (!season_data) {
@@ -115,6 +115,16 @@ title: 原初之星
             }
             
             console.log("Using season data:", season_data);
+            
+            // Apply fixed level adjustments AFTER season_data is defined
+            let fixed_level = season_data.fixed_level || 0;
+            let fixed_pet_level = season_data.pet_level || 0; // Note: changed from fixed_pet_level
+            
+            n_level = (fixed_level > n_level) ? 0 : (n_level - fixed_level);
+            n_gear = (fixed_level > n_gear) ? 0 : (n_gear - fixed_level);
+            n_skill = (fixed_level > n_skill) ? 0 : (n_skill - fixed_level);
+            n_relics = (fixed_level > n_relics) ? 0 : (n_relics - fixed_level);
+            n_pet = (fixed_pet_level > n_pet) ? 0 : (n_pet - fixed_pet_level);
             
             // Set default score multipliers if not in your data
             const scoreMultipliers = {
@@ -127,8 +137,8 @@ title: 原初之星
                 star_start: season_data.star_start || 0
             };
             
-            // Calculate scores
-            let res_level = n_level * scoreMultipliers.level;
+            // Calculate scores - fixed division by season_data object
+            let res_level = n_level * scoreMultipliers.level;  // Removed incorrect division
             let res_gear = n_gear * scoreMultipliers.gear;
             let res_skill = n_skill * scoreMultipliers.skill;
             let res_relics = n_relics * scoreMultipliers.relics;
@@ -140,15 +150,20 @@ title: 原初之星
             
             // Update display if elements exist
             if (document.getElementById('text-score-level'))
-                document.getElementById('text-score-level').textContent = `Score: ${res_level}`;
+                document.getElementById('text-score-level').textContent = 
+                    `Score: ${res_level} (Input: ${n_level + fixed_level}, Above: ${n_level})`;
             if (document.getElementById('text-score-gear'))
-                document.getElementById('text-score-gear').textContent = `Score: ${res_gear}`;
+                document.getElementById('text-score-gear').textContent = 
+                    `Score: ${res_gear} (Input: ${n_gear + fixed_level}, Above: ${n_gear})`;
             if (document.getElementById('text-score-skill'))
-                document.getElementById('text-score-skill').textContent = `Score: ${res_skill}`;
+                document.getElementById('text-score-skill').textContent = 
+                    `Score: ${res_skill} (Input: ${n_skill + fixed_level}, Above: ${n_skill})`;
             if (document.getElementById('text-score-relics'))
-                document.getElementById('text-score-relics').textContent = `Score: ${res_relics}`;
+                document.getElementById('text-score-relics').textContent = 
+                    `Score: ${res_relics} (Input: ${n_relics + fixed_level}, Above: ${n_relics})`;
             if (document.getElementById('text-score-pet'))
-                document.getElementById('text-score-pet').textContent = `Score: ${res_pet}`;
+                document.getElementById('text-score-pet').textContent = 
+                    `Score: ${res_pet} (Input: ${n_pet + fixed_pet_level}, Above: ${n_pet})`;
             if (document.getElementById('text-score-total'))
                 document.getElementById('text-score-total').textContent = `✨ Total Stars: ${res_total_round} ✨`;
             
@@ -158,7 +173,9 @@ title: 原初之星
                 skill: res_skill,
                 relics: res_relics,
                 pet: res_pet,
-                total: res_total
+                total: res_total,
+                fixed_level,
+                fixed_pet_level
             });
             
             return false;
