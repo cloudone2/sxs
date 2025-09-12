@@ -17,49 +17,51 @@ title: Home
                 <label class="input-group-text" for="target-season">賽季</label>
             </div>
 
-            <div class="mb-3">
+            <div class="">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="text-level">Level</span>
                     <input type="number" class="form-control" id="i-level" aria-label="Level"
                         aria-describedby="text-level">
                 </div>
+                <div class="form-text mb-3" id="text-score-level"></div>
             </div>
-            <div class="form-text" id="text-score-level"></div>
 
-            <div class="mb-3">
-                <div class="input-group mb-3">
+            <div class="">
+                <div class="input-group">
                     <span class="input-group-text" id="text-gear">Gear</span>
                     <input type="number" class="form-control" id="i-gear" aria-label="Gear"
                         aria-describedby="text-gear">
                 </div>
+                <div class="form-text mb-3" id="text-score-gear"></div>
             </div>
-            <div class="form-text" id="text-score-gear"></div>
 
-            <div class="mb-3">
-                <div class="input-group mb-3">
+            <div class="">
+                <div class="input-group">
                     <span class="input-group-text" id="text-skill">Skill</span>
                     <input type="number" class="form-control" id="i-skill" aria-label="Skill"
                         aria-describedby="text-skill">
                 </div>
+                <div class="form-text mb-3" id="text-score-skill"></div>
             </div>
-            <div class="form-text" id="text-score-skill"></div>
-
-            <div class="mb-3">
-                <div class="input-group mb-3">
+            
+            <div class="">
+                <div class="input-group ">
                     <span class="input-group-text" id="text-relics">Relics</span>
                     <input type="number" class="form-control" id="i-relics" aria-label="Relics"
                         aria-describedby="text-relics">
                 </div>
+                <div class="form-text mb-3" id="text-score-relics"></div>
             </div>
-            <div class="form-text" id="text-score-relics"></div>
 
-            <div class="mb-3">
-                <div class="input-group mb-3">
+            <div class="">
+                <div class="input-group">
                     <span class="input-group-text" id="text-pet">Pet</span>
                     <input type="number" class="form-control" id="i-pet" aria-label="Pet" aria-describedby="text-pet">
                 </div>
+                <div class="form-text mb-3" id="text-score-pet"></div>
             </div>
-            <div class="form-text" id="text-score-pet"></div>
+            
+            <div class="form-text text-red" id="text-score-total"></div>
         </div>
     </div>
 
@@ -134,6 +136,7 @@ title: Home
             
             let res_total = ((res_level + res_gear + res_skill + res_relics + res_pet) / 
                           scoreMultipliers.div) + scoreMultipliers.star_start;
+            let res_total_round = Math.round(res_total);  
             
             // Update display if elements exist
             if (document.getElementById('text-score-level'))
@@ -146,6 +149,8 @@ title: Home
                 document.getElementById('text-score-relics').textContent = `Score: ${res_relics}`;
             if (document.getElementById('text-score-pet'))
                 document.getElementById('text-score-pet').textContent = `Score: ${res_pet}`;
+            if (document.getElementById('text-score-total'))
+                document.getElementById('text-score-toal').textContent = `Score: ${res_total_round}`;
             
             console.log("Calculation complete:", {
                 level: res_level,
