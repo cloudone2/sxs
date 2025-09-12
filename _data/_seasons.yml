@@ -1,0 +1,12 @@
+- id: 's1'
+  title: 'S1: 逢魔时至'
+  season_number: 1
+  release_date: 2025-07-26
+  fixed_level: 100
+  pet_level: 10
+- id: 's2'
+  title: 'S2: 渊虹邂羽'
+  season_number: 2
+  release_date: 2025-08-30
+  fixed_level: 130
+  pet_level: 13
