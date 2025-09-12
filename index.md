@@ -60,6 +60,13 @@ title: 原初之星
                 </div>
                 <div class="form-text mb-3" id="text-score-pet"></div>
             </div>
+
+            <div class="">
+                <div class="input-group">
+                    <span class="input-group-text" id="text-current-star">Current Star</span>
+                    <input type="number" class="form-control" id="i-current-start" aria-label="Current Star" aria-describedby="text-current-star">
+                </div>
+            </div>
             
             <div class="form-text fw-bold text-danger" id="text-score-total"></div>
         </div>
@@ -79,6 +86,7 @@ title: 原初之星
             skill: document.getElementById('i-skill'),
             relics: document.getElementById('i-relics'),
             pet: document.getElementById('i-pet'),
+            current_star: document.getElementById('i-current-star'), // Fixed typo: was i-current-start
             season: document.getElementById('target-season')
         };
         
@@ -103,6 +111,7 @@ title: 原初之星
             let orig_relics = elements.relics ? parseInt(elements.relics.value) || 0 : 0;
             let orig_pet = elements.pet ? parseInt(elements.pet.value) || 0 : 0;
             let n_season = elements.season ? parseInt(elements.season.value) : 1;
+            let n_current_star = elements.current_star ? parseInt(elements.current_star.value) || 0 : 0;
             
             // Get season data
             let season_data = seasonData.find(season => season.season_number === n_season);
@@ -114,7 +123,7 @@ title: 原初之星
             
             console.log("Using season data:", season_data);
             
-            // Apply fixed level adjustments using the correct properties
+            // Apply fixed level adjustments
             let fixed_level = season_data.fixed_level || 0;
             let fixed_relics_level = season_data.fixed_relics_level || 0;
             
@@ -123,17 +132,18 @@ title: 原初之星
             let n_gear = (fixed_level > orig_gear) ? 0 : (orig_gear - fixed_level);
             let n_skill = (fixed_level > orig_skill) ? 0 : (orig_skill - fixed_level);
             let n_relics = (fixed_relics_level > orig_relics) ? 0 : (orig_relics - fixed_relics_level);
-            let n_pet = (fixed_level > orig_pet) ? 0 : (orig_pet - fixed_level); // No pet-specific level in data
+            let n_pet = (fixed_level > orig_pet) ? 0 : (orig_pet - fixed_level);
             
-            // Calculate scores
-            let res_level = n_level * season_data.level * 1;
-            let res_gear = n_gear * season_data.gear * 5;
-            let res_skill = n_skill * season_data.skill * 8;
-            let res_relics = n_relics * season_data.relics * 20;
-            let res_pet = n_pet * season_data.pet * 4;
+            // Calculate scores using correct property names
+            let res_level = n_level * (season_data.score_level || 1);
+            let res_gear = n_gear * (season_data.score_gear || 5);
+            let res_skill = n_skill * (season_data.score_skill || 8);
+            let res_relics = n_relics * (season_data.score_relics || 20);
+            let res_pet = n_pet * (season_data.score_pet || 4);
             
+            // Add current stars before rounding for more accurate calculation
             let res_total = ((res_level + res_gear + res_skill + res_relics + res_pet) / 
-                          season_data.div) + season_data.star_start;
+                          (season_data.score_div || 100)) + (season_data.star_start || 0) + n_current_star;
             let res_total_round = Math.max(0, Math.round(res_total));
             
             // Update display with season-specific thresholds
@@ -152,16 +162,23 @@ title: 原初之星
             if (document.getElementById('text-score-pet'))
                 document.getElementById('text-score-pet').textContent = 
                     `Score: ${res_pet} (Input: ${orig_pet}, Fixed: ${fixed_level})`;
-            if (document.getElementById('text-score-total'))
-                document.getElementById('text-score-total').textContent = 
-                    `✨ Total Stars: ${res_total_round} (Season ${n_season}: ${season_data.title}) ✨`;
+            if (document.getElementById('text-score-total')) {
+                if (n_current_star > 0) {
+                    document.getElementById('text-score-total').textContent = 
+                        `✨ Total Stars: ${res_total_round} (Base: ${Math.round(res_total - n_current_star)}, Current: +${n_current_star}) ✨`;
+                } else {
+                    document.getElementById('text-score-total').textContent = 
+                        `✨ Total Stars: ${res_total_round} (Season ${n_season}: ${season_data.title}) ✨`;
+                }
+            }
             
             console.log("Calculation complete:", {
                 level: {input: orig_level, adjusted: n_level, score: res_level},
                 gear: {input: orig_gear, adjusted: n_gear, score: res_gear},
                 skill: {input: orig_skill, adjusted: n_skill, score: res_skill},
-                relics: {input: orig_relics, adjusted: n_relics, score: res_relics, fixed_level: fixed_relics_level},
+                relics: {input: orig_relics, adjusted: n_relics, score: res_relics},
                 pet: {input: orig_pet, adjusted: n_pet, score: res_pet},
+                current_stars: n_current_star,
                 total: res_total_round,
                 season: season_data.title
             });
