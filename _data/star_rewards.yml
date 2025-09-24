@@ -1,0 +1,64 @@
+# Star reward generation rules
+reward_types:
+  - name: atk
+    title: "攻擊"
+    value: 1
+  - name: equip_drop_rate
+    title: "副本掉落裝備昇華機率"
+    value: 3
+  - name: def
+    title: "防禦"
+    value: 1
+  - name: gem_rate
+    title: "寶石獲得率"
+    value: 5
+  - name: hp
+    title: "生命"
+    value: 1
+  - name: rating_reward_rate
+    title: "副本評價獎勵翻倍機率"
+    value: 2
+  - name: spd
+    title: "速度"
+    value: 1
+  - name: exp
+    title: "經驗獲取加成"
+    value: 2
+
+tiers:
+  - start: 0
+    increment: 0
+    index: 0
+  - start: 5
+    increment: 5
+    index: 1
+  - start: 48
+    increment: 8
+    index: 2
+  - start: 116
+    increment: 12
+    index: 3
+  - start: 215
+    increment: 15
+    index: 4
+  - start: 340
+    increment: 20
+    index: 5
+  - start: 505
+    increment: 25
+    index: 6
+  - start: 710
+    increment: 30
+    index: 7
+  - start: 955
+    increment: 35
+    index: 8
+  - start: 1240
+    increment: 40
+    index: 9
+  - start: 1565
+    increment: 45
+    index: 10
+  - start: 1940
+    increment: 60
+    index: 11

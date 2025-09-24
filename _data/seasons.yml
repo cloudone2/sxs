@@ -25,3 +25,17 @@
   score_relics: 33
   score_pet: 8
   star_start: 45
+
+- id: 's3'
+  title: 'S3: 混沌終焉'
+  season_number: 3
+  release_date: 2025-11-05
+  fixed_level: 160
+  fixed_relics_level: 16
+  score_level: 100
+  score_div: 13
+  score_gear: 14
+  score_skill: 5
+  score_relics: 26
+  score_pet: 6
+  star_start: 65

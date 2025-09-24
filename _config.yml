@@ -1,3 +1,6 @@
-theme: jekyll-theme-minimal
-title: SXS Calculator
-description: Hi~
+title: 杖劍傳説
+description: 原初之星計算器
+
+remote_theme: pages-themes/minimal
+plugins:
+  - jekyll-remote-theme
