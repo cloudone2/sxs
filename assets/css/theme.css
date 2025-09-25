@@ -1,0 +1,33 @@
+.timeline-tab{
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 300px;
+}
+
+.timeline{
+    list-style: none;
+}
+
+.container-star[data-season="s1"]{
+    color: red;
+}
+
+.container-star[data-season="s1"] .card-title{
+    color: red;
+}
+
+.container-star[data-season="s2"]{
+    color: green;
+}
+
+.container-star[data-season="s2"] .card-title{
+    color: green;
+}
+
+.container-star[data-season="s3"]{
+    color: purple;
+}
+
+.container-star[data-season="s3"] .card-title{
+    color: purple;
+}

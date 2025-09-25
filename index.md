@@ -4,65 +4,74 @@ title: 原初之星
 current_season: 2
 ---
 
-<div class="home container mt-5">
+<div class="home container mt-5 container-star" data-season="" id="container-home">
     <div class="row">
-        <div class="col-md-3 col-12 tab-calc">
+        <div class="col-md-4 col-12 tab-calc">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">原初之星</h5>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="target-season">賽季</label>
-                        <select class="form-select" id="target-season">
-                            {% assign sorted_seasons = site.data.seasons | sort: "season_number" | reverse %}
-                            {% for item in sorted_seasons %}
-                            <option value="{{ item.season_number }}" {% if item.season_number == page.current_season %}selected{% endif %}>
-                                {{ item.title }}
-                            </option>
-                            {% endfor %}
-                        </select>
+                    <div class="">
+                        <span class="form-text float-end">賽季</span>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="target-season"><i class="fa-solid fa-feather-pointed"></i></label>
+                            <select class="form-select" id="target-season">
+                                {% assign sorted_seasons = site.data.seasons | sort: "season_number" | reverse %}
+                                {% for item in sorted_seasons %}
+                                <option value="{{ item.season_number }}" {% if item.season_number == page.current_season %}selected{% endif %}>
+                                    {{ item.title }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">等級</span>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="text-level"><i class="fa-regular fa-user"></i></span>
                             <input type="number" class="form-control" id="i-level" aria-label="Level"
                                 aria-describedby="text-level">
                         </div>
-                        <div class="form-text mb-3" id="text-score-level"></div>
+                        <div class="form-text" id="text-score-level"></div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">裝備(5)</span>
                         <div class="input-group">
                             <span class="input-group-text" id="text-gear"><i class="fa-solid fa-shirt"></i></span>
                             <input type="number" class="form-control" id="i-gear" aria-label="Gear"
                                 aria-describedby="text-gear">
                         </div>
-                        <div class="form-text mb-3" id="text-score-gear"></div>
+                        <div class="form-text" id="text-score-gear"></div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">技能(8)</span>
                         <div class="input-group">
                             <span class="input-group-text" id="text-skill"><i class="fa-solid fa-book-tanakh"></i></span>
                             <input type="number" class="form-control" id="i-skill" aria-label="Skill"
                                 aria-describedby="text-skill">
                         </div>
-                        <div class="form-text mb-3" id="text-score-skill"></div>
+                        <div class="form-text" id="text-score-skill"></div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">古遺物(20)</span>
                         <div class="input-group ">
-                            <span class="input-group-text" id="text-relics">Relics</span>
+                            <span class="input-group-text" id="text-relics"><i class="fa-solid fa-monument"></i></span>
                             <input type="number" class="form-control" id="i-relics" aria-label="Relics"
                                 aria-describedby="text-relics">
                         </div>
-                        <div class="form-text mb-3" id="text-score-relics"></div>
+                        <div class="form-text" id="text-score-relics"></div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">幻獸(5)</span>
                         <div class="input-group">
                             <span class="input-group-text" id="text-pet"><i class="fa-solid fa-paw"></i></span>
                             <input type="number" class="form-control" id="i-pet" aria-label="Pet" aria-describedby="text-pet">
                         </div>
-                        <div class="form-text mb-3" id="text-score-pet"></div>
+                        <div class="form-text" id="text-score-pet"></div>
                     </div>
                     <div class="">
+                        <span class="form-text float-end">原初之星(已有)</span>
                         <div class="input-group">
-                            <span class="input-group-text" id="text-current-star">Current <i class="fa-solid fa-star"></i></span>
+                            <span class="input-group-text" id="text-current-star"><i class="fa-solid fa-star"></i></span>
                             <input type="number" class="form-control" id="i-current-star" aria-label="Current Star"
                                 aria-describedby="text-current-star">
                         </div>
@@ -71,25 +80,41 @@ current_season: 2
                 </div>
             </div>
         </div>
-        <div class="col-md-9 col-12 tab-map">
+        <div class="col-md-8 col-12 tab-map">
             <div class="card">
                 <div class="card-body">
-                    <table class="table" id="table-stars">
-                        <thead>
-                            <tr>
-                                <th scope="col">Reward</th>
-                                <th scope="col">Value</th>
-                                <th scope="col">Reward</th>
-                                <th scope="col">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-stars-body"></tbody>
-                    </table>
+                    <div class="d-none d-md-block">
+                        <table class="table" id="table-stars">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Reward</th>
+                                    <th scope="col">Value</th>
+                                    <th scope="col">Reward</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-stars-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="d-block d-md-none">
+                        <table class="table" id="table-stars-mobile">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Reward</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-stars-mobile-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
-                    star map
+                    <div class="timeline-tab">
+                        <ul class="timeline" id="star-timeline">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,6 +153,8 @@ current_season: 2
 
         const tab_star = {
             table_body: document.getElementById('table-stars-body'),
+            table_body_mobile: document.getElementById('table-stars-mobile-body'),
+            star_timeline: document.getElementById('star-timeline')
         };
 
         // Initial calculation
@@ -152,6 +179,8 @@ current_season: 2
             }
 
             console.log("Using season data:", season_data);
+
+            document.getElementById('container-home').setAttribute("data-season", season_data.id);
 
             // Apply fixed level adjustments
             let fixed_level = season_data.fixed_level || 0;
@@ -246,6 +275,8 @@ current_season: 2
             const new_star_list = starRewardsData.reward_types;
 
             let tableHtml = '';
+            let tableHtml_mobile = '';
+            let starMapHtml = '';
 
             for (let i = 0; i < new_star_list.length; i++) {
                 //console.log(starRewardsData.tiers[new_index]);
@@ -298,10 +329,69 @@ current_season: 2
                     </tr>
                 `;
             }
+            for (let i = 0; i < new_star_list.length; i++) {
+                tableHtml_mobile += `
+                    <tr>
+                        <td>${new_star_list[i].title}</td>
+                        <td>
+                            ${new_star_list[i].new_total_value}%(
+                            <span class="text-info">${new_star_list[i].current_total_value}%</span> + 
+                            <span class="text-success">${new_star_list[i].diff_total_value}%</span>)
+                        </td>
+                    </tr>
+                `;
+            }
             //end init star element
 
             tab_star.table_body.innerHTML = tableHtml;
+            tab_star.table_body_mobile.innerHTML = tableHtml_mobile;
             //end count table
+
+            //start star map
+            const star_map = new Array();
+            let star_index = 0;
+            let tmp_star_value = 0;
+            for (const tier_el of starRewardsData.tiers) { 
+                tmp_star_value = tier_el.start;
+                if( tier_el.index > 0 ){
+                    for (const reward_el of starRewardsData.reward_types) { 
+                        const tmpStarEl = new Object();
+                        tmpStarEl.star_index = tmp_star_value;
+                        tmpStarEl.name = reward_el.name;
+                        tmpStarEl.title = reward_el.title;
+                        tmpStarEl.value = reward_el.value;
+
+                        star_map.push(tmpStarEl);
+                        tmp_star_value += tier_el.increment;
+                    }
+                }
+            }
+
+            let res_total_round_up = res_total_round*1.2
+            console.log("n_current_star: " + n_current_star + " res_total_round: " + res_total_round_up);
+            for (const star_el of star_map.slice().reverse()) { 
+                if( res_total_round_up >  star_el.star_index  ){
+                    if( res_total_round >  star_el.star_index ){
+                        starMapHtml += `
+                            <li class="event" data-star="${star_el.star_index}">
+                                <p>✨[${star_el.star_index}]${star_el.title} +${star_el.value}</p>
+                            </li>
+                        `;
+                    }else{
+                        starMapHtml += `
+                            <li class="event" data-star="${star_el.star_index}">
+                                <p>[${star_el.star_index}]${star_el.title} +${star_el.value}</p>
+                            </li>
+                        `;
+                    }
+                    
+                }
+            }
+            console.log("star_map");
+            console.log(star_map);
+
+            tab_star.star_timeline.innerHTML = starMapHtml;
+            //end star map
 
             return false;
         }
