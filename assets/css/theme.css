@@ -8,26 +8,30 @@
     list-style: none;
 }
 
-.container-star[data-season="s1"]{
-    color: red;
+.container-star .card-star{
+    border-radius: 20px;
 }
 
-.container-star[data-season="s1"] .card-title{
-    color: red;
+.container-star .page-title{
+    font-weight: bold;
 }
 
-.container-star[data-season="s2"]{
-    color: green;
+.container-star .card{
+    border: none;
+    border-radius: 50px;
 }
 
-.container-star[data-season="s2"] .card-title{
-    color: green;
+.container-star .card-star{
+    border: 1px solid var(--bs-border-color);
+    box-shadow: var(--bs-border-color) 0px 5px 15px;
 }
 
-.container-star[data-season="s3"]{
-    color: purple;
+.form-control:focus {
+    border-color: var(--bs-body-color);
+    box-shadow: none;
 }
 
-.container-star[data-season="s3"] .card-title{
-    color: purple;
+.form-select:focus {
+    border-color: var(--bs-body-color);
+    box-shadow: none;
 }

@@ -3,123 +3,125 @@ layout: default
 title: 原初之星
 current_season: 2
 ---
-
-<div class="home container mt-5 container-star" data-season="" id="container-home">
-    <div class="row">
-        <div class="col-md-4 col-12 tab-calc">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">原初之星</h5>
-                    <div class="">
-                        <span class="form-text float-end">賽季</span>
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="target-season"><i class="fa-solid fa-feather-pointed"></i></label>
-                            <select class="form-select" id="target-season">
-                                {% assign sorted_seasons = site.data.seasons | sort: "season_number" | reverse %}
-                                {% for item in sorted_seasons %}
-                                <option value="{{ item.season_number }}" {% if item.season_number == page.current_season %}selected{% endif %}>
-                                    {{ item.title }}
-                                </option>
-                                {% endfor %}
-                            </select>
+<section class="container container-star" data-season="" id="container-home">
+    <h5 class="page-title">原初之星</h5>
+    <div class="card-star">
+        <div class="row">
+            <div class="col-md-5 col-12 tab-calc">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="">
+                            <span class="form-text float-end">賽季</span>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="target-season"><i class="fa-solid fa-feather-pointed"></i></label>
+                                <select class="form-select" id="target-season">
+                                    {% assign sorted_seasons = site.data.seasons | sort: "season_number" | reverse %}
+                                    {% for item in sorted_seasons %}
+                                    <option value="{{ item.season_number }}" {% if item.season_number == page.current_season %}selected{% endif %}>
+                                        {{ item.title }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">等級</span>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="text-level"><i class="fa-regular fa-user"></i></span>
-                            <input type="number" class="form-control" id="i-level" aria-label="Level"
-                                aria-describedby="text-level">
+                        <div class="">
+                            <span class="form-text float-end">等級</span>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="text-level"><i class="fa-regular fa-user"></i></span>
+                                <input type="number" class="form-control" id="i-level" aria-label="Level"
+                                    aria-describedby="text-level">
+                            </div>
+                            <div class="form-text" id="text-score-level"></div>
                         </div>
-                        <div class="form-text" id="text-score-level"></div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">裝備(5)</span>
-                        <div class="input-group">
-                            <span class="input-group-text" id="text-gear"><i class="fa-solid fa-shirt"></i></span>
-                            <input type="number" class="form-control" id="i-gear" aria-label="Gear"
-                                aria-describedby="text-gear">
+                        <div class="">
+                            <span class="form-text float-end">裝備(5)</span>
+                            <div class="input-group">
+                                <span class="input-group-text" id="text-gear"><i class="fa-solid fa-shirt"></i></span>
+                                <input type="number" class="form-control" id="i-gear" aria-label="Gear"
+                                    aria-describedby="text-gear">
+                            </div>
+                            <div class="form-text" id="text-score-gear"></div>
                         </div>
-                        <div class="form-text" id="text-score-gear"></div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">技能(8)</span>
-                        <div class="input-group">
-                            <span class="input-group-text" id="text-skill"><i class="fa-solid fa-book-tanakh"></i></span>
-                            <input type="number" class="form-control" id="i-skill" aria-label="Skill"
-                                aria-describedby="text-skill">
+                        <div class="">
+                            <span class="form-text float-end">技能(8)</span>
+                            <div class="input-group">
+                                <span class="input-group-text" id="text-skill"><i class="fa-solid fa-book-tanakh"></i></span>
+                                <input type="number" class="form-control" id="i-skill" aria-label="Skill"
+                                    aria-describedby="text-skill">
+                            </div>
+                            <div class="form-text" id="text-score-skill"></div>
                         </div>
-                        <div class="form-text" id="text-score-skill"></div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">古遺物(20)</span>
-                        <div class="input-group ">
-                            <span class="input-group-text" id="text-relics"><i class="fa-solid fa-monument"></i></span>
-                            <input type="number" class="form-control" id="i-relics" aria-label="Relics"
-                                aria-describedby="text-relics">
+                        <div class="">
+                            <span class="form-text float-end">古遺物(20)</span>
+                            <div class="input-group ">
+                                <span class="input-group-text" id="text-relics"><i class="fa-solid fa-monument"></i></span>
+                                <input type="number" class="form-control" id="i-relics" aria-label="Relics"
+                                    aria-describedby="text-relics">
+                            </div>
+                            <div class="form-text" id="text-score-relics"></div>
                         </div>
-                        <div class="form-text" id="text-score-relics"></div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">幻獸(5)</span>
-                        <div class="input-group">
-                            <span class="input-group-text" id="text-pet"><i class="fa-solid fa-paw"></i></span>
-                            <input type="number" class="form-control" id="i-pet" aria-label="Pet" aria-describedby="text-pet">
+                        <div class="">
+                            <span class="form-text float-end">幻獸(4)</span>
+                            <div class="input-group">
+                                <span class="input-group-text" id="text-pet"><i class="fa-solid fa-paw"></i></span>
+                                <input type="number" class="form-control" id="i-pet" aria-label="Pet" aria-describedby="text-pet">
+                            </div>
+                            <div class="form-text" id="text-score-pet"></div>
                         </div>
-                        <div class="form-text" id="text-score-pet"></div>
-                    </div>
-                    <div class="">
-                        <span class="form-text float-end">原初之星(已有)</span>
-                        <div class="input-group">
-                            <span class="input-group-text" id="text-current-star"><i class="fa-solid fa-star"></i></span>
-                            <input type="number" class="form-control" id="i-current-star" aria-label="Current Star"
-                                aria-describedby="text-current-star">
+                        <div class="">
+                            <span class="form-text float-end">原初之星(已有)</span>
+                            <div class="input-group">
+                                <span class="input-group-text" id="text-current-star"><i class="fa-solid fa-star"></i></span>
+                                <input type="number" class="form-control" id="i-current-star" aria-label="Current Star"
+                                    aria-describedby="text-current-star">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-text fw-bold text-danger" id="text-score-total"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 col-12 tab-map">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-none d-md-block">
-                        <table class="table" id="table-stars">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Reward</th>
-                                    <th scope="col">Value</th>
-                                    <th scope="col">Reward</th>
-                                    <th scope="col">Value</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-stars-body"></tbody>
-                        </table>
-                    </div>
-                    <div class="d-block d-md-none">
-                        <table class="table" id="table-stars-mobile">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Reward</th>
-                                    <th scope="col">Value</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-stars-mobile-body"></tbody>
-                        </table>
+                        <div class="form-text fw-bold text-danger" id="text-score-total"></div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="timeline-tab">
-                        <ul class="timeline" id="star-timeline">
-                        </ul>
+            <div class="col-md-7 col-12 tab-map">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-none d-md-block">
+                            <table class="table" id="table-stars">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Reward</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col">Reward</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-stars-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="d-block d-md-none">
+                            <table class="table" id="table-stars-mobile">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Reward</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-stars-mobile-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="timeline-tab">
+                            <ul class="timeline" id="star-timeline">
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -160,6 +162,14 @@ current_season: 2
         // Initial calculation
         calcScore();
 
+        function setThemeColor(season_data){
+            document.getElementById('container-home').setAttribute("data-season", season_data.id);
+            document.documentElement.style.setProperty('--bs-emphasis-color', season_data.theme_color);
+            document.documentElement.style.setProperty('--bs-body-color', season_data.theme_color);
+            document.documentElement.style.setProperty('--bs-secondary-color', season_data.theme_color);
+            document.documentElement.style.setProperty('--bs-border-color', season_data.theme_color);
+        }
+
         function calcScore() {
             // Get input values
             let orig_level = elements.level ? parseInt(elements.level.value) || 0 : 0;
@@ -180,8 +190,8 @@ current_season: 2
 
             console.log("Using season data:", season_data);
 
-            document.getElementById('container-home').setAttribute("data-season", season_data.id);
-
+            setThemeColor(season_data);
+            
             // Apply fixed level adjustments
             let fixed_level = season_data.fixed_level || 0;
             let fixed_relics_level = season_data.fixed_relics_level || 0;
@@ -227,10 +237,10 @@ current_season: 2
             if (document.getElementById('text-score-total')) {
                 if (n_current_star > 0) {
                     document.getElementById('text-score-total').textContent =
-                        `✨ Total Stars: ${res_total_round} (Base: ${Math.round(res_total - n_current_star)}, Current: +${n_current_star}) ✨`;
+                        `✨ Total Stars: ${res_total_round} (Base: ${n_current_star}, Increase: +${Math.round(res_total - n_current_star)}) ✨`;
                 } else {
                     document.getElementById('text-score-total').textContent =
-                        `✨ Total Stars: ${res_total_round} (Season ${n_season}: ${season_data.title}) ✨`;
+                        `✨ Total Stars: ${res_total_round} (Season: ${season_data.title}) ✨`;
                 }
             }
 
@@ -367,11 +377,11 @@ current_season: 2
                 }
             }
 
-            let res_total_round_up = res_total_round*1.2
+            let res_total_round_up = res_total_round*1.1
             console.log("n_current_star: " + n_current_star + " res_total_round: " + res_total_round_up);
             for (const star_el of star_map.slice().reverse()) { 
                 if( res_total_round_up >  star_el.star_index  ){
-                    if( res_total_round >  star_el.star_index ){
+                    if( res_total_round >=  star_el.star_index ){
                         starMapHtml += `
                             <li class="event" data-star="${star_el.star_index}">
                                 <p>✨[${star_el.star_index}]${star_el.title} +${star_el.value}</p>
