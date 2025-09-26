@@ -26,6 +26,10 @@
     box-shadow: var(--bs-border-color) 0px 5px 15px;
 }
 
+    .container-star .card-star .form-text{
+        font-weight: bold;
+    }
+
 .form-control:focus {
     border-color: var(--bs-body-color);
     box-shadow: none;
