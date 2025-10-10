@@ -172,13 +172,13 @@ current_season: 2
 
         function calcScore() {
             // Get input values
-            let orig_level = elements.level ? parseInt(elements.level.value) || 0 : 0;
-            let orig_gear = elements.gear ? parseInt(elements.gear.value) || 0 : 0;
-            let orig_skill = elements.skill ? parseInt(elements.skill.value) || 0 : 0;
-            let orig_relics = elements.relics ? parseInt(elements.relics.value) || 0 : 0;
-            let orig_pet = elements.pet ? parseInt(elements.pet.value) || 0 : 0;
-            let n_season = elements.season ? parseInt(elements.season.value) : 1;
-            let n_current_star = elements.current_star ? parseInt(elements.current_star.value) || 0 : 0;
+            let orig_level = elements.level ? parseFloat(elements.level.value) || 0 : 0;
+            let orig_gear = elements.gear ? parseFloat(elements.gear.value) || 0 : 0;
+            let orig_skill = elements.skill ? parseFloat(elements.skill.value) || 0 : 0;
+            let orig_relics = elements.relics ? parseFloat(elements.relics.value) || 0 : 0;
+            let orig_pet = elements.pet ? parseFloat(elements.pet.value) || 0 : 0;
+            let n_season = elements.season ? parseFloat(elements.season.value) : 1;
+            let n_current_star = elements.current_star ? parseFloat(elements.current_star.value) || 0 : 0;
 
             // Get season data
             let season_data = seasonData.find(season => season.season_number === n_season);
