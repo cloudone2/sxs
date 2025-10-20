@@ -62,3 +62,6 @@ tiers:
   - start: 1940
     increment: 60
     index: 11
+  - start: 2425
+    increment: 65
+    index: 12
