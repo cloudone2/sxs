@@ -68,3 +68,12 @@ tiers:
   - start: 2950
     increment: 70
     index: 13
+  - start: 3515
+    increment: 75
+    index: 14
+  - start: 4120
+    increment: 80
+    index: 15
+  - start: 4765
+    increment: 85
+    index: 16
