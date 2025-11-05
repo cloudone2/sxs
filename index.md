@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 原初之星
-current_season: 2
+current_season: 3
 ---
 <section class="container container-star" data-season="" id="container-home">
     <h5 class="page-title">原初之星</h5>
