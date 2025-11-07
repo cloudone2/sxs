@@ -1,6 +1,6 @@
 title: 杖劍傳説
-description: 原初之星計算器
+description: 蛤~~~
 
-remote_theme: pages-themes/minimal
+#remote_theme: pages-themes/minimal
 plugins:
   - jekyll-remote-theme
