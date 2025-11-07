@@ -1,0 +1,63 @@
+skills:
+  - name: blue
+    name_c: "稀有"
+    color: "#4A90E2"
+    levels:
+      - cost: 10
+      - cost: 10
+    
+  - name: purple
+    name_c: "史詩"
+    color: "#9B59B6"
+    levels:
+      - cost: 15
+      - cost: 15
+      - cost: 30
+    
+  - name: orange
+    name_c: "傳說"
+    color: "#E67E22"
+    levels:
+      - cost: 60
+      - cost: 60
+      - cost: 60
+      - cost: 60
+    
+  - name: yellow
+    name_c: "奇蹟"
+    color: "#F1C40F"
+    levels:
+      - cost: 90
+      - cost: 90
+      - cost: 90
+      - cost: 90
+      - cost: 90
+      - cost: 90
+    
+  - name: red
+    name_c: "神話"
+    color: "#E74C3C"
+    levels:
+      - cost: 120
+      - cost: 120
+      - cost: 120
+      - cost: 120
+      - cost: 120
+      - cost: 120
+      - cost: 120
+      - cost: 120
+    
+  - name: multi
+    name_c: "不朽"
+    color: "linear-gradient(345deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 50%, rgba(238, 174, 202, 1) 100%)"
+    levels:
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
+      - cost: 180
