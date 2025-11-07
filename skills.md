@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Skill calculator
+title: 技能升級計算器
 ---
 
 <section class="container py-4" id="container-skill-table">
