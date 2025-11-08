@@ -68,9 +68,8 @@ fragment_costs:
   epic: 30
   rare: 10
 
-# Skills organized by class
 skill_list:
-  # 鬥士 (Fighter) - 五轉
+  # 鬥士 (Fighter) - 五轉 - 戰技 - legendary
   - name: dark_night_curse
     name_c: 暗夜咒蝕
     class: 鬥士
@@ -85,6 +84,7 @@ skill_list:
     rarity: legendary
     type: 戰技
 
+  # 鬥士 (Fighter) - 五轉 - 戰技 - epic
   - name: shattered_dance
     name_c: 破碎連舞
     class: 鬥士
@@ -99,6 +99,7 @@ skill_list:
     rarity: epic
     type: 戰技
 
+  # 鬥士 (Fighter) - 五轉 - 戰技 - rare
   - name: breath_slash
     name_c: 絕氣斬
     class: 鬥士
@@ -113,6 +114,7 @@ skill_list:
     rarity: rare
     type: 戰技
 
+  # 鬥士 (Fighter) - 五轉 - 秘法 - legendary
   - name: swift_shadow_step
     name_c: 疾影瞬步
     class: 鬥士
@@ -127,6 +129,7 @@ skill_list:
     rarity: legendary
     type: 秘法
 
+  # 鬥士 (Fighter) - 五轉 - 秘法 - epic
   - name: wind_breath_lord
     name_c: 風息領主
     class: 鬥士
@@ -141,6 +144,7 @@ skill_list:
     rarity: epic
     type: 秘法
 
+  # 鬥士 (Fighter) - 五轉 - 秘法 - rare
   - name: defy_enemy
     name_c: 傲視強敵
     class: 鬥士
@@ -155,40 +159,261 @@ skill_list:
     rarity: rare
     type: 秘法
 
-  # 騎士 (Knight) - 五轉
-  - name: iron_guard_slash
-    name_c: 鐵衛連斬
-    class: 騎士
-    class_level: 五轉
-    rarity: rare
+  # 鬥士 (Fighter) - 四轉 - 戰技 - legendary
+  - name: soul_devouring_pierce
+    name_c: 噬魂貫穿
+    class: 鬥士
+    class_level: 四轉
+    rarity: legendary
     type: 戰技
 
-  - name: decisive_battle
-    name_c: 一決勝負
-    class: 騎士
-    class_level: 五轉
+  - name: flowing_blade_fire_dance
+    name_c: 流刃火舞
+    class: 鬥士
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  # 鬥士 (Fighter) - 四轉 - 戰技 - epic
+  - name: instant_flame_assault
+    name_c: 瞬炎突襲
+    class: 鬥士
+    class_level: 四轉
     rarity: epic
     type: 戰技
 
+  - name: sword_wind_chaos
+    name_c: 劍風亂舞
+    class: 鬥士
+    class_level: 四轉
+    rarity: epic
+    type: 戰技
+
+  # 鬥士 (Fighter) - 四轉 - 戰技 - rare
+  - name: fear_shadow
+    name_c: 恐懼黯影
+    class: 鬥士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  - name: hellfire_doom
+    name_c: 業火絕命
+    class: 鬥士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  # 鬥士 (Fighter) - 四轉 - 秘法 - legendary
+  - name: assault_armor_break
+    name_c: 強襲破甲
+    class: 鬥士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  - name: battle_blade_feather
+    name_c: 戰刃飛翎
+    class: 鬥士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  # 鬥士 (Fighter) - 四轉 - 秘法 - epic
+  - name: tactical_response
+    name_c: 戰術應變
+    class: 鬥士
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  - name: soul_breaking_blade
+    name_c: 破魂絕刃
+    class: 鬥士
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  # 鬥士 (Fighter) - 四轉 - 秘法 - rare
+  - name: blazing_aura
+    name_c: 烈焰氣勢
+    class: 鬥士
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  - name: vanguard_fighting_spirit
+    name_c: 陷陣鬥魂
+    class: 鬥士
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  # 鬥士 (Fighter) - 三轉 - 戰技 - legendary
+  - name: annihilation_blade
+    name_c: 滅卻鋒刃
+    class: 鬥士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  - name: eclipse_combo
+    name_c: 日蝕連斬
+    class: 鬥士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  # 鬥士 (Fighter) - 三轉 - 戰技 - epic
+  - name: asura_hand
+    name_c: 修羅之手
+    class: 鬥士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  - name: hunt_judgment
+    name_c: 追獵審判
+    class: 鬥士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  # 鬥士 (Fighter) - 三轉 - 戰技 - rare
+  - name: swift_wind_dance
+    name_c: 速行風舞
+    class: 鬥士
+    class_level: 三轉
+    rarity: rare
+    type: 戰技
+
+  # 鬥士 (Fighter) - 三轉 - 秘法 - legendary
+  - name: soul_splash
+    name_c: 靈魂濺射
+    class: 鬥士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  - name: judgment_blade
+    name_c: 裁決之刃
+    class: 鬥士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  # 鬥士 (Fighter) - 三轉 - 秘法 - epic
+  - name: burning_soul_guard
+    name_c: 燃魂守護
+    class: 鬥士
+    class_level: 三轉
+    rarity: epic
+    type: 秘法
+
+  - name: mad_blade_absorption
+    name_c: 狂刃汲取
+    class: 鬥士
+    class_level: 三轉
+    rarity: epic
+    type: 秘法
+
+  # 鬥士 (Fighter) - 三轉 - 秘法 - rare
+  - name: desperate_valor
+    name_c: 絕境勇武
+    class: 鬥士
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  # 鬥士 (Fighter) - 二轉 - 戰技 - legendary
+  - name: darkness_descent
+    name_c: 黑暗降临
+    class: 鬥士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  - name: sunset_sword_dance
+    name_c: 夕照劍舞
+    class: 鬥士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  # 鬥士 (Fighter) - 二轉 - 戰技 - epic
+  - name: crushing_mark
+    name_c: 崩破烙印
+    class: 鬥士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  - name: lightning_flash
+    name_c: 疾光一閃
+    class: 鬥士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  # 鬥士 (Fighter) - 二轉 - 戰技 - rare
+  - name: flame_slash
+    name_c: 火焰斬
+    class: 鬥士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  - name: fire_spirit_possession
+    name_c: 火靈附體
+    class: 鬥士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  # 鬥士 (Fighter) - 二轉 - 秘法 - legendary
+  - name: unyielding_will
+    name_c: 不屈意志
+    class: 鬥士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  - name: battle_hardened_body
+    name_c: 百戰之軀
+    class: 鬥士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  # 鬥士 (Fighter) - 二轉 - 秘法 - epic
+  - name: speed_duel
+    name_c: 極速對決
+    class: 鬥士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  - name: critical_mastery
+    name_c: 會心精通
+    class: 鬥士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  # 鬥士 (Fighter) - 二轉 - 秘法 - rare
+  - name: life_potential
+    name_c: 生命潛能
+    class: 鬥士
+    class_level: 二轉
+    rarity: rare
+    type: 秘法
+
+  # 騎士 (Knight) - 五轉 - 戰技 - legendary
   - name: spirit_transform
     name_c: 靈愈轉化
     class: 騎士
     class_level: 五轉
     rarity: legendary
-    type: 戰技
-
-  - name: dawn_radiance
-    name_c: 破曉之輝
-    class: 騎士
-    class_level: 五轉
-    rarity: epic
-    type: 戰技
-
-  - name: holy_brilliance
-    name_c: 聖靈極輝
-    class: 騎士
-    class_level: 五轉
-    rarity: rare
     type: 戰技
 
   - name: dawn_burst
@@ -198,6 +423,37 @@ skill_list:
     rarity: legendary
     type: 戰技
 
+  # 騎士 (Knight) - 五轉 - 戰技 - epic
+  - name: decisive_battle
+    name_c: 一決勝負
+    class: 騎士
+    class_level: 五轉
+    rarity: epic
+    type: 戰技
+
+  - name: dawn_radiance
+    name_c: 破曉之輝
+    class: 騎士
+    class_level: 五轉
+    rarity: epic
+    type: 戰技
+
+  # 騎士 (Knight) - 五轉 - 戰技 - rare
+  - name: iron_guard_slash
+    name_c: 鐵衛連斬
+    class: 騎士
+    class_level: 五轉
+    rarity: rare
+    type: 戰技
+
+  - name: holy_brilliance
+    name_c: 聖靈極輝
+    class: 騎士
+    class_level: 五轉
+    rarity: rare
+    type: 戰技
+
+  # 騎士 (Knight) - 五轉 - 秘法 - legendary
   - name: divine_protection
     name_c: 神魂庇佑
     class: 騎士
@@ -205,6 +461,14 @@ skill_list:
     rarity: legendary
     type: 秘法
 
+  - name: holy_healing
+    name_c: 聖靈療愈
+    class: 騎士
+    class_level: 五轉
+    rarity: legendary
+    type: 秘法
+
+  # 騎士 (Knight) - 五轉 - 秘法 - epic
   - name: holy_rhythm
     name_c: 神聖節奏
     class: 騎士
@@ -219,6 +483,7 @@ skill_list:
     rarity: epic
     type: 秘法
 
+  # 騎士 (Knight) - 五轉 - 秘法 - rare
   - name: holy_shield_armor
     name_c: 聖盾武裝
     class: 騎士
@@ -233,35 +498,256 @@ skill_list:
     rarity: rare
     type: 秘法
 
-  - name: holy_healing
-    name_c: 聖靈療愈
+  # 騎士 (Knight) - 四轉 - 戰技 - legendary
+  - name: water_dance_blade
+    name_c: 水舞流刃
     class: 騎士
-    class_level: 五轉
+    class_level: 四轉
     rarity: legendary
-    type: 秘法
+    type: 戰技
 
-  # 術士 (Mage) - 五轉
-  - name: hundred_light_burst
-    name_c: 百裂光爆
-    class: 術士
-    class_level: 五轉
+  - name: heavenly_light_blade
+    name_c: 天光幻刃
+    class: 騎士
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  # 騎士 (Knight) - 四轉 - 戰技 - epic
+  - name: light_sword_formation
+    name_c: 光明劍陣
+    class: 騎士
+    class_level: 四轉
     rarity: epic
     type: 戰技
 
-  - name: thunder_mark
-    name_c: 雷光刻印
-    class: 術士
-    class_level: 五轉
+  - name: shocking_fury_tide
+    name_c: 震盪怒潮
+    class: 騎士
+    class_level: 四轉
+    rarity: epic
+    type: 戰技
+
+  # 騎士 (Knight) - 四轉 - 戰技 - rare
+  - name: restraint_harass
+    name_c: 牽制襲擾
+    class: 騎士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  - name: vortex_rage
+    name_c: 渦流怒濤
+    class: 騎士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  # 騎士 (Knight) - 四轉 - 秘法 - legendary
+  - name: protection_oath
+    name_c: 庇護之誓
+    class: 騎士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  - name: extreme_cold_aura
+    name_c: 極寒氣場
+    class: 騎士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  # 騎士 (Knight) - 四轉 - 秘法 - epic
+  - name: cold_gleam
+    name_c: 冷冽寒芒
+    class: 騎士
+    class_level: 四轉
     rarity: epic
     type: 秘法
 
-  - name: thunder_judgment
-    name_c: 天雷裁決
-    class: 術士
-    class_level: 五轉
+  - name: life_soul_guard
+    name_c: 命魂守護
+    class: 騎士
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  # 騎士 (Knight) - 四轉 - 秘法 - rare
+  - name: steel_conviction
+    name_c: 鋼鐵信念
+    class: 騎士
+    class_level: 四轉
     rarity: rare
     type: 秘法
 
+  - name: holy_spirit_blessing
+    name_c: 聖靈加護
+    class: 騎士
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  # 騎士 (Knight) - 三轉 - 戰技 - legendary
+  - name: holy_light_purify
+    name_c: 聖光淨化
+    class: 騎士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  - name: star_crushing_slash
+    name_c: 碎星斬
+    class: 騎士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  # 騎士 (Knight) - 三轉 - 戰技 - epic
+  - name: crisis_guard
+    name_c: 危情守護
+    class: 騎士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  - name: assault_charge
+    name_c: 強襲衝撞
+    class: 騎士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  # 騎士 (Knight) - 三轉 - 戰技 - rare
+  - name: water_moon_thread
+    name_c: 水月之絲
+    class: 騎士
+    class_level: 三轉
+    rarity: rare
+    type: 戰技
+
+  # 騎士 (Knight) - 三轉 - 秘法 - legendary
+  - name: potential_revival
+    name_c: 潛能回生
+    class: 騎士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  - name: vitality_source
+    name_c: 活力源泉
+    class: 騎士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  # 騎士 (Knight) - 三轉 - 秘法 - epic
+  - name: reflect_armor
+    name_c: 反射裝甲
+    class: 騎士
+    class_level: 三轉
+    rarity: epic
+    type: 秘法
+
+  # 騎士 (Knight) - 三轉 - 秘法 - rare
+  - name: stone_skin_secret
+    name_c: 石膚秘術
+    class: 騎士
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  - name: block_mastery
+    name_c: 格擋精通
+    class: 騎士
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  # 騎士 (Knight) - 二轉 - 戰技 - legendary
+  - name: bouncing_shield
+    name_c: 彈射飛盾
+    class: 騎士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  - name: battle_inspiration
+    name_c: 戰陣鼓舞
+    class: 騎士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  # 騎士 (Knight) - 二轉 - 戰技 - epic
+  - name: stun_strike
+    name_c: 眩暈打擊
+    class: 騎士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  - name: challenging_heart
+    name_c: 挑戰之心
+    class: 騎士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  # 騎士 (Knight) - 二轉 - 戰技 - rare
+  - name: frost_destruction
+    name_c: 霜華之滅
+    class: 騎士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  - name: guardian_ring
+    name_c: 守護之環
+    class: 騎士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  # 騎士 (Knight) - 二轉 - 秘法 - legendary
+  - name: press_advantage
+    name_c: 乘勝追擊
+    class: 騎士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  - name: vector_rebound
+    name_c: 矢量回彈
+    class: 騎士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  # 騎士 (Knight) - 二轉 - 秘法 - epic
+  - name: move_return
+    name_c: 招式奉還
+    class: 騎士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  - name: wave_impact
+    name_c: 波紋衝擊
+    class: 騎士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  # 騎士 (Knight) - 二轉 - 秘法 - rare
+  - name: offense_through_defense
+    name_c: 以守為攻
+    class: 騎士
+    class_level: 二轉
+    rarity: rare
+    type: 秘法
+
+  # 術士 (Mage) - 五轉 - 戰技 - legendary
   - name: burst_spirit
     name_c: 爆裂之靈
     class: 術士
@@ -276,11 +762,12 @@ skill_list:
     rarity: legendary
     type: 戰技
 
-  - name: double_gale
-    name_c: 雙重烈風
+  # 術士 (Mage) - 五轉 - 戰技 - epic
+  - name: hundred_light_burst
+    name_c: 百裂光爆
     class: 術士
     class_level: 五轉
-    rarity: rare
+    rarity: epic
     type: 戰技
 
   - name: storm_fantasy
@@ -290,6 +777,22 @@ skill_list:
     rarity: epic
     type: 戰技
 
+  # 術士 (Mage) - 五轉 - 戰技 - rare
+  - name: double_gale
+    name_c: 雙重烈風
+    class: 術士
+    class_level: 五轉
+    rarity: rare
+    type: 戰技
+
+  - name: ice_thorn
+    name_c: 冰魄棘刺
+    class: 術士
+    class_level: 五轉
+    rarity: rare
+    type: 戰技
+
+  # 術士 (Mage) - 五轉 - 秘法 - legendary
   - name: light_blink
     name_c: 光輝折躍
     class: 術士
@@ -304,19 +807,13 @@ skill_list:
     rarity: legendary
     type: 秘法
 
-  - name: fire_master
-    name_c: 燧火主宰
+  # 術士 (Mage) - 五轉 - 秘法 - epic
+  - name: thunder_mark
+    name_c: 雷光刻印
     class: 術士
     class_level: 五轉
-    rarity: rare
+    rarity: epic
     type: 秘法
-
-  - name: ice_thorn
-    name_c: 冰魄棘刺
-    class: 術士
-    class_level: 五轉
-    rarity: rare
-    type: 戰技
 
   - name: ice_spirit_shield
     name_c: 冰徹靈護
@@ -325,7 +822,271 @@ skill_list:
     rarity: epic
     type: 秘法
 
-  # 賢者 (Sage) - 五轉
+  # 術士 (Mage) - 五轉 - 秘法 - rare
+  - name: thunder_judgment
+    name_c: 天雷裁決
+    class: 術士
+    class_level: 五轉
+    rarity: rare
+    type: 秘法
+
+  - name: fire_master
+    name_c: 燧火主宰
+    class: 術士
+    class_level: 五轉
+    rarity: rare
+    type: 秘法
+
+  # 術士 (Mage) - 四轉 - 戰技 - legendary
+  - name: doomsday_torrent
+    name_c: 末日洪流
+    class: 術士
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  - name: judgment_thunder
+    name_c: 審判轟雷
+    class: 術士
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  # 術士 (Mage) - 四轉 - 戰技 - epic
+  - name: protective_magic_rune
+    name_c: 護身魔紋
+    class: 術士
+    class_level: 四轉
+    rarity: epic
+    type: 戰技
+
+  - name: starlight_burst
+    name_c: 星輝爆發
+    class: 術士
+    class_level: 四轉
+    rarity: epic
+    type: 戰技
+
+  # 術士 (Mage) - 四轉 - 戰技 - rare
+  - name: spiral_wind_blade
+    name_c: 螺旋風刃
+    class: 術士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  - name: formation_breaking_intent
+    name_c: 破陣之意
+    class: 術士
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  # 術士 (Mage) - 四轉 - 秘法 - legendary
+  - name: fire_core_burst
+    name_c: 火核爆裂
+    class: 術士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  - name: hurricane_sorrow
+    name_c: 颶風之殤
+    class: 術士
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  # 術士 (Mage) - 四轉 - 秘法 - epic
+  - name: explosive_flame_soul
+    name_c: 爆炎烈魂
+    class: 術士
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  - name: flame_vitality
+    name_c: 火炎生息
+    class: 術士
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  # 術士 (Mage) - 四轉 - 秘法 - rare
+  - name: ice_crystal_shatter
+    name_c: 冰晶碎裂
+    class: 術士
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  - name: overload_protection
+    name_c: 過載保護
+    class: 術士
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  # 術士 (Mage) - 三轉 - 戰技 - legendary
+  - name: god_fury_thunder
+    name_c: 天神怒雷
+    class: 術士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  - name: hurricane_roar
+    name_c: 飓风怒号
+    class: 術士
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  # 術士 (Mage) - 三轉 - 戰技 - epic
+  - name: meteor_fire_fall
+    name_c: 流星火陨
+    class: 術士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  - name: explosive_flame_art
+    name_c: 爆炎术
+    class: 術士
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  # 術士 (Mage) - 三轉 - 戰技 - rare
+  - name: water_cloud_vortex
+    name_c: 水云漩涡
+    class: 術士
+    class_level: 三轉
+    rarity: rare
+    type: 戰技
+
+  # 術士 (Mage) - 三轉 - 秘法 - legendary
+  - name: quick_cast
+    name_c: 快速咏唱
+    class: 術士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  - name: ice_guard
+    name_c: 寒冰守护
+    class: 術士
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  # 術士 (Mage) - 三轉 - 秘法 - epic
+  - name: light_energy_burn
+    name_c: 光能灼射
+    class: 術士
+    class_level: 三轉
+    rarity: epic
+    type: 秘法
+
+  # 術士 (Mage) - 三轉 - 秘法 - rare
+  - name: light_incarnation
+    name_c: 光明化身
+    class: 術士
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  - name: resist_wind
+    name_c: 抗拒之风
+    class: 術士
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  # 術士 (Mage) - 二轉 - 戰技 - legendary
+  - name: flame_star_orbit
+    name_c: 火焰星軌
+    class: 術士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  - name: dawn_beam
+    name_c: 破曉光束
+    class: 術士
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  # 術士 (Mage) - 二轉 - 戰技 - epic
+  - name: lightning_chain
+    name_c: 閃電鏈
+    class: 術士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  - name: energy_burst
+    name_c: 蓄能爆發
+    class: 術士
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  # 術士 (Mage) - 二轉 - 戰技 - rare
+  - name: star_flicker
+    name_c: 星辰閃爍
+    class: 術士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  - name: frost_nova
+    name_c: 覆霜新星
+    class: 術士
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  # 術士 (Mage) - 二轉 - 秘法 - legendary
+  - name: void_bubble
+    name_c: 虛空泡影
+    class: 術士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  - name: wildfire_blaze
+    name_c: 烈火燎原
+    class: 術士
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  # 術士 (Mage) - 二轉 - 秘法 - epic
+  - name: thunder_mystery
+    name_c: 雷電奧秘
+    class: 術士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  - name: element_harmony
+    name_c: 元素調和
+    class: 術士
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  # 術士 (Mage) - 二轉 - 秘法 - rare
+  - name: wind_demon_shadow
+    name_c: 風魔之影
+    class: 術士
+    class_level: 二轉
+    rarity: rare
+    type: 秘法
+
+  # 賢者 (Sage) - 五轉 - 戰技 - legendary
   - name: radiant_rhythm
     name_c: 輻光律動
     class: 賢者
@@ -340,20 +1101,7 @@ skill_list:
     rarity: legendary
     type: 戰技
 
-  - name: spirit_gathering
-    name_c: 聚靈奇術
-    class: 賢者
-    class_level: 五轉
-    rarity: legendary
-    type: 秘法
-
-  - name: rebirth_elixir
-    name_c: 重生靈液
-    class: 賢者
-    class_level: 五轉
-    rarity: legendary
-    type: 秘法
-
+  # 賢者 (Sage) - 五轉 - 戰技 - epic
   - name: summon_sea_king
     name_c: 喚靈：海皇
     class: 賢者
@@ -368,20 +1116,7 @@ skill_list:
     rarity: epic
     type: 戰技
 
-  - name: spirit_contract
-    name_c: 喚靈契約
-    class: 賢者
-    class_level: 五轉
-    rarity: epic
-    type: 秘法
-
-  - name: shadow_devour
-    name_c: 影噬暗流
-    class: 賢者
-    class_level: 五轉
-    rarity: epic
-    type: 秘法
-
+  # 賢者 (Sage) - 五轉 - 戰技 - rare
   - name: soul_harvest
     name_c: 靈魂收割
     class: 賢者
@@ -396,6 +1131,37 @@ skill_list:
     rarity: rare
     type: 戰技
 
+  # 賢者 (Sage) - 五轉 - 秘法 - legendary
+  - name: spirit_gathering
+    name_c: 聚靈奇術
+    class: 賢者
+    class_level: 五轉
+    rarity: legendary
+    type: 秘法
+
+  - name: rebirth_elixir
+    name_c: 重生靈液
+    class: 賢者
+    class_level: 五轉
+    rarity: legendary
+    type: 秘法
+
+  # 賢者 (Sage) - 五轉 - 秘法 - epic
+  - name: spirit_contract
+    name_c: 喚靈契約
+    class: 賢者
+    class_level: 五轉
+    rarity: epic
+    type: 秘法
+
+  - name: shadow_devour
+    name_c: 影噬暗流
+    class: 賢者
+    class_level: 五轉
+    rarity: epic
+    type: 秘法
+
+  # 賢者 (Sage) - 五轉 - 秘法 - rare
   - name: omen_ring
     name_c: 惡兆之環
     class: 賢者
@@ -410,10 +1176,627 @@ skill_list:
     rarity: rare
     type: 秘法
 
-  # 鬥士 (Fighter) - 四轉
-  - name: tactical_response
-    name_c: 戰術應變
-    class: 鬥士
+  # 賢者 (Sage) - 四轉 - 戰技 - legendary
+  - name: summon_rock_emperor
+    name_c: 喚靈·岩帝
+    class: 賢者
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  - name: mirror_substitute
+    name_c: 映射替身
+    class: 賢者
+    class_level: 四轉
+    rarity: legendary
+    type: 戰技
+
+  # 賢者 (Sage) - 四轉 - 戰技 - epic
+  - name: heaven_restoring_rain
+    name_c: 回天雨滴
+    class: 賢者
     class_level: 四轉
     rarity: epic
+    type: 戰技
+
+  - name: dark_star_burst
+    name_c: 黯星爆裂
+    class: 賢者
+    class_level: 四轉
+    rarity: epic
+    type: 戰技
+
+  # 賢者 (Sage) - 四轉 - 戰技 - rare
+  - name: chaos_curse
+    name_c: 混沌咒文
+    class: 賢者
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  - name: spirit_shelter
+    name_c: 靈能庇護
+    class: 賢者
+    class_level: 四轉
+    rarity: rare
+    type: 戰技
+
+  # 賢者 (Sage) - 四轉 - 秘法 - legendary
+  - name: phantom_light_strategy
+    name_c: 幻光秘策
+    class: 賢者
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  - name: true_word_blessing
+    name_c: 真言祝福
+    class: 賢者
+    class_level: 四轉
+    rarity: legendary
+    type: 秘法
+
+  # 賢者 (Sage) - 四轉 - 秘法 - epic
+  - name: spirit_contract_resonance
+    name_c: 靈契共鳴
+    class: 賢者
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  - name: dark_star_descent
+    name_c: 暗星降臨
+    class: 賢者
+    class_level: 四轉
+    rarity: epic
+    type: 秘法
+
+  # 賢者 (Sage) - 四轉 - 秘法 - rare
+  - name: mutation_effect
+    name_c: 異化效應
+    class: 賢者
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  - name: spirit_contract_healing
+    name_c: 靈契療癒
+    class: 賢者
+    class_level: 四轉
+    rarity: rare
+    type: 秘法
+
+  # 賢者 (Sage) - 三轉 - 戰技 - legendary
+  - name: end_shadow
+    name_c: 終結之影
+    class: 賢者
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  - name: fanatic_totem
+    name_c: 狂熱圖騰
+    class: 賢者
+    class_level: 三轉
+    rarity: legendary
+    type: 戰技
+
+  # 賢者 (Sage) - 三轉 - 戰技 - epic
+  - name: magic_burst
+    name_c: 魔能爆破
+    class: 賢者
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  - name: summon_water_nymph
+    name_c: 喚靈水妖
+    class: 賢者
+    class_level: 三轉
+    rarity: epic
+    type: 戰技
+
+  # 賢者 (Sage) - 三轉 - 戰技 - rare
+  - name: abyss_hand
+    name_c: 深淵之手
+    class: 賢者
+    class_level: 三轉
+    rarity: rare
+    type: 戰技
+
+  # 賢者 (Sage) - 三轉 - 秘法 - legendary
+  - name: doom_link
+    name_c: 厄運連結
+    class: 賢者
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  - name: shadow_revenge
+    name_c: 暗影復仇
+    class: 賢者
+    class_level: 三轉
+    rarity: legendary
+    type: 秘法
+
+  # 賢者 (Sage) - 三轉 - 秘法 - epic
+  - name: over_healing
+    name_c: 超量治療
+    class: 賢者
+    class_level: 三轉
+    rarity: epic
+    type: 秘法
+
+  # 賢者 (Sage) - 三轉 - 秘法 - rare
+  - name: summon_berserk
+    name_c: 喚靈狂暴
+    class: 賢者
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  - name: dark_night_blessing
+    name_c: 暗夜賜福
+    class: 賢者
+    class_level: 三轉
+    rarity: rare
+    type: 秘法
+
+  # 賢者 (Sage) - 二轉 - 戰技 - legendary
+  - name: summon_tree_spirit
+    name_c: 喚靈樹精
+    class: 賢者
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  - name: shadow_impact
+    name_c: 暗影衝擊
+    class: 賢者
+    class_level: 二轉
+    rarity: legendary
+    type: 戰技
+
+  # 賢者 (Sage) - 二轉 - 戰技 - epic
+  - name: summon_flame_wolf
+    name_c: 喚靈炎狼
+    class: 賢者
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  - name: dark_spirit_bullet
+    name_c: 暗靈彈
+    class: 賢者
+    class_level: 二轉
+    rarity: epic
+    type: 戰技
+
+  # 賢者 (Sage) - 二轉 - 戰技 - rare
+  - name: radiant_heal
+    name_c: 光輝治癒
+    class: 賢者
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  - name: weakness_curse
+    name_c: 虛弱咒文
+    class: 賢者
+    class_level: 二轉
+    rarity: rare
+    type: 戰技
+
+  # 賢者 (Sage) - 二轉 - 秘法 - legendary
+  - name: soul_impact
+    name_c: 靈魂衝擊
+    class: 賢者
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  - name: undead_revival
+    name_c: 亡者蘇生
+    class: 賢者
+    class_level: 二轉
+    rarity: legendary
+    type: 秘法
+
+  # 賢者 (Sage) - 二轉 - 秘法 - epic
+  - name: shadow_erosion
+    name_c: 暗影侵蝕
+    class: 賢者
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  - name: summon_burning
+    name_c: 喚靈燃燒
+    class: 賢者
+    class_level: 二轉
+    rarity: epic
+    type: 秘法
+
+  # 賢者 (Sage) - 二轉 - 秘法 - rare
+  - name: healing_mastery
+    name_c: 治癒精通
+    class: 賢者
+    class_level: 二轉
+    rarity: rare
+    type: 秘法
+
+  # 戰士 (Warrior) - 一轉 - 戰技 - legendary
+  - name: super_strike
+    name_c: 超重擊
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: lion_combo
+    name_c: 獅子連斬
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: whirlwind_slash
+    name_c: 旋風斬
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: mountain_crusher
+    name_c: 崩山
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  # 戰士 (Warrior) - 一轉 - 戰技 - epic
+  - name: wind_blade_slash
+    name_c: 風刃斬
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: four_direction_slash
+    name_c: 四方斬
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: arc_spirit_shield
+    name_c: 弧光靈盾
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: fighting_spirit_boiling
+    name_c: 戰意沸騰
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: phantom_ambush
+    name_c: 幻影奇襲
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  # 戰士 (Warrior) - 一轉 - 戰技 - rare
+  - name: slash
+    name_c: 斬擊
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: jump_cleave
+    name_c: 跳劈
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: pull
+    name_c: 牽引
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: falling_wind_impact
+    name_c: 墮風衝擊
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  # 戰士 (Warrior) - 一轉 - 秘法 - legendary
+  - name: insight_eye
+    name_c: 洞悉心眼
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: counter_sword
+    name_c: 反擊之劍
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: wailing_blade
+    name_c: 悲鳴之刃
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: iron_fortress
+    name_c: 金湯鐵壁
+    class: 戰士
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  # 戰士 (Warrior) - 一轉 - 秘法 - epic
+  - name: blocking_awareness
+    name_c: 格擋意識
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: strength_faith
+    name_c: 力量信仰
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: pure_heart_armor
+    name_c: 淨心護甲
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: desperate_frenzy
+    name_c: 絕境狂飆
+    class: 戰士
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  # 戰士 (Warrior) - 一轉 - 秘法 - rare
+  - name: protective_crystal_armor
+    name_c: 護身晶鎧
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: life_blessing
+    name_c: 生命祝福
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: cat_dance_step
+    name_c: 貓舞步
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: battle_soul
+    name_c: 戰鬥之魂
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: sword_wind_swirl
+    name_c: 劍風繚繞
+    class: 戰士
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  # 法师 (Mage) - 一轉 - 戰技 - legendary
+  - name: water_dragon_art
+    name_c: 水龍術
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: wind_god_feather
+    name_c: 風神之羽
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: flame_ring
+    name_c: 烈焰火環
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  - name: void_prayer
+    name_c: 虛空祝禱
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 戰技
+
+  # 法师 (Mage) - 一轉 - 戰技 - epic
+  - name: fireball
+    name_c: 火球術
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: wind_breath_missile
+    name_c: 風息飛彈
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: summon_stone_chief
+    name_c: 喚靈：石酋
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: tornado
+    name_c: 龍捲
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  - name: healing_art
+    name_c: 治療術
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 戰技
+
+  # 法师 (Mage) - 一轉 - 戰技 - rare
+  - name: fire_spray
+    name_c: 火焰噴射
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: water_bullet
+    name_c: 水彈
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: iron_thorn_curse
+    name_c: 鐵棘咒文
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  - name: ice_cone
+    name_c: 冰錐術
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 戰技
+
+  # 法师 (Mage) - 一轉 - 秘法 - legendary
+  - name: magic_surge
+    name_c: 魔力湧動
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: flame_path
+    name_c: 火焰之徑
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: wind_pressure_shield
+    name_c: 風壓護盾
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  - name: condensed_ice
+    name_c: 凝水成冰
+    class: 法师
+    class_level: 一轉
+    rarity: legendary
+    type: 秘法
+
+  # 法师 (Mage) - 一轉 - 秘法 - epic
+  - name: curse_resonance
+    name_c: 咒術共鳴
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: insight
+    name_c: 洞悉
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: element_body
+    name_c: 元素之軀
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  - name: soul_toughness
+    name_c: 靈魂強韌
+    class: 法师
+    class_level: 一轉
+    rarity: epic
+    type: 秘法
+
+  # 法师 (Mage) - 一轉 - 秘法 - rare
+  - name: unstable_aura
+    name_c: 不穩定氣場
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: element_mystery
+    name_c: 元素奧秘
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: wind_demon_whisper
+    name_c: 風魔密語
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: burning_heart
+    name_c: 熾熱之心
+    class: 法师
+    class_level: 一轉
+    rarity: rare
+    type: 秘法
+
+  - name: dew_blessing
+    name_c: 露滴祝福
+    class: 法师
+    class_level: 一轉
+    rarity: rare
     type: 秘法

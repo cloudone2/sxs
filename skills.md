@@ -15,6 +15,8 @@ title: 技能升級計算器
           <option value="騎士">🛡️ 騎士 (Knight)</option>
           <option value="術士">🔮 術士 (Mage)</option>
           <option value="賢者">📜 賢者 (Sage)</option>
+          <option value="戰士">⚔️ 戰士 (Warrior)</option>
+          <option value="法师">🎩 法师 (Mage)</option>
         </select>
       </div>
       <div class="col-6 col-md-3">
@@ -41,7 +43,7 @@ title: 技能升級計算器
     
     <div class="row g-3 mb-4">
       <div class="col-4">
-        <div class="card text-center h-100">
+        <div class="card text-center h-100 border-0 shadow-sm">
           <div class="card-body">
             <div class="text-muted small mb-2">技能數量</div>
             <div class="fs-2 fw-bold text-primary" id="total-skills">0</div>
@@ -49,7 +51,7 @@ title: 技能升級計算器
         </div>
       </div>
       <div class="col-4">
-        <div class="card text-center h-100">
+        <div class="card text-center h-100 border-0 shadow-sm">
           <div class="card-body">
             <div class="text-muted small mb-2">升級次數</div>
             <div class="fs-2 fw-bold text-primary" id="total-upgrades">0</div>
@@ -57,7 +59,7 @@ title: 技能升級計算器
         </div>
       </div>
       <div class="col-4">
-        <div class="card text-center h-100 bg-warning text-white">
+        <div class="card text-center h-100 bg-warning text-white border-0 shadow-sm">
           <div class="card-body">
             <div class="small mb-2 opacity-75">總消耗碎片</div>
             <div class="fs-2 fw-bold" id="grand-total">0</div>
@@ -89,7 +91,7 @@ title: 技能升級計算器
 
       <div class="row g-3">
         <div class="col-md-6">
-          <div class="card border-warning">
+          <div class="card border-warning shadow-sm">
             <div class="card-body d-flex align-items-center gap-3">
               <div class="fs-1">🎫</div>
               <div class="flex-grow-1">
@@ -104,7 +106,7 @@ title: 技能升級計算器
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card border-info">
+          <div class="card border-info shadow-sm">
             <div class="card-body d-flex align-items-center gap-3">
               <div class="fs-1">📦</div>
               <div class="flex-grow-1">
@@ -124,7 +126,7 @@ title: 技能升級計算器
     <div class="conversion-section mb-4">
       <div class="row g-3">
         <div class="col-md-6">
-          <div class="card text-white" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+          <div class="card text-white border-0 shadow-sm" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
             <div class="card-body d-flex align-items-center gap-3">
               <div class="fs-1">🎫</div>
               <div class="flex-grow-1">
@@ -140,7 +142,7 @@ title: 技能升級計算器
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card text-white" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+          <div class="card text-white border-0 shadow-sm" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
             <div class="card-body d-flex align-items-center gap-3">
               <div class="fs-1">📦</div>
               <div class="flex-grow-1">
@@ -159,7 +161,7 @@ title: 技能升級計算器
     </div>
 
     <div class="balance-section mb-4">
-      <div class="card text-white shadow" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+      <div class="card text-white border-0 shadow" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
         <div class="card-body">
           <div class="d-flex align-items-center gap-3 mb-3">
             <div class="fs-2">💰</div>
@@ -192,55 +194,16 @@ title: 技能升級計算器
               </div>
             </div>
             
+            <div id="balance-breakdown-section" class="mt-3" style="display: none;">
+              <div class="small fw-bold mb-2" style="opacity: 0.95;">計算:</div>
+              <div class="small" style="opacity: 0.9;" id="balance-breakdown-text"></div>
+            </div>
+            
             <div id="draws-needed-section" class="mt-4" style="display: none;">
               <hr class="border-white mb-3" style="opacity: 0.3;">
-              <div class="fw-bold mb-3" style="opacity: 0.95;">還需抽取次數:</div>
-              <div class="row g-2">
-                <div class="col-md-4">
-                  <div class="rounded p-3 border-start border-4" style="background-color: rgba(255, 255, 255, 0.2); border-color: #4A90E2 !important;">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <span class="fs-4">🔵</span>
-                      <div class="flex-grow-1">
-                        <div class="fw-bold">稀有</div>
-                        <div class="small" style="opacity: 0.85;">(10碎片/次)</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-baseline justify-content-end">
-                      <span class="display-6 fw-bold" id="draws-rare">0</span>
-                      <span class="ms-2">次</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="rounded p-3 border-start border-4" style="background-color: rgba(255, 255, 255, 0.2); border-color: #9B59B6 !important;">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <span class="fs-4">🟣</span>
-                      <div class="flex-grow-1">
-                        <div class="fw-bold">史詩</div>
-                        <div class="small" style="opacity: 0.85;">(30碎片/次)</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-baseline justify-content-end">
-                      <span class="display-6 fw-bold" id="draws-epic">0</span>
-                      <span class="ms-2">次</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="rounded p-3 border-start border-4" style="background-color: rgba(255, 255, 255, 0.2); border-color: #E67E22 !important;">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <span class="fs-4">🟠</span>
-                      <div class="flex-grow-1">
-                        <div class="fw-bold">傳說</div>
-                        <div class="small" style="opacity: 0.85;">(90碎片/次)</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-baseline justify-content-end">
-                      <span class="display-6 fw-bold" id="draws-legendary">0</span>
-                      <span class="ms-2">次</span>
-                    </div>
-                  </div>
-                </div>
+              <div class="fw-bold mb-3" style="opacity: 0.95;">還需抽取次數 (各技能卡池):</div>
+              <div id="draws-by-skill" class="d-flex flex-column gap-2">
+                <!-- Will be populated dynamically -->
               </div>
             </div>
           </div>
@@ -248,7 +211,7 @@ title: 技能升級計算器
       </div>
     </div>
     
-    <div id="summary-content" class="bg-white rounded p-3">
+    <div id="summary-content" class="bg-white rounded p-3 border">
       <p class="text-muted fst-italic text-center mb-0">尚未選擇任何升級 / No upgrades selected yet</p>
     </div>
   </div>
@@ -256,7 +219,7 @@ title: 技能升級計算器
 
 <!-- Template for skill table -->
 <template id="skill-table-template">
-  <div class="skill-table-wrapper card shadow-sm">
+  <div class="skill-table-wrapper card shadow-sm border-0">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-3 pb-3 border-bottom gap-3 flex-wrap flex-md-nowrap">
         <div class="flex-grow-1" style="min-width: 0;">
@@ -270,21 +233,34 @@ title: 技能升級計算器
           <div class="row g-2 mb-2">
             <div class="col-12 col-md-6">
               <div class="input-group input-group-sm">
-                <span class="input-group-text bg-success text-white">💎 已持有碎片</span>
-                <input type="number" class="form-control owned-fragments-input" value="0" min="0">
+                <span class="input-group-text bg-success text-white border-0">💎 已持有碎片</span>
+                <input type="number" class="form-control owned-fragments-input border-success" value="0" min="0">
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <div class="d-flex align-items-center gap-2 small text-muted">
-                <span class="skill-net-cost-label">還需: <strong class="text-danger skill-net-cost">0</strong> 碎片</span>
+              <div class="d-flex align-items-center gap-3 small">
+                <div class="form-check">
+                  <input class="form-check-input use-voucher-checkbox" type="checkbox">
+                  <label class="form-check-label text-warning fw-bold">
+                    🎫 使用技能券
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input use-box-checkbox" type="checkbox">
+                  <label class="form-check-label text-info fw-bold">
+                    📦 使用碎片箱
+                  </label>
+                </div>
               </div>
             </div>
           </div>
           <div class="d-flex flex-wrap gap-3 small skill-info-display">
             <span class="text-muted">消耗: <strong class="text-success skill-cost">0</strong> 碎片</span>
+            <span class="skill-net-cost-label">還需: <strong class="text-danger skill-net-cost">0</strong> 碎片</span>
+            <span class="text-muted skill-after-resources-label" style="display: none;">扣除資源後: <strong class="text-primary skill-after-resources">0</strong> 碎片</span>
             <span class="text-muted">需抽取: <strong class="text-primary skill-draws">0</strong> 次</span>
-            <span class="text-warning">🎫 <strong class="skill-vouchers">0</strong> 張</span>
-            <span class="text-info">📦 <strong class="skill-boxes">0</strong> 個</span>
+            <span class="text-warning skill-vouchers-display" style="display: none;">🎫 <strong class="skill-vouchers">0</strong> 張</span>
+            <span class="text-info skill-boxes-display" style="display: none;">📦 <strong class="skill-boxes">0</strong> 個</span>
           </div>
         </div>
         <div class="d-flex gap-2 flex-shrink-0">
@@ -348,7 +324,7 @@ title: 技能升級計算器
 
 <style>
 .skill-table-wrapper {
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 .skill-table-wrapper:hover {
@@ -368,7 +344,7 @@ title: 技能升級計算器
 
 .cost-cell {
   background-color: #f8f9fa;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
   cursor: pointer;
   user-select: none;
 }
@@ -390,6 +366,22 @@ title: 技能升級計算器
   width: 18px;
   height: 18px;
   pointer-events: none;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.use-voucher-checkbox:checked {
+  background-color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.use-box-checkbox:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
 }
 
 #balance-result-row.positive #balance-result {
@@ -404,7 +396,7 @@ title: 技能升級計算器
 
 .summary-skill-card {
   border-left: 4px solid;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .summary-skill-card:hover {
@@ -486,6 +478,17 @@ title: 技能升級計算器
   padding: 0.25em 0.5em;
 }
 
+.draw-skill-item {
+  border-left: 3px solid;
+  padding-left: 1rem;
+}
+
+/* Style for disabled options */
+.skill-name-select option:disabled {
+  color: #999;
+  font-style: italic;
+}
+
 @media (max-width: 767.98px) {
   .skill-table {
     font-size: 0.75rem;
@@ -529,13 +532,54 @@ const SKILL_SPEC_DATA = {
 const FRAGMENTS_PER_DRAW = {
   rare: 10,
   epic: 30,
-  legendary: 90
+  legendary: 90,
+  miracle: 90,
+  myth: 90,
+  immortal: 90
+};
+
+const RARITY_NAMES = {
+  rare: '稀有',
+  epic: '史詩',
+  legendary: '傳說',
+  miracle: '奇蹟',
+  myth: '神話',
+  immortal: '不朽'
+};
+
+const RARITY_COLORS = {
+  rare: '#4A90E2',
+  epic: '#9B59B6',
+  legendary: '#E67E22',
+  miracle: '#F1C40F',
+  myth: '#E74C3C',
+  immortal: '#ee5a6f'
 };
 
 const QUALITY_COLORS = {
   {% for spec in site.data.skills.skill_spec %}
   "{{ spec.name_c }}": "{{ spec.color }}"{% unless forloop.last %},{% endunless %}
   {% endfor %}
+};
+
+// Class emojis mapping
+const CLASS_EMOJIS = {
+  '鬥士': '🗡️',
+  '騎士': '🛡️',
+  '術士': '🔮',
+  '賢者': '📜',
+  '戰士': '⚔️',
+  '法师': '🎩'
+};
+
+// Class compatibility mapping
+const CLASS_COMPATIBILITY = {
+  '鬥士': ['鬥士', '戰士'],
+  '騎士': ['騎士', '戰士'],
+  '術士': ['術士', '法师'],
+  '賢者': ['賢者', '法师'],
+  '戰士': ['戰士'],
+  '法师': ['法师']
 };
 
 // Store all skills data
@@ -573,49 +617,100 @@ document.addEventListener('DOMContentLoaded', function() {
   globalClassSelect.addEventListener('change', function() {
     currentClassFilter = this.value;
     // Update all existing skill selects
+    refreshAllSkillSelects();
+  });
+  
+  function refreshAllSkillSelects() {
     document.querySelectorAll('.skill-name-select').forEach(select => {
       populateSkillSelect(select, currentClassFilter);
     });
-  });
+  }
   
   function populateSkillSelect(selectElement, classFilter = '') {
     const currentValue = selectElement.value;
     
-    // Filter skills by class
-    const filteredSkills = classFilter 
-      ? ALL_SKILLS.filter(skill => skill.class === classFilter)
-      : ALL_SKILLS;
-    
-    // Group by class
-    const groupedByClass = {};
-    filteredSkills.forEach(skill => {
-      if (!groupedByClass[skill.class]) {
-        groupedByClass[skill.class] = [];
+    // Get all selected skills from other skill tables
+    const selectedSkills = new Set();
+    document.querySelectorAll('.skill-name-select').forEach(select => {
+      if (select !== selectElement && select.value) {
+        selectedSkills.add(select.value);
       }
-      groupedByClass[skill.class].push(skill);
+    });
+    
+    // Filter skills by class compatibility
+    let filteredSkills = ALL_SKILLS;
+    if (classFilter) {
+      const compatibleClasses = CLASS_COMPATIBILITY[classFilter] || [classFilter];
+      filteredSkills = ALL_SKILLS.filter(skill => compatibleClasses.includes(skill.class));
+    }
+    
+    // Group by class_level then by type
+    const grouped = {};
+    filteredSkills.forEach(skill => {
+      const key = `${skill.class}|${skill.class_level}`;
+      if (!grouped[key]) {
+        grouped[key] = { class: skill.class, level: skill.class_level, skills: {} };
+      }
+      if (!grouped[key].skills[skill.type]) {
+        grouped[key].skills[skill.type] = [];
+      }
+      grouped[key].skills[skill.type].push(skill);
     });
     
     // Build options HTML
     let html = '<option value="">選擇技能 / Select Skill</option>';
     
-    Object.keys(groupedByClass).sort().forEach(className => {
-      html += `<optgroup label="${className}">`;
-      groupedByClass[className].forEach(skill => {
-        const selected = currentValue === skill.name ? 'selected' : '';
-        html += `
-          <option value="${skill.name}" ${selected}
-                  data-name="${skill.name}"
-                  data-name-c="${skill.name_c}"
-                  data-class="${skill.class}"
-                  data-class-level="${skill.class_level}"
-                  data-rarity="${skill.rarity}"
-                  data-rarity-name="${skill.rarity_name}"
-                  data-type="${skill.type}"
-                  data-fragment-cost="${skill.fragment_cost}">
-            ${skill.class}(${skill.class_level})${skill.type} - ${skill.name_c}(${skill.rarity_name})
-          </option>
-        `;
+    // Sort by class order then level
+    const classOrder = ['鬥士', '騎士', '術士', '賢者', '戰士', '法师'];
+    const levelOrder = ['五轉', '四轉', '三轉', '二轉', '一轉'];
+    
+    const sortedKeys = Object.keys(grouped).sort((a, b) => {
+      const [classA, levelA] = a.split('|');
+      const [classB, levelB] = b.split('|');
+      const classCompare = classOrder.indexOf(classA) - classOrder.indexOf(classB);
+      if (classCompare !== 0) return classCompare;
+      return levelOrder.indexOf(levelA) - levelOrder.indexOf(levelB);
+    });
+    
+    sortedKeys.forEach(key => {
+      const group = grouped[key];
+      const emoji = CLASS_EMOJIS[group.class] || '⚔️';
+      
+      // Add indicator if this is a base class skill
+      let classLabel = `${emoji} ${group.class}`;
+      if (classFilter && group.class !== classFilter) {
+        classLabel += ` 🔓`;
+      }
+      
+      html += `<optgroup label="${classLabel} - ${group.level}">`;
+      
+      // Type order: 戰技 then 秘法
+      const typeOrder = ['戰技', '秘法'];
+      typeOrder.forEach(type => {
+        if (group.skills[type]) {
+          group.skills[type].forEach(skill => {
+            const selected = currentValue === skill.name ? 'selected' : '';
+            const isDisabled = selectedSkills.has(skill.name);
+            const disabledAttr = isDisabled ? 'disabled' : '';
+            const disabledLabel = isDisabled ? ' ✓ 已選擇' : '';
+            
+            html += `
+              <option value="${skill.name}" ${selected} ${disabledAttr}
+                      data-name="${skill.name}"
+                      data-name-c="${skill.name_c}"
+                      data-class="${skill.class}"
+                      data-class-level="${skill.class_level}"
+                      data-rarity="${skill.rarity}"
+                      data-rarity-name="${skill.rarity_name}"
+                      data-type="${skill.type}"
+                      data-fragment-cost="${skill.fragment_cost}">
+                ${type === '戰技' ? '⚔️' : '📖'} ${skill.name_c} (${skill.rarity_name})${disabledLabel}
+              </option>
+            `;
+          });
+        }
       });
+      
       html += '</optgroup>';
     });
     
@@ -630,6 +725,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const skillSelect = clone.querySelector('.skill-name-select');
     const ownedFragmentsInput = clone.querySelector('.owned-fragments-input');
+    const useVoucherCheckbox = clone.querySelector('.use-voucher-checkbox');
+    const useBoxCheckbox = clone.querySelector('.use-box-checkbox');
     
     // Populate with current filter
     populateSkillSelect(skillSelect, currentClassFilter);
@@ -651,6 +748,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateTableCalculations(wrapper);
         updateGrandTotal();
+        
+        // Refresh all skill selects to update disabled options
+        refreshAllSkillSelects();
       }
     });
     
@@ -658,6 +758,21 @@ document.addEventListener('DOMContentLoaded', function() {
     ownedFragmentsInput.addEventListener('input', function() {
       const wrapper = this.closest('.skill-table-wrapper');
       updateTableCalculations(wrapper);
+      updateGrandTotal();
+    });
+    
+    // Add change event to checkboxes
+    useVoucherCheckbox.addEventListener('change', function() {
+      const wrapper = this.closest('.skill-table-wrapper');
+      const vouchersDisplay = wrapper.querySelector('.skill-vouchers-display');
+      vouchersDisplay.style.display = this.checked ? 'inline' : 'none';
+      updateGrandTotal();
+    });
+    
+    useBoxCheckbox.addEventListener('change', function() {
+      const wrapper = this.closest('.skill-table-wrapper');
+      const boxesDisplay = wrapper.querySelector('.skill-boxes-display');
+      boxesDisplay.style.display = this.checked ? 'inline' : 'none';
       updateGrandTotal();
     });
     
@@ -686,6 +801,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentWrapper = this.closest('.skill-table-wrapper');
         currentWrapper.remove();
         updateGrandTotal();
+        
+        // Refresh all skill selects after removal
+        refreshAllSkillSelects();
       }
     });
     
@@ -715,7 +833,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function updateTableCalculations(wrapper) {
-    if (!wrapper) return { total: 0, netCost: 0, rarity: 'rare', drawsNeeded: 0, vouchersNeeded: 0, boxesNeeded: 0, qualitiesUsed: [], skillName: '', className: '', ownedFragments: 0 };
+    if (!wrapper) return { 
+      total: 0, 
+      netCost: 0, 
+      rarity: 'rare', 
+      qualitiesUsed: [], 
+      skillName: '', 
+      className: '', 
+      ownedFragments: 0, 
+      useVoucher: false, 
+      useBox: false 
+    };
     
     let total = 0;
     const qualitiesUsed = new Set();
@@ -745,7 +873,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const ownedFragmentsInput = wrapper.querySelector('.owned-fragments-input');
     const ownedFragments = parseInt(ownedFragmentsInput?.value) || 0;
     
-    // Calculate net cost (what's still needed)
+    // Get checkbox states
+    const useVoucherCheckbox = wrapper.querySelector('.use-voucher-checkbox');
+    const useBoxCheckbox = wrapper.querySelector('.use-box-checkbox');
+    const useVoucher = useVoucherCheckbox?.checked || false;
+    const useBox = useBoxCheckbox?.checked || false;
+    
+    // Calculate net cost (what's still needed after owned fragments)
     const netCost = Math.max(0, total - ownedFragments);
     
     const costElement = wrapper.querySelector('.skill-cost');
@@ -766,77 +900,162 @@ document.addEventListener('DOMContentLoaded', function() {
     const rarity = wrapper.dataset.selectedRarity || 'rare';
     const skillName = wrapper.dataset.selectedSkillName || '未選擇技能';
     const className = wrapper.dataset.selectedClass || '';
-    const fragmentsPerDraw = FRAGMENTS_PER_DRAW[rarity] || 10;
-    const drawsNeeded = netCost > 0 ? Math.ceil(netCost / fragmentsPerDraw) : 0;
     
-    const drawsElement = wrapper.querySelector('.skill-draws');
-    if (drawsElement) drawsElement.textContent = drawsNeeded;
-
-    const vouchersNeeded = netCost > 0 ? Math.ceil(netCost / VOUCHER_VALUE) : 0;
-    const vouchersElement = wrapper.querySelector('.skill-vouchers');
-    if (vouchersElement) vouchersElement.textContent = vouchersNeeded;
-
-    const boxesNeeded = netCost;
-    const boxesElement = wrapper.querySelector('.skill-boxes');
-    if (boxesElement) boxesElement.textContent = boxesNeeded;
-    
-    return { total, netCost, rarity, drawsNeeded, vouchersNeeded, boxesNeeded, qualitiesUsed: Array.from(qualitiesUsed), skillName, className, ownedFragments };
+    return { 
+      total, 
+      netCost,
+      rarity, 
+      qualitiesUsed: Array.from(qualitiesUsed), 
+      skillName, 
+      className, 
+      ownedFragments, 
+      useVoucher, 
+      useBox 
+    };
   }
   
   function updateGrandTotal() {
     let grandTotal = 0;
     let grandNetTotal = 0;
     let totalUpgrades = 0;
-    let totalVouchers = 0;
-    let totalBoxes = 0;
+    let totalVouchersNeeded = 0;
+    let totalBoxesNeeded = 0;
     const skillBreakdown = [];
     
     document.querySelectorAll('.skill-table-wrapper').forEach(wrapper => {
-      const { total, netCost, rarity, drawsNeeded, vouchersNeeded, boxesNeeded, qualitiesUsed, skillName, className, ownedFragments } = updateTableCalculations(wrapper);
+      const result = updateTableCalculations(wrapper);
       const upgrades = wrapper.querySelectorAll('.level-checkbox:checked').length;
       
-      if (total > 0) {
+      if (result.total > 0) {
         skillBreakdown.push({
-          name: skillName,
-          class: className,
-          cost: total,
-          netCost: netCost,
-          ownedFragments: ownedFragments,
+          name: result.skillName,
+          class: result.className,
+          cost: result.total,
+          netCost: result.netCost,
+          ownedFragments: result.ownedFragments,
           upgrades: upgrades,
-          rarity: rarity,
-          drawsNeeded: drawsNeeded,
-          vouchersNeeded: vouchersNeeded,
-          boxesNeeded: boxesNeeded,
-          qualities: qualitiesUsed
+          rarity: result.rarity,
+          qualities: result.qualitiesUsed,
+          useVoucher: result.useVoucher,
+          useBox: result.useBox,
+          wrapper: wrapper
         });
       }
       
-      grandTotal += total;
-      grandNetTotal += netCost;
+      grandTotal += result.total;
+      grandNetTotal += result.netCost;
       totalUpgrades += upgrades;
-      totalVouchers += vouchersNeeded;
-      totalBoxes += boxesNeeded;
+      
+      // Count total vouchers/boxes needed (if checkboxes are checked)
+      if (result.useVoucher && result.netCost > 0) {
+        totalVouchersNeeded += Math.ceil(result.netCost / VOUCHER_VALUE);
+      }
+      if (result.useBox && result.netCost > 0) {
+        totalBoxesNeeded += result.netCost;
+      }
     });
     
     document.getElementById('total-skills').textContent = document.querySelectorAll('.skill-table-wrapper').length;
     document.getElementById('total-upgrades').textContent = totalUpgrades;
     document.getElementById('grand-total').textContent = grandTotal;
-    document.getElementById('voucher-count').textContent = totalVouchers;
-    document.getElementById('box-count').textContent = totalBoxes;
+    document.getElementById('voucher-count').textContent = totalVouchersNeeded;
+    document.getElementById('box-count').textContent = totalBoxesNeeded;
     
-    updateBalanceCalculations(grandNetTotal);
+    updateBalanceCalculations(grandNetTotal, skillBreakdown);
     updateSummary(skillBreakdown, grandTotal);
   }
   
-  function updateBalanceCalculations(neededFragments) {
+  function updateBalanceCalculations(neededFragments, skillBreakdown) {
     const ownedVouchers = parseInt(ownedVouchersInput.value) || 0;
     const ownedBoxes = parseInt(ownedBoxesInput.value) || 0;
     
+    // Calculate owned resources value
     const voucherFragments = ownedVouchers * VOUCHER_VALUE;
     const boxFragments = ownedBoxes * BOX_VALUE;
     const totalOwnedFragments = voucherFragments + boxFragments;
     
-    const balance = totalOwnedFragments - neededFragments;
+    // Allocate resources to skills
+    let remainingVouchers = ownedVouchers;
+    let remainingBoxes = ownedBoxes;
+    const resourceBreakdown = [];
+    const skillDrawsNeeded = {};
+    
+    skillBreakdown.forEach(skill => {
+      let skillVouchersUsed = 0;
+      let skillBoxesUsed = 0;
+      let stillNeeded = skill.netCost;
+      
+      // First, use vouchers if checkbox is checked
+      if (skill.useVoucher && stillNeeded > 0 && remainingVouchers > 0) {
+        const vouchersNeeded = Math.ceil(stillNeeded / VOUCHER_VALUE);
+        skillVouchersUsed = Math.min(vouchersNeeded, remainingVouchers);
+        const fragmentsFromVouchers = skillVouchersUsed * VOUCHER_VALUE;
+        stillNeeded = Math.max(0, stillNeeded - fragmentsFromVouchers);
+        remainingVouchers -= skillVouchersUsed;
+      }
+      
+      // Then, use boxes if checkbox is checked
+      if (skill.useBox && stillNeeded > 0 && remainingBoxes > 0) {
+        skillBoxesUsed = Math.min(stillNeeded, remainingBoxes);
+        stillNeeded = Math.max(0, stillNeeded - skillBoxesUsed);
+        remainingBoxes -= skillBoxesUsed;
+      }
+      
+      // Build breakdown text
+      if (skillVouchersUsed > 0 || skillBoxesUsed > 0) {
+        const parts = [];
+        if (skillVouchersUsed > 0) {
+          parts.push(`-${skillVouchersUsed}×30`);
+        }
+        if (skillBoxesUsed > 0) {
+          parts.push(`-${skillBoxesUsed}`);
+        }
+        resourceBreakdown.push(`${skill.name}(${skill.netCost}${parts.join('')})`);
+      }
+      
+      // Update skill's individual display
+      const wrapper = skill.wrapper;
+      if (wrapper) {
+        const vouchersElement = wrapper.querySelector('.skill-vouchers');
+        const boxesElement = wrapper.querySelector('.skill-boxes');
+        const afterResourcesLabel = wrapper.querySelector('.skill-after-resources-label');
+        const afterResourcesValue = wrapper.querySelector('.skill-after-resources');
+        const drawsElement = wrapper.querySelector('.skill-draws');
+        
+        if (vouchersElement) vouchersElement.textContent = skillVouchersUsed;
+        if (boxesElement) boxesElement.textContent = skillBoxesUsed;
+        
+        // Show/hide "扣除資源後"
+        if ((skill.useVoucher || skill.useBox) && skill.netCost > 0) {
+          if (afterResourcesLabel) afterResourcesLabel.style.display = 'inline';
+          if (afterResourcesValue) afterResourcesValue.textContent = stillNeeded;
+        } else {
+          if (afterResourcesLabel) afterResourcesLabel.style.display = 'none';
+        }
+        
+        // Calculate draws needed
+        const fragmentsPerDraw = FRAGMENTS_PER_DRAW[skill.rarity] || 10;
+        const drawsNeeded = stillNeeded > 0 ? Math.ceil(stillNeeded / fragmentsPerDraw) : 0;
+        if (drawsElement) drawsElement.textContent = drawsNeeded;
+        
+        // Add to skillDrawsNeeded for summary
+        if (stillNeeded > 0) {
+          const skillKey = `${skill.name}|${skill.rarity}`;
+          skillDrawsNeeded[skillKey] = {
+            name: skill.name,
+            rarity: skill.rarity,
+            draws: drawsNeeded,
+            afterResources: stillNeeded
+          };
+        }
+      }
+    });
+    
+    // Calculate balance (what's left unused)
+    const totalUsedVouchers = ownedVouchers - remainingVouchers;
+    const totalUsedBoxes = ownedBoxes - remainingBoxes;
+    const totalUsedFragments = (totalUsedVouchers * VOUCHER_VALUE) + totalUsedBoxes;
+    const balance = totalOwnedFragments - totalUsedFragments;
     
     document.getElementById('total-owned-fragments').textContent = totalOwnedFragments;
     document.getElementById('total-needed-fragments').textContent = neededFragments;
@@ -850,15 +1069,52 @@ document.addEventListener('DOMContentLoaded', function() {
       resultRow.classList.add('negative');
     }
     
+    // Show breakdown of balance calculation
+    const breakdownSection = document.getElementById('balance-breakdown-section');
+    const breakdownText = document.getElementById('balance-breakdown-text');
+    
+    if (resourceBreakdown.length > 0) {
+      let breakdownHTML = `${totalOwnedFragments}`;
+      if (resourceBreakdown.length > 0) {
+        breakdownHTML += ` = ${resourceBreakdown.join(' + ')}`;
+      }
+      breakdownText.innerHTML = breakdownHTML;
+      breakdownSection.style.display = 'block';
+    } else {
+      breakdownSection.style.display = 'none';
+    }
+    
+    // Update draws section
     const drawsSection = document.getElementById('draws-needed-section');
-    if (balance < 0) {
-      const fragmentsNeeded = Math.abs(balance);
+    const drawsBySkillContainer = document.getElementById('draws-by-skill');
+    
+    const hasDrawsNeeded = Object.keys(skillDrawsNeeded).length > 0;
+    
+    if (hasDrawsNeeded) {
+      let drawsHTML = '';
       
-      // Update draws for rare, epic, legendary
-      document.getElementById('draws-rare').textContent = Math.ceil(fragmentsNeeded / FRAGMENTS_PER_DRAW.rare);
-      document.getElementById('draws-epic').textContent = Math.ceil(fragmentsNeeded / FRAGMENTS_PER_DRAW.epic);
-      document.getElementById('draws-legendary').textContent = Math.ceil(fragmentsNeeded / FRAGMENTS_PER_DRAW.legendary);
+      Object.values(skillDrawsNeeded).forEach(skill => {
+        const rarityName = RARITY_NAMES[skill.rarity] || skill.rarity;
+        const rarityColor = RARITY_COLORS[skill.rarity] || '#ccc';
+        const fragmentsPerDraw = FRAGMENTS_PER_DRAW[skill.rarity] || 10;
+        
+        drawsHTML += `
+          <div class="rounded p-3 draw-skill-item" style="background-color: rgba(255, 255, 255, 0.2); border-color: ${rarityColor} !important;">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="fw-bold">${skill.name} (${rarityName})</div>
+                <div class="small" style="opacity: 0.85;">${fragmentsPerDraw}碎片/次 × ${skill.draws}次 = ${skill.afterResources}碎片</div>
+              </div>
+              <div class="text-end">
+                <div class="display-6 fw-bold">${skill.draws}</div>
+                <div class="small">次</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
       
+      drawsBySkillContainer.innerHTML = drawsHTML;
       drawsSection.style.display = 'block';
     } else {
       drawsSection.style.display = 'none';
@@ -877,25 +1133,26 @@ document.addEventListener('DOMContentLoaded', function() {
     breakdown.forEach(skill => {
       const rarityData = SKILL_SPEC_DATA[skill.rarity];
       const rarityText = rarityData ? rarityData.name_c : skill.rarity;
+      const classEmoji = CLASS_EMOJIS[skill.class] || '⚔️';
       
-      // Add class emoji
-      let classEmoji = '⚔️';
-      if (skill.class === '騎士') classEmoji = '🛡️';
-      else if (skill.class === '術士') classEmoji = '🔮';
-      else if (skill.class === '賢者') classEmoji = '📜';
-      else if (skill.class === '鬥士') classEmoji = '🗡️';
+      // Get actual usage from the skill's wrapper
+      const vouchersUsed = parseInt(skill.wrapper?.querySelector('.skill-vouchers')?.textContent) || 0;
+      const boxesUsed = parseInt(skill.wrapper?.querySelector('.skill-boxes')?.textContent) || 0;
+      const afterResources = parseInt(skill.wrapper?.querySelector('.skill-after-resources')?.textContent) || skill.netCost;
+      const drawsNeeded = parseInt(skill.wrapper?.querySelector('.skill-draws')?.textContent) || 0;
       
       html += `
-        <div class="summary-skill-card card ${skill.rarity} p-3">
+        <div class="summary-skill-card card ${skill.rarity} p-3 border-0 shadow-sm">
           <div class="fw-bold mb-2 text-dark">${classEmoji} ${skill.name} (${rarityText})</div>
           <div class="d-flex flex-wrap gap-3 small text-muted">
             <span>${skill.upgrades} 次升級</span>
             <span class="text-success fw-bold">${skill.cost} 碎片</span>
             ${skill.ownedFragments > 0 ? `<span class="text-info fw-bold">💎 已有 ${skill.ownedFragments}</span>` : ''}
             ${skill.netCost > 0 ? `<span class="text-danger fw-bold">還需 ${skill.netCost}</span>` : '<span class="text-success fw-bold">✓ 足夠</span>'}
-            <span class="text-primary fw-bold">抽 ${skill.drawsNeeded} 次</span>
-            <span class="text-warning fw-bold">🎫 ${skill.vouchersNeeded}</span>
-            <span class="text-info fw-bold">📦 ${skill.boxesNeeded}</span>
+            ${(skill.useVoucher || skill.useBox) && afterResources >= 0 ? `<span class="text-primary fw-bold">扣除後 ${afterResources}</span>` : ''}
+            <span class="text-primary fw-bold">抽 ${drawsNeeded} 次</span>
+            ${vouchersUsed > 0 ? `<span class="text-warning fw-bold">🎫 ${vouchersUsed}</span>` : ''}
+            ${boxesUsed > 0 ? `<span class="text-info fw-bold">📦 ${boxesUsed}</span>` : ''}
           </div>
       `;
       
@@ -932,15 +1189,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  ownedVouchersInput.addEventListener('input', function() {
-    const neededFragments = parseInt(document.getElementById('total-needed-fragments').textContent) || 0;
-    updateBalanceCalculations(neededFragments);
-  });
-  
-  ownedBoxesInput.addEventListener('input', function() {
-    const neededFragments = parseInt(document.getElementById('total-needed-fragments').textContent) || 0;
-    updateBalanceCalculations(neededFragments);
-  });
+  ownedVouchersInput.addEventListener('input', updateGrandTotal);
+  ownedBoxesInput.addEventListener('input', updateGrandTotal);
   
   addSkillTable();
 });
