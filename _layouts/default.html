@@ -9,16 +9,271 @@
     <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    
+    <style>
+      /* Floating Action Button Menu Styles */
+      .fab-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+      }
+      
+      .fab-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+      
+      .fab-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+      
+      .fab-button.active {
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+      
+      .fab-button i {
+        transition: transform 0.3s ease;
+      }
+      
+      .fab-menu {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .fab-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      
+      .fab-menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1rem;
+        animation: slideIn 0.3s ease forwards;
+        opacity: 0;
+      }
+      
+      .fab-menu.active .fab-menu-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      
+      .fab-menu.active .fab-menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      
+      .fab-menu.active .fab-menu-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      
+      .fab-menu-label {
+        background: white;
+        color: #2d3748;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        transition: all 0.3s ease;
+      }
+      
+      .fab-menu-label:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateX(-4px);
+      }
+      
+      .fab-menu-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: white;
+        color: #667eea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+      
+      .fab-menu-link {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .fab-menu-link:hover .fab-menu-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: scale(1.1);
+      }
+      
+      /* Mobile adjustments */
+      @media (max-width: 767.98px) {
+        .fab-container {
+          bottom: 1.5rem;
+          right: 1.5rem;
+        }
+        
+        .fab-button {
+          width: 56px;
+          height: 56px;
+          font-size: 1.3rem;
+        }
+        
+        .fab-menu {
+          bottom: 70px;
+        }
+        
+        .fab-menu-icon {
+          width: 44px;
+          height: 44px;
+          font-size: 1.1rem;
+        }
+        
+        .fab-menu-label {
+          font-size: 0.85rem;
+          padding: 0.4rem 0.8rem;
+        }
+      }
+      
+      /* Backdrop overlay */
+      .fab-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      
+      .fab-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper container my-3">
       <section>
-
-      {{ content }}
-
+        {{ content }}
       </section>
     </div>
+    
+    <!-- Floating Action Button Menu -->
+    <div class="fab-backdrop" id="fabBackdrop"></div>
+    <div class="fab-container">
+      <div class="fab-menu" id="fabMenu">
+        <div class="fab-menu-item">
+          <a href="{{ '/' | relative_url }}" class="fab-menu-link">
+            <span class="fab-menu-label">原初之星計算器</span>
+            <div class="fab-menu-icon">
+              <i class="fas fa-star"></i>
+            </div>
+          </a>
+        </div>
+        <div class="fab-menu-item">
+          <a href="{{ '/skills' | relative_url }}" class="fab-menu-link">
+            <span class="fab-menu-label">技能升級計算器</span>
+            <div class="fab-menu-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+          </a>
+        </div>
+        <div class="fab-menu-item">
+          <a href="http://m9.ctymc.cn:20822/" class="fab-menu-link" target="_blank" rel="noopener noreferrer">
+            <span class="fab-menu-label">经验时间计算器</span>
+            <div class="fab-menu-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+      <button class="fab-button" id="fabButton" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
     <script src="{{ "/assets/js/bootstrap.bundle.min.js" | relative_url }}"></script>
     <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+    
+    <script>
+      // Floating Action Button Menu
+      (function() {
+        const fabButton = document.getElementById('fabButton');
+        const fabMenu = document.getElementById('fabMenu');
+        const fabBackdrop = document.getElementById('fabBackdrop');
+        
+        function toggleMenu() {
+          fabButton.classList.toggle('active');
+          fabMenu.classList.toggle('active');
+          fabBackdrop.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+          fabButton.classList.remove('active');
+          fabMenu.classList.remove('active');
+          fabBackdrop.classList.remove('active');
+        }
+        
+        fabButton.addEventListener('click', toggleMenu);
+        fabBackdrop.addEventListener('click', closeMenu);
+        
+        // Close menu when clicking on a menu item
+        document.querySelectorAll('.fab-menu-link').forEach(link => {
+          link.addEventListener('click', closeMenu);
+        });
+        
+        // Close menu on ESC key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeMenu();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
