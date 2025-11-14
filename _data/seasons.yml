@@ -42,18 +42,3 @@
   score_pet: 6
   star_start: 65
   theme_color: '#505096'
-
-- id: 's4'
-  title: 'S4: 混沌終焉1'
-  season_number: 4
-  release_date: 2026-02-15
-  fixed_level: 200
-  fixed_relics_level: 20
-  score_level: 100
-  score_div: 6
-  score_gear: 7
-  score_skill: 2
-  score_relics: 13
-  score_pet: 3
-  star_start: 130
-  theme_color: '#0096FF'
