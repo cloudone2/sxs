@@ -1,0 +1,41 @@
+sections:
+  - id: quick-start
+    icon: fas fa-play-circle
+    title: 快速開始
+    type: list
+    items:
+      - 選擇當前賽季，系統會自動調整固定等級
+      - 輸入各項數值，即時計算總星數
+      - 查看獎勵統計了解各項加成
+      - 星數里程碑顯示已達成和未達成的目標
+
+  - id: shortcuts
+    icon: fas fa-keyboard
+    title: 快捷鍵
+    type: list
+    items:
+      - text: <kbd>Ctrl</kbd> + <kbd>Enter</kbd> - 快速計算
+      - text: <kbd>Ctrl</kbd> + <kbd>L</kbd> - 清空輸入
+
+  - id: formula
+    icon: fas fa-calculator
+    title: 計算公式
+    type: formula
+    main_formula: <strong>總星數</strong> = (各項分數總和 ÷ 賽季除數) + 起始星數 + 目前擁有星數
+    subtitle: 各項分數計算方式：
+    formulas:
+      - label: 角色等級
+        formula: (等級 - 固定等級) × 倍率 ×
+        multiplier: 1
+      - label: 裝備等級
+        formula: (等級 - 固定等級) × 倍率 ×
+        multiplier: 5
+      - label: 技能等級
+        formula: (等級 - 固定等級) × 倍率 ×
+        multiplier: 8
+      - label: 古遺物等級
+        formula: (等級 - 固定等級) × 倍率 ×
+        multiplier: 20
+      - label: 幻獸等級
+        formula: (等級 - 固定等級) × 倍率 ×
+        multiplier: 4

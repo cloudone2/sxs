@@ -1,0 +1,1184 @@
+/**
+ * Star Calculator Styles
+ * Modern, responsive calculator interface with dynamic theming
+ */
+
+/* ========================================
+   CSS VARIABLES
+   ======================================== */
+
+:root {
+  /* Season Colors (Updated Dynamically) */
+  --season-color: #667eea;
+  --season-color-light: #764ba2;
+  --season-color-dark: #5568d3;
+  --season-color-secondary: #f093fb;
+  --season-color-tertiary: #4facfe;
+  --season-color-rgb: 102, 126, 234;
+
+  /* Base Colors */
+  --color-background: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #718096;
+  --color-text-muted: #a0aec0;
+  --color-border: #e2e8f0;
+  --color-success: #48bb78;
+  --color-warning: #f6ad55;
+  --color-danger: #f56565;
+  --color-info: #4299e1;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Border Radius */
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 16px;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+#container-home {
+  transition: opacity var(--transition-speed) var(--transition-timing);
+}
+
+#container-home.calculating {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* ========================================
+   PAGE HEADER
+   ======================================== */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--season-color) 0%, var(--season-color-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ========================================
+   CALCULATOR CARD
+   ======================================== */
+
+.calculator-card {
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-speed) var(--transition-timing),
+              box-shadow var(--transition-speed) var(--transition-timing);
+  background: var(--color-surface);
+  backdrop-filter: blur(10px);
+}
+
+.calculator-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Card Headers */
+.gradient-header {
+  background: linear-gradient(135deg, var(--season-color) 0%, var(--season-color-light) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: headerShine 6s linear infinite;
+}
+
+@keyframes headerShine {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.gradient-header-secondary {
+  background: linear-gradient(135deg, var(--season-color-secondary) 0%, var(--season-color) 100%);
+}
+
+.gradient-header-tertiary {
+  background: linear-gradient(135deg, var(--season-color-tertiary) 0%, var(--season-color) 100%);
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.header-actions .btn {
+  transition: all var(--transition-speed) var(--transition-timing);
+  font-weight: 500;
+}
+
+.header-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Toggle Icon Animation */
+.toggle-icon {
+  transition: transform var(--transition-speed) var(--transition-timing);
+}
+
+[aria-expanded="true"] .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   SECTION STYLES
+   ======================================== */
+
+.section-title {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: 1.5rem;
+}
+
+.input-section,
+.results-section {
+  height: 100%;
+}
+
+/* ========================================
+   INPUT CONTROLS
+   ======================================== */
+
+.input-group-custom {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.input-label i {
+  color: var(--season-color);
+}
+
+.input-label .text-muted {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  background: rgba(var(--season-color-rgb), 0.1);
+  border-radius: 4px;
+  color: var(--season-color);
+}
+
+.form-control-custom {
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all var(--transition-speed) var(--transition-timing);
+  background: var(--color-surface);
+}
+
+.form-control-custom:focus {
+  border-color: var(--season-color);
+  box-shadow: 0 0 0 3px rgba(var(--season-color-rgb), 0.1);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.form-control-custom:hover:not(:focus) {
+  border-color: var(--season-color-light);
+}
+
+/* Season Select Custom Styling */
+.form-select.form-control-custom {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23667eea' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
+}
+
+/* Input Feedback */
+.input-feedback {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.08) 0%, 
+    rgba(var(--season-color-rgb), 0.03) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.input-feedback:not(:empty) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.input-feedback .fw-bold {
+  color: var(--season-color);
+}
+
+.input-feedback .small {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.08) 0%, 
+    rgba(var(--season-color-rgb), 0.03) 100%);
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ========================================
+   RESULTS DISPLAY
+   ======================================== */
+
+.result-card {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+  border-radius: var(--border-radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(var(--season-color-rgb), 0.2);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--season-color);
+}
+
+.total-stars-card {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.1) 0%, 
+    white 100%);
+  border: 3px solid var(--season-color);
+  padding: 2.5rem 2rem;
+  min-height: 180px;
+}
+
+.total-stars-card::before {
+  content: '⭐';
+  position: absolute;
+  font-size: 8rem;
+  opacity: 0.05;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-20px);
+  }
+}
+
+.result-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.result-value {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--season-color);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: countUp 0.5s ease-out;
+}
+
+@keyframes countUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.result-detail {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ========================================
+   QUICK STATS
+   ======================================== */
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+  border-radius: var(--border-radius-sm);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px solid rgba(var(--season-color-rgb), 0.1);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.stat-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--season-color);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+
+/* Enhanced Quick Stats for Desktop */
+@media (min-width: 992px) {
+  .quick-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    padding: 1.25rem;
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+/* ========================================
+   MILESTONE CARD
+   ======================================== */
+
+.milestone-card {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  border: 2px solid rgba(var(--season-color-rgb), 0.2);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.milestone-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--season-color);
+}
+
+.milestone-title {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+}
+
+.progress-custom {
+  height: 2rem;
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(var(--season-color-rgb), 0.1);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, 
+    var(--season-color) 0%, 
+    var(--season-color-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: width 0.6s ease;
+  animation: progressShine 2s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes progressShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.milestone-info {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.milestone-info .badge {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+}
+
+/* ========================================
+   DESKTOP CALCULATION PREVIEW
+   ======================================== */
+
+.calculation-preview {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 2px solid var(--season-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.calculation-preview:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.preview-header {
+  background: var(--season-color);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.preview-content {
+  padding: 1rem;
+}
+
+.preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--season-color);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.preview-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.preview-item:last-of-type {
+  margin-bottom: 0.75rem;
+}
+
+.preview-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(var(--season-color-rgb), 0.1);
+  border-radius: var(--border-radius-sm);
+  margin-top: 0.5rem;
+  border: 2px solid var(--season-color);
+}
+
+.preview-label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.preview-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.preview-total .preview-label {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.preview-total .preview-value {
+  font-size: 1.5rem;
+  color: var(--season-color);
+}
+
+/* ========================================
+   MOBILE CALCULATION SUMMARY
+   ======================================== */
+
+.calculation-summary {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.08) 0%, 
+    white 100%);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 2px solid var(--season-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-header {
+  background: var(--season-color);
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.summary-content {
+  padding: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(var(--season-color-rgb), 0.1);
+}
+
+.summary-item:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(var(--season-color-rgb), 0.1);
+  border-radius: var(--border-radius-sm);
+  margin-top: 0.5rem;
+  border: 2px solid var(--season-color);
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.summary-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: 'Courier New', monospace;
+}
+
+.summary-total .summary-label {
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+}
+
+.summary-total .summary-value {
+  font-size: 1.5rem;
+}
+
+/* ========================================
+   REWARDS TABLE
+   ======================================== */
+
+.rewards-table {
+  font-size: 0.95rem;
+}
+
+.rewards-table thead th {
+  background: rgba(var(--season-color-rgb), 0.05);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  border-bottom: 2px solid var(--season-color);
+  padding: 1rem;
+}
+
+.rewards-table tbody tr {
+  transition: all var(--transition-speed) var(--transition-timing);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rewards-table tbody tr:hover {
+  background: rgba(var(--season-color-rgb), 0.03);
+  transform: translateX(4px);
+}
+
+.rewards-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.rewards-table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.reward-name {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+}
+
+.reward-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--season-color);
+  font-family: 'Courier New', monospace;
+}
+
+.reward-breakdown {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+}
+
+/* Mobile Table Styles */
+@media (max-width: 767.98px) {
+  .rewards-table thead {
+    display: none;
+  }
+
+  .rewards-table,
+  .rewards-table tbody,
+  .rewards-table tr,
+  .rewards-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .rewards-table tr {
+    margin-bottom: 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem;
+    background: white;
+  }
+
+  .rewards-table tr:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rewards-table td {
+    padding: 0.5rem 0;
+    border: none;
+  }
+
+  .rewards-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* ========================================
+   TIMELINE
+   ======================================== */
+
+.timeline-wrapper {
+  padding: 1.5rem;
+  max-height: 600px;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, 
+    rgba(var(--season-color-rgb), 0.03) 0%, 
+    white 100%);
+}
+
+.timeline {
+  position: relative;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, 
+    var(--season-color) 0%, 
+    var(--season-color-light) 100%);
+}
+
+.timeline .event {
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 2rem;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.timeline .event::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid var(--color-text-muted);
+  background: white;
+  z-index: 1;
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+/* Achieved milestones - use season color */
+.timeline .event.achieved::before {
+  background: var(--season-color);
+  border-color: var(--season-color);
+  box-shadow: 0 0 0 4px rgba(var(--season-color-rgb), 0.2);
+}
+
+/* Upcoming milestones */
+.timeline .event.upcoming::before {
+  background: white;
+  border-color: var(--color-text-muted);
+}
+
+.timeline .event p {
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius-sm);
+  margin: 0;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-text-muted);
+  transition: all var(--transition-speed) var(--transition-timing);
+  position: relative;
+}
+
+/* Achieved milestones - use season color */
+.timeline .event.achieved p {
+  border-left-color: var(--season-color);
+  background: linear-gradient(to right, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+}
+
+/* Upcoming milestones */
+.timeline .event.upcoming p {
+  border-left-color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.timeline .event:hover p {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Hover effect for achieved items */
+.timeline .event.achieved:hover::before {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 6px rgba(var(--season-color-rgb), 0.3);
+}
+
+.timeline .event .badge {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.7rem;
+  font-weight: 600;
+}
+
+.timeline-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-muted);
+}
+
+.timeline-placeholder i {
+  opacity: 0.3;
+}
+
+/* ========================================
+   HELP MODAL
+   ======================================== */
+
+.help-content {
+  padding: 0.5rem 0;
+}
+
+.help-section {
+  margin-bottom: 2rem;
+}
+
+.help-section:last-child {
+  margin-bottom: 0;
+}
+
+.help-section-title {
+  color: var(--season-color);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(var(--season-color-rgb), 0.2);
+}
+
+.help-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.help-list li {
+  padding: 0.75rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+.help-list li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--season-color);
+  font-size: 0.8rem;
+}
+
+.help-list kbd {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+  color: #333;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.formula-box {
+  background: linear-gradient(135deg, 
+    rgba(var(--season-color-rgb), 0.05) 0%, 
+    white 100%);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-sm);
+  border-left: 4px solid var(--season-color);
+  margin-top: 1rem;
+}
+
+.formula-main {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.formula-subtitle {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.formula-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.formula-list li {
+  padding: 0.5rem 0;
+  font-family: 'Courier New', monospace;
+  color: var(--color-text-primary);
+}
+
+.formula-list strong {
+  color: var(--season-color);
+  font-weight: 700;
+}
+
+.formula-list .text-primary {
+  color: var(--season-color) !important;
+  font-weight: 700;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 991.98px) {
+  .result-value {
+    font-size: 3rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+  .calculator-card {
+    border-radius: var(--border-radius);
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .result-value {
+    font-size: 2.5rem;
+  }
+
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline::before {
+    left: 0.5rem;
+  }
+
+  .timeline .event {
+    padding-left: 2rem;
+  }
+
+  .timeline .event::before {
+    left: 0;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 575.98px) {
+  .result-value {
+    font-size: 2rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .header-actions .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .calculator-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .header-actions,
+  .btn,
+  .d-print-none {
+    display: none !important;
+  }
+
+  .timeline-wrapper {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus Visible */
+*:focus-visible {
+  outline: 3px solid var(--season-color);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .calculator-card {
+    border: 3px solid currentColor;
+  }
+
+  .form-control-custom:focus {
+    outline: 3px solid currentColor;
+  }
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1a202c;
+    --color-surface: #2d3748;
+    --color-text-primary: #f7fafc;
+    --color-text-secondary: #e2e8f0;
+    --color-text-muted: #a0aec0;
+    --color-border: #4a5568;
+  }
+
+  body {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+
+  .calculator-card {
+    background: var(--color-surface);
+  }
+
+  .form-control-custom {
+    background: #1a202c;
+    color: var(--color-text-primary);
+  }
+
+  .timeline .event p {
+    background: var(--color-surface);
+  }
+}

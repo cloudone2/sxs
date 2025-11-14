@@ -1,0 +1,74 @@
+page_title: 原初之星計算器
+page_subtitle: Star Rewards Calculator
+page_description: 計算你的星數進度和獎勵加成
+
+calculator:
+  title: 星數計算器
+  buttons:
+    help: 使用說明
+    example: 範例
+    clear: 清空
+
+inputs:
+  season:
+    label: 賽季
+    icon: fas fa-feather-pointed
+  level:
+    label: 角色等級
+    icon: fas fa-user
+    placeholder: 輸入等級
+  gear:
+    label: 裝備等級
+    icon: fas fa-tshirt
+    placeholder: 輸入等級
+    multiplier: ×5
+  skill:
+    label: 技能等級
+    icon: fas fa-book
+    placeholder: 輸入等級
+    multiplier: ×8
+  relics:
+    label: 古遺物等級
+    icon: fas fa-monument
+    placeholder: 輸入等級
+    multiplier: ×20
+  pet:
+    label: 幻獸等級
+    icon: fas fa-paw
+    placeholder: 輸入等級
+    multiplier: ×4
+  current_stars:
+    label: 目前擁有星數
+    icon: fas fa-star
+    placeholder: 已有星數
+
+results:
+  title: 計算結果
+  total_stars: 總星數
+  next_milestone: 下一里程碑
+  base_stars: 基礎星數
+  added_stars: 增加星數
+  waiting: 等待輸入數值...
+  calculating: 等待計算...
+
+rewards:
+  title: 獎勵統計
+  type: 獎勵類型
+  value: 當前數值
+  waiting: 等待計算結果...
+
+timeline:
+  title: 星數里程碑
+  waiting: 輸入數值查看里程碑
+
+mobile_summary:
+  title: 計算摘要
+  level: 角色
+  gear: 裝備
+  skill: 技能
+  relics: 古遺物
+  pet: 幻獸
+  total: 總分數
+
+confirm:
+  clear_all: 確定要清空所有輸入嗎？
