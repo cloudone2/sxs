@@ -1153,32 +1153,3 @@ body {
     outline: 3px solid currentColor;
   }
 }
-
-/* Dark Mode Support (Optional) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #1a202c;
-    --color-surface: #2d3748;
-    --color-text-primary: #f7fafc;
-    --color-text-secondary: #e2e8f0;
-    --color-text-muted: #a0aec0;
-    --color-border: #4a5568;
-  }
-
-  body {
-    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-  }
-
-  .calculator-card {
-    background: var(--color-surface);
-  }
-
-  .form-control-custom {
-    background: #1a202c;
-    color: var(--color-text-primary);
-  }
-
-  .timeline .event p {
-    background: var(--color-surface);
-  }
-}
