@@ -12,6 +12,7 @@
   score_pet: 14
   star_start: 10
   theme_color: '#ae4642'
+  total_day: 35
 
 - id: 's2'
   title: 'S2: 渊虹邂羽'
@@ -27,6 +28,7 @@
   score_pet: 8
   star_start: 45
   theme_color: '#498881'
+  total_day: 67
 
 - id: 's3'
   title: 'S3: 混沌終焉'
@@ -42,3 +44,4 @@
   score_pet: 6
   star_start: 65
   theme_color: '#505096'
+  total_day: 99

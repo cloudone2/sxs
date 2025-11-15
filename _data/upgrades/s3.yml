@@ -1,0 +1,332 @@
+season: 3
+
+# Secret Realm Production Rates
+secret_realm:
+  name: "Secret Realm Production"
+  name_zh: "秘境產量"
+  icon: "🏰"
+  description: "Estimated production per run"
+  description_zh: "粗估值/單次產量"
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 20367
+      tool_name: "Gold Pickaxe"
+      tool_name_zh: "金礦鎬"
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 1775
+      tool_name: "Iron Hammer"
+      tool_name_zh: "鐵礦錘"
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 1915
+      tool_name: "Sand Shovel"
+      tool_name_zh: "砂礦鏟"
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 2857
+      tool_name: "Glove Requirement"
+      tool_name_zh: "拳套需求"
+
+# Stamina Production Rates
+stamina_production:
+  name: "Stamina Production"
+  name_zh: "體力產量"
+  icon: "⚡"
+  description: "Estimated production per 5 stamina"
+  description_zh: "粗估值/單次產量(5體力)"
+  stamina_cost: 5
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 24000
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 2405
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 2000
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 3000
+
+# Daily Bonus Stamina
+daily_stamina:
+  name: "Daily Bonus Stamina"
+  name_zh: "每日額外體力"
+  icon: "📅"
+  description: "Additional stamina sources per day"
+  description_zh: "每日額外體力來源"
+  sources:
+    - name: "Daily Missions"
+      name_zh: "每日任務"
+      key: "daily_missions"
+      amount: 20
+    - name: "Shop Treasury"
+      name_zh: "商店寶庫"
+      key: "shop_treasury"
+      amount: 30
+  total: 50
+
+categories:
+  gear:
+    name: "Gear Upgrades"
+    icon: "⚔️"
+    resources:
+      - name: "Iron"
+        name_zh: "鐵"
+        key: "iron"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 161
+        iron: 26000
+        gold: 52000
+      - level: 162
+        iron: 26200
+        gold: 52500
+      - level: 163
+        iron: 26500
+        gold: 53000
+      - level: 164
+        iron: 26700
+        gold: 53500
+      - level: 165
+        iron: 27000
+        gold: 54000
+      - level: 166
+        iron: 27300
+        gold: 54600
+      - level: 167
+        iron: 27500
+        gold: 55100
+      - level: 168
+        iron: 27800
+        gold: 55600
+      - level: 169
+        iron: 28000
+        gold: 56100
+      - level: 170
+        iron: 28300
+        gold: 56600
+      - level: 171
+        iron: 28600
+        gold: 57200
+      - level: 172
+        iron: 28800
+        gold: 57700
+      - level: 173
+        iron: 29100
+        gold: 58200
+      - level: 174
+        iron: 29300
+        gold: 58700
+      - level: 175
+        iron: 29600
+        gold: 59200
+      - level: 176
+        iron: 29900
+        gold: 59800
+      - level: 177
+        iron: 30100
+        gold: 60300
+      - level: 178
+        iron: 30400
+        gold: 60800
+      - level: 179
+        iron: 30600
+        gold: 61300
+      - level: 180
+        iron: 30900
+        gold: 61800
+      - level: 181
+        iron: 31200
+        gold: 62400
+      - level: 182
+        iron: 31400
+        gold: 62400
+      - level: 183
+        iron: 31700
+        gold: 62400
+      - level: 184
+        iron: 31900
+        gold: 62400
+      - level: 185
+        iron: 32200
+        gold: 62400
+      - level: 186
+        iron: 32500
+        gold: 62400
+      - level: 187
+        iron: 32700
+        gold: 62400
+      - level: 188
+        iron: 33000
+        gold: 62400
+      - level: 189
+        iron: 33200
+        gold: 62400
+      - level: 190
+        iron: 33500
+        gold: 62400
+      - level: 191
+        iron: 33800
+        gold: 62400
+      - level: 192
+        iron: 33800
+        gold: 62400
+      - level: 193
+        iron: 33800
+        gold: 62400
+      - level: 194
+        iron: 33800
+        gold: 62400
+      - level: 195
+        iron: 33800
+        gold: 62400
+      - level: 196
+        iron: 33800
+        gold: 62400
+      - level: 197
+        iron: 33800
+        gold: 62400
+      - level: 198
+        iron: 33800
+        gold: 62400
+      - level: 199
+        iron: 33800
+        gold: 62400
+
+  relic:
+    name: "Relic Upgrades"
+    icon: "✨"
+    resources:
+      - name: "Hourglass"
+        name_zh: "時之砂"
+        key: "hourglass"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 16
+        hourglass: 57500
+        gold: 103000
+      - level: 17
+        hourglass: 63250
+        gold: 113000
+      - level: 18
+        hourglass: 69000
+        gold: 124000
+      - level: 19
+        hourglass: 74750
+        gold: 134000
+
+  skill:
+    name: "Skill Upgrades"
+    icon: "📚"
+    resources:
+      - name: "Battle Record"
+        name_zh: "歷戰"
+        key: "battle_record"
+    levels:
+      - level: 161
+        battle_record: 19200
+      - level: 162
+        battle_record: 19400
+      - level: 163
+        battle_record: 19600
+      - level: 164
+        battle_record: 19800
+      - level: 165
+        battle_record: 19900
+      - level: 166
+        battle_record: 20100
+      - level: 167
+        battle_record: 20300
+      - level: 168
+        battle_record: 20500
+      - level: 169
+        battle_record: 20700
+      - level: 170
+        battle_record: 20900
+      - level: 171
+        battle_record: 21100
+      - level: 172
+        battle_record: 21300
+      - level: 173
+        battle_record: 21500
+      - level: 174
+        battle_record: 21700
+      - level: 175
+        battle_record: 21900
+      - level: 176
+        battle_record: 22100
+      - level: 177
+        battle_record: 22300
+      - level: 178
+        battle_record: 22400
+      - level: 179
+        battle_record: 22600
+      - level: 180
+        battle_record: 22800
+      - level: 181
+        battle_record: 23000
+      - level: 182
+        battle_record: 23200
+      - level: 183
+        battle_record: 23400
+      - level: 184
+        battle_record: 23600
+      - level: 185
+        battle_record: 23800
+      - level: 186
+        battle_record: 24000
+      - level: 187
+        battle_record: 24200
+      - level: 188
+        battle_record: 24400
+      - level: 189
+        battle_record: 24600
+      - level: 190
+        battle_record: 24800
+
+  pet:
+    name: "Pet Upgrades"
+    icon: "🐾"
+    resources:
+      - name: "Freeze-Dried Food"
+        name_zh: "凍乾"
+        key: "freeze_dried"
+    levels:
+      - level: 161
+        freeze_dried: 177000
+      - level: 162
+        freeze_dried: 180000
+      - level: 163
+        freeze_dried: 184000
+      - level: 164
+        freeze_dried: 187000
+      - level: 165
+        freeze_dried: 191000
+      - level: 166
+        freeze_dried: 195000
+      - level: 167
+        freeze_dried: 198000
+      - level: 168
+        freeze_dried: 202000
+      - level: 169
+        freeze_dried: 205000
+      - level: 170
+        freeze_dried: 209000
+      - level: 171
+        freeze_dried: 212000

@@ -1,0 +1,420 @@
+season: 2
+
+# Secret Realm Production Rates
+secret_realm:
+  name: "Secret Realm Production"
+  name_zh: "秘境產量"
+  icon: "🏰"
+  description: "Estimated production per run"
+  description_zh: "粗估值/單次產量"
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 13125
+      tool_name: "Gold Pickaxe"
+      tool_name_zh: "金礦鎬"
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 1066
+      tool_name: "Iron Hammer"
+      tool_name_zh: "鐵礦錘"
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 1000
+      tool_name: "Sand Shovel"
+      tool_name_zh: "砂礦鏟"
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 1400
+      tool_name: "Glove Requirement"
+      tool_name_zh: "拳套需求"
+
+# Stamina Production Rates
+stamina_production:
+  name: "Stamina Production"
+  name_zh: "體力產量"
+  icon: "⚡"
+  description: "Estimated production per 5 stamina"
+  description_zh: "粗估值/單次產量(5體力)"
+  stamina_cost: 5
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 14000
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 1425
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 1170
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 1770
+
+# Daily Bonus Stamina
+daily_stamina:
+  name: "Daily Bonus Stamina"
+  name_zh: "每日額外體力"
+  icon: "📅"
+  description: "Additional stamina sources per day"
+  description_zh: "每日額外體力來源"
+  sources:
+    - name: "Daily Missions"
+      name_zh: "每日任務"
+      key: "daily_missions"
+      amount: 20
+    - name: "Shop Treasury"
+      name_zh: "商店寶庫"
+      key: "shop_treasury"
+      amount: 30
+  total: 50
+
+categories:
+  gear:
+    name: "Gear Upgrades"
+    icon: "⚔️"
+    resources:
+      - name: "Iron"
+        name_zh: "鐵"
+        key: "iron"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 181
+        iron: 24900
+        gold: 49800
+      - level: 182
+        iron: 25100
+        gold: 50200
+      - level: 183
+        iron: 25200
+        gold: 50500
+      - level: 184
+        iron: 25400
+        gold: 50800
+      - level: 185
+        iron: 25600
+        gold: 51200
+      - level: 186
+        iron: 25700
+        gold: 51500
+      - level: 187
+        iron: 25900
+        gold: 51800
+      - level: 188
+        iron: 26100
+        gold: 52200
+      - level: 189
+        iron: 26200
+        gold: 52500
+      - level: 190
+        iron: 26400
+        gold: 52800
+      - level: 191
+        iron: 26600
+        gold: 53200
+      - level: 192
+        iron: 26700
+        gold: 53500
+      - level: 193
+        iron: 26900
+        gold: 53800
+      - level: 194
+        iron: 27100
+        gold: 54200
+      - level: 195
+        iron: 27200
+        gold: 54500
+      - level: 196
+        iron: 27400
+        gold: 54800
+      - level: 197
+        iron: 27600
+        gold: 55200
+      - level: 198
+        iron: 27700
+        gold: 55500
+      - level: 199
+        iron: 27900
+        gold: 55800
+      - level: 200
+        iron: 28100
+        gold: 56200
+      - level: 201
+        iron: 28200
+        gold: 56500
+      - level: 202
+        iron: 28400
+        gold: 56800
+      - level: 203
+        iron: 28600
+        gold: 57200
+      - level: 204
+        iron: 28700
+        gold: 57500
+      - level: 205
+        iron: 28900
+        gold: 57800
+      - level: 206
+        iron: 29100
+        gold: 58200
+      - level: 207
+        iron: 29200
+        gold: 58500
+      - level: 208
+        iron: 29400
+        gold: 58800
+      - level: 209
+        iron: 29600
+        gold: 59200
+      - level: 210
+        iron: 29700
+        gold: 59500
+      - level: 211
+        iron: 29900
+        gold: 59800
+      - level: 212
+        iron: 30100
+        gold: 60200
+      - level: 213
+        iron: 30200
+        gold: 60500
+      - level: 214
+        iron: 30400
+        gold: 60800
+      - level: 215
+        iron: 30600
+        gold: 61200
+      - level: 216
+        iron: 30700
+        gold: 61500
+      - level: 217
+        iron: 30900
+        gold: 61800
+      - level: 218
+        iron: 31100
+        gold: 62200
+      - level: 219
+        iron: 31200
+        gold: 62500
+      - level: 220
+        iron: 31400
+        gold: 62800
+      - level: 221
+        iron: 31600
+        gold: 63200
+      - level: 222
+        iron: 31700
+        gold: 63500
+      - level: 223
+        iron: 31900
+        gold: 63800
+      - level: 224
+        iron: 32100
+        gold: 64200
+      - level: 225
+        iron: 32200
+        gold: 64500
+      - level: 226
+        iron: 32400
+        gold: 64800
+      - level: 227
+        iron: 32600
+        gold: 65200
+      - level: 228
+        iron: 32700
+        gold: 65500
+      - level: 229
+        iron: 32900
+        gold: 65800
+      - level: 230
+        iron: 33100
+        gold: 66200
+
+  relic:
+    name: "Relic Upgrades"
+    icon: "✨"
+    resources:
+      - name: "Hourglass"
+        name_zh: "時之砂"
+        key: "hourglass"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 18
+        hourglass: 50625
+        gold: 91100
+      - level: 19
+        hourglass: 54000
+        gold: 97200
+      - level: 20
+        hourglass: 57375
+        gold: 103000
+
+  skill:
+    name: "Skill Upgrades"
+    icon: "📚"
+    resources:
+      - name: "Battle Record"
+        name_zh: "歷戰"
+        key: "battle_record"
+    levels:
+      - level: 171
+        battle_record: 16820
+      - level: 172
+        battle_record: 16940
+      - level: 173
+        battle_record: 17060
+      - level: 174
+        battle_record: 17180
+      - level: 175
+        battle_record: 17300
+      - level: 176
+        battle_record: 17420
+      - level: 177
+        battle_record: 17540
+      - level: 178
+        battle_record: 17660
+      - level: 179
+        battle_record: 17780
+      - level: 180
+        battle_record: 17900
+      - level: 181
+        battle_record: 18020
+      - level: 182
+        battle_record: 18140
+      - level: 183
+        battle_record: 18260
+      - level: 184
+        battle_record: 18380
+      - level: 185
+        battle_record: 18500
+      - level: 186
+        battle_record: 18620
+      - level: 187
+        battle_record: 18740
+      - level: 188
+        battle_record: 18860
+      - level: 189
+        battle_record: 18980
+      - level: 190
+        battle_record: 19100
+      - level: 191
+        battle_record: 19220
+      - level: 192
+        battle_record: 19340
+      - level: 193
+        battle_record: 19460
+      - level: 194
+        battle_record: 19580
+      - level: 195
+        battle_record: 19700
+      - level: 196
+        battle_record: 19820
+      - level: 197
+        battle_record: 19940
+      - level: 198
+        battle_record: 20060
+      - level: 199
+        battle_record: 20180
+      - level: 200
+        battle_record: 20300
+
+  pet:
+    name: "Pet Upgrades"
+    icon: "🐾"
+    resources:
+      - name: "Freeze-Dried Food"
+        name_zh: "凍乾"
+        key: "freeze_dried"
+    levels:
+      - level: 161
+        freeze_dried: 91700
+      - level: 162
+        freeze_dried: 92850
+      - level: 163
+        freeze_dried: 94000
+      - level: 164
+        freeze_dried: 95150
+      - level: 165
+        freeze_dried: 96300
+      - level: 166
+        freeze_dried: 97450
+      - level: 167
+        freeze_dried: 98600
+      - level: 168
+        freeze_dried: 99750
+      - level: 169
+        freeze_dried: 100900
+      - level: 170
+        freeze_dried: 102050
+      - level: 171
+        freeze_dried: 103200
+      - level: 172
+        freeze_dried: 104300
+      - level: 173
+        freeze_dried: 105300
+      - level: 174
+        freeze_dried: 106300
+      - level: 175
+        freeze_dried: 107300
+      - level: 176
+        freeze_dried: 109000
+      - level: 177
+        freeze_dried: 110300
+      - level: 178
+        freeze_dried: 111300
+      - level: 179
+        freeze_dried: 112300
+      - level: 180
+        freeze_dried: 113300
+      - level: 181
+        freeze_dried: 114300
+      - level: 182
+        freeze_dried: 115300
+      - level: 183
+        freeze_dried: 116300
+      - level: 184
+        freeze_dried: 117300
+      - level: 185
+        freeze_dried: 119000
+      - level: 186
+        freeze_dried: 120300
+      - level: 187
+        freeze_dried: 121300
+      - level: 188
+        freeze_dried: 122300
+      - level: 189
+        freeze_dried: 123300
+      - level: 190
+        freeze_dried: 124300
+      - level: 191
+        freeze_dried: 125300
+      - level: 192
+        freeze_dried: 126300
+      - level: 193
+        freeze_dried: 127300
+      - level: 194
+        freeze_dried: 129000
+      - level: 195
+        freeze_dried: 130300
+      - level: 196
+        freeze_dried: 131300
+      - level: 197
+        freeze_dried: 132300
+      - level: 198
+        freeze_dried: 133300
+      - level: 199
+        freeze_dried: 134300
+      - level: 200
+        freeze_dried: 135300
