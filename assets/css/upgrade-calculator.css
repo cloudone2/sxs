@@ -1,89 +1,148 @@
-/**
- * Upgrade Calculator Styles - Bootstrap Compatible
- * Enhanced UI/UX with better visual hierarchy and responsiveness
- */
+/* ============================================
+   升級計算器樣式表
+   Upgrade Calculator Stylesheet
+   ============================================ */
 
-/* ===================================
-   CSS Variables & Theme
-   =================================== */
+/* ============================================
+   CSS 變量定義
+   ============================================ */
 :root {
-  --primary-color: #667eea;
-  --primary-dark: #5a67d8;
-  --secondary-color: #764ba2;
-  --success-color: #48bb78;
-  --danger-color: #f56565;
-  --warning-color: #ed8936;
-  --info-color: #4299e1;
-  --text-primary: #2d3748;
-  --text-secondary: #718096;
-  --bg-light: #f7fafc;
-  --bg-white: #ffffff;
-  --border-color: #e2e8f0;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --primary-color: #3b82f6;
+  --secondary-color: #8b5cf6;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --info-color: #06b6d4;
+  
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-light: #9ca3af;
+  
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-hover: #f3f4f6;
+  
+  --border-color: #e5e7eb;
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  --transition: all 0.3s ease;
 }
 
-/* ===================================
-   Reset & Base Styles
-   =================================== */
-* {
-  box-sizing: border-box;
+/* 深色模式變量 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-light: #9ca3af;
+    
+    --bg-primary: #1f2937;
+    --bg-secondary: #111827;
+    --bg-hover: #374151;
+    
+    --border-color: #374151;
+  }
 }
 
-/* Override Bootstrap container max-width for upgrade calculator */
+/* ============================================
+   主容器
+   ============================================ */
 .upgrade-container {
-  max-width: 100% !important;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 100px; /* Space for FAB menu */
-  position: relative;
-  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Ensure no conflicts with Bootstrap */
-.upgrade-container * {
-  box-sizing: border-box;
+/* ============================================
+   季節選擇器頭部
+   ============================================ */
+.season-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border-radius: var(--border-radius);
+  color: white;
+  box-shadow: var(--shadow-lg);
 }
 
-/* Make inputs work with Bootstrap form controls */
-.input-card input[type="number"],
-.input-card input[type="date"],
-.input-card input[type="datetime-local"],
-.level-inputs input,
-.avg-level-input input {
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
+.season-header h1 {
+  margin: 0 0 15px 0;
+  font-size: 2.5em;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.input-card input[type="number"]::-webkit-inner-spin-button,
-.input-card input[type="number"]::-webkit-outer-spin-button,
-.level-inputs input::-webkit-inner-spin-button,
-.level-inputs input::-webkit-outer-spin-button,
-.avg-level-input input::-webkit-inner-spin-button,
-.avg-level-input input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.season-header p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  opacity: 0.95;
 }
 
-/* Bootstrap button override */
-.calculate-btn,
-.apply-btn,
-.toggle-all-btn,
+.season-header .subtitle-en {
+  font-size: 0.95em;
+  opacity: 0.85;
+}
+
+/* 季節選擇按鈕 */
+.season-selector {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
 .season-btn {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  user-select: none;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius-sm);
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
 }
 
-/* ===================================
-   Animations
-   =================================== */
+.season-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.season-btn.active {
+  background: white;
+  color: var(--primary-color);
+  border-color: white;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.season-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   季節內容區
+   ============================================ */
+.season-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.season-content.active {
+  display: block;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -95,208 +154,84 @@
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ===================================
-   Container & Header
-   =================================== */
-.upgrade-container {
-  animation: fadeIn 0.5s ease-in;
-}
-
-/* Season Header */
-.season-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  border-radius: var(--radius-lg);
-  color: white;
-  box-shadow: var(--shadow-lg);
-}
-
-.season-header h1 {
-  margin: 0 0 10px 0;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.season-header > p {
-  margin: 5px 0;
-  font-size: 1.1em;
-  opacity: 0.95;
-}
-
-/* ===================================
-   Season Selector
-   =================================== */
-.season-selector {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
-
-.season-btn {
-  padding: 12px 28px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 600;
-  transition: var(--transition);
-  backdrop-filter: blur(10px);
-}
-
-.season-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.season-btn.active {
-  background: white;
-  color: var(--primary-color);
-  border-color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.season-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* ===================================
-   Season Content
-   =================================== */
-.season-content {
-  display: none;
-  animation: slideIn 0.4s ease-out;
-}
-
-.season-content.active {
-  display: block;
-}
-
+/* 季節資訊標題 */
 .season-info {
   text-align: center;
   margin-bottom: 40px;
+  padding: 30px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
 }
 
 .season-info h1 {
-  color: var(--text-primary);
-  font-size: 2em;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
+  color: var(--primary-color);
+  font-size: 2.2em;
+  font-weight: 700;
 }
 
 .season-info p {
-  color: var(--text-secondary);
-  font-size: 1em;
   margin: 5px 0;
+  color: var(--text-secondary);
+  font-size: 1.1em;
 }
 
-/* ===================================
-   Calculator Sections
-   =================================== */
+.season-info .subtitle-en {
+  font-size: 0.95em;
+  color: var(--text-light);
+}
+
+/* ============================================
+   計算器區塊
+   ============================================ */
 .calculator-section {
-  background: var(--bg-white);
-  border-radius: var(--radius-lg);
-  padding: 32px;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 30px;
   margin-bottom: 30px;
   box-shadow: var(--shadow-md);
-  border: 2px solid var(--border-color);
-  position: relative;
   transition: var(--transition);
 }
 
 .calculator-section:hover {
   box-shadow: var(--shadow-lg);
-  border-color: var(--primary-color);
+  transform: translateY(-2px);
 }
 
 .calculator-section h2 {
-  color: var(--text-primary);
-  font-size: 1.75em;
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
+  color: var(--primary-color);
+  font-size: 1.8em;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.calculator-section h2::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 32px;
-  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-  border-radius: 3px;
+  gap: 10px;
 }
 
 .subtitle {
   color: var(--text-secondary);
   font-size: 0.95em;
-  margin: 0 0 24px 0;
-  padding-left: 18px;
+  margin-bottom: 25px;
+  font-style: italic;
 }
 
-/* ===================================
-   Input Grid & Cards
-   =================================== */
+/* ============================================
+   輸入網格
+   ============================================ */
 .input-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .input-card {
-  background: var(--bg-light);
+  background: var(--bg-secondary);
   padding: 20px;
-  border-radius: var(--radius-md);
-  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
   transition: var(--transition);
 }
 
@@ -307,43 +242,36 @@
 
 .input-card label {
   display: block;
+  margin-bottom: 10px;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 6px;
   font-size: 0.95em;
 }
 
-.label-zh {
+.input-card label small {
   display: block;
-  color: var(--text-secondary);
+  font-weight: 400;
+  margin-top: 4px;
   font-size: 0.85em;
-  margin-bottom: 12px;
-  font-weight: normal;
 }
 
-.input-card input[type="number"],
-.input-card input[type="date"],
-.input-card input[type="datetime-local"] {
+.input-card input {
   width: 100%;
   padding: 12px;
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-sm);
   font-size: 1em;
   transition: var(--transition);
-  background: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .input-card input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.input-card input:invalid {
-  border-color: var(--danger-color);
-}
-
-/* Base Value Display */
 .base-value {
   margin-top: 8px;
   font-size: 0.85em;
@@ -351,111 +279,38 @@
   font-style: italic;
 }
 
-/* ===================================
-   Info Section
-   =================================== */
-.info-section {
-  background: linear-gradient(135deg, #e0e7ff 0%, #f0e7ff 100%);
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
-  margin-top: 20px;
-  border-left: 4px solid var(--primary-color);
-}
-
-.info-section p {
-  margin: 8px 0;
-  font-size: 0.9em;
+/* ============================================
+   資訊提示框
+   ============================================ */
+.info-box {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  border-left: 4px solid var(--info-color);
+  padding: 15px 20px;
+  border-radius: var(--border-radius-sm);
+  margin: 20px 0;
+  font-size: 0.95em;
   line-height: 1.6;
-  color: var(--text-primary);
 }
 
-.info-section strong {
+.info-box strong {
   color: var(--primary-color);
 }
 
-/* ===================================
-   Stamina Result Styles
-   =================================== */
-.stamina-result {
-  display: none;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  padding: 24px;
-  border-radius: var(--radius-md);
-  border-left: 4px solid var(--success-color);
-  margin-top: 24px;
-  animation: slideDown 0.4s ease-out;
-}
-
-.stamina-result.show {
-  display: block;
-}
-
-.stamina-result h3 {
-  margin: 0 0 20px 0;
-  color: #2e7d32;
-  font-size: 1.4em;
-}
-
-.stamina-result-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
-.stamina-stat {
-  background: white;
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  text-align: center;
-  transition: var(--transition);
-}
-
-.stamina-stat:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.stamina-stat.highlight {
-  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
-  color: white;
-}
-
-.stat-label {
-  font-size: 0.9em;
-  color: #558b2f;
-  margin-bottom: 8px;
-}
-
-.stamina-stat.highlight .stat-label {
-  color: #c8e6c9;
-}
-
-.stat-value {
-  font-size: 1.6em;
-  font-weight: bold;
-  color: #2e7d32;
-}
-
-.stamina-stat.highlight .stat-value {
-  color: white;
-  font-size: 1.8em;
-}
-
-/* ===================================
-   Stamina Options
-   =================================== */
+/* ============================================
+   體力使用選項
+   ============================================ */
 .stamina-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  margin-top: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .stamina-option {
-  background: var(--bg-light);
+  background: var(--bg-secondary);
   border: 3px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 24px;
+  border-radius: var(--border-radius);
+  padding: 25px 20px;
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
@@ -468,123 +323,108 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 0;
 }
 
 .stamina-option:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-color);
-}
-
-.stamina-option:hover::before {
-  transform: scaleX(1);
-}
-
-.stamina-option.selected {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  color: white;
-  border-color: var(--primary-color);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 
-.stamina-option.selected::before {
-  transform: scaleX(1);
+.stamina-option:hover::before {
+  opacity: 0.1;
+}
+
+.stamina-option.selected {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.stamina-option.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: var(--success-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  z-index: 1;
 }
 
 .stamina-option .icon {
   font-size: 3em;
-  margin-bottom: 12px;
-  filter: grayscale(0.3);
-  transition: var(--transition);
-}
-
-.stamina-option:hover .icon,
-.stamina-option.selected .icon {
-  filter: grayscale(0);
-  transform: scale(1.1);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 .stamina-option .name {
-  font-weight: 600;
-  font-size: 1.05em;
-  margin-bottom: 4px;
-}
-
-.stamina-option .name-zh {
-  font-size: 0.9em;
-  opacity: 0.8;
-}
-
-/* ===================================
-   Toggle All Buttons
-   =================================== */
-.toggle-all-buttons {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
-.toggle-all-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: var(--bg-light);
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 5px;
   color: var(--text-primary);
-  font-size: 0.95em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
+  position: relative;
+  z-index: 1;
 }
 
-.toggle-all-btn:hover {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  color: white;
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+.stamina-option .name-en {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
 }
 
-/* ===================================
-   Collapsible Categories
-   =================================== */
+.stamina-option .rate {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   升級目標區塊
+   ============================================ */
+.upgrade-targets {
+  margin-top: 20px;
+}
+
+/* 可折疊分類 */
 .collapsible-category {
-  margin-bottom: 24px;
+  background: var(--bg-secondary);
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
   overflow: hidden;
   transition: var(--transition);
-}
-
-.collapsible-category:hover {
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
 }
 
 .category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 20px 24px;
-  background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+  padding: 20px 25px;
+  background: var(--bg-primary);
   cursor: pointer;
   transition: var(--transition);
   border-bottom: 2px solid transparent;
-  user-select: none;
 }
 
 .category-header:hover {
-  background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+  background: var(--bg-hover);
 }
 
 .category-header.collapsed {
@@ -595,109 +435,67 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  flex: 1;
-  min-width: 250px;
+}
+
+.category-title h3 {
+  margin: 0;
+  font-size: 1.3em;
+  color: var(--text-primary);
 }
 
 .collapse-icon {
   font-size: 1.2em;
   color: var(--primary-color);
   transition: transform 0.3s ease;
-  font-weight: bold;
+  display: inline-block;
   width: 20px;
-  text-align: center;
 }
 
-.category-header:hover .collapse-icon {
-  transform: scale(1.2);
-}
-
-.category-header h3 {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: 1.3em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.category-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.3s ease;
-  opacity: 0;
-  padding: 0 24px;
-  background: white;
-}
-
-.category-content.active {
-  max-height: 5000px; /* Large enough to fit all content */
-  opacity: 1;
-  padding: 24px;
-}
-
-/* ===================================
-   Average Level Input
-   =================================== */
+/* 平均等級輸入區 */
 .avg-level-input {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: white;
-  padding: 12px 16px;
-  border-radius: var(--radius-md);
-  border: 2px solid var(--border-color);
+  gap: 10px;
   flex-wrap: wrap;
-  z-index: 1;
-  position: relative;
-}
-
-.avg-level-input:hover {
-  border-color: var(--primary-color);
 }
 
 .avg-level-input label {
   font-size: 0.9em;
   color: var(--text-secondary);
-  font-weight: 600;
   white-space: nowrap;
 }
 
 .avg-level-input input {
   width: 80px;
-  padding: 10px;
+  padding: 8px 12px;
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95em;
   text-align: center;
-  font-weight: bold;
-  font-size: 1em;
-  background: white;
+  font-weight: 600;
   transition: var(--transition);
 }
 
 .avg-level-input input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .apply-btn {
-  padding: 10px 20px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  padding: 8px 20px;
+  background: var(--primary-color);
   color: white;
   border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.9em;
+  border-radius: var(--border-radius-sm);
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  white-space: nowrap;
-  box-shadow: var(--shadow-sm);
+  font-size: 0.9em;
 }
 
 .apply-btn:hover {
+  background: var(--secondary-color);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -706,108 +504,90 @@
   transform: translateY(0);
 }
 
-/* ===================================
-   Upgrade Grid & Items
-   =================================== */
-.upgrade-targets {
-  margin-top: 24px;
+/* 分類內容區 */
+.category-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  padding: 0 25px;
 }
 
+.category-content.active {
+  max-height: 3000px;
+  padding: 25px;
+}
+
+/* 升級項目網格 */
 .upgrade-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
 }
 
 .upgrade-item {
-  background: var(--bg-light);
+  background: var(--bg-primary);
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 16px;
+  border-radius: var(--border-radius-sm);
+  padding: 15px;
   transition: var(--transition);
 }
 
 .upgrade-item:hover {
   border-color: var(--primary-color);
   box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
 }
 
 .upgrade-item .title {
-  font-size: 0.9em;
   font-weight: 600;
-  color: var(--text-secondary);
   margin-bottom: 12px;
-  text-align: center;
+  color: var(--text-primary);
+  font-size: 0.95em;
 }
 
 .level-inputs {
   display: flex;
   align-items: center;
-  gap: 8px;
-  justify-content: center;
+  gap: 10px;
 }
 
 .level-inputs input {
-  width: 60px;
-  padding: 10px 8px;
+  flex: 1;
+  padding: 10px;
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-sm);
   text-align: center;
-  font-weight: bold;
-  font-size: 1em;
-  background: white;
+  font-weight: 600;
+  font-size: 0.95em;
   transition: var(--transition);
 }
 
 .level-inputs input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .level-inputs span {
   color: var(--text-secondary);
-  font-weight: bold;
+  font-weight: 600;
 }
 
-/* ===================================
-   Calculate Button
-   =================================== */
+/* ============================================
+   計算按鈕
+   ============================================ */
 .calculate-btn {
   width: 100%;
-  padding: 18px 32px;
+  padding: 18px 35px;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: white;
   border: none;
-  border-radius: var(--radius-md);
-  font-size: 1.1em;
+  border-radius: var(--border-radius);
+  font-size: 1.2em;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 24px;
   transition: var(--transition);
   box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-}
-
-.calculate-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.calculate-btn:hover::before {
-  width: 300px;
-  height: 300px;
+  margin-top: 30px;
 }
 
 .calculate-btn:hover {
@@ -819,34 +599,192 @@
   transform: translateY(-1px);
 }
 
-/* ===================================
-   Results Section
-   =================================== */
+/* ============================================
+   結果區塊
+   ============================================ */
 .results-section {
-  background: var(--bg-white);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  margin-top: 40px;
-  margin-bottom: 100px; /* Space for FAB */
-  box-shadow: var(--shadow-lg);
-  border: 2px solid var(--border-color);
   display: none;
-  animation: slideUp 0.5s ease-out;
+  margin-top: 50px;
+  padding: 40px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
+  border: 3px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  animation: slideIn 0.5s ease;
 }
 
 .results-section.show {
   display: block;
 }
 
-.results-section h2 {
-  color: var(--text-primary);
-  font-size: 1.8em;
-  margin: 0 0 24px 0;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.results-section h2,
+.results-section h3 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+/* 計算摘要 */
+.calculation-summary {
+  margin-bottom: 40px;
+}
+
+.calc-step {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border-color);
+}
+
+.step-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.step-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
 }
 
+.step-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+}
+
+.step-item:hover {
+  background: var(--bg-hover);
+}
+
+.step-label {
+  color: var(--text-secondary);
+  font-size: 0.95em;
+}
+
+.step-value {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.05em;
+}
+
+.step-highlight {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 20px;
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.production-breakdown {
+  background: var(--bg-secondary);
+  padding: 15px 20px;
+  border-radius: var(--border-radius-sm);
+  margin-top: 15px;
+  border-left: 4px solid var(--info-color);
+  font-size: 0.95em;
+  line-height: 1.8;
+}
+
+/* 升級詳細表格 */
+.upgrade-category-detail {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.upgrade-category-detail .category-header {
+  padding: 15px 20px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.upgrade-category-detail .category-header:hover {
+  background: var(--bg-hover);
+}
+
+.upgrade-detail-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.upgrade-category-detail.expanded .upgrade-detail-content {
+  max-height: 2000px;
+}
+
+.upgrade-table-container {
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.upgrade-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.upgrade-detail-table th {
+  background: var(--bg-secondary);
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.upgrade-detail-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.upgrade-detail-table tr:hover {
+  background: var(--bg-hover);
+}
+
+.upgrade-detail-table .total-row {
+  background: var(--bg-secondary);
+  font-weight: 700;
+}
+
+.upgrade-detail-table .total-row td {
+  border-top: 2px solid var(--border-color);
+  padding-top: 15px;
+}
+
+/* 結果網格 */
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -855,46 +793,34 @@
 }
 
 .result-card {
-  background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 24px;
+  background: white;
+  border: 3px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 25px;
+  box-shadow: var(--shadow-md);
   transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
 }
 
 .result-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--primary-color);
 }
 
 .resource-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: 700;
+  margin-bottom: 5px;
   color: var(--text-primary);
-  margin-bottom: 4px;
 }
 
-.resource-name-zh {
-  font-size: 0.9em;
+.resource-name-en {
+  font-size: 0.85em;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .amounts {
-  margin: 16px 0;
+  margin: 20px 0;
 }
 
 .amount-row {
@@ -910,54 +836,39 @@
 }
 
 .amount-label {
-  font-size: 0.9em;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 0.9em;
 }
 
 .amount-value {
-  font-size: 1.1em;
   font-weight: 700;
-  color: var(--text-primary);
+  font-size: 1.05em;
 }
 
 .difference {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  font-size: 1.3em;
-  font-weight: 700;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: var(--border-radius-sm);
   text-align: center;
+  font-weight: 700;
+  font-size: 1.1em;
 }
 
 .difference.surplus {
-  background: linear-gradient(135deg, #d4f4dd 0%, #c6f6d5 100%);
-  color: var(--success-color);
-  border: 2px solid var(--success-color);
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  border: 2px solid #10b981;
 }
 
 .difference.shortage {
-  background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
-  color: var(--danger-color);
-  border: 2px solid var(--danger-color);
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+  border: 2px solid #ef4444;
 }
 
-/* ===================================
-   Breakdown Section
-   =================================== */
+/* 細分統計區 */
 .breakdown-section {
-  margin-top: 40px;
-  padding-top: 40px;
-  border-top: 3px solid var(--border-color);
-}
-
-.breakdown-section h3 {
-  color: var(--text-primary);
-  font-size: 1.5em;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin-top: 50px;
 }
 
 .breakdown-grid {
@@ -967,23 +878,24 @@
 }
 
 .breakdown-card {
-  background: var(--bg-light);
+  background: white;
   border: 2px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 20px;
+  border-radius: var(--border-radius);
+  padding: 25px;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .breakdown-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
 
 .breakdown-card .category {
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  color: var(--primary-color);
   padding-bottom: 12px;
   border-bottom: 2px solid var(--border-color);
 }
@@ -998,100 +910,66 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
-  background: white;
-  border-radius: var(--radius-sm);
+  padding: 12px 15px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-sm);
   transition: var(--transition);
 }
 
 .resource-item:hover {
-  background: #f0f4ff;
-  transform: translateX(4px);
+  background: var(--bg-hover);
 }
 
 .resource-item span:first-child {
-  font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  font-size: 0.95em;
 }
 
 .resource-item .value {
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--text-primary);
   font-size: 1.1em;
 }
 
-/* ===================================
-   No Data Message
-   =================================== */
+/* ============================================
+   無數據訊息
+   ============================================ */
 .no-data-message {
   text-align: center;
-  padding: 80px 20px;
-  background: var(--bg-light);
-  border-radius: var(--radius-lg);
-  margin-top: 40px;
+  padding: 60px 20px;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
   border: 2px dashed var(--border-color);
 }
 
 .no-data-message h2 {
   color: var(--text-secondary);
-  margin-bottom: 16px;
-  font-size: 1.8em;
+  margin-bottom: 15px;
 }
 
 .no-data-message p {
-  color: var(--text-secondary);
-  font-size: 1.1em;
+  color: var(--text-light);
   margin: 8px 0;
 }
 
-/* ===================================
-   Loading State
-   =================================== */
-.calculating {
-  pointer-events: none;
-  opacity: 0.6;
-  position: relative;
-}
-
-.calculating::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border: 4px solid var(--border-color);
-  border-top-color: var(--primary-color);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-/* ===================================
-   Responsive Design
-   =================================== */
-@media (max-width: 1024px) {
-  .upgrade-container {
-    padding: 16px;
-    padding-bottom: 100px;
-  }
-  
-  .calculator-section {
-    padding: 24px;
-  }
-  
-  .input-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
+/* ============================================
+   響應式設計
+   ============================================ */
 @media (max-width: 768px) {
+  .upgrade-container {
+    padding: 15px;
+  }
+  
   .season-header h1 {
-    font-size: 2em;
+    font-size: 1.8em;
+  }
+  
+  .season-header p {
+    font-size: 1em;
   }
   
   .season-selector {
-    gap: 8px;
+    gap: 10px;
   }
   
   .season-btn {
@@ -1109,53 +987,26 @@
   
   .input-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 15px;
   }
   
   .stamina-options {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: 1fr;
   }
   
-  .stamina-result-grid {
+  .upgrade-grid {
     grid-template-columns: 1fr;
   }
   
   .category-header {
     flex-direction: column;
-    align-items: stretch;
-    padding: 16px;
-  }
-  
-  .category-title {
-    min-width: auto;
+    align-items: flex-start;
+    gap: 15px;
   }
   
   .avg-level-input {
     width: 100%;
-    justify-content: space-between;
-  }
-  
-  .apply-btn {
-    flex: 1;
-  }
-  
-  .category-content.active {
-    padding: 16px;
-  }
-  
-  .upgrade-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-  }
-  
-  .toggle-all-buttons {
-    flex-direction: column;
-  }
-  
-  .toggle-all-btn {
-    width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   .results-grid {
@@ -1165,128 +1016,150 @@
   .breakdown-grid {
     grid-template-columns: 1fr;
   }
+  
+  .results-section {
+    padding: 25px 15px;
+  }
+  
+  .calc-step {
+    padding: 20px 15px;
+  }
+  
+  .step-title {
+    font-size: 1.1em;
+  }
+  
+  .upgrade-table-container {
+    padding: 15px 10px;
+  }
+  
+  .upgrade-detail-table {
+    font-size: 0.8em;
+  }
+  
+  .upgrade-detail-table th,
+  .upgrade-detail-table td {
+    padding: 8px 6px;
+  }
 }
 
 @media (max-width: 480px) {
   .season-header {
-    padding: 24px 16px;
+    padding: 20px 15px;
   }
   
   .season-header h1 {
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
   
-  .calculator-section {
-    padding: 16px;
+  .calculator-section h2 {
+    font-size: 1.2em;
   }
   
-  .collapse-icon {
+  .calculate-btn {
     font-size: 1em;
+    padding: 15px 25px;
   }
   
-  .category-header h3 {
-    font-size: 1.1em;
+  .resource-name {
+    font-size: 1.2em;
   }
   
-  .stamina-options {
-    grid-template-columns: 1fr;
+  .step-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
   }
   
-  .upgrade-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .level-inputs input {
-    width: 50px;
-    padding: 8px 4px;
+  .amount-row {
+    font-size: 0.9em;
   }
 }
 
-/* ===================================
-   Print Styles
-   =================================== */
+/* ============================================
+   列印樣式
+   ============================================ */
 @media print {
   .season-selector,
-  .calculate-btn,
-  .apply-btn,
-  .toggle-all-btn {
+  .calculator-section,
+  .calculate-btn {
     display: none;
   }
   
-  .calculator-section {
-    page-break-inside: avoid;
-  }
-  
   .results-section {
-    page-break-before: always;
+    border: 1px solid #000;
+    box-shadow: none;
   }
   
-  .upgrade-container {
-    padding-bottom: 0;
-  }
-}
-
-/* ===================================
-   Accessibility
-   =================================== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Focus Visible for Keyboard Navigation */
-*:focus-visible {
-  outline: 3px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-button:focus-visible,
-input:focus-visible {
-  outline: 3px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* ===================================
-   Dark Mode Support (Optional)
-   =================================== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-primary: #e2e8f0;
-    --text-secondary: #a0aec0;
-    --bg-light: #2d3748;
-    --bg-white: #1a202c;
-    --border-color: #4a5568;
-  }
-  
-  .input-card,
-  .upgrade-item,
   .result-card,
-  .breakdown-card,
-  .stamina-stat {
-    background: #2d3748;
+  .breakdown-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
   }
-  
-  .input-card input,
-  .level-inputs input,
-  .avg-level-input input {
-    background: #1a202c;
-    color: #e2e8f0;
+}
+
+/* ============================================
+   滾動條樣式
+   ============================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ============================================
+   動畫效果
+   ============================================ */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
   }
-  
-  .category-content {
-    background: #1a202c;
+  50% {
+    opacity: 0.5;
   }
-  
-  .resource-item {
-    background: #2d3748;
-  }
-  
-  .resource-item:hover {
-    background: #374151;
-  }
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   輔助類別
+   ============================================ */
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
 }

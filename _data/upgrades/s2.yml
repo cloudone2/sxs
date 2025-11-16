@@ -82,8 +82,8 @@ categories:
     name: "Gear Upgrades"
     icon: "⚔️"
     resources:
-      - name: "Iron"
-        name_zh: "鐵"
+      - name: "Refined Stone"
+        name_zh: "粗煉石"
         key: "iron"
       - name: "Gold"
         name_zh: "金幣"
