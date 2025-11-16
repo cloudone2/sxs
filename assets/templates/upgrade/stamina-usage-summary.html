@@ -1,0 +1,28 @@
+<!-- 步驟 2：體力優先級 -->
+<div class="calc-step">
+  <div class="step-title">⚡ 步驟二：體力使用優先級 Stamina Usage Priority</div>
+  <div class="step-highlight">
+    {{staminaResourceIcon}} 全體力投入 All-in → {{staminaResourceName}}
+  </div>
+  <div class="production-breakdown">
+    <div class="formula" style="margin-top: 8px;">
+      <strong>📋 計算過程 Calculation Process:</strong><br>
+      <div style="padding-left: 16px; margin-top: 8px; line-height: 1.8; background: #f8fafc; padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+        <div style="margin-bottom: 8px;">1️⃣ 總體力 Total Stamina: <strong style="color: var(--primary-color);">{{totalStamina}}</strong></div>
+        <div style="margin-bottom: 8px;">2️⃣ 每次消耗 Cost Per Run: <strong style="color: var(--warning-color);">5 體力 stamina</strong></div>
+        <div style="margin-bottom: 8px;">3️⃣ 可刷取次數 Total Runs: {{totalStamina}} ÷ 5 = <strong style="color: var(--info-color);">{{totalRuns}} 次 runs</strong></div>
+        <div style="margin-bottom: 8px;">4️⃣ 每次產量 Production Per Run: <strong style="color: var(--success-color);">{{staminaRate}}</strong> {{staminaResourceName}}</div>
+        <div style="padding-top: 8px; border-top: 2px solid var(--border-color);">
+          5️⃣ <strong style="font-size: 1.1em; color: var(--success-color);">總產量 Total Production:</strong><br>
+          <span style="font-size: 1.05em; padding-left: 20px; display: block; margin-top: 4px;">
+            {{totalRuns}} 次 runs × {{staminaRate}} = <strong style="color: var(--success-color); font-size: 1.2em;">{{staminaProduction}}</strong> {{staminaResourceName}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; font-size: 0.95em;">
+      💡 <strong>說明 Note:</strong> 每次刷取消耗 5 體力，所以總次數 = 總體力 ÷ 5<br>
+      Each run costs 5 stamina, so total runs = total stamina ÷ 5
+    </div>
+  </div>
+</div>

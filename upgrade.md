@@ -72,8 +72,8 @@ lang: zh-TW
           <div class="info-box">
             <span class="info-icon">ℹ️</span>
             <div>
-              <strong>📘 說明 Info:</strong> 基礎每日體力：{{ season_data.daily_stamina.total }} (每日任務 + 商店寶庫：)<br>
-              <strong>Info:</strong> Base daily stamina: {{ season_data.daily_stamina.total }} (Daily Missions: + Shop Treasury: )
+              <strong>📘 說明 Info:</strong> 基礎每日體力：{{ season_data.daily_stamina.total }} (每日任務 + 商店寶庫)<br>
+              <strong>Info:</strong> Base daily stamina: {{ season_data.daily_stamina.total }} (Daily Missions + Shop Treasury)
             </div>
           </div>
         </div>
@@ -135,10 +135,18 @@ lang: zh-TW
 
             <div class="input-card">
               <label>
-                🥩 凍乾 Freeze-dried
+                🥩 普通凍乾 Normal Freeze-dried
                 <small>每小時產量 Per hour rate</small>
               </label>
               <input type="number" id="{{ season.id }}-cart-dried" value="0" min="0" step="10">
+            </div>
+          </div>
+
+          <div class="info-box" style="background: #fef3c7;">
+            <span class="info-icon">💡</span>
+            <div>
+              <strong>說明 Note:</strong> 推車只產生普通凍乾 ({{ site.data.freeze_dried_exp.types[0].exp }} EXP/個 per item)<br>
+              Cart only produces Normal Freeze-dried ({{ site.data.freeze_dried_exp.types[0].exp }} EXP each)
             </div>
           </div>
         </div>
@@ -168,6 +176,84 @@ lang: zh-TW
             </div>
           </div>
         </div>
+
+        <!-- 步驟 4.5：羈絆冒險（S3+ 限定） -->
+        {% if season.bond_adventure_enabled %}
+          {% assign bond_file = season.bond_adventure_file %}
+          {% assign bond_data = site.data[bond_file] %}
+          
+          {% if bond_data %}
+          <div class="calculator-section">
+            <h2>🎭 步驟四點五：羈絆冒險 Bond Adventure</h2>
+            <p class="subtitle">Step 4.5: Bond Adventure (每天可獲得 4 次獎勵 4 rewards per day)</p>
+            
+            <div class="input-grid">
+              <!-- 最高完成關卡選擇 -->
+              <div class="input-card" style="grid-column: 1 / -1;">
+                <label>
+                  🗺️ 選擇最高完成關卡 Select Highest Completed Stage
+                  <small>決定每次獎勵的優質凍乾數量 Determines premium freeze-dried per reward</small>
+                </label>
+                <select id="{{ season.id }}-bond-stage" class="input-field" style="font-size: 0.95em;" onchange="updateBondAdventurePreview('{{ season.id }}')">
+                  {% assign premium_exp = site.data.freeze_dried_exp.types[1].exp %}
+                  <option value="0" data-premium="0">
+                    未完成 Not Started: 0 ⭐優質凍乾 Premium
+                  </option>
+                  <option value="{{ bond_data.base_premium }}" data-premium="{{ bond_data.base_premium }}">
+                    基礎獎勵 Base Reward: {{ bond_data.base_premium }} ⭐優質凍乾 Premium ({{ bond_data.base_premium | times: premium_exp | number_with_delimiter }} EXP/次)
+                  </option>
+                  {% for stage in bond_data.stages %}
+                    {% assign total_premium = bond_data.base_premium | plus: stage.premium %}
+                    {% assign exp_per_run = total_premium | times: premium_exp %}
+                    <option value="{{ total_premium }}" data-premium="{{ total_premium }}">
+                      {{ stage.stage }} {{ stage.stage_en }}: {{ total_premium }} ⭐優質凍乾 Premium ({{ exp_per_run | number_with_delimiter }} EXP/次)
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- 用戶輸入優質凍乾數量 -->
+              <div class="input-card">
+                <label>
+                  ⭐ 你擁有的優質凍乾 Your Premium Freeze-dried
+                  <small>可通過羈絆冒險獲得 Obtained from Bond Adventure</small>
+                </label>
+                <input type="number" id="{{ season.id }}-bond-premium-owned" value="0" min="0" step="10" class="input-field" oninput="updateBondAdventurePreview('{{ season.id }}')" placeholder="輸入數量 Enter amount">
+              </div>
+
+              <!-- 預覽資訊 -->
+              <div class="input-card" style="grid-column: 1 / -1;">
+                <div id="{{ season.id }}-bond-preview" style="background: #f0f9ff; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                  <div style="font-weight: bold; margin-bottom: 8px;">📊 羈絆冒險預覽 Bond Adventure Preview:</div>
+                  <div id="{{ season.id }}-bond-preview-content" style="color: #1e40af; line-height: 1.8;">
+                    請選擇最高完成關卡和輸入優質凍乾數量<br>
+                    Please select highest completed stage and enter premium freeze-dried amount
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="info-box" style="background: #e0f2fe;">
+              <span class="info-icon">💡</span>
+              <div>
+                <strong>說明 Note:</strong><br>
+                • 羈絆冒險每天可獲得 <strong>4 次</strong>獎勵（每次獎勵由完成關卡決定）<br>
+                Bond Adventure grants <strong>4 rewards per day</strong> (reward amount based on completed stage)
+              </div>
+            </div>
+            
+            <div class="info-box" style="background: #fef3c7; margin-top: 12px;">
+              <span class="info-icon">📊</span>
+              <div>
+                <strong>凍乾經驗值系統 Freeze-dried EXP System:</strong><br>
+                {% for type in site.data.freeze_dried_exp.types %}
+                • {{ type.icon }} {{ type.name_zh }} {{ type.name }}: <strong>{{ type.exp }} EXP</strong><br>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endif %}
 
         <!-- 步驟 5：升級目標 -->
         <div class="calculator-section">
@@ -378,6 +464,8 @@ lang: zh-TW
   const seasons = {{ site.data.seasons | jsonify }};
   const seasonData = {};
   const SEASON_CONSTANTS = {};
+  const bondAdventureDataMap = {};
+  const freezeDriedExpData = {{ site.data.freeze_dried_exp | jsonify }};
 
   {% for season in site.data.seasons %}
     {% assign season_key = season.id %}
@@ -390,9 +478,18 @@ lang: zh-TW
         releaseDate: '{{ season.release_date }}'
       };
     {% endif %}
+    
+    // 載入羈絆冒險數據（如果該賽季有啟用）
+    {% if season.bond_adventure_enabled and season.bond_adventure_file %}
+      {% assign bond_file = season.bond_adventure_file %}
+      {% assign bond_data = site.data[bond_file] %}
+      {% if bond_data %}
+        bondAdventureDataMap['{{ season_key }}'] = {{ bond_data | jsonify }};
+      {% endif %}
+    {% endif %}
   {% endfor %}
 
   // 初始化計算器
-  initializeCalculator(seasons, seasonData, SEASON_CONSTANTS);
+  initializeCalculator(seasons, seasonData, SEASON_CONSTANTS, bondAdventureDataMap, freezeDriedExpData);
 })();
 </script>

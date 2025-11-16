@@ -1,0 +1,40 @@
+<!-- 步驟 1：時間與體力 -->
+<div class="calc-step">
+  <div class="step-title">⏰ 步驟一：時間與體力分析 Time & Stamina Analysis</div>
+  <div class="step-content">
+    <div class="step-item">
+      <span class="step-label">剩餘天數 Days Remaining:</span>
+      <span class="step-value">{{daysRemaining}} 天 days</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">剩餘小時 Hours Remaining:</span>
+      <span class="step-value">{{hoursRemaining}} 小時 hrs</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">免費加速時數 Free Speedup Hours:</span>
+      <span class="step-value">{{speedupHours}} 小時 hrs <span style="font-size:0.9em; color: var(--text-secondary);">(每天2小時 2hrs/day)</span></span>
+    </div>
+    <div class="step-item" style="border-top: 2px solid var(--border-color); padding-top: 12px; margin-top: 8px;">
+      <span class="step-label"><strong>總時數 Total Hours:</strong></span>
+      <span class="step-value"><strong>{{totalHours}} 小時 hrs</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label"><strong>總體力 Total Stamina:</strong></span>
+      <span class="step-value"><strong>{{totalStamina}}</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label"><strong>體力次數 Stamina Runs:</strong></span>
+      <span class="step-value"><strong>{{totalRuns}} 次 runs <span style="font-size:0.9em; color: var(--text-secondary);">(5體力/次 5 stamina per run)</span></strong></span>
+    </div>
+  </div>
+  <div class="production-breakdown">
+    <div class="formula" style="color: var(--text-secondary); margin-top: 8px;">
+      <strong>📋 計算公式 Calculation Formula:</strong><br>
+      • 總時數 Total Hours = 剩餘小時 {{hoursRemaining}} + 免費加速 ({{daysRemaining}} days × 2 hrs) = {{totalHours}} hrs<br>
+      • 時間體力 Time Stamina = {{totalHours}} hrs × 5 = {{timeStamina}}<br>
+      • 每日體力 Daily Stamina = {{daysRemaining}} days × {{totalDailyStamina}} = {{dailyStamina}}<br>
+      • <strong>總體力 Total Stamina = {{timeStamina}} + {{dailyStamina}} = {{totalStamina}}</strong><br>
+      • <strong>體力次數 Stamina Runs = {{totalStamina}} ÷ 5 = {{totalRuns}} 次 runs</strong>
+    </div>
+  </div>
+</div>

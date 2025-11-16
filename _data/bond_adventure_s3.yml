@@ -1,0 +1,166 @@
+# S3 羈絆冒險數據
+# S3 Bond Adventure Data
+
+base_premium: 160  # 基礎優質凍乾
+
+stages:
+  - stage: "森之國 1-01"
+    stage_en: "Forest 1-01"
+    premium: 0
+    increment: 0
+  - stage: "森之國 1-02"
+    stage_en: "Forest 1-02"
+    premium: 2
+    increment: 2
+  - stage: "森之國 1-03"
+    stage_en: "Forest 1-03"
+    premium: 4
+    increment: 2
+  - stage: "森之國 1-04"
+    stage_en: "Forest 1-04"
+    premium: 8
+    increment: 4
+  - stage: "森之國 1-05"
+    stage_en: "Forest 1-05"
+    premium: 10
+    increment: 2
+  - stage: "森之國 1-06"
+    stage_en: "Forest 1-06"
+    premium: 12
+    increment: 2
+  - stage: "森之國 1-07"
+    stage_en: "Forest 1-07"
+    premium: 14
+    increment: 2
+  - stage: "森之國 1-08"
+    stage_en: "Forest 1-08"
+    premium: 18
+    increment: 4
+  - stage: "森之國 1-09"
+    stage_en: "Forest 1-09"
+    premium: 22
+    increment: 4
+  - stage: "森之國 1-10"
+    stage_en: "Forest 1-10"
+    premium: 24
+    increment: 2
+  - stage: "森之國 1-11"
+    stage_en: "Forest 1-11"
+    premium: 26
+    increment: 2
+  - stage: "森之國 1-12"
+    stage_en: "Forest 1-12"
+    premium: 30
+    increment: 4
+  - stage: "森之國 1-13"
+    stage_en: "Forest 1-13"
+    premium: 32
+    increment: 2
+  - stage: "森之國 1-14"
+    stage_en: "Forest 1-14"
+    premium: 34
+    increment: 2
+  - stage: "森之國 1-15"
+    stage_en: "Forest 1-15"
+    premium: 36
+    increment: 2
+  - stage: "森之國 1-16"
+    stage_en: "Forest 1-16"
+    premium: 40
+    increment: 4
+  - stage: "森之國 1-17"
+    stage_en: "Forest 1-17"
+    premium: 42
+    increment: 2
+  - stage: "森之國 1-18"
+    stage_en: "Forest 1-18"
+    premium: 44
+    increment: 2
+  - stage: "森之國 1-19"
+    stage_en: "Forest 1-19"
+    premium: 46
+    increment: 2
+  - stage: "森之國 1-20"
+    stage_en: "Forest 1-20"
+    premium: 52
+    increment: 6
+  - stage: "森之國 2-01"
+    stage_en: "Forest 2-01"
+    premium: 54
+    increment: 2
+  - stage: "森之國 2-02"
+    stage_en: "Forest 2-02"
+    premium: 56
+    increment: 2
+  - stage: "森之國 2-03"
+    stage_en: "Forest 2-03"
+    premium: 58
+    increment: 2
+  - stage: "森之國 2-04"
+    stage_en: "Forest 2-04"
+    premium: 62
+    increment: 4
+  - stage: "森之國 2-05"
+    stage_en: "Forest 2-05"
+    premium: 64
+    increment: 2
+  - stage: "森之國 2-06"
+    stage_en: "Forest 2-06"
+    premium: 66
+    increment: 2
+  - stage: "森之國 2-07"
+    stage_en: "Forest 2-07"
+    premium: 68
+    increment: 2
+  - stage: "森之國 2-08"
+    stage_en: "Forest 2-08"
+    premium: 72
+    increment: 4
+  - stage: "森之國 2-09"
+    stage_en: "Forest 2-09"
+    premium: 74
+    increment: 2
+  - stage: "森之國 2-10"
+    stage_en: "Forest 2-10"
+    premium: 76
+    increment: 2
+  - stage: "森之國 2-11"
+    stage_en: "Forest 2-11"
+    premium: 78
+    increment: 2
+  - stage: "森之國 2-12"
+    stage_en: "Forest 2-12"
+    premium: 82
+    increment: 4
+  - stage: "森之國 2-13"
+    stage_en: "Forest 2-13"
+    premium: 84
+    increment: 2
+  - stage: "森之國 2-14"
+    stage_en: "Forest 2-14"
+    premium: 86
+    increment: 2
+  - stage: "森之國 2-15"
+    stage_en: "Forest 2-15"
+    premium: 88
+    increment: 2
+  - stage: "森之國 2-16"
+    stage_en: "Forest 2-16"
+    premium: 92
+    increment: 4
+  - stage: "森之國 2-17"
+    stage_en: "Forest 2-17"
+    premium: 94
+    increment: 2
+  - stage: "森之國 2-18"
+    stage_en: "Forest 2-18"
+    premium: 96
+    increment: 2
+  - stage: "森之國 2-19"
+    stage_en: "Forest 2-19"
+    premium: 98
+    increment: 2
+  - stage: "森之國 2-20"
+    stage_en: "Forest 2-20"
+    premium: 104
+    increment: 6

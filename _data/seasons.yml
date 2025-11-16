@@ -13,6 +13,7 @@
   star_start: 10
   theme_color: '#ae4642'
   total_day: 35
+  bond_adventure_enabled: false
 
 - id: 's2'
   title: 'S2: 渊虹邂羽'
@@ -29,6 +30,7 @@
   star_start: 45
   theme_color: '#498881'
   total_day: 67
+  bond_adventure_enabled: false
 
 - id: 's3'
   title: 'S3: 混沌終焉'
@@ -45,3 +47,5 @@
   star_start: 65
   theme_color: '#505096'
   total_day: 99
+  bond_adventure_enabled: true
+  bond_adventure_file: "bond_adventure_s3"  # 指向對應的數據檔案

@@ -1,0 +1,70 @@
+<!-- 
+  最終資源對比摘要模板
+  Final Resource Comparison Summary Template
+  
+  此模板用於顯示每種資源的最終對比結果
+  This template displays the final comparison results for each resource
+-->
+
+<div class="result-card">
+  <!-- 資源名稱 Resource Name -->
+  <div class="resource-name">{{icon}} {{name_zh}}</div>
+  <div class="resource-name-en">{{name_en}}{{staminaNote}}</div>
+  
+  <!-- 資源來源明細 Resource Source Details -->
+  <div class="amounts">
+    <!-- 推車產量 Cart Production -->
+    <div class="amount-row">
+      <span class="amount-label">🏭 推車 Cart</span>
+      <span class="amount-value" style="color: #0ea5e9;">{{cartValue}}</span>
+    </div>
+    
+    <!-- 體力產量 Stamina Production -->
+    <div class="amount-row">
+      <span class="amount-label">⚡ 體力 Stamina</span>
+      <span class="amount-value" style="color: #f59e0b;">{{staminaValue}}</span>
+    </div>
+    
+    <!-- 秘境工具產量 Secret Realm Tools Production -->
+    <div class="amount-row">
+      <span class="amount-label">🔨 秘境工具 Secret Realm</span>
+      <span class="amount-value" style="color: #9333ea;">{{secretRealmValue}}</span>
+    </div>
+    
+    <!-- 羈絆冒險產量 Bond Adventure Production (條件顯示) -->
+    {{#if hasBondAdventure}}
+    <div class="amount-row">
+      <span class="amount-label">🎭 羈絆冒險 Bond Adventure</span>
+      <span class="amount-value" style="color: #f59e0b;">{{bondAdventureValue}}</span>
+    </div>
+    {{/if}}
+    
+    <!-- 總可用資源 Total Available (分隔線) -->
+    <div class="amount-row" style="border-top: 2px solid var(--border-color); padding-top: 12px; margin-top: 8px;">
+      <span class="amount-label"><strong>✅ 總可獲得 Total Available</strong></span>
+      <span class="amount-value" style="color: var(--success-color);"><strong>{{availableTotal}}</strong></span>
+    </div>
+    
+    <!-- 總需求 Total Required -->
+    <div class="amount-row">
+      <span class="amount-label"><strong>🎯 需要 Required</strong></span>
+      <span class="amount-value" style="color: var(--danger-color);"><strong>{{requiredTotal}}</strong></span>
+    </div>
+  </div>
+  
+  <!-- 差異結果 Difference Result -->
+  <div class="difference {{resultClass}}">
+    {{resultIcon}} {{resultText}}: {{resultSign}}{{differenceValue}}
+  </div>
+  
+  <!-- 詳細計算公式 (可選顯示) -->
+  {{#if showFormula}}
+  <div style="margin-top: 12px; padding: 10px; background: #f8fafc; border-radius: 6px; font-size: 0.85em; color: var(--text-secondary); border-left: 3px solid var(--info-color);">
+    <strong>📐 計算公式 Formula:</strong><br>
+    <div style="padding-left: 12px; margin-top: 6px; line-height: 1.6;">
+      可用 Available = {{cartValue}} (推車) + {{staminaValue}} (體力) + {{secretRealmValue}} (秘境){{bondFormulaText}}<br>
+      結果 Result = {{availableTotal}} - {{requiredTotal}} = <strong style="color: {{resultColor}};">{{resultSign}}{{differenceValue}}</strong>
+    </div>
+  </div>
+  {{/if}}
+</div>

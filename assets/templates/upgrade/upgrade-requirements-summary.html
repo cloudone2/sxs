@@ -1,0 +1,77 @@
+<div class="calc-step">
+  <div class="step-title">🎯 步驟五：升級總需求 Total Upgrade Requirements</div>
+  
+  <!-- 總需求匯總 -->
+  <div class="step-content" style="background: #f1f5f9; padding: 16px; border-radius: 8px; border: 2px solid var(--primary-color); margin-bottom: 20px;">
+    <div style="text-align: center; margin-bottom: 12px;">
+      <strong style="font-size: 1.1em; color: var(--primary-color);">📊 總需求匯總 Total Requirements Summary</strong>
+    </div>
+    <div class="step-item">
+      <span class="step-label">💰 需要金幣 Gold Needed:</span>
+      <span class="step-value"><strong style="font-size: 1.1em;">{{neededGold}}</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">🪨 粗煉石 Refined Stone:</span>
+      <span class="step-value"><strong style="font-size: 1.1em;">{{neededRefinedStone}}</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">⏳ 時之砂 Hourglass:</span>
+      <span class="step-value"><strong style="font-size: 1.1em;">{{neededHourglass}}</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">📖 歷戰精華 Battle Essence:</span>
+      <span class="step-value"><strong style="font-size: 1.1em;">{{neededBattleEssence}}</strong></span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">🥩 凍乾 Freeze-dried:</span>
+      <span class="step-value"><strong style="font-size: 1.1em;">{{neededFreezeDried}}</strong></span>
+    </div>
+  </div>
+  
+  <!-- 計算來源詳細說明 -->
+  <div class="production-breakdown" style="margin-bottom: 20px;">
+    <strong style="font-size: 1.05em;">📋 計算來源 Calculation Source:</strong>
+    <div style="padding-left: 16px; margin-top: 12px; line-height: 2;">
+      <div style="margin-bottom: 8px;">
+        <strong>💰 金幣 Gold:</strong><br>
+        <span style="padding-left: 20px; display: block; margin-top: 4px;">
+          • 裝備升級 Gear Upgrades: <span style="color: #0ea5e9; font-weight: 600;">{{breakdownGearGold}}</span><br>
+          • 古遺物升級 Relic Upgrades: <span style="color: #0ea5e9; font-weight: 600;">{{breakdownRelicGold}}</span><br>
+          • <strong>總計 Total: <span style="color: var(--primary-color); font-size: 1.1em;">{{neededGold}}</span></strong>
+        </span>
+      </div>
+      
+      <div style="margin-bottom: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+        <strong>🪨 粗煉石 Refined Stone:</strong><br>
+        <span style="padding-left: 20px; display: block; margin-top: 4px;">
+          • 裝備鍛造 Gear Forging (鐵礦 Iron): <span style="color: #64748b; font-weight: 600;">{{breakdownGearIron}}</span><br>
+          • <strong>總計 Total: <span style="color: var(--primary-color); font-size: 1.1em;">{{neededRefinedStone}}</span></strong>
+        </span>
+      </div>
+      
+      <div style="margin-bottom: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+        <strong>⏳ 時之砂 Hourglass:</strong><br>
+        <span style="padding-left: 20px; display: block; margin-top: 4px;">
+          • 古遺物升級 Relic Upgrades: <span style="color: #06b6d4; font-weight: 600;">{{breakdownRelicHourglass}}</span><br>
+          • <strong>總計 Total: <span style="color: var(--primary-color); font-size: 1.1em;">{{neededHourglass}}</span></strong>
+        </span>
+      </div>
+      
+      <div style="margin-bottom: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+        <strong>📖 歷戰精華 Battle Essence:</strong><br>
+        <span style="padding-left: 20px; display: block; margin-top: 4px;">
+          • 技能升級 Skill Upgrades: <span style="color: #f59e0b; font-weight: 600;">{{breakdownSkillEssence}}</span><br>
+          • <strong>總計 Total: <span style="color: var(--primary-color); font-size: 1.1em;">{{neededBattleEssence}}</span></strong>
+        </span>
+      </div>
+      
+      <div style="padding-top: 8px; border-top: 1px solid var(--border-color);">
+        <strong>🥩 凍乾 Freeze-dried (經驗值 EXP):</strong><br>
+        <span style="padding-left: 20px; display: block; margin-top: 4px;">
+          • 幻獸升級 Pet Upgrades: <span style="color: #10b981; font-weight: 600;">{{breakdownPetFreezeDried}}</span><br>
+          • <strong>總計 Total: <span style="color: var(--primary-color); font-size: 1.1em;">{{neededFreezeDried}}</span></strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

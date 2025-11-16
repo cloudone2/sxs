@@ -1,0 +1,33 @@
+<!-- 步驟 3：推車產量 -->
+<div class="calc-step">
+  <div class="step-title">🏭 步驟三：推車產量 Cart Production ({{totalHours}} 小時 hours)</div>
+  <div class="step-content">
+    <div class="step-item">
+      <span class="step-label">💰 金幣 Gold ({{goldPerHour}}💰/hr) (×{{totalHours}}小時):</span>
+      <span class="step-value">{{cartGold}}</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">🪨 粗煉石 Refined Stone ({{stonePerHour}}🪨/hr) (×{{totalHours}}小時):</span>
+      <span class="step-value">{{cartStone}}</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">⏳ 時之砂 Hourglass ({{hourglassPerHour}}⏳/hr) (×{{totalHours}}小時):</span>
+      <span class="step-value">{{cartHourglass}}</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">📖 歷戰精華 Battle Essence ({{essencePerHour}}📖/hr) (×{{totalHours}}小時):</span>
+      <span class="step-value">{{cartEssence}}</span>
+    </div>
+    <div class="step-item">
+      <span class="step-label">🥩 普通凍乾 Normal Freeze-dried ({{driedPerHour}}🥩/hr) (×{{totalHours}}小時):</span>
+      <span class="step-value">{{cartDriedCount}} 個 items 
+        <span style="color: var(--success-color);">({{cartDriedExp}} EXP)</span>
+      </span>
+    </div>
+  </div>
+  <div style="margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; font-size: 0.95em;">
+    💡 <strong>說明 Note:</strong> 推車只產生普通凍乾 ({{normalExp}} EXP/個 per item)<br>
+    Cart only produces Normal Freeze-dried ({{normalExp}} EXP each)<br>
+    <strong>計算 Calculation:</strong> {{driedPerHour}} items/hr × {{totalHours}} hrs × {{normalExp}} EXP = {{cartDriedExp}} EXP
+  </div>
+</div>

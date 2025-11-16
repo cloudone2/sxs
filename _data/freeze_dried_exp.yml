@@ -1,0 +1,21 @@
+# 凍乾經驗值系統
+# Freeze-dried EXP System
+
+types:
+  - key: "normal"
+    name_zh: "普通凍乾"
+    name: "Normal Freeze-dried"
+    icon: "🥩"
+    exp: 50
+    
+  - key: "premium"
+    name_zh: "優質凍乾"
+    name: "Premium Freeze-dried"
+    icon: "⭐"
+    exp: 400
+    
+  - key: "deluxe"
+    name_zh: "精品凍乾"
+    name: "Deluxe Freeze-dried"
+    icon: "💎"
+    exp: 2000

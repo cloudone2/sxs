@@ -1,0 +1,23 @@
+<div class="upgrade-category-detail collapsible">
+  <div class="category-header" onclick="toggleUpgradeDetail(this)">
+    <span class="collapse-icon">▶</span>
+    {{categoryTitle}}
+  </div>
+  <div class="upgrade-detail-content">
+    <div class="upgrade-table-container">
+      <table class="upgrade-detail-table">
+        <thead>
+          <tr>
+            {{tableHeaders}}
+          </tr>
+        </thead>
+        <tbody>
+          {{tableRows}}
+          <tr class="total-row">
+            {{tableTotals}}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
