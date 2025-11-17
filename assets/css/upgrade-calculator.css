@@ -1160,3 +1160,16 @@ select:focus-visible {
 /* ============================================
    結束 End of Stylesheet
    ============================================ */
+
+   /* Add to your upgrade-calculator.css */
+.upgrade-details .details-content {
+  display: block !important;
+  max-height: none !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+}
+
+.upgrade-details .details-content > div {
+  display: flex !important;
+  visibility: visible !important;
+}

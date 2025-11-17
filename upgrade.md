@@ -7,212 +7,6 @@ lang: zh-TW
 <link rel="stylesheet" href="{{ '/assets/css/upgrade-calculator.css' | relative_url }}">
 
 <!-- ============================================
-     隱藏模板區 Hidden Templates Section
-     ============================================ -->
-<div style="display: none;">
-  <!-- 體力摘要模板 Stamina Summary Template -->
-  <template id="stamina-summary-template">
-    <div class="calc-step">
-      <div class="step-title">⏰ 步驟一：可用體力分析 Available Stamina Analysis</div>
-      <div class="production-breakdown">
-        <div class="step-item">
-          <span class="step-label">📅 剩餘天數 Days Remaining:</span>
-          <span class="step-value">{{daysRemaining}} 天 days</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">⏳ 剩餘小時 Hours Remaining:</span>
-          <span class="step-value">{{hoursRemaining}} 小時 hours</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">⚡ 加速小時 Speedup Hours:</span>
-          <span class="step-value">{{speedupHours}} 小時 hours ({{daysRemaining}} × 2)</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">🕐 總可用小時 Total Hours:</span>
-          <span class="step-value">{{totalHours}} 小時 hours</span>
-        </div>
-        <div class="formula">
-          <strong>📋 體力來源 Stamina Sources:</strong><br>
-          <div style="padding-left: 16px; margin-top: 8px; line-height: 1.8;">
-            1️⃣ 時間體力 Time-based: {{totalHours}} 小時 × 5 = <strong style="color: var(--info-color);">{{timeStamina}}</strong><br>
-            2️⃣ 每日獎勵 Daily rewards: {{daysRemaining}} 天 × {{totalDailyStamina}} = <strong style="color: var(--success-color);">{{dailyStamina}}</strong><br>
-            <div style="border-top: 2px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
-              3️⃣ <strong style="font-size: 1.1em; color: var(--primary-color);">總體力 Total Stamina: {{totalStamina}}</strong> (可刷 {{totalRuns}} 次 runs)
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-
-  <!-- 推車產量摘要模板 Cart Production Summary Template -->
-  <template id="cart-production-summary-template">
-    <div class="calc-step">
-      <div class="step-title">🏭 步驟三：推車產量 Cart Production</div>
-      <div class="production-breakdown">
-        <div class="step-item">
-          <span class="step-label">💰 金幣 Gold ({{goldPerHour}}/hr):</span>
-          <span class="step-value">{{cartGold}}</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">🪨 粗煉石 Refined Stone ({{stonePerHour}}/hr):</span>
-          <span class="step-value">{{cartStone}}</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">⏳ 時之砂 Hourglass ({{hourglassPerHour}}/hr):</span>
-          <span class="step-value">{{cartHourglass}}</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">📖 歷戰精華 Battle Essence ({{essencePerHour}}/hr):</span>
-          <span class="step-value">{{cartEssence}}</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">🥩 普通凍乾 Normal Freeze-dried ({{driedPerHour}}/hr):</span>
-          <span class="step-value">{{cartDriedCount}} 個 items</span>
-        </div>
-        <div class="formula" style="margin-top: 8px;">
-          <strong>📊 凍乾經驗值 Freeze-dried EXP:</strong><br>
-          {{cartDriedCount}} 個 items × {{normalExp}} EXP = <strong style="color: var(--success-color);">{{cartDriedExp}} EXP</strong>
-        </div>
-      </div>
-    </div>
-  </template>
-
-  <!-- 秘境工具摘要模板 Secret Realm Summary Template -->
-  <template id="secret-realm-summary-template">
-    <div class="calc-step">
-      <div class="step-title">🔨 步驟四：秘境工具產量 Secret Realm Tool Production</div>
-      <div class="production-breakdown">
-        {{toolItemsHtml}}
-      </div>
-    </div>
-  </template>
-
-  <!-- 羈絆冒險摘要模板 Bond Adventure Summary Template -->
-  <template id="bond-adventure-summary-template">
-    <div class="calc-step">
-      <div class="step-title">🎭 步驟四點五：羈絆冒險 Bond Adventure</div>
-      <div class="step-highlight" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-        關卡獎勵 Stage Reward: {{selectedStageText}}
-      </div>
-      <div class="production-breakdown">
-        <div class="step-item">
-          <span class="step-label">⭐ 每次獎勵 Reward Per Run:</span>
-          <span class="step-value">{{premiumPerRun}} 優質凍乾 Premium</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">📅 剩餘天數 Days Remaining:</span>
-          <span class="step-value">{{daysRemaining}} 天 days ({{totalRuns}} 次獎勵 runs)</span>
-        </div>
-        <div class="step-item">
-          <span class="step-label">⭐ 總可獲得 Total Premium:</span>
-          <span class="step-value">{{premiumTotal}} 個 items</span>
-        </div>
-        <div class="formula" style="margin-top: 8px;">
-          <strong>📊 凍乾經驗值 Freeze-dried EXP:</strong><br>
-          <div style="padding-left: 16px; margin-top: 8px; line-height: 1.8; background: #f0f9ff; padding: 12px; border-radius: 8px; border-left: 4px solid #3b82f6;">
-            {{premiumTotal}} 個 items × {{premiumExp}} EXP = <strong style="color: var(--success-color); font-size: 1.2em;">{{totalBondExp}} EXP</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-
-  <!-- 升級需求摘要模板 Upgrade Requirements Summary Template -->
-  <template id="upgrade-requirements-summary-template">
-    <div class="calc-step">
-      <div class="step-title">🎯 步驟五：升級需求匯總 Upgrade Requirements Summary</div>
-      <div class="production-breakdown">
-        <!-- 裝備分類 Gear Category -->
-        <div class="category-breakdown">
-          <div class="category-title">⚔️ 裝備 Gear (5件)</div>
-          <div class="step-item">
-            <span class="step-label">💰 金幣 Gold:</span>
-            <span class="step-value">{{breakdownGearGold}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">🪨 粗煉石 Refined Stone (鐵錠 Iron):</span>
-            <span class="step-value">{{breakdownGearIron}}</span>
-          </div>
-          <div class="upgrade-details" data-category="gear">
-            <strong>📋 升級明細 Upgrade Details:</strong><br>
-            <div class="details-content">{{gearUpgradeDetails}}</div>
-          </div>
-        </div>
-        
-        <!-- 古遺物分類 Relics Category -->
-        <div class="category-breakdown">
-          <div class="category-title">✨ 古遺物 Relics (20個)</div>
-          <div class="step-item">
-            <span class="step-label">💰 金幣 Gold:</span>
-            <span class="step-value">{{breakdownRelicGold}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">⏳ 時之砂 Hourglass:</span>
-            <span class="step-value">{{breakdownRelicHourglass}}</span>
-          </div>
-          <div class="upgrade-details" data-category="relic">
-            <strong>📋 升級明細 Upgrade Details:</strong><br>
-            <div class="details-content">{{relicUpgradeDetails}}</div>
-          </div>
-        </div>
-        
-        <!-- 技能分類 Skills Category -->
-        <div class="category-breakdown">
-          <div class="category-title">📚 技能 Skills (8個)</div>
-          <div class="step-item">
-            <span class="step-label">📖 歷戰精華 Battle Essence:</span>
-            <span class="step-value">{{breakdownSkillEssence}}</span>
-          </div>
-          <div class="upgrade-details" data-category="skill">
-            <strong>📋 升級明細 Upgrade Details:</strong><br>
-            <div class="details-content">{{skillUpgradeDetails}}</div>
-          </div>
-        </div>
-        
-        <!-- 幻獸分類 Pets Category -->
-        <div class="category-breakdown">
-          <div class="category-title">🐾 幻獸 Pets (4隻)</div>
-          <div class="step-item">
-            <span class="step-label">🥩 凍乾經驗值 Freeze-dried EXP:</span>
-            <span class="step-value">{{breakdownPetFreezeDried}}</span>
-          </div>
-          <div class="upgrade-details" data-category="pet">
-            <strong>📋 升級明細 Upgrade Details:</strong><br>
-            <div class="details-content">{{petUpgradeDetails}}</div>
-          </div>
-        </div>
-        
-        <!-- 總需求 Total Requirements -->
-        <div style="margin-top: 16px; padding-top: 16px; border-top: 3px solid var(--primary-color);">
-          <div class="category-title" style="font-size: 1.1em; color: var(--primary-color);">📊 總需求 Total Requirements</div>
-          <div class="step-item">
-            <span class="step-label">💰 金幣 Gold:</span>
-            <span class="step-value" style="font-weight: bold; color: var(--danger-color);">{{neededGold}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">🪨 粗煉石 Refined Stone:</span>
-            <span class="step-value" style="font-weight: bold; color: var(--danger-color);">{{neededRefinedStone}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">⏳ 時之砂 Hourglass:</span>
-            <span class="step-value" style="font-weight: bold; color: var(--danger-color);">{{neededHourglass}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">📖 歷戰精華 Battle Essence:</span>
-            <span class="step-value" style="font-weight: bold; color: var(--danger-color);">{{neededBattleEssence}}</span>
-          </div>
-          <div class="step-item">
-            <span class="step-label">🥩 凍乾經驗值 Freeze-dried EXP:</span>
-            <span class="step-value" style="font-weight: bold; color: var(--danger-color);">{{neededFreezeDried}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-</div>
-
-<!-- ============================================
      主要內容區 Main Content Area
      ============================================ -->
 <div class="upgrade-container">
@@ -411,17 +205,6 @@ lang: zh-TW
                 </label>
                 <input type="number" id="{{ season.id }}-bond-stage-reward" value="{{ default_reward_amount }}" min="0" step="1" class="input-field" oninput="updateBondAdventurePreview('{{ season.id }}')" placeholder="輸入獎勵數量 Enter reward amount">
               </div>
-
-              <!-- 預覽資訊 -->
-              <div class="input-card" style="grid-column: 1 / -1;">
-                <div id="{{ season.id }}-bond-preview" style="background: #f0f9ff; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
-                  <div style="font-weight: bold; margin-bottom: 8px;">📊 羈絆冒險預覽 Bond Adventure Preview:</div>
-                  <div id="{{ season.id }}-bond-preview-content" style="color: #1e40af; line-height: 1.8;">
-                    請輸入關卡獎勵數量<br>
-                    Please enter stage reward amount
-                  </div>
-                </div>
-              </div>
             </div>
             
             <div class="info-box" style="background: #e0f2fe;">
@@ -617,7 +400,7 @@ lang: zh-TW
         </div>
 
         <!-- 結果區塊 -->
-        <div id="{{ season.id }}-results" class="results-section">
+        <div id="{{ season.id }}-results" class="results-section" style="display: none;">
           <h2>📊 總需求匯總 Total Requirements Summary</h2>
           
           <!-- 計算步驟摘要 -->
@@ -647,7 +430,11 @@ lang: zh-TW
   {% endfor %}
 </div>
 
+<!-- Load scripts in correct order: Utils → Templates → Main Calculator -->
+<script src="{{ '/assets/js/upgrade-utils.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/upgrade-templates.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/upgrade-calculator.js' | relative_url }}"></script>
+
 <script>
 // 注入 Jekyll 數據到 JavaScript
 (function() {
