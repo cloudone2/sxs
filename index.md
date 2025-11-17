@@ -1,7 +1,6 @@
 ---
 layout: default
 title: 原初之星
-current_season: 3
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/star-calculator.css' | relative_url }}">
@@ -56,11 +55,11 @@ current_season: 3
                 <i class="{{ ui.inputs.season.icon }} me-2"></i>{{ ui.inputs.season.label }}
               </label>
               <select class="form-select form-control-custom" id="target-season">
-                {% assign sorted_seasons = site.data.seasons | sort: "season_number" | reverse %}
+                {% assign sorted_seasons = site.data.seasons.seasons | sort: "season_number" | reverse %}
                 {% for item in sorted_seasons %}
                 <option value="{{ item.season_number }}" 
                         data-color="{{ item.theme_color }}"
-                        {% if item.season_number == page.current_season %}selected{% endif %}>
+                        {% if item.season_number == site.data.seasons.current_season %}selected{% endif %}>
                   {{ item.title }}
                 </option>
                 {% endfor %}
@@ -385,7 +384,7 @@ current_season: 3
 document.addEventListener('DOMContentLoaded', function() {
     if (window.StarCalculator) {
         window.StarCalculator.init({
-            seasonData: {{ site.data.seasons | jsonify }},
+            seasonData: {{ site.data.seasons.seasons | jsonify }},
             starRewardsData: {{ site.data.star_rewards | jsonify }},
             uiText: {{ site.data['star-calculator_ui_text'] | jsonify }}
         });

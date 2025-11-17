@@ -130,12 +130,11 @@ document.addEventListener('DOMContentLoaded', function() {
       if (currentTimeEl) currentTimeEl.addEventListener('change', () => autoCalculateStamina(seasonId));
       if (mallStaminaEl) mallStaminaEl.addEventListener('input', () => autoCalculateStamina(seasonId));
       
-      // 添加羈絆冒險監聽器
-      const bondStageEl = document.getElementById(seasonId + '-bond-stage');
+      // 添加羈絆冒險監聽器 - 改為監聽新的 input 欄位
+      const bondRewardEl = document.getElementById(seasonId + '-bond-stage-reward');
       
-      if (bondStageEl) {
-        bondStageEl.addEventListener('change', () => {
-          autoCalculateStamina(seasonId);
+      if (bondRewardEl) {
+        bondRewardEl.addEventListener('input', () => {
           updateBondAdventurePreview(seasonId);
         });
       }
@@ -205,14 +204,12 @@ function updateBondAdventurePreview(seasonId) {
     autoCalculateStamina(seasonId);
   }
   
-  const bondStageSelect = document.getElementById(seasonId + '-bond-stage');
+  const bondRewardInput = document.getElementById(seasonId + '-bond-stage-reward');
   const previewContent = document.getElementById(seasonId + '-bond-preview-content');
   
-  if (!bondStageSelect || !previewContent) return;
+  if (!bondRewardInput || !previewContent) return;
   
-  const selectedOption = bondStageSelect.options[bondStageSelect.selectedIndex];
-  const premiumPerRun = parseInt(selectedOption.getAttribute('data-premium')) || 0;
-  const selectedStageText = selectedOption.text.split(':')[0];
+  const premiumPerRun = parseInt(bondRewardInput.value) || 0;
   
   const premiumExp = freezeDriedExpData.types.find(t => t.key === 'premium')?.exp || 400;
   
@@ -226,14 +223,11 @@ function updateBondAdventurePreview(seasonId) {
   if (premiumPerRun === 0) {
     html = `
       <div style="color: #64748b;">
-        ⚠️ 請選擇完成的關卡 Please select a completed stage
+        ⚠️ 請輸入關卡獎勵數量 Please enter stage reward amount
       </div>
     `;
   } else {
     html = `
-      <div style="margin-bottom: 8px;">
-        <strong>🎯 選擇關卡 Selected Stage:</strong> ${selectedStageText}
-      </div>
       <div style="margin-bottom: 8px;">
         <strong>⭐ 每次獎勵 Reward Per Run:</strong> ${premiumPerRun.toLocaleString()} 優質凍乾 Premium
       </div>
@@ -431,11 +425,9 @@ function calculateResources(seasonId) {
   let bondAdventureExp = 0;
   let bondAdventurePremium = 0;
   const currentSeason = seasons.find(s => s.id === seasonId);
-  if (currentSeason?.bond_adventure_enabled && bondAdventureDataMap[seasonId]) {
-    const bondStageSelect = document.getElementById(seasonId + '-bond-stage');
-    
-    const selectedOption = bondStageSelect?.options[bondStageSelect.selectedIndex];
-    const premiumPerRun = parseInt(selectedOption?.getAttribute('data-premium')) || 0;
+  if (currentSeason?.bond_adventure_enabled) {
+    const bondRewardInput = document.getElementById(seasonId + '-bond-stage-reward');
+    const premiumPerRun = parseInt(bondRewardInput?.value) || 0;
     
     const totalRuns = state.daysRemaining * 4;
     const premiumTotal = premiumPerRun * totalRuns;
@@ -634,15 +626,13 @@ function prepareTemplateData(seasonId, state, constants, staminaUsage, cartProd,
   // 羈絆冒險數據
   let bondData = null;
   if (currentSeason?.bond_adventure_enabled && bondAdventureExp > 0) {
-    const bondStageSelect = document.getElementById(seasonId + '-bond-stage');
-    const selectedOption = bondStageSelect?.options[bondStageSelect.selectedIndex];
-    const premiumPerRun = parseInt(selectedOption?.getAttribute('data-premium')) || 0;
+    const bondRewardInput = document.getElementById(seasonId + '-bond-stage-reward');
+    const premiumPerRun = parseInt(bondRewardInput?.value) || 0;
     const totalBondRuns = state.daysRemaining * 4;
     const premiumTotal = premiumPerRun * totalBondRuns;
-    const selectedStageText = selectedOption?.text.split(':')[0] || '未選擇';
     
     bondData = {
-      selectedStageText: selectedStageText,
+      selectedStageText: '自訂 Custom',
       premiumPerRun: formatNumber(premiumPerRun),
       daysRemaining: formatNumber(state.daysRemaining),
       totalRuns: formatNumber(totalBondRuns),

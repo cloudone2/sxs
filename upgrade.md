@@ -12,7 +12,7 @@ lang: zh-TW
     <p>計算資源是否足夠完成所有升級</p>
     <p class="subtitle-en">Calculate if you have enough resources to complete all upgrades</p>
     <div class="season-selector">
-      {% for season in site.data.seasons %}
+      {% for season in site.data.seasons.seasons %}
         {% assign season_data = site.data.upgrades[season.id] %}
         {% if season_data %}
           <button class="season-btn{% if season.id == 's3' %} active{% endif %}" 
@@ -28,7 +28,7 @@ lang: zh-TW
     </div>
   </div>
 
-  {% for season in site.data.seasons %}
+  {% for season in site.data.seasons.seasons %}
     {% assign season_data = site.data.upgrades[season.id] %}
     {% if season_data %}
       <div id="{{ season.id }}-content" class="season-content{% if season.id == 's3' %} active{% endif %}">
@@ -179,59 +179,41 @@ lang: zh-TW
 
         <!-- 步驟 4.5：羈絆冒險（S3+ 限定） -->
         {% if season.bond_adventure_enabled %}
-          {% assign bond_file = season.bond_adventure_file %}
-          {% assign bond_data = site.data[bond_file] %}
+          {% comment %} 從 seasons.yml 中取得預設獎勵數量 {% endcomment %}
+          {% assign default_reward_amount = 0 %}
+          {% if season.bond_adventure_enabled.rewards %}
+            {% for reward in season.bond_adventure_enabled.rewards %}
+              {% if reward.type == "premium" %}
+                {% assign default_reward_amount = reward.amount %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
           
-          {% if bond_data %}
           <div class="calculator-section">
             <h2>🎭 步驟四點五：羈絆冒險 Bond Adventure</h2>
             <p class="subtitle">Step 4.5: Bond Adventure (每天可獲得 4 次獎勵 4 rewards per day)</p>
             
             <div class="input-grid">
-              <!-- 最高完成關卡選擇 -->
-              <div class="input-card" style="grid-column: 1 / -1;">
-                <label>
-                  🗺️ 選擇最高完成關卡 Select Highest Completed Stage
-                  <small>決定每次獎勵的優質凍乾數量 Determines premium freeze-dried per reward</small>
-                </label>
-                <select id="{{ season.id }}-bond-stage" class="input-field" style="font-size: 0.95em;" onchange="updateBondAdventurePreview('{{ season.id }}')">
-                  {% assign premium_exp = site.data.freeze_dried_exp.types[1].exp %}
-                  <option value="0" data-premium="0">
-                    未完成 Not Started: 0 ⭐優質凍乾 Premium
-                  </option>
-                  <option value="{{ bond_data.base_premium }}" data-premium="{{ bond_data.base_premium }}">
-                    基礎獎勵 Base Reward: {{ bond_data.base_premium }} ⭐優質凍乾 Premium ({{ bond_data.base_premium | times: premium_exp | number_with_delimiter }} EXP/次)
-                  </option>
-                  {% for stage in bond_data.stages %}
-                    {% assign total_premium = bond_data.base_premium | plus: stage.premium %}
-                    {% assign exp_per_run = total_premium | times: premium_exp %}
-                    <option value="{{ total_premium }}" data-premium="{{ total_premium }}">
-                      {{ stage.stage }} {{ stage.stage_en }}: {{ total_premium }} ⭐優質凍乾 Premium ({{ exp_per_run | number_with_delimiter }} EXP/次)
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <!-- 用戶輸入優質凍乾數量 -->
+              <!-- 關卡獎勵輸入 -->
               <div class="input-card">
                 <label>
-                  ⭐ 你擁有的優質凍乾 Your Premium Freeze-dried
-                  <small>可通過羈絆冒險獲得 Obtained from Bond Adventure</small>
+                  ⭐ 關卡獎勵 Stage Reward
+                  <small>每次獎勵的優質凍乾數量 Premium freeze-dried per reward</small>
                 </label>
-                <input type="number" id="{{ season.id }}-bond-premium-owned" value="0" min="0" step="10" class="input-field" oninput="updateBondAdventurePreview('{{ season.id }}')" placeholder="輸入數量 Enter amount">
+                <input type="number" id="{{ season.id }}-bond-stage-reward" value="{{ default_reward_amount }}" min="0" step="1" class="input-field" oninput="updateBondAdventurePreview('{{ season.id }}')" placeholder="輸入獎勵數量 Enter reward amount">
               </div>
+            </div>
 
               <!-- 預覽資訊 -->
               <div class="input-card" style="grid-column: 1 / -1;">
                 <div id="{{ season.id }}-bond-preview" style="background: #f0f9ff; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
                   <div style="font-weight: bold; margin-bottom: 8px;">📊 羈絆冒險預覽 Bond Adventure Preview:</div>
                   <div id="{{ season.id }}-bond-preview-content" style="color: #1e40af; line-height: 1.8;">
-                    請選擇最高完成關卡和輸入優質凍乾數量<br>
-                    Please select highest completed stage and enter premium freeze-dried amount
+                    請輸入關卡獎勵數量<br>
+                    Please enter stage reward amount
                   </div>
                 </div>
               </div>
-            </div>
             
             <div class="info-box" style="background: #e0f2fe;">
               <span class="info-icon">💡</span>
@@ -252,7 +234,6 @@ lang: zh-TW
               </div>
             </div>
           </div>
-          {% endif %}
         {% endif %}
 
         <!-- 步驟 5：升級目標 -->
@@ -461,13 +442,13 @@ lang: zh-TW
 <script>
 // 注入 Jekyll 數據到 JavaScript
 (function() {
-  const seasons = {{ site.data.seasons | jsonify }};
+  const seasons = {{ site.data.seasons.seasons | jsonify }};
   const seasonData = {};
   const SEASON_CONSTANTS = {};
   const bondAdventureDataMap = {};
   const freezeDriedExpData = {{ site.data.freeze_dried_exp | jsonify }};
 
-  {% for season in site.data.seasons %}
+  {% for season in site.data.seasons.seasons %}
     {% assign season_key = season.id %}
     {% assign season_data = site.data.upgrades[season_key] %}
     {% if season_data %}
