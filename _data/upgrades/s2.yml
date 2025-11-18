@@ -12,24 +12,28 @@ secret_realm:
       name_zh: "金幣"
       key: "gold"
       value: 13125
+      icon: "💰"
       tool_name: "Gold Pickaxe"
       tool_name_zh: "金礦鎬"
     - name: "Refined Stone"
       name_zh: "粗煉石"
       key: "refined_stone"
       value: 1066
+      icon: "🪨"
       tool_name: "Iron Hammer"
       tool_name_zh: "鐵礦錘"
     - name: "Hourglass"
       name_zh: "時之砂"
       key: "hourglass"
       value: 1000
+      icon: "⏳"
       tool_name: "Sand Shovel"
       tool_name_zh: "砂礦鏟"
     - name: "Battle Essence"
       name_zh: "歷戰精華"
       key: "battle_essence"
       value: 1400
+      icon: "📖"
       tool_name: "Glove Requirement"
       tool_name_zh: "拳套需求"
 
@@ -46,18 +50,22 @@ stamina_production:
       name_zh: "金幣"
       key: "gold"
       value: 14000
+      icon: "💰"
     - name: "Refined Stone"
       name_zh: "粗煉石"
       key: "refined_stone"
       value: 1425
+      icon: "🪨"
     - name: "Hourglass"
       name_zh: "時之砂"
       key: "hourglass"
       value: 1170
+      icon: "⏳"
     - name: "Battle Essence"
       name_zh: "歷戰精華"
       key: "battle_essence"
       value: 1770
+      icon: "📖"
 
 # Daily Bonus Stamina
 daily_stamina:

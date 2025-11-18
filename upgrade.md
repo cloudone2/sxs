@@ -166,7 +166,7 @@ lang: zh-TW
                 {{ resource.icon }} {{ resource.tool_name_zh }}
                 <small>{{ resource.tool_name }} ({{ resource.value }}{{ resource.icon }})</small>
               </label>
-              <input type="number" id="{{ season.id }}-tool-{{ resource.key }}" value="0" min="0" max="10">
+              <input type="number" id="{{ season.id }}-tool-{{ resource.key }}" value="0" min="0" >
             </div>
             {% endfor %}
           </div>

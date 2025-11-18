@@ -251,7 +251,7 @@ function calculateDaysRemaining(seasonId) {
 
   if (!startDateInput || !currentTimeInput) return 0;
 
-  const startDate = new Date(`${startDateInput.value}T10:01:00`);
+  const startDate = new Date(`${startDateInput.value}T08:00:00`);
   const currentDate = new Date(currentTimeInput.value);
   const constants = SEASON_CONSTANTS[seasonId];
 
@@ -295,7 +295,7 @@ function calculateResources(seasonId) {
     const cartProduction = calculateCartProduction(seasonId, staminaResult.totalHours);
 
     // 步驟 4: 計算秘境工具產量
-    const secretRealmProduction = calculateSecretRealmProduction(seasonId, staminaResult.totalHours);
+    const secretRealmProduction = calculateSecretRealmProduction(seasonId);
 
     // 步驟 4.5: 計算羈絆冒險（如果啟用）
     let bondAdventureProduction = null;
@@ -358,7 +358,7 @@ function calculateStamina(seasonId) {
   }
 
   // 解析日期
-  const startDate = new Date(`${startDateInput.value}T10:01:00`);
+  const startDate = new Date(`${startDateInput.value}T08:00:00`);
   const currentDate = new Date(currentTimeInput.value);
   const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + constants.totalDays);
@@ -378,7 +378,7 @@ function calculateStamina(seasonId) {
   const dailyStamina = remainingDays * totalDailyStamina;
 
   const totalStamina = timeStamina + dailyStamina;
-  const staminaPerRun = 10; // 每次消耗10體力
+  const staminaPerRun = 5; // 每次消耗5體力
   const totalRuns = Math.floor(totalStamina / staminaPerRun);
 
   return {
@@ -442,7 +442,7 @@ function calculateCartProduction(seasonId, totalHours) {
  * 計算秘境工具產量
  * Calculate secret realm production
  */
-function calculateSecretRealmProduction(seasonId, totalHours) {
+function calculateSecretRealmProduction(seasonId) {
   const seasonData = SEASON_DATA[seasonId];
   if (!seasonData || !seasonData.secret_realm) {
     return { tools: [] };
@@ -459,7 +459,7 @@ function calculateSecretRealmProduction(seasonId, totalHours) {
     const toolCount = parseInt(toolInput?.value) || 0;
 
     if (toolCount > 0) {
-      const totalProduction = resource.value * toolCount * totalHours;
+      const totalProduction = resource.value * toolCount;
 
       tools.push({
         key: resource.key,
@@ -728,7 +728,23 @@ function calculateTotalProduction(stamina, cart, secretRealm, bondAdventure, sta
     hourglass: totalHourglass,
     battle_essence: totalBattleEssence,
     freeze_dried: totalFreezeDried,
-    stamina_production: staminaProduction
+    stamina: staminaProduction,
+    cart: {
+      gold: cart.gold || 0,
+      refined_stone: cart.refined_stone || 0,
+      hourglass: cart.hourglass || 0,
+      battle_essence: cart.battle_essence || 0,
+      freeze_dried: cart.freeze_dried_exp || 0
+    },
+    secretRealm: {
+      gold: secretRealm.gold || 0,
+      refined_stone: secretRealm.refined_stone || 0,
+      hourglass: secretRealm.hourglass || 0,
+      battle_essence: secretRealm.battle_essence || 0
+    },
+    bondAdventure: bondAdventure ? {
+      freeze_dried: bondAdventure.freeze_dried_exp || 0
+    } : null
   };
 }
 
@@ -819,7 +835,7 @@ function displayResults(seasonId, results) {
     summaryHTML += renderBondAdventureSummary(results.bondAdventure, results.stamina.daysRemaining);
   }
 
-  // 步驟 5: 升級需求
+  // 步驟 5: 升級需求 (NOW WITH totalProduction parameter)
   summaryHTML += renderUpgradeRequirementsSummary(
     results.upgradeNeeds.needs,
     results.upgradeNeeds.breakdown,
@@ -828,7 +844,8 @@ function displayResults(seasonId, results) {
       skill: results.upgradeNeeds.breakdown.skill.details,
       relic: results.upgradeNeeds.breakdown.relic.details,
       pet: results.upgradeNeeds.breakdown.pet.details
-    }
+    },
+    results.totalProduction  // ← ADDED THIS PARAMETER
   );
 
   summaryDiv.innerHTML = summaryHTML;
