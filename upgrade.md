@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 升級計算器 | Upgrade Calculator
+title: 資源升級計算器 | Upgrade Calculator
 lang: zh-TW
 ---
 
@@ -11,7 +11,7 @@ lang: zh-TW
      ============================================ -->
 <div class="upgrade-container">
   <div class="season-header">
-    <h1>🎮 升級計算器 Upgrade Calculator</h1>
+    <h1>🎮 資源升級計算器 Upgrade Calculator</h1>
     <p>計算資源是否足夠完成所有升級</p>
     <p class="subtitle-en">Calculate if you have enough resources to complete all upgrades</p>
     <div class="season-selector">
@@ -35,11 +35,6 @@ lang: zh-TW
     {% assign season_data = site.data.upgrades[season.id] %}
     {% if season_data %}
       <div id="{{ season.id }}-content" class="season-content{% if season.id == 's3' %} active{% endif %}">
-        <div class="season-info">
-          <h1>第 {{ season.season_number }} 季：{{ season.title }}</h1>
-          <p>計算所有升級所需的資源</p>
-          <p class="subtitle-en">Calculate resources needed for all upgrades</p>
-        </div>
 
         <!-- 步驟 1：計算可用體力 -->
         <div class="calculator-section">
@@ -50,7 +45,7 @@ lang: zh-TW
             <div class="input-card">
               <label>
                 賽季開始日期 Season Start Date
-                <small>固定 10:01 AM Fixed</small>
+                <small>固定 08:00 AM Fixed</small>
               </label>
               <input type="date" id="{{ season.id }}-start-date" value="{{ season.release_date }}" class="input-field">
             </div>
@@ -444,6 +439,9 @@ lang: zh-TW
   const bondAdventureDataMap = {};
   const freezeDriedExpData = {{ site.data.freeze_dried_exp | jsonify }};
 
+  // Store seasons globally for theme switching
+  window.SEASONS = seasons;
+
   {% for season in site.data.seasons.seasons %}
     {% assign season_key = season.id %}
     {% assign season_data = site.data.upgrades[season_key] %}
@@ -456,7 +454,6 @@ lang: zh-TW
       };
     {% endif %}
     
-    // 載入羈絆冒險數據（如果該賽季有啟用）
     {% if season.bond_adventure_enabled and season.bond_adventure_file %}
       {% assign bond_file = season.bond_adventure_file %}
       {% assign bond_data = site.data[bond_file] %}
@@ -468,5 +465,12 @@ lang: zh-TW
 
   // 初始化計算器
   initializeCalculator(seasons, seasonData, SEASON_CONSTANTS, bondAdventureDataMap, freezeDriedExpData);
+  
+  // **Initialize theme for the current/default active season**
+  {% if site.data.seasons.current_season %}
+    updateSeasonTheme('{{ site.data.seasons.current_season }}');
+  {% else %}
+    updateSeasonTheme('s3');
+  {% endif %}
 })();
 </script>

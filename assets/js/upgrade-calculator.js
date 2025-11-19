@@ -77,25 +77,43 @@ function setCurrentDateTime() {
  * Switch season
  */
 function switchSeason(seasonId) {
-  // 更新當前賽季
-  currentSeason = seasonId;
-
-  // 更新按鈕狀態
-  document.querySelectorAll('.season-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  event.target.classList.add('active');
-
-  // 更新內容顯示
+  console.log(`Switching to season: ${seasonId}`);
+  
+  // Hide all season contents
   document.querySelectorAll('.season-content').forEach(content => {
     content.classList.remove('active');
   });
-  const targetContent = document.getElementById(`${seasonId}-content`);
-  if (targetContent) {
-    targetContent.classList.add('active');
+
+  // Show selected season content
+  const selectedContent = document.getElementById(`${seasonId}-content`);
+  if (selectedContent) {
+    selectedContent.classList.add('active');
   }
 
-  console.log(`Switched to season: ${seasonId}`);
+  // Update season buttons
+  document.querySelectorAll('.season-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Find the button that was clicked and mark it active
+  const clickedButton = event ? event.target : document.querySelector(`[onclick="switchSeason('${seasonId}')"]`);
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+  }
+
+  // **IMPORTANT: Update current season FIRST**
+  currentSeason = seasonId;
+
+  // **THEN: Update theme color**
+  updateSeasonTheme(seasonId);
+  
+  // Reset calculator state for new season
+  const resultsSection = document.getElementById(`${seasonId}-results`);
+  if (resultsSection) {
+    resultsSection.style.display = 'none';
+  }
+
+  console.log(`Successfully switched to season: ${seasonId}`);
 }
 
 // ============================================

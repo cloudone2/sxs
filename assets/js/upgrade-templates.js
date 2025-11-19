@@ -20,7 +20,7 @@ function renderStaminaSummary(stamina) {
   
   let endDateDisplay = '';
   if (startDateInput && constants) {
-    const startDate = new Date(`${startDateInput.value}T10:01:00`);
+    const startDate = new Date(`${startDateInput.value}T08:00:00`);
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + constants.totalDays);
     
@@ -319,7 +319,7 @@ function renderSecretRealmSummary(secretRealm, totalHours) {
     const toolIcon = tool.icon || '🔨';
     toolItemsHtml += `
       <div class="step-item">
-        <span class="step-label">${toolIcon} ${tool.name_zh} ${tool.name} (${tool.count}個 × ${tool.valuePerTool}/hr):</span>
+        <span class="step-label">${toolIcon} ${tool.name_zh} ${tool.name} (${tool.count}個 × ${tool.valuePerTool}):</span>
         <span class="step-value">${formatNumber(tool.totalProduction)}</span>
       </div>
     `;

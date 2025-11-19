@@ -1,4 +1,43 @@
 /**
+ * 更新主題顏色
+ * Update theme color based on season
+ */
+function updateSeasonTheme(seasonId) {
+  const seasons = window.SEASONS || [];
+  const season = seasons.find(s => s.id === seasonId);
+  
+  if (season && season.theme_color) {
+    const color = season.theme_color;
+    const root = document.documentElement;
+    
+    // Convert hex to RGB
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+    
+    // Calculate lighter and darker shades
+    const lighten = (val) => Math.min(255, val + 40);
+    const darken = (val) => Math.max(0, val - 40);
+    
+    const lightR = lighten(r);
+    const lightG = lighten(g);
+    const lightB = lighten(b);
+    
+    const darkR = darken(r);
+    const darkG = darken(g);
+    const darkB = darken(b);
+    
+    // Update CSS variables
+    root.style.setProperty('--season-color', color);
+    root.style.setProperty('--season-color-light', `rgb(${lightR}, ${lightG}, ${lightB})`);
+    root.style.setProperty('--season-color-dark', `rgb(${darkR}, ${darkG}, ${darkB})`);
+    root.style.setProperty('--season-color-rgb', `${r}, ${g}, ${b}`);
+    
+    console.log(`Theme updated for ${seasonId}: ${color}`);
+  }
+}
+
+/**
  * 工具函數 Utility Functions
  */
 
