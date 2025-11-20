@@ -10,10 +10,12 @@ lang: zh-TW
      主要內容區 Main Content Area
      ============================================ -->
 <div class="upgrade-container">
-  <div class="season-header">
-    <h1>🎮 資源升級計算器 Upgrade Calculator</h1>
-    <p>計算資源是否足夠完成所有升級</p>
-    <p class="subtitle-en">Calculate if you have enough resources to complete all upgrades</p>
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">
+      <span class="gradient-text">🎮 資源升級計算器 Upgrade Calculator</span>
+    </h1>
+    <p class="lead text-muted mb-0">計算資源是否足夠完成所有升級</p>
+    <p class="text-muted small">Calculate if you have enough resources to complete all upgrades</p>
 
     <!-- Replace Season Selector with Dropdown -->
     <div class="season-selector">
