@@ -14,20 +14,24 @@ lang: zh-TW
     <h1>🎮 資源升級計算器 Upgrade Calculator</h1>
     <p>計算資源是否足夠完成所有升級</p>
     <p class="subtitle-en">Calculate if you have enough resources to complete all upgrades</p>
+
+    <!-- Replace Season Selector with Dropdown -->
     <div class="season-selector">
-      {% for season in site.data.seasons.seasons %}
-        {% assign season_data = site.data.upgrades[season.id] %}
-        {% if season_data %}
-          <button class="season-btn{% if season.id == 's3' %} active{% endif %}" 
-                  onclick="switchSeason('{{ season.id }}')">
-            第 {{ season.season_number }} 季 Season {{ season.season_number }}
-          </button>
-        {% else %}
-          <button class="season-btn" disabled title="即將推出 Coming Soon">
-            第 {{ season.season_number }} 季 🔒
-          </button>
-        {% endif %}
-      {% endfor %}
+      <label for="season-select" class="form-label">選擇賽季 Select Season:</label>
+      <select id="season-select" class="form-select" onchange="switchSeason(this.value)">
+        {% for season in site.data.seasons.seasons %}
+          {% assign season_data = site.data.upgrades[season.id] %}
+          {% if season_data %}
+            <option value="{{ season.id }}" {% if season.id == 's3' %}selected{% endif %}>
+              第 {{ season.season_number }} 季: {{ season.title }}
+            </option>
+          {% else %}
+            <option value="{{ season.id }}" disabled>
+              第 {{ season.season_number }} 季: 🔒  即將推出 Coming Soon
+            </option>
+          {% endif %}
+        {% endfor %}
+      </select>
     </div>
   </div>
 
