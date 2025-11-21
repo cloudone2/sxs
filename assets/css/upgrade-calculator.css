@@ -1035,35 +1035,6 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* ============================================
-   無障礙設計 Accessibility
-   ============================================ */
-*:focus-visible {
-  outline: 3px solid var(--season-color);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #0f172a;
-    --color-surface: #1e293b;
-    --color-text-primary: #f1f5f9;
-    --color-text-secondary: #cbd5e1;
-    --color-text-muted: #64748b;
-    --color-border: #334155;
-  }
-}
-
 /* ========================================
    PAGE HEADER
    ======================================== */
