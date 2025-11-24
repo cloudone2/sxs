@@ -724,6 +724,9 @@ categories:
       - level: 21
         hourglass: 80500
         gold: 144000
+      - level: 22
+        hourglass: 86250
+        gold: 155000
 
   skill:
     name: "Skill Upgrades"
