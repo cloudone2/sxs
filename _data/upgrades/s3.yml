@@ -728,8 +728,47 @@ categories:
         hourglass: 86250
         gold: 155000
       - level: 23
-        hourglass: 9200
+        hourglass: 92000
         gold: 165000
+      - level: 24
+        hourglass: 97750
+        gold: 175000
+      - level: 25
+        hourglass: 103500
+        gold: 186000
+      - level: 26
+        hourglass: 109250
+        gold: 196000
+      - level: 27
+        hourglass: 115000
+        gold: 206000
+      - level: 28
+        hourglass: 120750
+        gold: 217000
+      - level: 29
+        hourglass: 126500
+        gold: 227000
+      - level: 30
+        hourglass: 132250
+        gold: 237000
+      - level: 31
+        hourglass: 138000
+        gold: 248000
+      - level: 32
+        hourglass: 143750
+        gold: 258000
+      - level: 33
+        hourglass: 149500
+        gold: 268000
+      - level: 34
+        hourglass: 155250
+        gold: 279000
+      - level: 35
+        hourglass: 161000
+        gold: 289000
+      - level: 36
+        hourglass: 166750
+        gold: 299000
 
   skill:
     name: "Skill Upgrades"
