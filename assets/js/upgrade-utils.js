@@ -109,8 +109,8 @@ function getResourcesForType(type, item) {
       if (item.gold && item.gold > 0) {
         resources.push(`💰${formatNumber(item.gold)}`);
       }
-      if (item.iron && item.iron > 0) {
-        resources.push(`🪨${formatNumber(item.iron)}`);
+      if (item.refined_stone && item.refined_stone > 0) {
+        resources.push(`🪨${formatNumber(item.refined_stone)}`);
       }
       break;
     case 'skill':

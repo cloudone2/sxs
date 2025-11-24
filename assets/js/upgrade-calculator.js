@@ -579,7 +579,7 @@ function calculateUpgradeNeeds(seasonId) {
   let totalFreezeDried = 0;
 
   const breakdown = {
-    gear: { gold: 0, iron: 0, details: [] },
+    gear: { gold: 0, refined_stone: 0, details: [] },
     skill: { battle_essence: 0, details: [] },
     relic: { gold: 0, hourglass: 0, details: [] },
     pet: { freeze_dried: 0, details: [] }
@@ -613,15 +613,15 @@ function calculateUpgradeNeeds(seasonId) {
         switch (category) {
           case 'gear':
             totalGold += cost.gold || 0;
-            totalRefinedStone += cost.iron || 0;
+            totalRefinedStone += cost.refined_stone || 0;
             breakdown.gear.gold += cost.gold || 0;
-            breakdown.gear.iron += cost.iron || 0;
+            breakdown.gear.refined_stone += cost.refined_stone || 0;
             breakdown.gear.details.push({
               index: i,
               from: fromLevel,
               to: toLevel,
               gold: cost.gold || 0,
-              iron: cost.iron || 0
+              refined_stone: cost.refined_stone || 0
             });
             break;
 
@@ -686,7 +686,7 @@ function calculateUpgradeCost(categoryData, fromLevel, toLevel) {
 
   const cost = {
     gold: 0,
-    iron: 0,
+    refined_stone: 0,
     hourglass: 0,
     battle_record: 0,
     freeze_dried: 0
@@ -696,7 +696,7 @@ function calculateUpgradeCost(categoryData, fromLevel, toLevel) {
     const levelData = categoryData.levels.find(l => l.level === level);
     if (levelData) {
       cost.gold += levelData.gold || 0;
-      cost.iron += levelData.iron || 0;
+      cost.refined_stone += levelData.refined_stone || 0;
       cost.hourglass += levelData.hourglass || 0;
       cost.battle_record += levelData.battle_record || 0;
       cost.freeze_dried += levelData.freeze_dried || 0;
@@ -788,16 +788,15 @@ function calculateStaminaProduction(stamina, resourceKey) {
     freeze_dried: 0
   };
 
+  console.log(`Calculating stamina production for ${resourceKey}:`, { totalRuns, resource });
+
   // 根據資源類型計算產量
   switch (resourceKey) {
     case 'gold':
       production.gold = totalRuns * resource.value;
       break;
-    case 'iron':
-      // 鐵錠需要轉換成粗煉石
-      const ironTotal = totalRuns * resource.value;
-      const conversionRate = resource.conversion_rate || 10;
-      production.refined_stone = Math.floor(ironTotal / conversionRate);
+    case 'refined_stone':
+      production.refined_stone = totalRuns * resource.value;
       break;
     case 'hourglass':
       production.hourglass = totalRuns * resource.value;

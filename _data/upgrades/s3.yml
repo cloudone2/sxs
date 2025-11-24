@@ -92,610 +92,610 @@ categories:
     resources:
       - name: "Refined Stone"
         name_zh: "粗煉石"
-        key: "iron"
+        key: "refined_stone"
       - name: "Gold"
         name_zh: "金幣"
         key: "gold"
     levels:
       - level: 161
-        iron: 26000
+        refined_stone: 26000
         gold: 52000
       - level: 162
-        iron: 26200
+        refined_stone: 26200
         gold: 52500
       - level: 163
-        iron: 26500
+        refined_stone: 26500
         gold: 53000
       - level: 164
-        iron: 26700
+        refined_stone: 26700
         gold: 53500
       - level: 165
-        iron: 27000
+        refined_stone: 27000
         gold: 54000
       - level: 166
-        iron: 27300
+        refined_stone: 27300
         gold: 54600
       - level: 167
-        iron: 27500
+        refined_stone: 27500
         gold: 55100
       - level: 168
-        iron: 27800
+        refined_stone: 27800
         gold: 55600
       - level: 169
-        iron: 28000
+        refined_stone: 28000
         gold: 56100
       - level: 170
-        iron: 28300
+        refined_stone: 28300
         gold: 56600
       - level: 171
-        iron: 28600
+        refined_stone: 28600
         gold: 57200
       - level: 172
-        iron: 28800
+        refined_stone: 28800
         gold: 57700
       - level: 173
-        iron: 29100
+        refined_stone: 29100
         gold: 58200
       - level: 174
-        iron: 29300
+        refined_stone: 29300
         gold: 58700
       - level: 175
-        iron: 29600
+        refined_stone: 29600
         gold: 59200
       - level: 176
-        iron: 29900
+        refined_stone: 29900
         gold: 59800
       - level: 177
-        iron: 30100
+        refined_stone: 30100
         gold: 60300
       - level: 178
-        iron: 30400
+        refined_stone: 30400
         gold: 60800
       - level: 179
-        iron: 30600
+        refined_stone: 30600
         gold: 61300
       - level: 180
-        iron: 30900
+        refined_stone: 30900
         gold: 61800
       - level: 181
-        iron: 31200
+        refined_stone: 31200
         gold: 62400
       - level: 182
-        iron: 31400
+        refined_stone: 31400
         gold: 62900
       - level: 183
-        iron: 31700
+        refined_stone: 31700
         gold: 63400
       - level: 184
-        iron: 31900
+        refined_stone: 31900
         gold: 63900
       - level: 185
-        iron: 32200
+        refined_stone: 32200
         gold: 64400
       - level: 186
-        iron: 32500
+        refined_stone: 32500
         gold: 65000
       - level: 187
-        iron: 32700
+        refined_stone: 32700
         gold: 65500
       - level: 188
-        iron: 33000
+        refined_stone: 33000
         gold: 66000
       - level: 189
-        iron: 33200
+        refined_stone: 33200
         gold: 66500
       - level: 190
-        iron: 33500
+        refined_stone: 33500
         gold: 67000
       - level: 191
-        iron: 33800
+        refined_stone: 33800
         gold: 67600
       - level: 192
-        iron: 34000
+        refined_stone: 34000
         gold: 68100
       - level: 193
-        iron: 34300
+        refined_stone: 34300
         gold: 68600
       - level: 194
-        iron: 34500
+        refined_stone: 34500
         gold: 69100
       - level: 195
-        iron: 34800
+        refined_stone: 34800
         gold: 69600
       - level: 196
-        iron: 35100
+        refined_stone: 35100
         gold: 70200
       - level: 197
-        iron: 35300
+        refined_stone: 35300
         gold: 70700
       - level: 198
-        iron: 35600
+        refined_stone: 35600
         gold: 71200
       - level: 199
-        iron: 35800
+        refined_stone: 35800
         gold: 71700
       - level: 200
-        iron: 36100
+        refined_stone: 36100
         gold: 72200
       - level: 201
-        iron: 36400
+        refined_stone: 36400
         gold: 72800
       - level: 202
-        iron: 36600
+        refined_stone: 36600
         gold: 73300
       - level: 203
-        iron: 36900
+        refined_stone: 36900
         gold: 73800
       - level: 204
-        iron: 37100
+        refined_stone: 37100
         gold: 74300
       - level: 205
-        iron: 37400
+        refined_stone: 37400
         gold: 74800
       - level: 206
-        iron: 37700
+        refined_stone: 37700
         gold: 75400
       - level: 207
-        iron: 37900
+        refined_stone: 37900
         gold: 75900
       - level: 208
-        iron: 38200
+        refined_stone: 38200
         gold: 76400
       - level: 209
-        iron: 38400
+        refined_stone: 38400
         gold: 76900
       - level: 210
-        iron: 38700
+        refined_stone: 38700
         gold: 77400
       - level: 211
-        iron: 39000
+        refined_stone: 39000
         gold: 78000
       - level: 212
-        iron: 39200
+        refined_stone: 39200
         gold: 78500
       - level: 213
-        iron: 39500
+        refined_stone: 39500
         gold: 79000
       - level: 214
-        iron: 39700
+        refined_stone: 39700
         gold: 79500
       - level: 215
-        iron: 40000
+        refined_stone: 40000
         gold: 80000
       - level: 216
-        iron: 40300
+        refined_stone: 40300
         gold: 80600
       - level: 217
-        iron: 40500
+        refined_stone: 40500
         gold: 81100
       - level: 218
-        iron: 40800
+        refined_stone: 40800
         gold: 81600
       - level: 219
-        iron: 41000
+        refined_stone: 41000
         gold: 82100
       - level: 220
-        iron: 41300
+        refined_stone: 41300
         gold: 82600
       - level: 221
-        iron: 41600
+        refined_stone: 41600
         gold: 83200
       - level: 222
-        iron: 41800
+        refined_stone: 41800
         gold: 83700
       - level: 223
-        iron: 42100
+        refined_stone: 42100
         gold: 84200
       - level: 224
-        iron: 42300
+        refined_stone: 42300
         gold: 84700
       - level: 225
-        iron: 42600
+        refined_stone: 42600
         gold: 85200
       - level: 226
-        iron: 42900
+        refined_stone: 42900
         gold: 85800
       - level: 227
-        iron: 43100
+        refined_stone: 43100
         gold: 86300
       - level: 228
-        iron: 43400
+        refined_stone: 43400
         gold: 86800
       - level: 229
-        iron: 43600
+        refined_stone: 43600
         gold: 87300
       - level: 230
-        iron: 43900
+        refined_stone: 43900
         gold: 87800
       - level: 231
-        iron: 44200
+        refined_stone: 44200
         gold: 88400
       - level: 232
-        iron: 44400
+        refined_stone: 44400
         gold: 88900
       - level: 233
-        iron: 44700
+        refined_stone: 44700
         gold: 89400
       - level: 234
-        iron: 44900
+        refined_stone: 44900
         gold: 89900
       - level: 235
-        iron: 45200
+        refined_stone: 45200
         gold: 90400
       - level: 236
-        iron: 45500
+        refined_stone: 45500
         gold: 91000
       - level: 237
-        iron: 45700
+        refined_stone: 45700
         gold: 91500
       - level: 238
-        iron: 46000
+        refined_stone: 46000
         gold: 92000
       - level: 239
-        iron: 46200
+        refined_stone: 46200
         gold: 92500
       - level: 240
-        iron: 46500
+        refined_stone: 46500
         gold: 93000
       - level: 241
-        iron: 46800
+        refined_stone: 46800
         gold: 93600
       - level: 242
-        iron: 47000
+        refined_stone: 47000
         gold: 94100
       - level: 243
-        iron: 47300
+        refined_stone: 47300
         gold: 94600
       - level: 244
-        iron: 47500
+        refined_stone: 47500
         gold: 95100
       - level: 245
-        iron: 47800
+        refined_stone: 47800
         gold: 95600
       - level: 246
-        iron: 48100
+        refined_stone: 48100
         gold: 96200
       - level: 247
-        iron: 48300
+        refined_stone: 48300
         gold: 96700
       - level: 248
-        iron: 48600
+        refined_stone: 48600
         gold: 97200
       - level: 249
-        iron: 48800
+        refined_stone: 48800
         gold: 97700
       - level: 250
-        iron: 49100
+        refined_stone: 49100
         gold: 98200
       - level: 251
-        iron: 49400
+        refined_stone: 49400
         gold: 98800
       - level: 252
-        iron: 49600
+        refined_stone: 49600
         gold: 99300
       - level: 253
-        iron: 49900
+        refined_stone: 49900
         gold: 99800
       - level: 254
-        iron: 50100
+        refined_stone: 50100
         gold: 100300
       - level: 255
-        iron: 50400
+        refined_stone: 50400
         gold: 100800
       - level: 256
-        iron: 50700
+        refined_stone: 50700
         gold: 101400
       - level: 257
-        iron: 50900
+        refined_stone: 50900
         gold: 101900
       - level: 258
-        iron: 51200
+        refined_stone: 51200
         gold: 102400
       - level: 259
-        iron: 51400
+        refined_stone: 51400
         gold: 102900
       - level: 260
-        iron: 51700
+        refined_stone: 51700
         gold: 103400
       - level: 261
-        iron: 52000
+        refined_stone: 52000
         gold: 104000
       - level: 262
-        iron: 52200
+        refined_stone: 52200
         gold: 104500
       - level: 263
-        iron: 52500
+        refined_stone: 52500
         gold: 105000
       - level: 264
-        iron: 52700
+        refined_stone: 52700
         gold: 105500
       - level: 265
-        iron: 53000
+        refined_stone: 53000
         gold: 106000
       - level: 266
-        iron: 53300
+        refined_stone: 53300
         gold: 106600
       - level: 267
-        iron: 53500
+        refined_stone: 53500
         gold: 107100
       - level: 268
-        iron: 53800
+        refined_stone: 53800
         gold: 107600
       - level: 269
-        iron: 54000
+        refined_stone: 54000
         gold: 108100
       - level: 270
-        iron: 54300
+        refined_stone: 54300
         gold: 108600
       - level: 271
-        iron: 54600
+        refined_stone: 54600
         gold: 109200
       - level: 272
-        iron: 54800
+        refined_stone: 54800
         gold: 109700
       - level: 273
-        iron: 55100
+        refined_stone: 55100
         gold: 110200
       - level: 274
-        iron: 55300
+        refined_stone: 55300
         gold: 110700
       - level: 275
-        iron: 55600
+        refined_stone: 55600
         gold: 111200
       - level: 276
-        iron: 55900
+        refined_stone: 55900
         gold: 111800
       - level: 277
-        iron: 56100
+        refined_stone: 56100
         gold: 112300
       - level: 278
-        iron: 56400
+        refined_stone: 56400
         gold: 112800
       - level: 279
-        iron: 56600
+        refined_stone: 56600
         gold: 113300
       - level: 280
-        iron: 56900
+        refined_stone: 56900
         gold: 113800
       - level: 281
-        iron: 57200
+        refined_stone: 57200
         gold: 114400
       - level: 282
-        iron: 57400
+        refined_stone: 57400
         gold: 114900
       - level: 283
-        iron: 57700
+        refined_stone: 57700
         gold: 115400
       - level: 284
-        iron: 57900
+        refined_stone: 57900
         gold: 115900
       - level: 285
-        iron: 58200
+        refined_stone: 58200
         gold: 116400
       - level: 286
-        iron: 58500
+        refined_stone: 58500
         gold: 117000
       - level: 287
-        iron: 58700
+        refined_stone: 58700
         gold: 117500
       - level: 288
-        iron: 59000
+        refined_stone: 59000
         gold: 118000
       - level: 289
-        iron: 59200
+        refined_stone: 59200
         gold: 118500
       - level: 290
-        iron: 59500
+        refined_stone: 59500
         gold: 119000
       - level: 291
-        iron: 59800
+        refined_stone: 59800
         gold: 119600
       - level: 292
-        iron: 60000
+        refined_stone: 60000
         gold: 120100
       - level: 293
-        iron: 60300
+        refined_stone: 60300
         gold: 120600
       - level: 294
-        iron: 60500
+        refined_stone: 60500
         gold: 121100
       - level: 295
-        iron: 60800
+        refined_stone: 60800
         gold: 121600
       - level: 296
-        iron: 61100
+        refined_stone: 61100
         gold: 122200
       - level: 297
-        iron: 61300
+        refined_stone: 61300
         gold: 122700
       - level: 298
-        iron: 61600
+        refined_stone: 61600
         gold: 123200
       - level: 299
-        iron: 61800
+        refined_stone: 61800
         gold: 123700
       - level: 300
-        iron: 62100
+        refined_stone: 62100
         gold: 124200
       - level: 301
-        iron: 62400
+        refined_stone: 62400
         gold: 124800
       - level: 302
-        iron: 62600
+        refined_stone: 62600
         gold: 125300
       - level: 303
-        iron: 62900
+        refined_stone: 62900
         gold: 125800
       - level: 304
-        iron: 63100
+        refined_stone: 63100
         gold: 126300
       - level: 305
-        iron: 63400
+        refined_stone: 63400
         gold: 126800
       - level: 306
-        iron: 63700
+        refined_stone: 63700
         gold: 127400
       - level: 307
-        iron: 63900
+        refined_stone: 63900
         gold: 127900
       - level: 308
-        iron: 64200
+        refined_stone: 64200
         gold: 128400
       - level: 309
-        iron: 64400
+        refined_stone: 64400
         gold: 128900
       - level: 310
-        iron: 64700
+        refined_stone: 64700
         gold: 129400
       - level: 311
-        iron: 65000
+        refined_stone: 65000
         gold: 130000
       - level: 312
-        iron: 65200
+        refined_stone: 65200
         gold: 130500
       - level: 313
-        iron: 65500
+        refined_stone: 65500
         gold: 131000
       - level: 314
-        iron: 65700
+        refined_stone: 65700
         gold: 131500
       - level: 315
-        iron: 66000
+        refined_stone: 66000
         gold: 132000
       - level: 316
-        iron: 66300
+        refined_stone: 66300
         gold: 132600
       - level: 317
-        iron: 66500
+        refined_stone: 66500
         gold: 133100
       - level: 318
-        iron: 66800
+        refined_stone: 66800
         gold: 133600
       - level: 319
-        iron: 67000
+        refined_stone: 67000
         gold: 134100
       - level: 320
-        iron: 67300
+        refined_stone: 67300
         gold: 134600
       - level: 321
-        iron: 67600
+        refined_stone: 67600
         gold: 135200
       - level: 322
-        iron: 67800
+        refined_stone: 67800
         gold: 135700
       - level: 323
-        iron: 68100
+        refined_stone: 68100
         gold: 136200
       - level: 324
-        iron: 68300
+        refined_stone: 68300
         gold: 136700
       - level: 325
-        iron: 68600
+        refined_stone: 68600
         gold: 137200
       - level: 326
-        iron: 68900
+        refined_stone: 68900
         gold: 137800
       - level: 327
-        iron: 69100
+        refined_stone: 69100
         gold: 138300
       - level: 328
-        iron: 69400
+        refined_stone: 69400
         gold: 138800
       - level: 329
-        iron: 69600
+        refined_stone: 69600
         gold: 139300
       - level: 330
-        iron: 69900
+        refined_stone: 69900
         gold: 139800
       - level: 331
-        iron: 70200
+        refined_stone: 70200
         gold: 140400
       - level: 332
-        iron: 70400
+        refined_stone: 70400
         gold: 140900
       - level: 333
-        iron: 70700
+        refined_stone: 70700
         gold: 141400
       - level: 334
-        iron: 70900
+        refined_stone: 70900
         gold: 141900
       - level: 335
-        iron: 71200
+        refined_stone: 71200
         gold: 142400
       - level: 336
-        iron: 71500
+        refined_stone: 71500
         gold: 143000
       - level: 337
-        iron: 71700
+        refined_stone: 71700
         gold: 143500
       - level: 338
-        iron: 72000
+        refined_stone: 72000
         gold: 144000
       - level: 339
-        iron: 72200
+        refined_stone: 72200
         gold: 144500
       - level: 340
-        iron: 72500
+        refined_stone: 72500
         gold: 145000
       - level: 341
-        iron: 72800
+        refined_stone: 72800
         gold: 145600
       - level: 342
-        iron: 73000
+        refined_stone: 73000
         gold: 146100
       - level: 343
-        iron: 73300
+        refined_stone: 73300
         gold: 146600
       - level: 344
-        iron: 73500
+        refined_stone: 73500
         gold: 147100
       - level: 345
-        iron: 73800
+        refined_stone: 73800
         gold: 147600
       - level: 346
-        iron: 74100
+        refined_stone: 74100
         gold: 148200
       - level: 347
-        iron: 74300
+        refined_stone: 74300
         gold: 148700
       - level: 348
-        iron: 74600
+        refined_stone: 74600
         gold: 149200
       - level: 349
-        iron: 74800
+        refined_stone: 74800
         gold: 149700
       - level: 350
-        iron: 75100
+        refined_stone: 75100
         gold: 150200
       - level: 351
-        iron: 75400
+        refined_stone: 75400
         gold: 150800
       - level: 352
-        iron: 75600
+        refined_stone: 75600
         gold: 151300
       - level: 353
-        iron: 75900
+        refined_stone: 75900
         gold: 151800
       - level: 354
-        iron: 76100
+        refined_stone: 76100
         gold: 152300
       - level: 355
-        iron: 76400
+        refined_stone: 76400
         gold: 152800
       - level: 356
-        iron: 76700
+        refined_stone: 76700
         gold: 153400
       - level: 357
-        iron: 76900
+        refined_stone: 76900
         gold: 153900
       - level: 358
-        iron: 77200
+        refined_stone: 77200
         gold: 154400
       - level: 359
-        iron: 77400
+        refined_stone: 77400
         gold: 154900
       - level: 360
-        iron: 77700
+        refined_stone: 77700
         gold: 155400
 
   relic:

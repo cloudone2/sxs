@@ -88,7 +88,7 @@ function renderStaminaUsageSummary(resourceKey, stamina) {
   
   const resourceNames = {
     gold: '💰 金幣 Gold',
-    iron: '🪨 鐵錠 Iron (粗煉石 Refined Stone)',
+    refined_stone: '🪨 粗煉石 Refined Stone',
     hourglass: '⏳ 時之砂 Hourglass',
     battle_essence: '📖 歷戰精華 Battle Essence',
     freeze_dried: '🥩 凍乾 Freeze-dried'
@@ -97,7 +97,7 @@ function renderStaminaUsageSummary(resourceKey, stamina) {
   // Add icon fallback mapping
   const resourceIcons = {
     gold: '💰',
-    iron: '🪨',
+    refined_stone: '🪨',
     hourglass: '⏳',
     battle_essence: '📖',
     freeze_dried: '🥩'
@@ -151,82 +151,34 @@ function renderStaminaUsageSummary(resourceKey, stamina) {
   let conversionNote = '';
   let unitName = '';
 
-  if (resourceKey === 'iron') {
-    // 鐵錠特殊處理：需要轉換成粗煉石
-    const ironTotal = totalRuns * valuePerRun;
-    const conversionRate = resource.conversion_rate || 10;
-    const refinedStone = Math.floor(ironTotal / conversionRate);
-    totalProduction = refinedStone;
-    unitName = '粗煉石 Refined Stone';
+  console.log('Rendering stamina usage for resource:', resourceKey, resource);
 
-    productionHTML = `
-      <div style="padding: 16px; background: #fff7ed; border-radius: 8px; margin-top: 12px;">
-        <div style="cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('.toggle-icon').textContent = this.nextElementSibling.style.display === 'none' ? '▶' : '▼';">
-          <strong style="color: #f97316; font-size: 1.05em;">
-            <span class="toggle-icon">▶</span> 🧮 產量計算 Production Calculation
-          </strong>
+  totalProduction = totalRuns * valuePerRun;
+  unitName = resourceKey === 'freeze_dried' ? 'EXP' : '';
+
+  productionHTML = `
+    <div style="padding: 16px; background: #fff7ed; border-radius: 8px; margin-top: 12px;">
+      <div style="cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('.toggle-icon').textContent = this.nextElementSibling.style.display === 'none' ? '▶' : '▼';">
+        <strong style="color: #f97316; font-size: 1.05em;">
+          <span class="toggle-icon">▶</span> 🧮 產量計算 Production Calculation
+        </strong>
+      </div>
+      <div style="display: none; padding-left: 16px; margin-top: 8px; line-height: 2; color: #475569;">
+        <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #06b6d4;">
+          1️⃣ <strong>體力可刷次數 Total Runs:</strong><br>
+          <span style="padding-left: 20px;">總體力 Total Stamina: ${formatNumber(stamina.totalStamina)}</span><br>
+          <span style="padding-left: 20px;">÷ 每次消耗 Per Run: ${staminaPerRun} 體力</span><br>
+          <span style="padding-left: 20px;">= <strong style="color: #0ea5e9;">${formatNumber(totalRuns)} 次 runs</strong></span>
         </div>
-        <div style="display: none; padding-left: 16px; margin-top: 8px; line-height: 2; color: #475569;">
-          <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #8b5cf6;">
-            1️⃣ <strong>體力刷取鐵錠 Stamina for Iron:</strong><br>
-            <span style="padding-left: 20px;">總體力 Total Stamina: ${formatNumber(stamina.totalStamina)}</span><br>
-            <span style="padding-left: 20px;">÷ 每次消耗 Per Run: ${staminaPerRun} 體力</span><br>
-            <span style="padding-left: 20px;">= <strong style="color: #0ea5e9;">${formatNumber(totalRuns)} 次 runs</strong></span>
-          </div>
-          
-          <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 12px; border-left: 4px solid #8b5cf6;">
-            2️⃣ <strong>獲得鐵錠總量 Total Iron:</strong><br>
-            <span style="padding-left: 20px;">${formatNumber(totalRuns)} 次 runs × ${valuePerRun} ${resourceIcon}/次 per run</span><br>
-            <span style="padding-left: 20px;">= <strong style="color: #0ea5e9;">${formatNumber(ironTotal)} ${resourceIcon} 鐵錠 Iron</strong></span>
-          </div>
-          
-          <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 12px; border-left: 4px solid #8b5cf6;">
-            3️⃣ <strong>轉換成粗煉石 Convert to Refined Stone:</strong><br>
-            <span style="padding-left: 20px;">${formatNumber(ironTotal)} 鐵錠 ÷ ${conversionRate} (轉換率 Conversion Rate)</span><br>
-            <span style="padding-left: 20px;">= <strong style="color: #dc2626; font-size: 1.15em;">${formatNumber(refinedStone)} 🪨 粗煉石 Refined Stone</strong></span>
-          </div>
+        
+        <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 12px; border-left: 4px solid #06b6d4;">
+          2️⃣ <strong>總產量計算 Total Production:</strong><br>
+          <span style="padding-left: 20px;">${formatNumber(totalRuns)} 次 runs × ${valuePerRun} ${resourceIcon}/次 per run</span><br>
+          <span style="padding-left: 20px;">= <strong style="color: #dc2626; font-size: 1.15em;">${formatNumber(totalProduction)} ${resourceIcon} ${unitName}</strong></span>
         </div>
       </div>
-    `;
-
-    conversionNote = `
-      <div class="info-box" style="background: #fef3c7; margin-top: 12px;">
-        <span class="info-icon">💡</span>
-        <div>
-          <strong>轉換說明 Conversion Note:</strong> 每 ${conversionRate} 個鐵錠可轉換成 1 個粗煉石<br>
-          Every ${conversionRate} Iron converts to 1 Refined Stone
-        </div>
-      </div>
-    `;
-  } else {
-    // 其他資源直接計算
-    totalProduction = totalRuns * valuePerRun;
-    unitName = resourceKey === 'freeze_dried' ? 'EXP' : '';
-
-    productionHTML = `
-      <div style="padding: 16px; background: #fff7ed; border-radius: 8px; margin-top: 12px;">
-        <div style="cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.querySelector('.toggle-icon').textContent = this.nextElementSibling.style.display === 'none' ? '▶' : '▼';">
-          <strong style="color: #f97316; font-size: 1.05em;">
-            <span class="toggle-icon">▶</span> 🧮 產量計算 Production Calculation
-          </strong>
-        </div>
-        <div style="display: none; padding-left: 16px; margin-top: 8px; line-height: 2; color: #475569;">
-          <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 8px; border-left: 4px solid #06b6d4;">
-            1️⃣ <strong>體力可刷次數 Total Runs:</strong><br>
-            <span style="padding-left: 20px;">總體力 Total Stamina: ${formatNumber(stamina.totalStamina)}</span><br>
-            <span style="padding-left: 20px;">÷ 每次消耗 Per Run: ${staminaPerRun} 體力</span><br>
-            <span style="padding-left: 20px;">= <strong style="color: #0ea5e9;">${formatNumber(totalRuns)} 次 runs</strong></span>
-          </div>
-          
-          <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 12px; border-left: 4px solid #06b6d4;">
-            2️⃣ <strong>總產量計算 Total Production:</strong><br>
-            <span style="padding-left: 20px;">${formatNumber(totalRuns)} 次 runs × ${valuePerRun} ${resourceIcon}/次 per run</span><br>
-            <span style="padding-left: 20px;">= <strong style="color: #dc2626; font-size: 1.15em;">${formatNumber(totalProduction)} ${resourceIcon} ${unitName}</strong></span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
+    </div>
+  `;
 
   return `
     <div class="calc-step">
@@ -443,8 +395,8 @@ function renderUpgradeRequirementsSummary(needed, breakdown, upgradeDetails, tot
                   <span class="step-value" style="color: #d97706; font-weight: bold;">${formatNumber(breakdown.gear.gold)}</span>
                 </div>
                 <div class="step-item">
-                  <span class="step-label">🪨 裝備粗煉石總需求 Total Refined Stone (鐵錠 Iron):</span>
-                  <span class="step-value" style="color: #d97706; font-weight: bold;">${formatNumber(breakdown.gear.iron)}</span>
+                  <span class="step-label">🪨 裝備粗煉石總需求 Total Refined Stone:</span>
+                  <span class="step-value" style="color: #d97706; font-weight: bold;">${formatNumber(breakdown.gear.refined_stone)}</span>
                 </div>
               </div>
             </div>
@@ -593,15 +545,15 @@ function generateGearCalculationSteps(details, totals) {
   }
 
   let goldCalc = [];
-  let ironCalc = [];
+  let refined_stoneCalc = [];
 
   details.forEach((item, idx) => {
     const itemName = getItemName('gear', item.index);
     if (item.gold > 0) {
       goldCalc.push(`${itemName} (Lv.${item.from}→${item.to}): ${formatNumber(item.gold)}`);
     }
-    if (item.iron > 0) {
-      ironCalc.push(`${itemName} (Lv.${item.from}→${item.to}): ${formatNumber(item.iron)}`);
+    if (item.refined_stone > 0) {
+      refined_stoneCalc.push(`${itemName} (Lv.${item.from}→${item.to}): ${formatNumber(item.refined_stone)}`);
     }
   });
 
@@ -617,13 +569,13 @@ function generateGearCalculationSteps(details, totals) {
     html += `</div>`;
   }
 
-  if (ironCalc.length > 0) {
+  if (refined_stoneCalc.length > 0) {
     html += `<div>`;
-    html += `<strong style="color: #8b5cf6;">🪨 鐵錠 Iron (轉換成粗煉石 Convert to Refined Stone):</strong><br>`;
-    ironCalc.forEach((calc, idx) => {
+    html += `<strong style="color: #8b5cf6;">🪨 粗煉石 Refined Stone):</strong><br>`;
+    refined_stoneCalc.forEach((calc, idx) => {
       html += `<span style="color: #64748b; padding-left: 20px;">${idx > 0 ? '+ ' : ''}${calc}</span><br>`;
     });
-    html += `<span style="color: #8b5cf6; font-weight: bold; padding-left: 20px; border-top: 2px solid #cbd5e1; display: inline-block; margin-top: 4px; padding-top: 4px;">= ${formatNumber(totals.iron)}</span>`;
+    html += `<span style="color: #8b5cf6; font-weight: bold; padding-left: 20px; border-top: 2px solid #cbd5e1; display: inline-block; margin-top: 4px; padding-top: 4px;">= ${formatNumber(totals.refined_stone)}</span>`;
     html += `</div>`;
   }
 
@@ -748,6 +700,7 @@ function generatePetCalculationSteps(details, totals) {
  * Generate resource comparison HTML - WITH PURCHASE RECOMMENDATIONS
  */
 function generateResourceComparison(results) {
+  console.log('Generating resource comparison with results:', results);
   const resources = [
     {
       key: 'gold',
