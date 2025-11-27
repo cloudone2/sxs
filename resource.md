@@ -127,18 +127,22 @@ title: 資源升級計算器 | Resource Upgrade Calculator
             <div class="col-md-3">
               <label class="form-label">⛏️ 金礦鎬 / Gold Pickaxe</label>
               <input type="number" id="tool-gold-pickaxe" class="form-control" placeholder="0" min="0">
+              <small class="text-muted tool-rate-display" data-resource="gold"></small>
             </div>
             <div class="col-md-3">
               <label class="form-label">🔨 鐵礦錘 / Iron Hammer</label>
               <input type="number" id="tool-iron-hammer" class="form-control" placeholder="0" min="0">
+              <small class="text-muted tool-rate-display" data-resource="refined_stone"></small>
             </div>
             <div class="col-md-3">
               <label class="form-label">🏖️ 砂礦鏟 / Sand Shovel</label>
               <input type="number" id="tool-sand-shovel" class="form-control" placeholder="0" min="0">
+              <small class="text-muted tool-rate-display" data-resource="hourglass"></small>
             </div>
             <div class="col-md-3">
               <label class="form-label">🥊 拳套 / Glove</label>
               <input type="number" id="tool-glove" class="form-control" placeholder="0" min="0">
+              <small class="text-muted tool-rate-display" data-resource="battle_essence"></small>
             </div>
           </div>
         </div>
@@ -156,88 +160,156 @@ title: 資源升級計算器 | Resource Upgrade Calculator
       </div>
     </div>
 
-    <!-- Upgrade Goals -->
+    <!-- Upgrade Goals (Collapsible) -->
     <div class="card mb-4">
       <div class="card-header">
         <h5 class="mb-0">
-          <i class="fas fa-level-up-alt me-2"></i>升級目標 / Upgrade Goals
+          <a class="text-white text-decoration-none collapse-trigger d-flex justify-content-between align-items-center" 
+             data-bs-toggle="collapse" 
+             href="#upgradeGoalsCollapse" 
+             role="button" 
+             aria-expanded="true" 
+             aria-controls="upgradeGoalsCollapse">
+            <span>
+              <i class="fas fa-level-up-alt me-2"></i>升級目標 / Upgrade Goals
+            </span>
+            <i class="fas fa-chevron-down transition-rotate"></i>
+          </a>
         </h5>
       </div>
-      <div class="card-body">
-        
-        <!-- Gear Upgrades -->
-        <div class="upgrade-category mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold mb-0">
-              <i class="fas fa-shield-alt me-2"></i>裝備升級 / Gear Upgrades (5 items)
-            </h6>
-            <button class="btn btn-sm btn-outline-primary" onclick="showResonanceModal('gear')">
-              <i class="fas fa-magic me-1"></i>套用共鳴等級
-            </button>
+      <div class="collapse show" id="upgradeGoalsCollapse">
+        <div class="card-body">
+          
+          <!-- Gear Upgrades -->
+          <div class="upgrade-category mb-3">
+            <div class="category-header">
+              <a class="category-collapse-trigger d-flex justify-content-between align-items-center" 
+                 data-bs-toggle="collapse" 
+                 href="#gearCollapse" 
+                 role="button" 
+                 aria-expanded="false">
+                <div>
+                  <h6 class="fw-bold mb-0 d-inline">
+                    <i class="fas fa-shield-alt me-2"></i>裝備升級 / Gear Upgrades (5 items)
+                  </h6>
+                  <span class="resonance-level-display ms-3 text-muted small" data-category="gear"></span>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline-primary me-2" onclick="event.stopPropagation(); showResonanceModal('gear')">
+                    <i class="fas fa-magic me-1"></i>套用共鳴等級
+                  </button>
+                  <i class="fas fa-chevron-down transition-rotate"></i>
+                </div>
+              </a>
+            </div>
+            <div class="collapse" id="gearCollapse">
+              <div id="gear-upgrades" class="upgrade-inputs mt-3"></div>
+            </div>
           </div>
-          <div id="gear-upgrades" class="upgrade-inputs"></div>
-        </div>
 
-        <!-- Skill Upgrades -->
-        <div class="upgrade-category mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold mb-0">
-              <i class="fas fa-book me-2"></i>技能升級 / Skill Upgrades (8 items)
-            </h6>
-            <button class="btn btn-sm btn-outline-primary" onclick="showResonanceModal('skill')">
-              <i class="fas fa-magic me-1"></i>套用共鳴等級
-            </button>
+          <!-- Skill Upgrades -->
+          <div class="upgrade-category mb-3">
+            <div class="category-header">
+              <a class="category-collapse-trigger d-flex justify-content-between align-items-center" 
+                 data-bs-toggle="collapse" 
+                 href="#skillCollapse" 
+                 role="button" 
+                 aria-expanded="false">
+                <div>
+                  <h6 class="fw-bold mb-0 d-inline">
+                    <i class="fas fa-book me-2"></i>技能升級 / Skill Upgrades (8 items)
+                  </h6>
+                  <span class="resonance-level-display ms-3 text-muted small" data-category="skill"></span>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline-primary me-2" onclick="event.stopPropagation(); showResonanceModal('skill')">
+                    <i class="fas fa-magic me-1"></i>套用共鳴等級
+                  </button>
+                  <i class="fas fa-chevron-down transition-rotate"></i>
+                </div>
+              </a>
+            </div>
+            <div class="collapse" id="skillCollapse">
+              <div id="skill-upgrades" class="upgrade-inputs mt-3"></div>
+            </div>
           </div>
-          <div id="skill-upgrades" class="upgrade-inputs"></div>
-        </div>
 
-        <!-- Relic Upgrades -->
-        <div class="upgrade-category mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold mb-0">
-              <i class="fas fa-gem me-2"></i>古遺物升級 / Relic Upgrades (20 items)
-            </h6>
-            <button class="btn btn-sm btn-outline-primary" onclick="showResonanceModal('relic')">
-              <i class="fas fa-magic me-1"></i>套用共鳴等級
-            </button>
+          <!-- Relic Upgrades -->
+          <div class="upgrade-category mb-3">
+            <div class="category-header">
+              <a class="category-collapse-trigger d-flex justify-content-between align-items-center" 
+                 data-bs-toggle="collapse" 
+                 href="#relicCollapse" 
+                 role="button" 
+                 aria-expanded="false">
+                <div>
+                  <h6 class="fw-bold mb-0 d-inline">
+                    <i class="fas fa-gem me-2"></i>古遺物升級 / Relic Upgrades (20 items)
+                  </h6>
+                  <span class="resonance-level-display ms-3 text-muted small" data-category="relic"></span>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline-primary me-2" onclick="event.stopPropagation(); showResonanceModal('relic')">
+                    <i class="fas fa-magic me-1"></i>套用共鳴等級
+                  </button>
+                  <i class="fas fa-chevron-down transition-rotate"></i>
+                </div>
+              </a>
+            </div>
+            <div class="collapse" id="relicCollapse">
+              <div class="row mt-3">
+                <div class="col-12 mb-2">
+                  <span class="badge bg-warning text-dark">☀️ 光 Light (4)</span>
+                  <div id="relic-light-upgrades" class="upgrade-inputs"></div>
+                </div>
+                <div class="col-12 mb-2">
+                  <span class="badge bg-dark">🌙 暗 Dark (4)</span>
+                  <div id="relic-dark-upgrades" class="upgrade-inputs"></div>
+                </div>
+                <div class="col-12 mb-2">
+                  <span class="badge bg-success">🌪️ 風 Wind (4)</span>
+                  <div id="relic-wind-upgrades" class="upgrade-inputs"></div>
+                </div>
+                <div class="col-12 mb-2">
+                  <span class="badge bg-info">💧 水 Water (4)</span>
+                  <div id="relic-water-upgrades" class="upgrade-inputs"></div>
+                </div>
+                <div class="col-12 mb-2">
+                  <span class="badge bg-danger">🔥 火 Fire (4)</span>
+                  <div id="relic-fire-upgrades" class="upgrade-inputs"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row">
-            <div class="col-12 mb-2">
-              <span class="badge bg-warning text-dark">☀️ 光 Light (4)</span>
-              <div id="relic-light-upgrades" class="upgrade-inputs"></div>
-            </div>
-            <div class="col-12 mb-2">
-              <span class="badge bg-dark">🌙 暗 Dark (4)</span>
-              <div id="relic-dark-upgrades" class="upgrade-inputs"></div>
-            </div>
-            <div class="col-12 mb-2">
-              <span class="badge bg-success">🌪️ 風 Wind (4)</span>
-              <div id="relic-wind-upgrades" class="upgrade-inputs"></div>
-            </div>
-            <div class="col-12 mb-2">
-              <span class="badge bg-info">💧 水 Water (4)</span>
-              <div id="relic-water-upgrades" class="upgrade-inputs"></div>
-            </div>
-            <div class="col-12 mb-2">
-              <span class="badge bg-danger">🔥 火 Fire (4)</span>
-              <div id="relic-fire-upgrades" class="upgrade-inputs"></div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Pet Upgrades -->
-        <div class="upgrade-category mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold mb-0">
-              <i class="fas fa-paw me-2"></i>幻獸升級 / Pet Upgrades (4 items)
-            </h6>
-            <button class="btn btn-sm btn-outline-primary" onclick="showResonanceModal('pet')">
-              <i class="fas fa-magic me-1"></i>套用共鳴等級
-            </button>
+          <!-- Pet Upgrades -->
+          <div class="upgrade-category mb-3">
+            <div class="category-header">
+              <a class="category-collapse-trigger d-flex justify-content-between align-items-center" 
+                 data-bs-toggle="collapse" 
+                 href="#petCollapse" 
+                 role="button" 
+                 aria-expanded="false">
+                <div>
+                  <h6 class="fw-bold mb-0 d-inline">
+                    <i class="fas fa-paw me-2"></i>幻獸升級 / Pet Upgrades (4 items)
+                  </h6>
+                  <span class="resonance-level-display ms-3 text-muted small" data-category="pet"></span>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline-primary me-2" onclick="event.stopPropagation(); showResonanceModal('pet')">
+                    <i class="fas fa-magic me-1"></i>套用共鳴等級
+                  </button>
+                  <i class="fas fa-chevron-down transition-rotate"></i>
+                </div>
+              </a>
+            </div>
+            <div class="collapse" id="petCollapse">
+              <div id="pet-upgrades" class="upgrade-inputs mt-3"></div>
+            </div>
           </div>
-          <div id="pet-upgrades" class="upgrade-inputs"></div>
-        </div>
 
+        </div>
       </div>
     </div>
 

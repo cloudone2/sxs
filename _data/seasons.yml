@@ -55,24 +55,3 @@ seasons:
       rewards:
         - type: "premium"
           amount: 160
-
-  - id: 's4'
-    title: 'S4: 蛤~~~'
-    season_number: 4
-    release_date: 2026-02-05
-    fixed_level: 160
-    fixed_relics_level: 16
-    score_level: 100
-    score_div: 13
-    score_gear: 14
-    score_skill: 5
-    score_relics: 26
-    score_pet: 6
-    star_start: 65
-    theme_color: '#505096'
-    total_day: 99
-    bond_adventure:
-      bond_adventure_enabled: true
-      rewards:
-        - type: "deluxe"
-          amount: 180

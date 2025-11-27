@@ -68,6 +68,7 @@ function loadSeason(seasonId) {
   setupStaminaPriorityButtons();
   setupUpgradeInputs();
   setupBondAdventure();
+  setupToolRateDisplays();
 
   // Show calculator interface
   document.getElementById('calculator-interface').style.display = 'block';
@@ -77,6 +78,9 @@ function loadSeason(seasonId) {
 
   // Add event listener to current datetime
   document.getElementById('current-datetime').addEventListener('change', updateTimeSummary);
+  
+  // Add input listeners for upgrade inputs to update resonance level display
+  setupResonanceLevelListeners();
 }
 
 /**
@@ -151,7 +155,7 @@ function createUpgradeInputs(category, count, categoryData, containerId, prefix 
         <input type="number" class="form-control" 
                data-category="${category}" 
                data-type="start" 
-               data-index="${i}" 
+               data-index="${prefix ? prefix + '-' + i : i}" 
                value="${fixedLevel}" 
                min="${categoryData.levels[0].level}">
       </div>
@@ -160,7 +164,7 @@ function createUpgradeInputs(category, count, categoryData, containerId, prefix 
         <input type="number" class="form-control" 
                data-category="${category}" 
                data-type="target" 
-               data-index="${i}" 
+               data-index="${prefix ? prefix + '-' + i : i}" 
                value="${suggestedLevel}" 
                max="${categoryData.levels[categoryData.levels.length - 1].level}">
       </div>
@@ -207,21 +211,106 @@ function setupBondAdventure() {
 }
 
 /**
+ * Setup tool rate displays
+ */
+function setupToolRateDisplays() {
+  if (!upgradesData.secret_realm) return;
+  
+  const resources = upgradesData.secret_realm.resources;
+  const resourceIcons = {
+    gold: '💰',
+    refined_stone: '🪨',
+    hourglass: '⏳',
+    battle_essence: '📖'
+  };
+  
+  resources.forEach(resource => {
+    const display = document.querySelector(`.tool-rate-display[data-resource="${resource.key}"]`);
+    if (display) {
+      display.textContent = `${formatNumber(resource.value)} ${resourceIcons[resource.key]}/工具`;
+    }
+  });
+}
+
+/**
+ * Setup resonance level listeners
+ */
+function setupResonanceLevelListeners() {
+  const allInputs = document.querySelectorAll('[data-category]');
+  
+  allInputs.forEach(input => {
+    input.addEventListener('input', debounce(function() {
+      const category = this.dataset.category;
+      updateResonanceLevelDisplay(category);
+    }, 300));
+  });
+  
+  // Initial display
+  ['gear', 'skill', 'relic', 'pet'].forEach(category => {
+    updateResonanceLevelDisplay(category);
+  });
+}
+
+/**
+ * Update resonance level display for a category
+ */
+function updateResonanceLevelDisplay(category) {
+  const startInputs = document.querySelectorAll(`[data-category="${category}"][data-type="start"]`);
+  const targetInputs = document.querySelectorAll(`[data-category="${category}"][data-type="target"]`);
+  
+  if (startInputs.length === 0 || targetInputs.length === 0) return;
+  
+  // Calculate average start and target levels
+  let startSum = 0, startCount = 0;
+  let targetSum = 0, targetCount = 0;
+  
+  startInputs.forEach(input => {
+    const value = parseInt(input.value);
+    if (!isNaN(value) && value > 0) {
+      startSum += value;
+      startCount++;
+    }
+  });
+  
+  targetInputs.forEach(input => {
+    const value = parseInt(input.value);
+    if (!isNaN(value) && value > 0) {
+      targetSum += value;
+      targetCount++;
+    }
+  });
+  
+  if (startCount === 0 || targetCount === 0) return;
+  
+  const avgStart = Math.round(startSum / startCount);
+  const avgTarget = Math.round(targetSum / targetCount);
+  
+  // Update display
+  const display = document.querySelector(`.resonance-level-display[data-category="${category}"]`);
+  if (display) {
+    display.innerHTML = `<i class="fas fa-chart-line me-1"></i>共鳴等級: ${avgStart} → ${avgTarget}`;
+  }
+}
+
+/**
  * Update time summary
  */
 function updateTimeSummary() {
   const startDate = new Date(document.getElementById('season-start-date').value);
   const currentDate = new Date(document.getElementById('current-datetime').value);
   
-  if (!startDate || !currentDate) return;
+  if (!startDate || !currentDate || isNaN(startDate) || isNaN(currentDate)) {
+    document.getElementById('time-summary').style.display = 'none';
+    return;
+  }
   
   const totalDays = seasonData.total_day;
   const elapsedMs = currentDate - startDate;
   const elapsedDays = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
   const elapsedHours = Math.floor((elapsedMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   
-  const remainingDays = totalDays - elapsedDays;
-  const remainingHours = 24 - elapsedHours;
+  const remainingDays = Math.max(0, totalDays - elapsedDays);
+  const remainingHours = elapsedHours > 0 ? (24 - elapsedHours) : 0;
   
   const summaryDiv = document.getElementById('time-summary');
   summaryDiv.style.display = 'block';
@@ -244,12 +333,90 @@ function updateTimeSummary() {
 }
 
 /**
- * Calculate stamina
+ * Show resonance modal
  */
-function calculateStamina() {
+function showResonanceModal(category) {
+  const categoryNames = {
+    gear: { zh: '裝備', en: 'Gear' },
+    skill: { zh: '技能', en: 'Skill' },
+    relic: { zh: '古遺物', en: 'Relic' },
+    pet: { zh: '幻獸', en: 'Pet' }
+  };
+  
+  document.getElementById('resonance-category-name').textContent = categoryNames[category].zh;
+  document.getElementById('resonance-category-name-en').textContent = categoryNames[category].en;
+  
+  // Store current category
+  document.getElementById('apply-resonance-btn').dataset.category = category;
+  
+  // Show modal
+  const modal = new bootstrap.Modal(document.getElementById('resonanceModal'));
+  modal.show();
+}
+
+// Apply resonance button handler
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('apply-resonance-btn').addEventListener('click', function() {
+    const category = this.dataset.category;
+    applyResonanceLevel(category);
+    
+    // Close modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('resonanceModal'));
+    modal.hide();
+  });
+});
+
+/**
+ * Apply resonance level to all items in a category
+ */
+function applyResonanceLevel(category) {
+  const startLevel = parseInt(document.getElementById('resonance-start').value);
+  const targetLevel = parseInt(document.getElementById('resonance-target').value);
+  
+  if (isNaN(startLevel) || isNaN(targetLevel)) {
+    alert('請輸入有效的等級 / Please enter valid levels');
+    return;
+  }
+  
+  if (targetLevel <= startLevel) {
+    alert('目標等級必須大於起始等級 / Target level must be greater than start level');
+    return;
+  }
+  
+  // Get all inputs for this category
+  const allInputs = document.querySelectorAll(`[data-category="${category}"]`);
+  
+  // Apply to all start and target inputs
+  allInputs.forEach(input => {
+    const type = input.dataset.type;
+    if (type === 'start') {
+      input.value = startLevel;
+    } else if (type === 'target') {
+      input.value = targetLevel;
+    }
+  });
+  
+  // Update resonance level display
+  updateResonanceLevelDisplay(category);
+  
+  // Show success message
+  const categoryNames = {
+    gear: '裝備 / Gear',
+    skill: '技能 / Skill',
+    relic: '古遺物 / Relic',
+    pet: '幻獸 / Pet'
+  };
+  
+  const categoryName = categoryNames[category] || category;
+  showToast(`✅ 已套用共鳴等級到所有${categoryName}<br>起始: ${startLevel} → 目標: ${targetLevel}`, 'success');
+}
+
+/**
+ * Calculate total production from all sources
+ */
+function calculateTotalProduction() {
   const startDate = new Date(document.getElementById('season-start-date').value);
   const currentDate = new Date(document.getElementById('current-datetime').value);
-  const buyDailySpecial = document.getElementById('buy-daily-special').checked;
   
   const totalDays = seasonData.total_day;
   const elapsedMs = currentDate - startDate;
@@ -257,136 +424,170 @@ function calculateStamina() {
   const remainingHours = Math.max(0, Math.floor(remainingMs / (1000 * 60 * 60)));
   const remainingDays = Math.max(0, Math.floor(remainingHours / 24));
   
-  // Natural recovery: 5 stamina per hour
+  // Stamina calculation with fallback to default values
+  const buyDailySpecial = document.getElementById('buy-daily-special').checked;
+  
+  // Use default values if stamina_source doesn't exist
+  const defaultStaminaSource = {
+    daily_mission: 50,
+    shop_treasury: 50,
+    daily_special: 10
+  };
+  
+  const staminaSource = seasonData.stamina_source || defaultStaminaSource;
+  
+  const dailyMissions = staminaSource.daily_mission;
+  const shopTreasury = staminaSource.shop_treasury;
+  const dailySpecial = buyDailySpecial ? staminaSource.daily_special : 0;
+  
   const naturalStamina = remainingHours * 5;
+  const accelerationStamina = remainingDays * 2 * 5;
+  const totalStamina = naturalStamina + 
+                       (dailyMissions * remainingDays) + 
+                       (shopTreasury * remainingDays) + 
+                       (dailySpecial * remainingDays) + 
+                       accelerationStamina;
   
-  // Daily bonus: missions + shop + special
-  const dailyMissions = upgradesData.daily_stamina.sources.find(s => s.key === 'daily_missions').amount;
-  const shopTreasury = upgradesData.daily_stamina.sources.find(s => s.key === 'shop_treasury').amount;
-  const dailySpecial = buyDailySpecial ? 10 : 0;
-  const dailyBonusPerDay = dailyMissions + shopTreasury + dailySpecial;
-  const totalDailyBonus = remainingDays * dailyBonusPerDay;
-  
-  // Acceleration: 2 hours per day (fixed)
-  const accelerationHours = remainingDays * 2;
-  const accelerationStamina = accelerationHours * 5;
-  
-  const totalStamina = naturalStamina + totalDailyBonus + accelerationStamina;
-  
-  return {
-    remainingDays,
-    remainingHours,
-    naturalStamina,
-    dailyMissions,
-    shopTreasury,
-    dailySpecial,
-    dailyBonusPerDay,
-    totalDailyBonus,
-    accelerationHours,
-    accelerationStamina,
-    totalStamina
-  };
-}
+    // Get stamina priority resource
+    const activeBtn = document.querySelector('#stamina-priority-buttons .btn.active');
+    const staminaResource = activeBtn ? activeBtn.dataset.resource : null;
 
-/**
- * Calculate cart production
- */
-function calculateCartProduction(remainingHours) {
-  const gold = parseFloat(document.getElementById('cart-gold').value) || 0;
-  const refinedStone = parseFloat(document.getElementById('cart-refined-stone').value) || 0;
-  const hourglass = parseFloat(document.getElementById('cart-hourglass').value) || 0;
-  const battleEssence = parseFloat(document.getElementById('cart-battle-essence').value) || 0;
-  const freezeDried = parseFloat(document.getElementById('cart-freeze-dried').value) || 0;
-  
-  return {
-    gold: Math.floor(gold * remainingHours),
-    refined_stone: Math.floor(refinedStone * remainingHours),
-    hourglass: Math.floor(hourglass * remainingHours),
-    battle_essence: Math.floor(battleEssence * remainingHours),
-    freeze_dried: Math.floor(freezeDried * remainingHours)
-  };
-}
+    console.log('Selected stamina resource:', staminaResource); // Debug log
 
-/**
- * Calculate secret realm production
- */
-function calculateSecretRealmProduction(remainingDays) {
-  const goldPickaxe = parseFloat(document.getElementById('tool-gold-pickaxe').value) || 0;
-  const ironHammer = parseFloat(document.getElementById('tool-iron-hammer').value) || 0;
-  const sandShovel = parseFloat(document.getElementById('tool-sand-shovel').value) || 0;
-  const glove = parseFloat(document.getElementById('tool-glove').value) || 0;
-  
-  const resources = upgradesData.secret_realm.resources;
-  const goldRate = resources.find(r => r.key === 'gold').value;
-  const refinedStoneRate = resources.find(r => r.key === 'refined_stone').value;
-  const hourglassRate = resources.find(r => r.key === 'hourglass').value;
-  const battleEssenceRate = resources.find(r => r.key === 'battle_essence').value;
-  
-  return {
-    gold: Math.floor(goldPickaxe * goldRate * remainingDays),
-    refined_stone: Math.floor(ironHammer * refinedStoneRate * remainingDays),
-    hourglass: Math.floor(sandShovel * hourglassRate * remainingDays),
-    battle_essence: Math.floor(glove * battleEssenceRate * remainingDays)
-  };
-}
+    // Calculate stamina production
+    const staminaProduction = {
+    gold: 0,
+    refined_stone: 0,
+    hourglass: 0,
+    battle_essence: 0
+    };
 
-/**
- * Calculate bond adventure production (S3+)
- */
-function calculateBondAdventureProduction(remainingDays) {
-  if (!seasonData.bond_adventure || !seasonData.bond_adventure.bond_adventure_enabled) {
-    return { freeze_dried: 0 };
+    if (staminaResource && upgradesData && upgradesData.stamina_production) {
+    console.log('Stamina production data:', upgradesData.stamina_production); // Debug log
+    
+    const resourceData = upgradesData.stamina_production.resources.find(r => r.key === staminaResource);
+    
+    console.log('Found resource data:', resourceData); // Debug log
+    
+    if (resourceData && resourceData.value) {
+        const staminaCost = upgradesData.stamina_production.stamina_per_run || 20;
+        const totalRuns = Math.floor(totalStamina / staminaCost);
+        const production = totalRuns * resourceData.value;
+        
+        console.log(`Stamina calculation: ${totalStamina} stamina / ${staminaCost} per run = ${totalRuns} runs × ${resourceData.value} = ${production}`); // Debug log
+        
+        staminaProduction[staminaResource] = production;
+    } else {
+        console.error('Resource data not found or invalid for:', staminaResource);
+    }
+    } else {
+    console.error('Missing data:', {
+        staminaResource,
+        hasUpgradesData: !!upgradesData,
+        hasStaminaProduction: !!(upgradesData && upgradesData.stamina_production)
+    });
+    }
+  
+    // Cart production
+    const cartProduction = {
+    gold: Math.floor((parseFloat(document.getElementById('cart-gold').value) || 0) * remainingHours),
+    refined_stone: Math.floor((parseFloat(document.getElementById('cart-refined-stone').value) || 0) * remainingHours),
+    hourglass: Math.floor((parseFloat(document.getElementById('cart-hourglass').value) || 0) * remainingHours),
+    battle_essence: Math.floor((parseFloat(document.getElementById('cart-battle-essence').value) || 0) * remainingHours),
+    freeze_dried: Math.floor((parseFloat(document.getElementById('cart-freeze-dried').value) || 0) * remainingHours)
+    };
+  
+  // Secret realm tools production
+  const secretRealmProduction = {
+    gold: 0,
+    refined_stone: 0,
+    hourglass: 0,
+    battle_essence: 0
+  };
+  
+  if (upgradesData.secret_realm) {
+    const resources = upgradesData.secret_realm.resources;
+    
+    const goldPickaxe = parseFloat(document.getElementById('tool-gold-pickaxe').value) || 0;
+    const ironHammer = parseFloat(document.getElementById('tool-iron-hammer').value) || 0;
+    const sandShovel = parseFloat(document.getElementById('tool-sand-shovel').value) || 0;
+    const glove = parseFloat(document.getElementById('tool-glove').value) || 0;
+    
+    const goldRate = resources.find(r => r.key === 'gold')?.value || 0;
+    const refinedStoneRate = resources.find(r => r.key === 'refined_stone')?.value || 0;
+    const hourglassRate = resources.find(r => r.key === 'hourglass')?.value || 0;
+    const battleEssenceRate = resources.find(r => r.key === 'battle_essence')?.value || 0;
+    
+    secretRealmProduction.gold = Math.floor(goldPickaxe * goldRate * remainingDays);
+    secretRealmProduction.refined_stone = Math.floor(ironHammer * refinedStoneRate * remainingDays);
+    secretRealmProduction.hourglass = Math.floor(sandShovel * hourglassRate * remainingDays);
+    secretRealmProduction.battle_essence = Math.floor(glove * battleEssenceRate * remainingDays);
   }
   
-  let totalExp = 0;
-  
-  seasonData.bond_adventure.rewards.forEach(reward => {
-    const input = document.getElementById(`bond-${reward.type}`);
-    if (input) {
-      const amount = parseFloat(input.value) || 0;
-      const freezeDriedType = window.FREEZE_DRIED_DATA.types.find(t => t.key === reward.type);
-      totalExp += amount * freezeDriedType.exp * remainingDays;
+    // Bond adventure production
+    const bondAdventureProduction = {
+    freeze_dried: 0
+    };
+
+    if (seasonData.bond_adventure && seasonData.bond_adventure.bond_adventure_enabled) {
+    seasonData.bond_adventure.rewards.forEach(reward => {
+        const inputElement = document.getElementById(`bond-${reward.type}`);
+        if (inputElement) {
+        const amount = parseFloat(inputElement.value) || 0;
+        const freezeDriedType = window.FREEZE_DRIED_DATA.types.find(t => t.key === reward.type);
+        if (freezeDriedType) {
+            // 正確公式: 數量 × EXP × 剩餘天數
+            bondAdventureProduction.freeze_dried += amount * freezeDriedType.exp * remainingDays;
+        }
+        }
+    });
     }
-  });
   
-  return { freeze_dried: Math.floor(totalExp) };
+  // Total production
+  const totalProduction = {
+    gold: staminaProduction.gold + cartProduction.gold + secretRealmProduction.gold,
+    refined_stone: staminaProduction.refined_stone + cartProduction.refined_stone + secretRealmProduction.refined_stone,
+    hourglass: staminaProduction.hourglass + cartProduction.hourglass + secretRealmProduction.hourglass,
+    battle_essence: staminaProduction.battle_essence + cartProduction.battle_essence + secretRealmProduction.battle_essence,
+    freeze_dried: cartProduction.freeze_dried + bondAdventureProduction.freeze_dried
+  };
+  
+  return {
+    stamina: {
+      totalStamina,
+      naturalStamina,
+      dailyMissions,
+      shopTreasury,
+      dailySpecial,
+      accelerationStamina,
+      remainingDays,
+      remainingHours
+    },
+    staminaProduction,
+    cartProduction,
+    secretRealmProduction,
+    bondAdventureProduction,
+    total: totalProduction
+  };
 }
 
 /**
- * Calculate stamina production based on priority
- */
-function calculateStaminaProduction(totalStamina) {
-  const activeBtn = document.querySelector('#stamina-priority-buttons .btn.active');
-  if (!activeBtn) {
-    return { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0 };
-  }
-  
-  const priorityResource = activeBtn.dataset.resource;
-  const staminaCost = upgradesData.stamina_production.stamina_cost;
-  const runs = Math.floor(totalStamina / staminaCost);
-  
-  const resources = upgradesData.stamina_production.resources;
-  const result = { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0 };
-  
-  resources.forEach(resource => {
-    if (resource.key === priorityResource) {
-      result[resource.key] = Math.floor(runs * resource.value);
-    }
-  });
-  
-  return result;
-}
-
-/**
- * Calculate upgrade needs
+ * Calculate upgrade needs with detailed breakdown
  */
 function calculateUpgradeNeeds() {
   const needs = {
     gold: 0,
     refined_stone: 0,
     hourglass: 0,
-    battle_record: 0,
+    battle_essence: 0,
     freeze_dried: 0
+  };
+  
+  const breakdown = {
+    gear: { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0, freeze_dried: 0, count: 0 },
+    skill: { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0, freeze_dried: 0, count: 0 },
+    relic: { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0, freeze_dried: 0, count: 0 },
+    pet: { gold: 0, refined_stone: 0, hourglass: 0, battle_essence: 0, freeze_dried: 0, count: 0 }
   };
   
   // Get all upgrade inputs
@@ -413,47 +614,43 @@ function calculateUpgradeNeeds() {
       const targetLevel = item.target;
       
       if (targetLevel > startLevel) {
+        breakdown[category].count++;
+        
         for (let level = startLevel + 1; level <= targetLevel; level++) {
           const levelData = categoryData.levels.find(l => l.level === level);
           if (levelData) {
-            Object.keys(levelData).forEach(key => {
-              if (key !== 'level' && needs.hasOwnProperty(key)) {
-                needs[key] += levelData[key];
-              }
-            });
+            // Gold
+            if (levelData.gold) {
+              needs.gold += levelData.gold;
+              breakdown[category].gold += levelData.gold;
+            }
+            // Refined Stone
+            if (levelData.refined_stone) {
+              needs.refined_stone += levelData.refined_stone;
+              breakdown[category].refined_stone += levelData.refined_stone;
+            }
+            // Hourglass
+            if (levelData.hourglass) {
+              needs.hourglass += levelData.hourglass;
+              breakdown[category].hourglass += levelData.hourglass;
+            }
+            // Battle Essence (battle_record in data)
+            if (levelData.battle_record) {
+              needs.battle_essence += levelData.battle_record;
+              breakdown[category].battle_essence += levelData.battle_record;
+            }
+            // Freeze Dried
+            if (levelData.freeze_dried) {
+              needs.freeze_dried += levelData.freeze_dried;
+              breakdown[category].freeze_dried += levelData.freeze_dried;
+            }
           }
         }
       }
     });
   });
   
-  return needs;
-}
-
-/**
- * Calculate total production
- */
-function calculateTotalProduction() {
-  const staminaResult = calculateStamina();
-  const cartProduction = calculateCartProduction(staminaResult.remainingHours);
-  const secretRealmProduction = calculateSecretRealmProduction(staminaResult.remainingDays);
-  const bondAdventureProduction = calculateBondAdventureProduction(staminaResult.remainingDays);
-  const staminaProduction = calculateStaminaProduction(staminaResult.totalStamina);
-  
-  return {
-    stamina: staminaResult,
-    cart: cartProduction,
-    secretRealm: secretRealmProduction,
-    bondAdventure: bondAdventureProduction,
-    staminaUsage: staminaProduction,
-    total: {
-      gold: cartProduction.gold + secretRealmProduction.gold + staminaProduction.gold,
-      refined_stone: cartProduction.refined_stone + secretRealmProduction.refined_stone + staminaProduction.refined_stone,
-      hourglass: cartProduction.hourglass + secretRealmProduction.hourglass + staminaProduction.hourglass,
-      battle_essence: cartProduction.battle_essence + secretRealmProduction.battle_essence + staminaProduction.battle_essence,
-      freeze_dried: cartProduction.freeze_dried + bondAdventureProduction.freeze_dried
-    }
-  };
+  return { needs, breakdown };
 }
 
 /**
@@ -469,16 +666,17 @@ function performCalculation() {
   
   // Calculate
   const production = calculateTotalProduction();
-  const needs = calculateUpgradeNeeds();
+  const { needs, breakdown } = calculateUpgradeNeeds();
   
   calculationResults = {
     production,
     needs,
+    breakdown,
     comparison: {
       gold: production.total.gold - needs.gold,
       refined_stone: production.total.refined_stone - needs.refined_stone,
       hourglass: production.total.hourglass - needs.hourglass,
-      battle_essence: production.total.battle_essence - needs.battle_record,
+      battle_essence: production.total.battle_essence - needs.battle_essence,
       freeze_dried: production.total.freeze_dried - needs.freeze_dried
     }
   };
@@ -488,130 +686,23 @@ function performCalculation() {
 }
 
 /**
- * Display results
+ * Display calculation results
  */
 function displayResults() {
-  const resultsSection = document.getElementById('results-section');
   const resultsContainer = document.getElementById('calculation-results');
+  const resultsSection = document.getElementById('results-section');
   
-  let html = '';
-  
-  // Stamina summary
-  html += renderStaminaSummary(calculationResults.production.stamina);
-  
-  // Stamina usage summary
-  html += renderStaminaUsageSummary(calculationResults.production.staminaUsage);
-  
-  // Cart production summary
-  html += renderCartProductionSummary(calculationResults.production.cart);
-  
-  // Secret realm summary
-  html += renderSecretRealmSummary(calculationResults.production.secretRealm);
-  
-  // Bond adventure summary (if applicable)
-  if (seasonData.bond_adventure && seasonData.bond_adventure.bond_adventure_enabled) {
-    html += renderBondAdventureSummary(calculationResults.production.bondAdventure);
+  if (!calculationResults) {
+    resultsSection.style.display = 'none';
+    return;
   }
   
-  // Upgrade requirements summary
-  html += renderUpgradeRequirementsSummary(calculationResults.needs);
-  
-  // Resource comparison
-  html += generateResourceComparison(
-    calculationResults.production.total,
-    calculationResults.needs,
-    calculationResults.comparison,
-    calculationResults.production.stamina.remainingDays
-  );
-  
+  const html = renderCalculationResults(calculationResults);
   resultsContainer.innerHTML = html;
   resultsSection.style.display = 'block';
   
   // Scroll to results
   resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/**
- * Show resonance level modal
- */
-function showResonanceModal(category) {
-  const modal = new bootstrap.Modal(document.getElementById('resonanceModal'));
-  
-  // Update category name
-  const categoryNames = {
-    gear: '裝備 / Gear',
-    skill: '技能 / Skill',
-    relic: '古遺物 / Relic',
-    pet: '幻獸 / Pet'
-  };
-  
-  document.getElementById('resonance-category-name').textContent = categoryNames[category] || category;
-  
-  // Get default values from season data
-  const categoryData = upgradesData.categories[category];
-  const fixedLevel = category === 'relic' ? seasonData.fixed_relics_level : seasonData.fixed_level;
-  const suggestedLevel = categoryData.suggested_level;
-  
-  // Set default values
-  document.getElementById('resonance-start').value = fixedLevel;
-  document.getElementById('resonance-target').value = suggestedLevel;
-  
-  // Remove old event listener and add new one
-  const applyBtn = document.getElementById('apply-resonance-btn');
-  const newApplyBtn = applyBtn.cloneNode(true);
-  applyBtn.parentNode.replaceChild(newApplyBtn, applyBtn);
-  
-  newApplyBtn.addEventListener('click', function() {
-    applyResonanceLevel(category);
-    modal.hide();
-  });
-  
-  modal.show();
-}
-
-/**
- * Apply resonance level to all items in a category
- */
-function applyResonanceLevel(category) {
-  const startLevel = parseInt(document.getElementById('resonance-start').value);
-  const targetLevel = parseInt(document.getElementById('resonance-target').value);
-  
-  if (isNaN(startLevel) || isNaN(targetLevel)) {
-    alert('請輸入有效的等級 / Please enter valid levels');
-    return;
-  }
-  
-  if (targetLevel <= startLevel) {
-    alert('目標等級必須大於起始等級 / Target level must be greater than start level');
-    return;
-  }
-  
-  // Get all inputs for this category
-  let selector = `[data-category="${category}"]`;
-  const allInputs = document.querySelectorAll(selector);
-  
-  // Apply to all start and target inputs
-  allInputs.forEach(input => {
-    const type = input.dataset.type;
-    if (type === 'start') {
-      input.value = startLevel;
-    } else if (type === 'target') {
-      input.value = targetLevel;
-    }
-  });
-  
-  // Show success message
-  const categoryNames = {
-    gear: '裝備 / Gear',
-    skill: '技能 / Skill',
-    relic: '古遺物 / Relic',
-    pet: '幻獸 / Pet'
-  };
-  
-  const categoryName = categoryNames[category] || category;
-  
-  // Create toast notification (if Bootstrap toast is available)
-  showToast(`✅ 已套用共鳴等級到所有${categoryName}<br>起始: ${startLevel} → 目標: ${targetLevel}`, 'success');
 }
 
 /**
@@ -623,34 +714,24 @@ function showToast(message, type = 'info') {
   if (!toastContainer) {
     toastContainer = document.createElement('div');
     toastContainer.id = 'toast-container';
-    toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
-    toastContainer.style.zIndex = '9999';
+    toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999;';
     document.body.appendChild(toastContainer);
   }
   
   // Create toast
-  const toastId = 'toast-' + Date.now();
-  const bgColor = type === 'success' ? 'bg-success' : type === 'danger' ? 'bg-danger' : 'bg-info';
-  
-  const toastHtml = `
-    <div id="${toastId}" class="toast align-items-center text-white ${bgColor} border-0" role="alert">
-      <div class="d-flex">
-        <div class="toast-body">
-          ${message}
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-      </div>
-    </div>
+  const toast = document.createElement('div');
+  toast.className = `alert alert-${type} alert-dismissible fade show`;
+  toast.style.cssText = 'min-width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+  toast.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
   `;
   
-  toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+  toastContainer.appendChild(toast);
   
-  const toastElement = document.getElementById(toastId);
-  const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
-  toast.show();
-  
-  // Remove toast after it's hidden
-  toastElement.addEventListener('hidden.bs.toast', function() {
-    toastElement.remove();
-  });
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 150);
+  }, 3000);
 }

@@ -4,7 +4,7 @@
  */
 
 /**
- * Render stamina calculation summary
+ * Render stamina calculation summary with enhanced details
  */
 function renderStaminaSummary(staminaData) {
   return `
@@ -14,44 +14,112 @@ function renderStaminaSummary(staminaData) {
         體力計算 / Stamina Calculation
       </h6>
       <div class="table-responsive">
-        <table class="table table-sm">
+        <table class="table table-sm table-hover mb-0">
           <tbody>
             <tr>
-              <td class="summary-label">剩餘天數 / Remaining Days</td>
+              <td class="summary-label">
+                <i class="fas fa-calendar-day me-2"></i>剩餘天數 / Remaining Days
+              </td>
               <td class="summary-value text-end">${formatNumber(staminaData.remainingDays)} 天</td>
             </tr>
             <tr>
-              <td class="summary-label">剩餘小時 / Remaining Hours</td>
+              <td class="summary-label">
+                <i class="fas fa-clock me-2"></i>剩餘小時 / Remaining Hours
+              </td>
               <td class="summary-value text-end">${formatNumber(staminaData.remainingHours)} 小時</td>
-            </tr>
-            <tr>
-              <td class="summary-label">自然恢復 (5/小時) / Natural Recovery</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.naturalStamina)} ⚡</td>
-            </tr>
-            <tr>
-              <td class="summary-label">每日任務 / Daily Missions</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.dailyMissions)} × ${staminaData.remainingDays} = ${formatNumber(staminaData.dailyMissions * staminaData.remainingDays)} ⚡</td>
-            </tr>
-            <tr>
-              <td class="summary-label">商店寶庫 / Shop Treasury</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.shopTreasury)} × ${staminaData.remainingDays} = ${formatNumber(staminaData.shopTreasury * staminaData.remainingDays)} ⚡</td>
-            </tr>
-            ${staminaData.dailySpecial > 0 ? `
-            <tr>
-              <td class="summary-label">每日特惠 / Daily Special</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.dailySpecial)} × ${staminaData.remainingDays} = ${formatNumber(staminaData.dailySpecial * staminaData.remainingDays)} ⚡</td>
-            </tr>
-            ` : ''}
-            <tr>
-              <td class="summary-label">加速 (2小時/天) / Acceleration</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.accelerationHours)} 小時 = ${formatNumber(staminaData.accelerationStamina)} ⚡</td>
-            </tr>
-            <tr class="table-primary fw-bold">
-              <td class="summary-label">總體力 / Total Stamina</td>
-              <td class="summary-value text-end">${formatNumber(staminaData.totalStamina)} ⚡</td>
             </tr>
           </tbody>
         </table>
+      </div>
+      
+      <div class="breakdown-section">
+        <div class="breakdown-title">
+          <i class="fas fa-list-ul me-2"></i>體力來源明細 / Stamina Breakdown
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">💤 自然恢復 (5/小時)</span>
+          <span class="breakdown-value">${formatNumber(staminaData.naturalStamina)} ⚡</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">🎯 每日任務 (${staminaData.dailyMissions}/天 × ${staminaData.remainingDays}天)</span>
+          <span class="breakdown-value">${formatNumber(staminaData.dailyMissions * staminaData.remainingDays)} ⚡</span>
+        </div>
+        <div class="breakdown-item">
+          <span class="breakdown-label">🏪 商店寶庫 (${staminaData.shopTreasury}/天 × ${staminaData.remainingDays}天)</span>
+          <span class="breakdown-value">${formatNumber(staminaData.shopTreasury * staminaData.remainingDays)} ⚡</span>
+        </div>
+        ${staminaData.dailySpecial > 0 ? `
+        <div class="breakdown-item">
+          <span class="breakdown-label">💎 每日特惠 (${staminaData.dailySpecial}/天 × ${staminaData.remainingDays}天)</span>
+          <span class="breakdown-value">${formatNumber(staminaData.dailySpecial * staminaData.remainingDays)} ⚡</span>
+        </div>
+        ` : ''}
+        <div class="breakdown-item">
+          <span class="breakdown-label">⚡ 加速 (2小時/天 × ${staminaData.remainingDays}天)</span>
+          <span class="breakdown-value">${formatNumber(staminaData.accelerationStamina)} ⚡</span>
+        </div>
+      </div>
+      
+      <div class="alert alert-success mt-3 mb-0">
+        <div class="d-flex justify-content-between align-items-center">
+          <strong><i class="fas fa-sigma me-2"></i>總體力 / Total Stamina</strong>
+          <span class="fs-3 fw-bold">${formatNumber(staminaData.totalStamina)} ⚡</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Render stamina production breakdown with details
+ */
+function renderStaminaProductionSummary(staminaProduction) {
+  const hasProduction = Object.values(staminaProduction).some(v => v > 0);
+  if (!hasProduction) return '';
+  
+  return `
+    <div class="summary-card">
+      <h6>
+        <i class="fas fa-running text-primary"></i>
+        體力刷取產出明細 / Stamina Production Breakdown
+      </h6>
+      <div class="alert alert-info mb-3">
+        <i class="fas fa-info-circle me-2"></i>
+        以下為使用全部體力刷取單一資源的產出
+      </div>
+      <div class="row g-2">
+        ${staminaProduction.gold > 0 ? `
+        <div class="col-6 col-md-3">
+          <div class="detail-item">
+            <div class="detail-label">💰 金幣 / Gold</div>
+            <div class="detail-value">${formatNumber(staminaProduction.gold)}</div>
+          </div>
+        </div>
+        ` : ''}
+        ${staminaProduction.refined_stone > 0 ? `
+        <div class="col-6 col-md-3">
+          <div class="detail-item">
+            <div class="detail-label">🪨 粗煉石 / Refined Stone</div>
+            <div class="detail-value">${formatNumber(staminaProduction.refined_stone)}</div>
+          </div>
+        </div>
+        ` : ''}
+        ${staminaProduction.hourglass > 0 ? `
+        <div class="col-6 col-md-3">
+          <div class="detail-item">
+            <div class="detail-label">⏳ 時之砂 / Hourglass</div>
+            <div class="detail-value">${formatNumber(staminaProduction.hourglass)}</div>
+          </div>
+        </div>
+        ` : ''}
+        ${staminaProduction.battle_essence > 0 ? `
+        <div class="col-6 col-md-3">
+          <div class="detail-item">
+            <div class="detail-label">📖 歷戰精華 / Battle Essence</div>
+            <div class="detail-value">${formatNumber(staminaProduction.battle_essence)}</div>
+          </div>
+        </div>
+        ` : ''}
       </div>
     </div>
   `;
@@ -93,9 +161,12 @@ function renderStaminaUsageSummary(staminaUsage) {
 }
 
 /**
- * Render cart production summary
+ * Render cart production summary with totals
  */
 function renderCartProductionSummary(cartProduction) {
+  const hasProduction = Object.values(cartProduction).some(v => v > 0);
+  if (!hasProduction) return '';
+  
   return `
     <div class="summary-card">
       <h6>
@@ -104,41 +175,41 @@ function renderCartProductionSummary(cartProduction) {
       </h6>
       <div class="row g-2">
         ${cartProduction.gold > 0 ? `
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <div class="detail-item">
-            <div class="detail-label">💰 金幣</div>
+            <div class="detail-label">💰 金幣 / Gold</div>
             <div class="detail-value">${formatNumber(cartProduction.gold)}</div>
           </div>
         </div>
         ` : ''}
         ${cartProduction.refined_stone > 0 ? `
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <div class="detail-item">
-            <div class="detail-label">🪨 粗煉石</div>
+            <div class="detail-label">🪨 粗煉石 / Refined Stone</div>
             <div class="detail-value">${formatNumber(cartProduction.refined_stone)}</div>
           </div>
         </div>
         ` : ''}
         ${cartProduction.hourglass > 0 ? `
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <div class="detail-item">
-            <div class="detail-label">⏳ 時之砂</div>
+            <div class="detail-label">⏳ 時之砂 / Hourglass</div>
             <div class="detail-value">${formatNumber(cartProduction.hourglass)}</div>
           </div>
         </div>
         ` : ''}
         ${cartProduction.battle_essence > 0 ? `
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <div class="detail-item">
-            <div class="detail-label">📖 歷戰精華</div>
+            <div class="detail-label">📖 歷戰精華 / Battle Essence</div>
             <div class="detail-value">${formatNumber(cartProduction.battle_essence)}</div>
           </div>
         </div>
         ` : ''}
         ${cartProduction.freeze_dried > 0 ? `
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <div class="detail-item">
-            <div class="detail-label">🥩 普通凍乾</div>
+            <div class="detail-label">🥩 普通凍乾 / Normal Freeze-dried</div>
             <div class="detail-value">${formatNumber(cartProduction.freeze_dried)}</div>
           </div>
         </div>
@@ -149,9 +220,12 @@ function renderCartProductionSummary(cartProduction) {
 }
 
 /**
- * Render secret realm summary
+ * Render secret realm summary with tool details
  */
 function renderSecretRealmSummary(secretRealmProduction) {
+  const hasProduction = Object.values(secretRealmProduction).some(v => v > 0);
+  if (!hasProduction) return '';
+  
   return `
     <div class="summary-card">
       <h6>
@@ -210,12 +284,18 @@ function renderBondAdventureSummary(bondAdventureProduction) {
     <div class="summary-card">
       <h6>
         <i class="fas fa-heart text-danger"></i>
-        羈絆冒險產出 / Bond Adventure Production
+        羈絆冒險產出明細 / Bond Adventure Production
       </h6>
-      <div class="alert alert-success mb-0">
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="fw-bold">🐾 凍乾經驗值 / Freeze-dried EXP</span>
-          <span class="fs-4 fw-bold">${formatNumber(bondAdventureProduction.freeze_dried)}</span>
+      <div class="alert alert-info mb-3">
+        <i class="fas fa-info-circle me-2"></i>
+        以下為羈絆冒險獎勵轉換後的凍乾經驗值
+      </div>
+      <div class="row g-2">
+        <div class="col-12 col-md-6">
+          <div class="detail-item">
+            <div class="detail-label">🥩 凍乾經驗 / Freeze-dried EXP</div>
+            <div class="detail-value">${formatNumber(bondAdventureProduction.freeze_dried)}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -410,4 +490,227 @@ function generatePurchaseRecommendation(resource, shortage, remainingDays) {
   }
   
   return recommendation;
+}
+
+/**
+ * Render upgrade requirements breakdown by category
+ */
+function renderUpgradeBreakdown(breakdown) {
+  const categories = {
+    gear: { name: '裝備 / Gear', icon: '🛡️' },
+    skill: { name: '技能 / Skill', icon: '📚' },
+    relic: { name: '古遺物 / Relic', icon: '💎' },
+    pet: { name: '幻獸 / Pet', icon: '🐾' }
+  };
+  
+  return `
+    <div class="summary-card">
+      <h6>
+        <i class="fas fa-list-check text-warning"></i>
+        升級需求總計明細 / Upgrade Requirements Breakdown
+      </h6>
+      <div class="table-responsive">
+        <table class="table table-hover category-summary-table mb-0">
+          <thead>
+            <tr>
+              <th>類別 / Category</th>
+              <th class="text-center">數量</th>
+              <th class="text-end">💰 金幣</th>
+              <th class="text-end">🪨 粗煉石</th>
+              <th class="text-end">⏳ 時之砂</th>
+              <th class="text-end">📖 歷戰精華</th>
+              <th class="text-end">🥩 凍乾</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${Object.keys(categories).map(cat => {
+              const data = breakdown[cat];
+              if (data.count === 0) return '';
+              return `
+                <tr>
+                  <td><strong>${categories[cat].icon} ${categories[cat].name}</strong></td>
+                  <td class="text-center"><span class="badge bg-primary">${data.count}</span></td>
+                  <td class="text-end">${formatNumber(data.gold)}</td>
+                  <td class="text-end">${formatNumber(data.refined_stone)}</td>
+                  <td class="text-end">${formatNumber(data.hourglass)}</td>
+                  <td class="text-end">${formatNumber(data.battle_essence)}</td>
+                  <td class="text-end">${formatNumber(data.freeze_dried)}</td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Render full calculation results
+ */
+function renderCalculationResults(results) {
+  const { production, needs, breakdown, comparison } = results;
+  
+  return `
+    ${renderStaminaSummary(production.stamina)}
+    ${renderStaminaProductionSummary(production.staminaProduction)}
+    ${renderCartProductionSummary(production.cartProduction)}
+    ${renderSecretRealmSummary(production.secretRealmProduction)}
+    ${renderBondAdventureSummary(production.bondAdventureProduction)}
+    ${renderUpgradeBreakdown(breakdown)}
+    ${renderComparisonSummary(production.total, needs, comparison)}
+  `;
+}
+
+/**
+ * Render comparison summary with purchase recommendations
+ */
+function renderComparisonSummary(production, needs, comparison) {
+  const resources = [
+    { 
+      key: 'gold', 
+      icon: '💰', 
+      name: '金幣 / Gold',
+      tool: {
+        name: '金礦鎬',
+        name_en: 'Gold Pickaxe',
+        icon: '⛏️',
+        production_per_tool: null  // Will be filled from upgradesData
+      }
+    },
+    { 
+      key: 'refined_stone', 
+      icon: '🪨', 
+      name: '粗煉石 / Refined Stone',
+      tool: {
+        name: '鐵礦錘',
+        name_en: 'Iron Hammer',
+        icon: '🔨',
+        production_per_tool: null
+      }
+    },
+    { 
+      key: 'hourglass', 
+      icon: '⏳', 
+      name: '時之砂 / Hourglass',
+      tool: {
+        name: '砂礦鏟',
+        name_en: 'Sand Shovel',
+        icon: '🏖️',
+        production_per_tool: null
+      }
+    },
+    { 
+      key: 'battle_essence', 
+      icon: '📖', 
+      name: '歷戰精華 / Battle Essence',
+      tool: {
+        name: '拳套',
+        name_en: 'Glove',
+        icon: '🥊',
+        production_per_tool: null
+      }
+    },
+    { 
+      key: 'freeze_dried', 
+      icon: '🥩', 
+      name: '凍乾 / Freeze-dried',
+      tool: null  // ← 凍乾無法購買工具
+    }
+  ];
+  
+  // Fill in production rates from upgradesData
+  if (upgradesData && upgradesData.secret_realm) {
+    upgradesData.secret_realm.resources.forEach(resource => {
+      const resourceConfig = resources.find(r => r.key === resource.key);
+      if (resourceConfig && resourceConfig.tool) {
+        resourceConfig.tool.production_per_tool = resource.value;
+      }
+    });
+  }
+  
+  const remainingDays = seasonData?.total_day || 99;
+  
+  return `
+    <div class="summary-card">
+      <h6>
+        <i class="fas fa-balance-scale text-primary"></i>
+        資源對比總結 / Resource Comparison Summary
+      </h6>
+      <div class="row g-3">
+        ${resources.map(resource => {
+          const prod = production[resource.key];
+          const need = needs[resource.key];
+          const diff = comparison[resource.key];
+          const isSurplus = diff >= 0;
+          
+          // Calculate purchase recommendation
+          let purchaseRecommendation = '';
+          
+          // Only show purchase recommendation if shortage AND tool is available
+          if (!isSurplus && resource.tool !== null && resource.tool.production_per_tool) {
+            const shortage = Math.abs(diff);
+            const toolsNeeded = Math.ceil(shortage / (resource.tool.production_per_tool));
+            const dailyPurchase = Math.ceil(shortage / (resource.tool.production_per_tool * remainingDays));
+            
+            purchaseRecommendation = `
+              <div class="alert alert-warning mb-0 mt-2">
+                <div class="fw-bold mb-2">
+                  <i class="fas fa-shopping-cart me-2"></i>購買建議 / Purchase Recommendation
+                </div>
+                <div class="small">
+                  <div class="mb-1">
+                    <strong>${resource.tool.icon} ${resource.tool.name} (${resource.tool.name_en}) Needed:</strong> 
+                    <span class="text-danger fw-bold">${formatNumber(toolsNeeded)} 個</span>
+                  </div>
+                  <div class="mb-1">
+                    <strong>每次購買 / Daily Purchase:</strong> 
+                    <span class="text-primary fw-bold">${dailyPurchase} 個/天</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else if (!isSurplus && resource.tool === null) {
+            // Show message for resources that cannot purchase tools
+            purchaseRecommendation = `
+              <div class="alert alert-info mb-0 mt-2">
+                <small>
+                  <i class="fas fa-info-circle me-2"></i>
+                  凍乾無法購買秘境工具，請通過推車掛機和羈絆冒險獲得
+                  <br>Freeze-dried cannot purchase tools, obtain through Cart Idle and Bond Adventure
+                </small>
+              </div>
+            `;
+          }
+          
+          return `
+            <div class="col-12 col-md-6">
+              <div class="card h-100 ${isSurplus ? 'border-success' : 'border-danger'}">
+                <div class="card-body">
+                  <h6 class="card-title">${resource.icon} ${resource.name}</h6>
+                  <div class="mb-2">
+                    <small class="text-muted">總產出 / Total Production:</small>
+                    <div class="fs-5 fw-bold text-success">${formatNumber(prod)}</div>
+                  </div>
+                  <div class="mb-2">
+                    <small class="text-muted">總需求 / Total Needs:</small>
+                    <div class="fs-5 fw-bold text-primary">${formatNumber(need)}</div>
+                  </div>
+                  <hr>
+                  <div>
+                    <small class="text-muted">${isSurplus ? '盈餘 / Surplus' : '不足 / Shortage'}:</small>
+                    <div class="comparison-badge ${isSurplus ? 'surplus' : 'shortage'}">
+                      <i class="fas fa-${isSurplus ? 'check-circle' : 'exclamation-triangle'}"></i>
+                      <span>${isSurplus ? '+' : ''}${formatNumber(diff)}</span>
+                    </div>
+                  </div>
+                  ${purchaseRecommendation}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
 }
