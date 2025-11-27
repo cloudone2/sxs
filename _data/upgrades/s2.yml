@@ -34,8 +34,8 @@ secret_realm:
       key: "battle_essence"
       value: 1400
       icon: "📖"
-      tool_name: "Glove Requirement"
-      tool_name_zh: "拳套需求"
+      tool_name: "Glove"
+      tool_name_zh: "拳套"
 
 # Stamina Production Rates
 stamina_production:
@@ -89,6 +89,7 @@ categories:
   gear:
     name: "Gear Upgrades"
     icon: "⚔️"
+    suggested_level: 190
     resources:
       - name: "Refined Stone"
         name_zh: "粗煉石"
@@ -251,6 +252,7 @@ categories:
   relic:
     name: "Relic Upgrades"
     icon: "✨"
+    suggested_level: 19
     resources:
       - name: "Hourglass"
         name_zh: "時之砂"
@@ -272,6 +274,7 @@ categories:
   skill:
     name: "Skill Upgrades"
     icon: "📚"
+    suggested_level: 175
     resources:
       - name: "Battle Record"
         name_zh: "歷戰"
@@ -341,6 +344,7 @@ categories:
   pet:
     name: "Pet Upgrades"
     icon: "🐾"
+    suggested_level: 171
     resources:
       - name: "Freeze-Dried Food"
         name_zh: "凍乾"

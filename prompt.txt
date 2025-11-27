@@ -1,0 +1,137 @@
+這是一個 Jekyll 靜態網站生成器 建構的資源升級計算器，專為一款有季節制的遊戲設計。幫助玩家：
+
+計算賽季內剩餘的 體力（⚡）
+預測能生產多少 資源（金幣、粗煉石、時之砂歷、戰精華）
+判斷是否有足夠資源完成所有 升級目標（裝備、技能、古遺物、幻獸）
+如果不足，推薦需要 購買多少道具
+🗂️ 檔案結構
+1. 資料檔案（_data/ YAML 格式）
+_season.yml
+儲存每個賽季的配置：
+
+賽季元資料（標題、開始日期、總天數）
+固定等級（角色/古遺物）
+評分係數
+主題色彩
+羈絆冒險獎勵（Enable with sesaon setting: _season.yml:seasons.bond_adventure_enabled ）
+upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the feture)
+資源產出速率：
+秘境（🏰）：金幣、粗煉石、時之砂、歷戰精華
+體力產出（⚡）：每 5 體力可獲得的資源量(金幣、粗煉石、時之砂、歷戰精華)
+每日獎勵體力：任務 + 商店 + 每日特惠
+升級成本表：
+裝備（⚔️）：161-230 級（S2）/ 161-360 級（S3）- 消耗金幣 + 粗煉石
+古遺物（✨）：18-20 級（S2）/ 17-36 級（S3）- 消耗金幣 + 時之砂
+技能（📚）：171-200 級（S2）/ 161-360 級（S3）- 消耗歷戰精華
+幻獸（🐾）：161-200 級（S2）/ 161-300 級（S3）- 消耗凍乾經驗值
+freeze_dried_exp.yml
+定義寵物食物的經驗值：
+
+普通凍乾（🥩）：50 EXP
+優質凍乾（⭐）：400 EXP
+精品凍乾（💎）：2000 EXP
+
+2. 版面配置（_layouts/default.html）(include Bootstrap5 + fontawsome7)
+建立頁面架構：
+
+Header 使用 Jekyll SEO 插件
+Bootstrap CSS/JS 提供樣式
+浮動選單按鈕（FAB） 位於右下角：
+連結到原初之星計算器、資源升級計算器、技能升級計算器、經驗時間計算器
+動畫效果 + 遮罩層
+響應式手機設計
+3. 樣式表（resource-calculator.css）
+現代化漸層 UI，依賽季變換顏色
+卡片式布局，滑鼠懸停效果
+可折疊區塊，方便導覽
+顏色區分結果：
+綠色（✅）= 資源充足
+紅色（❌）= 資源不足
+響應式網格布局，適應不同螢幕尺寸
+4. JavaScript 檔案
+resource-calculator.js - 核心邏輯
+主要函數：
+
+initializeCalculator()
+
+載入賽季資料、產出速率、升級成本
+calculateStamina(seasonId)
+
+計算賽季剩餘天數/小時
+計算可用總體力來源：
+時間自然恢復（每小時 5）
+每日任務獎勵(20體力)
+商店購買(30體力)
+加速小時（每天 2 小時）<-固定不變
+每日特惠(10體力 - 299代金券)
+calculateCartProduction()
+
+計算推車掛機產出
+calculateSecretRealmProduction()
+
+計算秘境工具產出（金礦鎬、鐵礦錘等）
+calculateBondAdventureProduction()
+
+針對 S3：計算羈絆冒險的優質凍乾獎勵
+calculateUpgradeNeeds()
+
+遍歷所有裝備/技能/古遺物/幻獸升級輸入
+加總所需資源
+calculateTotalProduction()
+
+合併推車 + 秘境 + 羈絆冒險 + 體力刷取
+回傳總可產出資源
+displayResults()
+
+生成詳細 HTML 報告
+逐步顯示計算過程
+標示資源充足/不足
+提供購買建議
+resource-templates.js - HTML 渲染
+renderStaminaSummary()：顯示體力計算步驟
+renderStaminaUsageSummary()：顯示選擇的資源產出
+renderCartProductionSummary()：推車資源明細
+renderSecretRealmSummary()：工具產出詳情
+renderUpgradeRequirementsSummary()：按類別顯示升級需求
+generateResourceComparison()：最終對比卡片 + 購買建議
+resource-utils.js - 輔助函數
+updateSeasonTheme()：動態更新 CSS 顏色主題
+formatNumber()：添加千分位分隔符（1,234,567）
+getItemName()：返回本地化裝備/技能名稱
+
+🎮 使用流程 - resource.md(直接在 HTML 中嵌入yml資料)
+選擇賽季（S1/S2/S3/S4....）[droupdown style]→ UI 主題變色, (如沒有賽季yml, 不顯示介面)
+輸入 - 當前日期/時間 → 自動計算剩餘天數, 賽季開始日期/時間(default to season.yml:release_date ),  [ask for 會不會購 買每日特惠]
+選擇體力優先刷取 → 點擊資源類型（金幣、粗煉石、時之砂、歷戰精華）
+輸入產出速率：
+推車掛機產量（每小時）(金幣、粗煉石、時之砂、歷戰精華、普通凍乾)
+秘境工具數量（已持有: 鐵礦錘, 金礦鎬, 砂礦鏟, 拳套）
+羈絆冒險關卡獎勵（如適用）
+設定升級目標：
+輸入每個裝備(5item)/技能(8items)/古遺物(20items[光(4)暗(4)風(4)水(4)火(4)])/幻獸(4items)的「起始(default to: seasons.yml.fixed_level)」和「目標(default to: upgrades/賽季yml.categories:suggested_level)」等級,使用「套用共鳴等級(平均值)」批量設定
+點擊「計算」 → 生成完整報告：
+可用總體力
+可產出總資源
+需求總資源
+每種資源的盈餘/赤字
+購買建議（每天需買多少工具[建議購買工具數目/賽季剩餘天數]）
+
+🌟 核心功能
+✅ 多賽季支援，不同等級上限和產出速率
+✅ 即時體力計算，基於當前時間
+✅ 可折疊區塊，減少資訊過載
+✅ 雙語介面（中文/英文）
+✅ 購買建議，當資源不足時
+✅ 主題客製化，每賽季不同
+✅ 響應式設計(please using Bootstrap5 + fontawsome7)，手機/桌面都適用
+✅ no hard code
+✅ no css dark mode
+✅ all data on YAML 格式, no json file
+
+
+請幫我從零撰寫完整的 .md, CSS 和 JS 檔案
+resource.md, 
+resource-calculator.css, 
+resource-calculator.js,
+resource-templates.js, 
+resource-utils.js
