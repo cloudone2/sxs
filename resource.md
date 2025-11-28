@@ -390,8 +390,7 @@ title: 資源升級計算器 | Resource Upgrade Calculator
 window.SEASONS_DATA = {{ site.data.seasons | jsonify }};
 window.UPGRADES_DATA = {
   s2: {{ site.data.upgrades.s2 | jsonify }},
-  s3: {{ site.data.upgrades.s3 | jsonify }},
-  s4: {{ site.data.upgrades.s4 | jsonify }}
+  s3: {{ site.data.upgrades.s3 | jsonify }}
 };
 window.FREEZE_DRIED_DATA = {{ site.data.freeze_dried_exp | jsonify }};
 </script>
