@@ -1,5 +1,13 @@
 current_season: s3
 
+# 建議在 _season.yml 添加常數配置
+constants:
+  natural_stamina_per_hour: 5
+  acceleration_hours_per_day: 2
+  daily_deal_stamina: 10
+  daily_deal_voucher: 299
+  stamina_cost_per_run: 5
+
 seasons:
   - id: 's1'
     title: 'S1: 逢魔时至'
@@ -55,3 +63,24 @@ seasons:
       rewards:
         - type: "premium"
           amount: 160
+
+  - id: 's4'
+    title: 'S4: 蛤~~~'
+    season_number: 4
+    release_date: 2026-02-12
+    fixed_level: 200
+    fixed_relics_level: 20
+    score_level: 100
+    score_div: 6
+    score_gear: 7
+    score_skill: 3
+    score_relics: 13
+    score_pet: 3
+    star_start: 80
+    theme_color: '#FF7538'
+    total_day: 98
+    bond_adventure:
+      bond_adventure_enabled: true
+      rewards:
+        - type: "deluxe"
+          amount: 200
