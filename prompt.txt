@@ -103,7 +103,7 @@ getItemName()：返回本地化裝備/技能名稱
 upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the feture)
 羈絆冒險關卡獎勵（如適用）, 凍乾產出 = 凍乾數量 × 凍乾種類EXP × 剩餘天數
 設定升級目標：
-輸入每個裝備(5item[武器,副武器,頭盔,鎧甲,戰靴])/技能(8items)/古遺物(20items[光(4)暗(4)風(4)水(4)火(4)]/幻獸(4items)的「起始(default to: seasons.yml.fixed_level)」和「目標(default to: upgrades/賽季yml.categories:suggested_level)」等級,使用「套用共鳴等級(平均值)」批量設定(起始+目標共鳴等級), 每個類別都可摺疊，標題顯示共鳴等級
+輸入每個裝備(5item)/技能(8items)/古遺物(20items)/幻獸(4items)的「起始(default to: seasons.yml.fixed_level)」和「目標(default to: upgrades/賽季yml.categories:suggested_level)」等級,使用「套用共鳴等級(平均值)」批量設定(起始+目標共鳴等級), 每個類別都可摺疊，標題顯示共鳴等級
 點擊「計算」 → 生成完整報告(show more detail information資源計算)：
 可用總體力
 可產出總資源
