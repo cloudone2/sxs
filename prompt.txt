@@ -13,8 +13,7 @@ _season.yml
 固定等級（角色/古遺物）
 評分係數
 主題色彩
-羈絆冒險獎勵（Enable with sesaon setting: _season.yml:seasons.[seasonNum].bond_adventure_enabled ）
-upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the feture)
+羈絆冒險獎勵
 資源產出速率：
 秘境（🏰）：金幣、粗煉石、時之砂、歷戰精華
 體力產出（⚡）：每 5 體力可獲得的資源量(金幣、粗煉石、時之砂、歷戰精華)
@@ -100,7 +99,8 @@ getItemName()：返回本地化裝備/技能名稱
 選擇體力優先刷取 → 點擊資源類型（金幣、粗煉石、時之砂、歷戰精華[show the 資源產量]）
 輸入產出速率：
 推車掛機產量（每小時）(金幣、粗煉石、時之砂、歷戰精華、普通凍乾)
-秘境工具數量（已持有: 鐵礦錘, 金礦鎬, 砂礦鏟, 拳套）, (show 秘境工具產量, eg.金礦鎬產量/工具[_data\upgrades\s4.yml:secret_realm.key(gold) value])
+秘境工具數量（已持有: 鐵礦錘, 金礦鎬, 砂礦鏟, 拳套）, (show 秘境工具產量, eg.金礦鎬產量/工具[_data\upgrades\s4.yml:secret_realm.key(gold) value]),（Enable with sesaon setting: _season.yml:seasons.[seasonNum].bond_adventure_enabled ）
+upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the feture)
 羈絆冒險關卡獎勵（如適用）, 凍乾產出 = 凍乾數量 × 凍乾種類EXP × 剩餘天數
 設定升級目標：
 輸入每個裝備(5item[武器,副武器,頭盔,鎧甲,戰靴])/技能(8items)/古遺物(20items[光(4)暗(4)風(4)水(4)火(4)]/幻獸(4items)的「起始(default to: seasons.yml.fixed_level)」和「目標(default to: upgrades/賽季yml.categories:suggested_level)」等級,使用「套用共鳴等級(平均值)」批量設定(起始+目標共鳴等級), 每個類別都可摺疊，標題顯示共鳴等級
@@ -146,9 +146,9 @@ getItemName()：返回本地化裝備/技能名稱
 請幫我從零撰寫完整的 .md, CSS 和 JS 檔案
 upgrade.md, 
 upgrade-calculator.css, 
-upgrade-utils.js,
+upgrade-calculator.js,
 upgrade-templates.js,
-upgrade-calculator.js
+upgrade-utils.js
 
 
 S1 沒有升級數據 - 是否需要補充 s1.yml？ maybe add on future
