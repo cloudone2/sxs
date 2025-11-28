@@ -429,8 +429,8 @@ function calculateTotalProduction() {
   
   // Use default values if stamina_source doesn't exist
   const defaultStaminaSource = {
-    daily_mission: 50,
-    shop_treasury: 50,
+    daily_mission: 20,
+    shop_treasury: 30,
     daily_special: 10
   };
   
