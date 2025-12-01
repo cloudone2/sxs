@@ -1,482 +1,230 @@
 ---
 layout: default
-title: 資源升級計算器 | Upgrade Calculator
-lang: zh-TW
+title: 資源升級計算器
+description: 計算賽季內資源產出和升級需求的專業工具
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/upgrade-calculator.css' | relative_url }}">
+# 📊 資源升級計算器
 
-<!-- ============================================
-     主要內容區 Main Content Area
-     ============================================ -->
-<div class="upgrade-container">
-  <div class="text-center mb-5">
-    <h1 class="display-4 fw-bold mb-3">
-      <span class="gradient-text">🎮 資源升級計算器 Upgrade Calculator</span>
-    </h1>
-    <p class="lead text-muted mb-0">計算資源是否足夠完成所有升級</p>
-    <p class="text-muted small">Calculate if you have enough resources to complete all upgrades</p>
-
-    <!-- Replace Season Selector with Dropdown -->
-    <div class="season-selector">
-      <label for="season-select" class="form-label">選擇賽季 Select Season:</label>
-      <select id="season-select" class="form-select" onchange="switchSeason(this.value)">
-        {% for season in site.data.seasons.seasons %}
-          {% assign season_data = site.data.upgrades[season.id] %}
-          {% if season_data %}
-            <option value="{{ season.id }}" {% if season.id == 's3' %}selected{% endif %}>
-              第 {{ season.season_number }} 季: {{ season.title }}
-            </option>
-          {% else %}
-            <option value="{{ season.id }}" disabled>
-              第 {{ season.season_number }} 季: 🔒  即將推出 Coming Soon
-            </option>
-          {% endif %}
-        {% endfor %}
-      </select>
+<div id="app">
+  <!-- 賽季選擇 -->
+  <div class="card season-selector" id="seasonSelector">
+    <div class="card-header">
+      <h3><i class="fas fa-calendar-alt"></i> 賽季選擇</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="seasonSelect" class="form-label">選擇賽季</label>
+          <select class="form-select" id="seasonSelect">
+            <option value="">請選擇賽季</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3" id="seasonInfo" style="display: none;">
+          <div class="season-theme-preview">
+            <h5 id="seasonTitle"></h5>
+            <div class="theme-preview" id="themePreview"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  {% for season in site.data.seasons.seasons %}
-    {% assign season_data = site.data.upgrades[season.id] %}
-    {% if season_data %}
-      <div id="{{ season.id }}-content" class="season-content{% if season.id == 's3' %} active{% endif %}">
-
-        <!-- 步驟 1：計算可用體力 -->
-        <div class="calculator-section">
-          <h2>⏰ 步驟一：計算可用體力</h2>
-          <p class="subtitle">Step 1: Calculate Available Stamina (體力會自動計算 Stamina calculates automatically)</p>
-
-          <div class="input-grid">
-            <div class="input-card">
-              <label>
-                賽季開始日期 Season Start Date
-                <small>固定 08:00 AM Fixed</small>
-              </label>
-              <input type="date" id="{{ season.id }}-start-date" value="{{ season.release_date }}" class="input-field">
-            </div>
-
-            <div class="input-card">
-              <label>
-                當前日期時間 Current Date & Time
-                <small>自動填入 Auto-filled</small>
-              </label>
-              <input type="datetime-local" id="{{ season.id }}-current-time" class="input-field">
-            </div>
-
-            <div class="input-card">
-              <label>
-                商城每日體力 Daily Mall Stamina
-                <small>預設 10 Default 10</small>
-              </label>
-              <input type="number" id="{{ season.id }}-mall-stamina" value="10" min="0" max="50" class="input-field">
-            </div>
+  <!-- 主要計算介面 -->
+  <div id="calculatorInterface" style="display: none;">
+    
+    <!-- 時間設定 -->
+    <div class="card time-settings">
+      <div class="card-header collapsible" data-bs-toggle="collapse" data-bs-target="#timeSettingsBody">
+        <h3><i class="fas fa-clock"></i> 時間設定 <i class="fas fa-chevron-down toggle-icon"></i></h3>
+      </div>
+      <div class="card-body collapse show" id="timeSettingsBody">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="startDateTime" class="form-label">賽季開始時間</label>
+            <input type="datetime-local" class="form-control" id="startDateTime">
           </div>
-
-          <div class="info-box">
-            <span class="info-icon">ℹ️</span>
-            <div>
-              <strong>📘 說明 Info:</strong> 基礎每日體力：{{ season_data.daily_stamina.total }} (每日任務 + 商店寶庫)<br>
-              <strong>Info:</strong> Base daily stamina: {{ season_data.daily_stamina.total }} (Daily Missions + Shop Treasury)
-            </div>
+          <div class="col-md-6 mb-3">
+            <label for="currentDateTime" class="form-label">當前時間</label>
+            <input type="datetime-local" class="form-control" id="currentDateTime">
           </div>
         </div>
-
-        <!-- 步驟 2：體力使用優先級 -->
-        <div class="calculator-section">
-          <h2>⚡ 步驟二：選擇體力使用優先級 Select Stamina Usage Priority</h2>
-          <p class="subtitle">Step 2: Select Stamina Usage Priority (選擇一個資源 Select one resource)</p>
-
-          <div id="{{ season.id }}-stamina-options" class="stamina-options">
-            {% for resource in season_data.stamina_production.resources %}
-            <div class="stamina-option" onclick="selectStaminaUsage('{{ season.id }}', '{{ resource.key }}')">
-              <div class="option-icon">{{ resource.icon }}</div>
-              <div class="option-name">{{ resource.name_zh }}</div>
-              <div class="option-name-en">{{ resource.name }}</div>
-              <div class="option-rate">{{ resource.value }}/次 per run</div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <!-- 步驟 3：推車產量 -->
-        <div class="calculator-section">
-          <h2>🏭 步驟三：推車產量 Cart Production</h2>
-          <p class="subtitle">Step 3: Cart Production (每小時產量 hourly rate)</p>
-
-          <div class="input-grid">
-            <div class="input-card">
-              <label>
-                💰 金幣 Gold
-                <small>每小時產量 Per hour rate</small>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="buyDailyDeal">
+              <label class="form-check-label" for="buyDailyDeal">
+                購買每日特惠 (10體力 - 299代金券)
               </label>
-              <input type="number" id="{{ season.id }}-cart-gold" value="0" min="0" step="100">
             </div>
-
-            <div class="input-card">
-              <label>
-                🪨 粗煉石 Refined Stone
-                <small>每小時產量 Per hour rate</small>
-              </label>
-              <input type="number" id="{{ season.id }}-cart-stone" value="0" min="0" step="10">
-            </div>
-
-            <div class="input-card">
-              <label>
-                ⏳ 時之砂 Hourglass
-                <small>每小時產量 Per hour rate</small>
-              </label>
-              <input type="number" id="{{ season.id }}-cart-hourglass" value="0" min="0" step="10">
-            </div>
-
-            <div class="input-card">
-              <label>
-                📖 歷戰精華 Battle Essence
-                <small>每小時產量 Per hour rate</small>
-              </label>
-              <input type="number" id="{{ season.id }}-cart-essence" value="0" min="0" step="10">
-            </div>
-
-            <div class="input-card">
-              <label>
-                🥩 普通凍乾 Normal Freeze-dried
-                <small>每小時產量 Per hour rate</small>
-              </label>
-              <input type="number" id="{{ season.id }}-cart-dried" value="0" min="0" step="10">
-            </div>
-          </div>
-
-          <div class="info-box" style="background: #fef3c7;">
-            <span class="info-icon">💡</span>
-            <div>
-              <strong>說明 Note:</strong> 推車只產生普通凍乾 ({{ site.data.freeze_dried_exp.types[0].exp }} EXP/個 per item)<br>
-              Cart only produces Normal Freeze-dried ({{ site.data.freeze_dried_exp.types[0].exp }} EXP each)
-            </div>
-          </div>
-        </div>
-
-        <!-- 步驟 4：秘境工具產量 -->
-        <div class="calculator-section">
-          <h2>🔨 步驟四：秘境工具產量 Secret Realm Tool Production</h2>
-          <p class="subtitle">Step 4: Secret Realm Tool Production (填入你擁有的工具數量 Enter number of tools you own)</p>
-
-          <div class="input-grid">
-            {% for resource in season_data.secret_realm.resources %}
-            <div class="input-card">
-              <label>
-                {{ resource.icon }} {{ resource.tool_name_zh }}
-                <small>{{ resource.tool_name }} ({{ resource.value }}{{ resource.icon }})</small>
-              </label>
-              <input type="number" id="{{ season.id }}-tool-{{ resource.key }}" value="0" min="0" >
-            </div>
-            {% endfor %}
-          </div>
-
-          <div class="info-box" style="background: #fef3c7;">
-            <span class="info-icon">💡</span>
-            <div>
-              <strong>說明 Note:</strong> 秘境工具產量 = 每個工具的基礎值 × 你擁有的工具數量<br>
-              Secret Realm tool production = Base value per tool × Number of tools you own
-            </div>
-          </div>
-        </div>
-
-        <!-- 步驟 4.5：羈絆冒險（S3+ 限定） -->
-        {% if season.bond_adventure_enabled %}
-          {% comment %} 從 seasons.yml 中取得預設獎勵數量 {% endcomment %}
-          {% assign default_reward_amount = 0 %}
-          {% if season.bond_adventure_enabled.rewards %}
-            {% for reward in season.bond_adventure_enabled.rewards %}
-              {% if reward.type == "premium" %}
-                {% assign default_reward_amount = reward.amount %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-          
-          <div class="calculator-section">
-            <h2>🎭 步驟四點五：羈絆冒險 Bond Adventure</h2>
-            <p class="subtitle">Step 4.5: Bond Adventure (每天可獲得 4 次獎勵 4 rewards per day)</p>
-            
-            <div class="input-grid">
-              <!-- 關卡獎勵輸入 -->
-              <div class="input-card">
-                <label>
-                  ⭐ 關卡獎勵 Stage Reward
-                  <small>每次獎勵的優質凍乾數量 Premium freeze-dried per reward</small>
-                </label>
-                <input type="number" id="{{ season.id }}-bond-stage-reward" value="{{ default_reward_amount }}" min="0" step="1" class="input-field" oninput="updateBondAdventurePreview('{{ season.id }}')" placeholder="輸入獎勵數量 Enter reward amount">
-              </div>
-            </div>
-            
-            <div class="info-box" style="background: #e0f2fe;">
-              <span class="info-icon">💡</span>
-              <div>
-                <strong>說明 Note:</strong><br>
-                • 羈絆冒險每天可獲得 <strong>4 次</strong>獎勵（每次獎勵由完成關卡決定）<br>
-                Bond Adventure grants <strong>4 rewards per day</strong> (reward amount based on completed stage)
-              </div>
-            </div>
-            
-            <div class="info-box" style="background: #fef3c7; margin-top: 12px;">
-              <span class="info-icon">📊</span>
-              <div>
-                <strong>凍乾經驗值系統 Freeze-dried EXP System:</strong><br>
-                {% for type in site.data.freeze_dried_exp.types %}
-                • {{ type.icon }} {{ type.name_zh }} {{ type.name }}: <strong>{{ type.exp }} EXP</strong><br>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        {% endif %}
-
-        <!-- 步驟 5：升級目標 -->
-        <div class="calculator-section">
-          <h2>🎯 步驟五：升級目標等級 Upgrade Target Levels</h2>
-          <p class="subtitle">Step 5: Upgrade Targets</p>
-
-          <div class="upgrade-targets">
-            <!-- 裝備區塊（預設折疊） -->
-            <div class="collapsible-category">
-              <div class="category-header collapsed" onclick="toggleCategory('{{ season.id }}-gear')">
-                <span class="collapse-icon">▶</span>
-                <span class="category-title">
-                  <h3>⚔️ 裝備 Gear（5件 5 items）</h3>
-                </span>
-                <div class="avg-level-input">
-                  <label>當前共鳴等級 Current Level:</label>
-                  {% assign min_level = season_data.categories.gear.levels.first.level %}
-                  {% assign max_level = season_data.categories.gear.levels.last.level %}
-                  <input type="number" id="{{ season.id }}-gear-current-avg" value="{{ min_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <label style="margin-left: 10px;">目標共鳴等級 Target Level:</label>
-                  <input type="number" id="{{ season.id }}-gear-target-avg" value="{{ max_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <button class="apply-btn" onclick="event.stopPropagation(); applyAvgLevelNew('{{ season.id }}', 'gear', 5)">套用全部 Apply to All</button>
-                </div>
-              </div>
-              <div class="category-content" id="{{ season.id }}-gear-content">
-                <div class="upgrade-grid">
-                  {% for i in (1..5) %}
-                  <div class="upgrade-item">
-                    <label>裝備{{ i }} Item {{ i }}</label>
-                    <div class="level-inputs">
-                      {% assign min_level = season_data.categories.gear.levels.first.level %}
-                      {% assign max_level = season_data.categories.gear.levels.last.level %}
-                      <input type="number" id="{{ season.id }}-gear{{ i }}-from" value="{{ min_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="當前 Current">
-                      <span>→</span>
-                      <input type="number" id="{{ season.id }}-gear{{ i }}-to" value="{{ max_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="目標 Target">
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-
-            <!-- 技能區塊（預設折疊） -->
-            <div class="collapsible-category">
-              <div class="category-header collapsed" onclick="toggleCategory('{{ season.id }}-skill')">
-                <span class="collapse-icon">▶</span>
-                <span class="category-title">
-                  <h3>📚 技能 Skills（8個 8 items）</h3>
-                </span>
-                <div class="avg-level-input">
-                  <label>當前共鳴等級 Current Level:</label>
-                  {% assign min_level = season_data.categories.skill.levels.first.level %}
-                  {% assign max_level = season_data.categories.skill.levels.last.level %}
-                  <input type="number" id="{{ season.id }}-skill-current-avg" value="{{ min_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <label style="margin-left: 10px;">目標共鳴等級 Target Level:</label>
-                  <input type="number" id="{{ season.id }}-skill-target-avg" value="{{ max_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <button class="apply-btn" onclick="event.stopPropagation(); applyAvgLevelNew('{{ season.id }}', 'skill', 8)">套用全部 Apply to All</button>
-                </div>
-              </div>
-              <div class="category-content" id="{{ season.id }}-skill-content">
-                <div class="upgrade-grid">
-                  {% for i in (1..8) %}
-                  <div class="upgrade-item">
-                    <label>技能{{ i }} Skill {{ i }}</label>
-                    <div class="level-inputs">
-                      {% assign min_level = season_data.categories.skill.levels.first.level %}
-                      {% assign max_level = season_data.categories.skill.levels.last.level %}
-                      <input type="number" id="{{ season.id }}-skill{{ i }}-from" value="{{ min_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="當前 Current">
-                      <span>→</span>
-                      <input type="number" id="{{ season.id }}-skill{{ i }}-to" value="{{ max_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="目標 Target">
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-
-            <!-- 古遺物區塊（預設折疊） -->
-            <div class="collapsible-category">
-              <div class="category-header collapsed" onclick="toggleCategory('{{ season.id }}-relic')">
-                <span class="collapse-icon">▶</span>
-                <span class="category-title">
-                  <h3>✨ 古遺物 Relics（20個 20 items）</h3>
-                </span>
-                <div class="avg-level-input">
-                  <label>當前共鳴等級 Current Level:</label>
-                  {% assign min_level = season_data.categories.relic.levels.first.level %}
-                  {% assign max_level = season_data.categories.relic.levels.last.level %}
-                  <input type="number" id="{{ season.id }}-relic-current-avg" value="{{ min_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <label style="margin-left: 10px;">目標共鳴等級 Target Level:</label>
-                  <input type="number" id="{{ season.id }}-relic-target-avg" value="{{ max_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <button class="apply-btn" onclick="event.stopPropagation(); applyAvgLevelNew('{{ season.id }}', 'relic', 20)">套用全部 Apply to All</button>
-                </div>
-              </div>
-              <div class="category-content" id="{{ season.id }}-relic-content">
-                <div class="upgrade-grid">
-                  {% for i in (1..20) %}
-                  <div class="upgrade-item">
-                    <label>古遺物{{ i }} Relic {{ i }}</label>
-                    <div class="level-inputs">
-                      {% assign min_level = season_data.categories.relic.levels.first.level %}
-                      {% assign max_level = season_data.categories.relic.levels.last.level %}
-                      <input type="number" id="{{ season.id }}-relic{{ i }}-from" value="{{ min_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="當前 Current">
-                      <span>→</span>
-                      <input type="number" id="{{ season.id }}-relic{{ i }}-to" value="{{ max_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="目標 Target">
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-
-            <!-- 幻獸區塊（預設折疊） -->
-            <div class="collapsible-category">
-              <div class="category-header collapsed" onclick="toggleCategory('{{ season.id }}-pet')">
-                <span class="collapse-icon">▶</span>
-                <span class="category-title">
-                  <h3>🐾 幻獸 Pets（4隻 4 items）</h3>
-                </span>
-                <div class="avg-level-input">
-                  <label>當前共鳴等級 Current Level:</label>
-                  {% assign min_level = season_data.categories.pet.levels.first.level %}
-                  {% assign max_level = season_data.categories.pet.levels.last.level %}
-                  <input type="number" id="{{ season.id }}-pet-current-avg" value="{{ min_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <label style="margin-left: 10px;">目標共鳴等級 Target Level:</label>
-                  <input type="number" id="{{ season.id }}-pet-target-avg" value="{{ max_level }}" 
-                         min="{{ min_level }}" max="{{ max_level }}" 
-                         onclick="event.stopPropagation()">
-                  <button class="apply-btn" onclick="event.stopPropagation(); applyAvgLevelNew('{{ season.id }}', 'pet', 4)">套用全部 Apply to All</button>
-                </div>
-              </div>
-              <div class="category-content" id="{{ season.id }}-pet-content">
-                <div class="upgrade-grid">
-                  {% for i in (1..4) %}
-                  <div class="upgrade-item">
-                    <label>幻獸{{ i }} Pet {{ i }}</label>
-                    <div class="level-inputs">
-                      {% assign min_level = season_data.categories.pet.levels.first.level %}
-                      {% assign max_level = season_data.categories.pet.levels.last.level %}
-                      <input type="number" id="{{ season.id }}-pet{{ i }}-from" value="{{ min_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="當前 Current">
-                      <span>→</span>
-                      <input type="number" id="{{ season.id }}-pet{{ i }}-to" value="{{ max_level }}" min="{{ min_level }}" max="{{ max_level }}" placeholder="目標 Target">
-                    </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 計算按鈕 -->
-          <div class="calculate-section">
-            <button class="calculate-btn" onclick="calculateResources('{{ season.id }}')">
-              🧮 計算資源 Calculate Resources
-            </button>
-          </div>
-        </div>
-
-        <!-- 結果區塊 -->
-        <div id="{{ season.id }}-results" class="results-section" style="display: none;">
-          <h2>📊 總需求匯總 Total Requirements Summary</h2>
-          
-          <!-- 計算步驟摘要 -->
-          <div id="{{ season.id }}-calc-summary" class="calc-summary">
-            <!-- 由 JavaScript 動態生成 -->
-          </div>
-
-          <!-- 資源對比結果 -->
-          <h3>💰 資源對比 Resource Comparison</h3>
-          <div id="{{ season.id }}-results-grid" class="results-grid">
-            <!-- 由 JavaScript 動態生成 -->
           </div>
         </div>
       </div>
-    {% else %}
-      <div id="{{ season.id }}-content" class="season-content">
-        <div class="season-info">
-          <h1>第 {{ season.season_number }} 季：{{ season.title }}</h1>
-        </div>
-        <div class="no-data-message">
-          <h2>📊 暫無升級數據 No Upgrade Data Available</h2>
-          <p>{{ season.title }} 的升級計算器數據尚未提供</p>
-          <p class="subtitle-en">Upgrade calculator data for {{ season.title }} is not available yet.</p>
+    </div>
+
+    <!-- 體力優先刷取 -->
+    <div class="card stamina-priority">
+      <div class="card-header collapsible" data-bs-toggle="collapse" data-bs-target="#staminaPriorityBody">
+        <h3><i class="fas fa-bolt"></i> 體力優先刷取 <i class="fas fa-chevron-down toggle-icon"></i></h3>
+      </div>
+      <div class="card-body collapse show" id="staminaPriorityBody">
+        <div class="row" id="staminaResourceOptions">
+          <!-- 動態生成資源選項 -->
         </div>
       </div>
-    {% endif %}
-  {% endfor %}
+    </div>
+
+    <!-- 產出設定 -->
+    <div class="card production-settings">
+      <div class="card-header collapsible" data-bs-toggle="collapse" data-bs-target="#productionSettingsBody">
+        <h3><i class="fas fa-industry"></i> 產出設定 <i class="fas fa-chevron-down toggle-icon"></i></h3>
+      </div>
+      <div class="card-body collapse show" id="productionSettingsBody">
+        
+        <!-- 推車掛機 -->
+        <div class="mb-4">
+          <h5><i class="fas fa-cart-plus"></i> 推車掛機產量 (每小時)</h5>
+          <div class="row" id="cartProductionInputs">
+            <!-- 動態生成 -->
+          </div>
+        </div>
+
+        <!-- 秘境工具 -->
+        <div class="mb-4">
+          <h5><i class="fas fa-tools"></i> 秘境工具數量</h5>
+          <div class="row" id="secretRealmToolInputs">
+            <!-- 動態生成 -->
+          </div>
+        </div>
+
+        <!-- 羈絆冒險 (S3/S4限定) -->
+        <div class="mb-4" id="bondAdventureSection" style="display: none;">
+          <h5><i class="fas fa-users"></i> 羈絆冒險獎勵</h5>
+          <div id="bondAdventureInputs">
+            <!-- 動態生成 -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 升級目標 -->
+    <div class="card upgrade-goals">
+      <div class="card-header collapsible" data-bs-toggle="collapse" data-bs-target="#upgradeGoalsBody">
+        <h3><i class="fas fa-level-up-alt"></i> 升級目標 <i class="fas fa-chevron-down toggle-icon"></i></h3>
+      </div>
+      <div class="card-body collapse show" id="upgradeGoalsBody">
+        
+        <!-- 裝備升級 -->
+        <div class="upgrade-category mb-4" data-category="gear">
+          <div class="category-header collapsible" data-bs-toggle="collapse" data-bs-target="#gearUpgrades">
+            <h5><i class="fas fa-sword"></i> 裝備升級 (5項) <small class="text-muted">平均等級: <span class="avg-level">--</span></small> <i class="fas fa-chevron-down toggle-icon"></i></h5>
+          </div>
+          <div class="collapse" id="gearUpgrades">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button class="btn btn-outline-primary btn-sm" onclick="applyResonanceLevel('gear', 'start')">套用共鳴等級(起始)</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-success btn-sm" onclick="applyResonanceLevel('gear', 'target')">套用共鳴等級(目標)</button>
+              </div>
+            </div>
+            <div class="upgrade-items" id="gearItems">
+              <!-- 動態生成5個裝備輸入 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 技能升級 -->
+        <div class="upgrade-category mb-4" data-category="skill">
+          <div class="category-header collapsible" data-bs-toggle="collapse" data-bs-target="#skillUpgrades">
+            <h5><i class="fas fa-book"></i> 技能升級 (8項) <small class="text-muted">平均等級: <span class="avg-level">--</span></small> <i class="fas fa-chevron-down toggle-icon"></i></h5>
+          </div>
+          <div class="collapse" id="skillUpgrades">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button class="btn btn-outline-primary btn-sm" onclick="applyResonanceLevel('skill', 'start')">套用共鳴等級(起始)</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-success btn-sm" onclick="applyResonanceLevel('skill', 'target')">套用共鳴等級(目標)</button>
+              </div>
+            </div>
+            <div class="upgrade-items" id="skillItems">
+              <!-- 動態生成8個技能輸入 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 古遺物升級 -->
+        <div class="upgrade-category mb-4" data-category="relic">
+          <div class="category-header collapsible" data-bs-toggle="collapse" data-bs-target="#relicUpgrades">
+            <h5><i class="fas fa-gem"></i> 古遺物升級 (20項) <small class="text-muted">平均等級: <span class="avg-level">--</span></small> <i class="fas fa-chevron-down toggle-icon"></i></h5>
+          </div>
+          <div class="collapse" id="relicUpgrades">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button class="btn btn-outline-primary btn-sm" onclick="applyResonanceLevel('relic', 'start')">套用共鳴等級(起始)</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-success btn-sm" onclick="applyResonanceLevel('relic', 'target')">套用共鳴等級(目標)</button>
+              </div>
+            </div>
+            <div class="upgrade-items" id="relicItems">
+              <!-- 動態生成20個古遺物輸入 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 幻獸升級 -->
+        <div class="upgrade-category mb-4" data-category="pet">
+          <div class="category-header collapsible" data-bs-toggle="collapse" data-bs-target="#petUpgrades">
+            <h5><i class="fas fa-paw"></i> 幻獸升級 (4項) <small class="text-muted">平均等級: <span class="avg-level">--</span></small> <i class="fas fa-chevron-down toggle-icon"></i></h5>
+          </div>
+          <div class="collapse" id="petUpgrades">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button class="btn btn-outline-primary btn-sm" onclick="applyResonanceLevel('pet', 'start')">套用共鳴等級(起始)</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-success btn-sm" onclick="applyResonanceLevel('pet', 'target')">套用共鳴等級(目標)</button>
+              </div>
+            </div>
+            <div class="upgrade-items" id="petItems">
+              <!-- 動態生成4個幻獸輸入 -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 計算按鈕 -->
+    <div class="text-center mb-4">
+      <button class="btn btn-primary btn-lg" onclick="calculateAll()">
+        <i class="fas fa-calculator"></i> 開始計算
+      </button>
+    </div>
+
+    <!-- 計算結果 -->
+    <div id="calculationResults" style="display: none;">
+      <!-- 結果將在這裡顯示 -->
+    </div>
+
+  </div>
 </div>
 
-<!-- Load scripts in correct order: Utils → Templates → Main Calculator -->
+<!-- 嵌入的YAML數據 -->
+<script type="application/json" id="seasonsData">{{ site.data.seasons | jsonify }}</script>
+<script type="application/json" id="upgradesData">
+{
+  {% for season_file in site.data.upgrades %}
+    "{{ season_file[0] }}": {{ season_file[1] | jsonify }}{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+}
+</script>
+<script type="application/json" id="freezeDriedData">{{ site.data.freeze_dried_exp | jsonify }}</script>
+
+<link rel="stylesheet" href="{{ '/assets/css/upgrade-calculator.css' | relative_url }}">
 <script src="{{ '/assets/js/upgrade-utils.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/upgrade-templates.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/upgrade-calculator.js' | relative_url }}"></script>
-
-<script>
-// 注入 Jekyll 數據到 JavaScript
-(function() {
-  const seasons = {{ site.data.seasons.seasons | jsonify }};
-  const seasonData = {};
-  const SEASON_CONSTANTS = {};
-  const bondAdventureDataMap = {};
-  const freezeDriedExpData = {{ site.data.freeze_dried_exp | jsonify }};
-
-  // Store seasons globally for theme switching
-  window.SEASONS = seasons;
-
-  {% for season in site.data.seasons.seasons %}
-    {% assign season_key = season.id %}
-    {% assign season_data = site.data.upgrades[season_key] %}
-    {% if season_data %}
-      seasonData['{{ season_key }}'] = {{ season_data | jsonify }};
-      SEASON_CONSTANTS['{{ season_key }}'] = {
-        totalDays: {{ season.total_day }},
-        baseDailyStamina: {{ season_data.daily_stamina.total }},
-        releaseDate: '{{ season.release_date }}'
-      };
-    {% endif %}
-    
-    {% if season.bond_adventure_enabled and season.bond_adventure_file %}
-      {% assign bond_file = season.bond_adventure_file %}
-      {% assign bond_data = site.data[bond_file] %}
-      {% if bond_data %}
-        bondAdventureDataMap['{{ season_key }}'] = {{ bond_data | jsonify }};
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  // 初始化計算器
-  initializeCalculator(seasons, seasonData, SEASON_CONSTANTS, bondAdventureDataMap, freezeDriedExpData);
-  
-  // **Initialize theme for the current/default active season**
-  {% if site.data.seasons.current_season %}
-    updateSeasonTheme('{{ site.data.seasons.current_season }}');
-  {% else %}
-    updateSeasonTheme('s3');
-  {% endif %}
-})();
-</script>

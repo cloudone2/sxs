@@ -1,964 +1,913 @@
-/**
- * ============================================
- * 升級計算器主程式 Upgrade Calculator Main
- * ============================================
- * 此檔案處理所有計算邏輯
- * This file handles all calculation logic
- */
-
-// ============================================
-// 全域變數 Global Variables
-// ============================================
-let SEASONS = [];
-let SEASON_DATA = {};
-let SEASON_CONSTANTS = {};
-let BOND_ADVENTURE_DATA = {};
-let FREEZE_DRIED_EXP_DATA = {};
-let currentSeason = 's3';
-let selectedStaminaUsage = {};
-
-// ============================================
-// 初始化函數 Initialization Functions
-// ============================================
-
-/**
- * 初始化計算器
- * Initialize calculator
- */
-function initializeCalculator(seasons, seasonData, seasonConstants, bondAdventureDataMap, freezeDriedExpData) {
-  SEASONS = seasons;
-  SEASON_DATA = seasonData;
-  SEASON_CONSTANTS = seasonConstants;
-  BOND_ADVENTURE_DATA = bondAdventureDataMap;
-  FREEZE_DRIED_EXP_DATA = freezeDriedExpData;
-
-  console.log('Calculator initialized with data:', {
-    seasons: SEASONS.length,
-    seasonData: Object.keys(SEASON_DATA),
-    constants: Object.keys(SEASON_CONSTANTS),
-    bondAdventure: Object.keys(BOND_ADVENTURE_DATA),
-    freezeDriedExp: FREEZE_DRIED_EXP_DATA
-  });
-
-  // 設定當前時間
-  setCurrentDateTime();
-
-  // 為每個賽季初始化預設的體力使用選項
-  SEASONS.forEach(season => {
-    if (SEASON_DATA[season.id]) {
-      selectedStaminaUsage[season.id] = null;
+// 資源升級計算器核心邏輯
+class UpgradeCalculator {
+    constructor() {
+        this.seasons = {};
+        this.upgrades = {};
+        this.freezeDriedExp = {};
+        this.currentSeason = null;
+        this.selectedStaminaResource = null;
+        this.calculationResults = null;
+        
+        // 常數配置
+        this.constants = {
+            natural_stamina_per_hour: 5,
+            acceleration_hours_per_day: 2,
+            daily_deal_stamina: 10,
+            daily_deal_voucher: 299,
+            stamina_cost_per_run: 5
+        };
+        
+        // 資源類型映射
+        this.resourceTypes = ['gold', 'refined_stone', 'hourglass', 'battle_essence', 'freeze_dried'];
+        this.resourceIcons = {
+            gold: '💰',
+            refined_stone: '🪨',
+            hourglass: '⏳',
+            battle_essence: '📖',
+            freeze_dried: '🥩'
+        };
+        
+        this.resourceNames = {
+            gold: '金幣',
+            refined_stone: '粗煉石',
+            hourglass: '時之砂',
+            battle_essence: '歷戰精華',
+            freeze_dried: '凍乾'
+        };
+        
+        // 類別配置
+        this.categoryConfig = {
+            gear: { name: '裝備', icon: '⚔️', count: 5 },
+            skill: { name: '技能', icon: '📚', count: 8 },
+            relic: { name: '古遺物', icon: '✨', count: 20 },
+            pet: { name: '幻獸', icon: '🐾', count: 4 }
+        };
+        
+        this.initializeCalculator();
     }
-  });
-}
-
-/**
- * 設定當前日期時間
- * Set current date time
- */
-function setCurrentDateTime() {
-  SEASONS.forEach(season => {
-    const currentTimeInput = document.getElementById(`${season.id}-current-time`);
-    if (currentTimeInput) {
-      const now = new Date();
-      const localDateTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000))
-        .toISOString()
-        .slice(0, 16);
-      currentTimeInput.value = localDateTime;
-    }
-  });
-}
-
-// ============================================
-// 賽季切換 Season Switching
-// ============================================
-
-/**
- * 切換賽季
- * Switch season
- */
-function switchSeason(seasonId) {
-  console.log(`Switching to season: ${seasonId}`);
-  
-  // Hide all season contents
-  document.querySelectorAll('.season-content').forEach(content => {
-    content.classList.remove('active');
-  });
-
-  // Show selected season content
-  const selectedContent = document.getElementById(`${seasonId}-content`);
-  if (selectedContent) {
-    selectedContent.classList.add('active');
-  }
-
-  // Update season buttons
-  document.querySelectorAll('.season-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  
-  // Find the button that was clicked and mark it active
-  const clickedButton = event ? event.target : document.querySelector(`[onclick="switchSeason('${seasonId}')"]`);
-  if (clickedButton) {
-    clickedButton.classList.add('active');
-  }
-
-  // **IMPORTANT: Update current season FIRST**
-  currentSeason = seasonId;
-
-  // **THEN: Update theme color**
-  updateSeasonTheme(seasonId);
-  
-  // Reset calculator state for new season
-  const resultsSection = document.getElementById(`${seasonId}-results`);
-  if (resultsSection) {
-    resultsSection.style.display = 'none';
-  }
-
-  console.log(`Successfully switched to season: ${seasonId}`);
-}
-
-// ============================================
-// 體力使用選擇 Stamina Usage Selection
-// ============================================
-
-/**
- * 選擇體力使用優先級
- * Select stamina usage priority
- */
-function selectStaminaUsage(seasonId, resourceKey) {
-  selectedStaminaUsage[seasonId] = resourceKey;
-
-  // 更新視覺效果
-  const container = document.getElementById(`${seasonId}-stamina-options`);
-  if (container) {
-    const options = container.querySelectorAll('.stamina-option');
-    options.forEach(option => {
-      option.classList.remove('selected');
-    });
-    event.currentTarget.classList.add('selected');
-  }
-
-  console.log(`Selected stamina usage for ${seasonId}:`, resourceKey);
-}
-
-// ============================================
-// 折疊/展開分類 Toggle Categories
-// ============================================
-
-/**
- * 切換分類折疊狀態
- * Toggle category collapse state
- */
-function toggleCategory(categoryId) {
-  const header = event.currentTarget;
-  const content = document.getElementById(`${categoryId}-content`);
-  const icon = header.querySelector('.collapse-icon');
-
-  if (content && icon) {
-    const isCollapsed = header.classList.contains('collapsed');
     
-    if (isCollapsed) {
-      header.classList.remove('collapsed');
-      content.style.display = 'block';
-      content.style.maxHeight = 'initial';
-      icon.textContent = '▼';
-    } else {
-      header.classList.add('collapsed');
-      content.style.display = 'none';
-      content.style.maxHeight = 0;
-      icon.textContent = '▶';
+    async initializeCalculator() {
+        try {
+            // 載入數據
+            await this.loadData();
+            
+            // 設置事件監聽器
+            this.setupEventListeners();
+            
+            // 初始化UI
+            this.initializeUI();
+            
+        } catch (error) {
+            console.error('初始化計算器失敗:', error);
+            this.showError('載入數據失敗，請刷新頁面重試');
+        }
     }
-  }
-}
-
-// ============================================
-// 套用平均等級 Apply Average Levels
-// ============================================
-
-/**
- * 套用平均等級到所有項目
- * Apply average level to all items (New version)
- */
-function applyAvgLevelNew(seasonId, category, itemCount) {
-  const currentAvgInput = document.getElementById(`${seasonId}-${category}-current-avg`);
-  const targetAvgInput = document.getElementById(`${seasonId}-${category}-target-avg`);
-
-  if (!currentAvgInput || !targetAvgInput) {
-    console.error(`Average level inputs not found for ${seasonId}-${category}`);
-    return;
-  }
-
-  const currentAvg = parseInt(currentAvgInput.value);
-  const targetAvg = parseInt(targetAvgInput.value);
-
-  if (isNaN(currentAvg) || isNaN(targetAvg)) {
-    alert('請輸入有效的等級數字 Please enter valid level numbers');
-    return;
-  }
-
-  if (targetAvg < currentAvg) {
-    alert('目標等級不能低於當前等級 Target level cannot be lower than current level');
-    return;
-  }
-
-  // 套用到所有項目
-  for (let i = 1; i <= itemCount; i++) {
-    const fromInput = document.getElementById(`${seasonId}-${category}${i}-from`);
-    const toInput = document.getElementById(`${seasonId}-${category}${i}-to`);
     
-    if (fromInput && toInput) {
-      fromInput.value = currentAvg;
-      toInput.value = targetAvg;
+    async loadData() {
+        try {
+            // 從嵌入的 script 標籤載入數據
+            const seasonsElement = document.getElementById('seasonsData');
+            const upgradesElement = document.getElementById('upgradesData');
+            const freezeDriedElement = document.getElementById('freezeDriedData');
+            
+            if (!seasonsElement || !upgradesElement || !freezeDriedElement) {
+                throw new Error('找不到數據元素');
+            }
+            
+            this.seasons = JSON.parse(seasonsElement.textContent);
+            this.upgrades = JSON.parse(upgradesElement.textContent);
+            this.freezeDriedExp = JSON.parse(freezeDriedElement.textContent);
+            
+            // 更新常數配置
+            if (this.seasons.constants) {
+                this.constants = { ...this.constants, ...this.seasons.constants };
+            }
+            
+            console.log('數據載入完成:', {
+                seasons: Object.keys(this.seasons.seasons || {}),
+                upgrades: Object.keys(this.upgrades),
+                freezeDriedExp: this.freezeDriedExp.types?.length || 0
+            });
+            
+        } catch (error) {
+            console.error('載入數據失敗:', error);
+            throw error;
+        }
     }
-  }
-
-  console.log(`Applied avg levels for ${category}: ${currentAvg} → ${targetAvg}`);
+    
+    setupEventListeners() {
+        // 賽季選擇器
+        const seasonSelect = document.getElementById('seasonSelect');
+        if (seasonSelect) {
+            seasonSelect.addEventListener('change', this.onSeasonChange.bind(this));
+        }
+        
+        // 時間輸入
+        const currentDateTime = document.getElementById('currentDateTime');
+        const startDateTime = document.getElementById('startDateTime');
+        
+        if (currentDateTime) {
+            currentDateTime.addEventListener('change', this.updateTimeCalculations.bind(this));
+            // 設置當前時間
+            const now = new Date();
+            currentDateTime.value = this.formatDateTimeLocal(now);
+        }
+        
+        if (startDateTime) {
+            startDateTime.addEventListener('change', this.updateTimeCalculations.bind(this));
+        }
+        
+        // 購買每日特惠
+        const buyDailyDeal = document.getElementById('buyDailyDeal');
+        if (buyDailyDeal) {
+            buyDailyDeal.addEventListener('change', this.updateTimeCalculations.bind(this));
+        }
+        
+        // 可折疊區塊
+        this.setupCollapsibleSections();
+    }
+    
+    setupCollapsibleSections() {
+        // 為可折疊標題添加事件監聽器
+        document.querySelectorAll('.collapsible').forEach(element => {
+            element.addEventListener('click', function() {
+                const target = this.getAttribute('data-bs-target');
+                if (target) {
+                    const targetElement = document.querySelector(target);
+                    if (targetElement) {
+                        const isExpanded = targetElement.classList.contains('show');
+                        this.setAttribute('aria-expanded', !isExpanded);
+                    }
+                }
+            });
+        });
+    }
+    
+    initializeUI() {
+        this.populateSeasonSelector();
+        this.setupDefaultSeason();
+    }
+    
+    populateSeasonSelector() {
+        const seasonSelect = document.getElementById('seasonSelect');
+        if (!seasonSelect || !this.seasons.seasons) return;
+        
+        // 清空選項
+        seasonSelect.innerHTML = '<option value="">請選擇賽季</option>';
+        
+        // 添加賽季選項
+        this.seasons.seasons.forEach(season => {
+            const option = document.createElement('option');
+            option.value = season.id;
+            option.textContent = season.title;
+            seasonSelect.appendChild(option);
+        });
+    }
+    
+    setupDefaultSeason() {
+        const seasonSelect = document.getElementById('seasonSelect');
+        if (!seasonSelect || !this.seasons.current_season) return;
+        
+        // 設置預設賽季
+        seasonSelect.value = this.seasons.current_season;
+        this.onSeasonChange();
+    }
+    
+    onSeasonChange() {
+        const seasonSelect = document.getElementById('seasonSelect');
+        const seasonId = seasonSelect.value;
+        
+        if (!seasonId) {
+            this.hidePage();
+            return;
+        }
+        
+        // 找到選中的賽季
+        const season = this.seasons.seasons.find(s => s.id === seasonId);
+        if (!season) {
+            console.error('找不到賽季:', seasonId);
+            return;
+        }
+        
+        this.currentSeason = season;
+        
+        // 更新主題
+        updateSeasonTheme(seasonId, season.theme_color);
+        
+        // 顯示賽季信息
+        this.displaySeasonInfo(season);
+        
+        // 設置預設時間
+        this.setupDefaultTimes(season);
+        
+        // 設置體力資源選項
+        this.setupStaminaResources(seasonId);
+        
+        // 設置產出輸入
+        this.setupProductionInputs(seasonId);
+        
+        // 設置升級目標
+        this.setupUpgradeGoals(seasonId);
+        
+        // 顯示主要界面
+        this.showPage();
+    }
+    
+    hidePage() {
+        const calculatorInterface = document.getElementById('calculatorInterface');
+        if (calculatorInterface) {
+            calculatorInterface.style.display = 'none';
+        }
+        
+        const seasonInfo = document.getElementById('seasonInfo');
+        if (seasonInfo) {
+            seasonInfo.style.display = 'none';
+        }
+    }
+    
+    showPage() {
+        const calculatorInterface = document.getElementById('calculatorInterface');
+        if (calculatorInterface) {
+            calculatorInterface.style.display = 'block';
+            calculatorInterface.classList.add('fade-in');
+        }
+    }
+    
+    displaySeasonInfo(season) {
+        const seasonInfo = document.getElementById('seasonInfo');
+        const seasonTitle = document.getElementById('seasonTitle');
+        const themePreview = document.getElementById('themePreview');
+        
+        if (seasonInfo && seasonTitle && themePreview) {
+            seasonTitle.textContent = season.title;
+            themePreview.style.background = `linear-gradient(135deg, ${season.theme_color} 0%, ${this.darkenColor(season.theme_color, 20)} 100%)`;
+            seasonInfo.style.display = 'block';
+        }
+    }
+    
+    setupDefaultTimes(season) {
+        const startDateTime = document.getElementById('startDateTime');
+        if (startDateTime && season.release_date) {
+            const releaseDate = new Date(season.release_date);
+            startDateTime.value = this.formatDateTimeLocal(releaseDate);
+        }
+        
+        // 觸發時間計算更新
+        this.updateTimeCalculations();
+    }
+    
+    setupStaminaResources(seasonId) {
+        const container = document.getElementById('staminaResourceOptions');
+        if (!container) return;
+        
+        const upgradeData = this.upgrades[seasonId];
+        if (!upgradeData || !upgradeData.stamina_production) return;
+        
+        container.innerHTML = '';
+        
+        upgradeData.stamina_production.resources.forEach(resource => {
+            const resourceDiv = document.createElement('div');
+            resourceDiv.className = 'col-md-6 col-lg-3 mb-3';
+            
+            resourceDiv.innerHTML = `
+                <div class="resource-option" data-resource="${resource.key}" onclick="selectStaminaResource('${resource.key}')">
+                    <div class="resource-icon">${resource.icon}</div>
+                    <div class="resource-name">${resource.name_zh}</div>
+                    <div class="resource-rate">${formatNumber(resource.value)}/5⚡</div>
+                </div>
+            `;
+            
+            container.appendChild(resourceDiv);
+        });
+    }
+    
+    setupProductionInputs(seasonId) {
+        this.setupCartProductionInputs();
+        this.setupSecretRealmInputs(seasonId);
+        this.setupBondAdventureInputs(seasonId);
+    }
+    
+    setupCartProductionInputs() {
+        const container = document.getElementById('cartProductionInputs');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        const resources = [
+            { key: 'gold', name: '金幣', icon: '💰' },
+            { key: 'refined_stone', name: '粗煉石', icon: '🪨' },
+            { key: 'hourglass', name: '時之砂', icon: '⏳' },
+            { key: 'battle_essence', name: '歷戰精華', icon: '📖' },
+            { key: 'freeze_dried', name: '普通凍乾', icon: '🥩' }
+        ];
+        
+        resources.forEach(resource => {
+            const inputDiv = document.createElement('div');
+            inputDiv.className = 'col-md-6 col-lg-4 mb-3';
+            
+            inputDiv.innerHTML = `
+                <label for="cart_${resource.key}" class="form-label">
+                    ${resource.icon} ${resource.name}
+                </label>
+                <input type="number" 
+                       class="form-control" 
+                       id="cart_${resource.key}" 
+                       placeholder="0" 
+                       min="0" 
+                       step="1">
+            `;
+            
+            container.appendChild(inputDiv);
+        });
+    }
+    
+    setupSecretRealmInputs(seasonId) {
+        const container = document.getElementById('secretRealmToolInputs');
+        if (!container) return;
+        
+        const upgradeData = this.upgrades[seasonId];
+        if (!upgradeData || !upgradeData.secret_realm) return;
+        
+        container.innerHTML = '';
+        
+        upgradeData.secret_realm.resources.forEach(resource => {
+            const inputDiv = document.createElement('div');
+            inputDiv.className = 'col-md-6 col-lg-3 mb-3';
+            
+            inputDiv.innerHTML = `
+                <label for="tool_${resource.key}" class="form-label">
+                    ${resource.icon} ${resource.tool_name_zh}
+                </label>
+                <input type="number" 
+                       class="form-control" 
+                       id="tool_${resource.key}" 
+                       placeholder="0" 
+                       min="0" 
+                       step="1">
+                <small class="form-text text-muted">${formatNumber(resource.value)}/工具</small>
+            `;
+            
+            container.appendChild(inputDiv);
+        });
+    }
+    
+    setupBondAdventureInputs(seasonId) {
+        const section = document.getElementById('bondAdventureSection');
+        const container = document.getElementById('bondAdventureInputs');
+        
+        if (!section || !container) return;
+        
+        const season = this.seasons.seasons.find(s => s.id === seasonId);
+        
+        if (!season || !season.bond_adventure?.bond_adventure_enabled) {
+            section.style.display = 'none';
+            return;
+        }
+        
+        section.style.display = 'block';
+        container.innerHTML = '';
+        
+        if (season.bond_adventure.rewards) {
+            season.bond_adventure.rewards.forEach((reward, index) => {
+                const freezeDriedType = this.freezeDriedExp.types.find(type => type.key === reward.type);
+                if (!freezeDriedType) return;
+                
+                const inputDiv = document.createElement('div');
+                inputDiv.className = 'col-md-6 mb-3';
+                
+                inputDiv.innerHTML = `
+                    <label for="bond_${reward.type}" class="form-label">
+                        ${freezeDriedType.icon} ${freezeDriedType.name_zh}
+                    </label>
+                    <input type="number" 
+                           class="form-control" 
+                           id="bond_${reward.type}" 
+                           value="${reward.amount}" 
+                           min="0" 
+                           step="1">
+                    <small class="form-text text-muted">每日獎勵數量</small>
+                `;
+                
+                container.appendChild(inputDiv);
+            });
+        }
+    }
+    
+    setupUpgradeGoals(seasonId) {
+        const upgradeData = this.upgrades[seasonId];
+        const season = this.seasons.seasons.find(s => s.id === seasonId);
+        if (!upgradeData || !season) return;
+        
+        Object.keys(this.categoryConfig).forEach(categoryKey => {
+            this.setupCategoryUpgradeGoals(categoryKey, upgradeData, season);
+        });
+    }
+    
+    setupCategoryUpgradeGoals(categoryKey, upgradeData, season) {
+        const container = document.getElementById(`${categoryKey}Items`);
+        if (!container) return;
+        
+        const categoryData = upgradeData.categories[categoryKey];
+        const categoryConfig = this.categoryConfig[categoryKey];
+        if (!categoryData || !categoryConfig) return;
+        
+        container.innerHTML = '';
+        
+        for (let i = 1; i <= categoryConfig.count; i++) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'upgrade-item';
+            
+            const startLevel = this.getFixedLevel(season, categoryKey);
+            const targetLevel = categoryData.suggested_level || startLevel;
+            
+            itemDiv.innerHTML = `
+                <div class="upgrade-item-header">
+                    ${categoryConfig.icon} ${categoryConfig.name} ${i}
+                </div>
+                <div class="level-inputs">
+                    <div class="level-input">
+                        <label class="form-label">起始等級</label>
+                        <input type="number" 
+                               class="form-control start-level" 
+                               value="${startLevel}" 
+                               min="1" 
+                               data-category="${categoryKey}" 
+                               data-item="${i}">
+                    </div>
+                    <div class="level-arrow">→</div>
+                    <div class="level-input">
+                        <label class="form-label">目標等級</label>
+                        <input type="number" 
+                               class="form-control target-level" 
+                               value="${targetLevel}" 
+                               min="1" 
+                               data-category="${categoryKey}" 
+                               data-item="${i}">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(itemDiv);
+        }
+        
+        // 為輸入框添加事件監聽器
+        container.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                this.updateAverageLevel(categoryKey);
+            });
+        });
+        
+        // 更新平均等級顯示
+        this.updateAverageLevel(categoryKey);
+    }
+    
+    getFixedLevel(season, categoryKey) {
+        if (categoryKey === 'relic') {
+            return season.fixed_relics_level || season.fixed_level || 1;
+        }
+        return season.fixed_level || 1;
+    }
+    
+    updateAverageLevel(categoryKey) {
+        const container = document.getElementById(`${categoryKey}Items`);
+        const avgElement = document.querySelector(`[data-category="${categoryKey}"] .avg-level`);
+        
+        if (!container || !avgElement) return;
+        
+        const startInputs = container.querySelectorAll('.start-level');
+        const targetInputs = container.querySelectorAll('.target-level');
+        
+        let totalStart = 0, totalTarget = 0, count = 0;
+        
+        startInputs.forEach((input, index) => {
+            const startValue = parseInt(input.value) || 0;
+            const targetValue = parseInt(targetInputs[index]?.value) || 0;
+            
+            if (startValue > 0 && targetValue > 0) {
+                totalStart += startValue;
+                totalTarget += targetValue;
+                count++;
+            }
+        });
+        
+        if (count > 0) {
+            const avgStart = Math.round(totalStart / count);
+            const avgTarget = Math.round(totalTarget / count);
+            avgElement.textContent = `${avgStart} → ${avgTarget}`;
+        } else {
+            avgElement.textContent = '-- → --';
+        }
+    }
+    
+    updateTimeCalculations() {
+        if (!this.currentSeason) return;
+        
+        const startDateTime = document.getElementById('startDateTime');
+        const currentDateTime = document.getElementById('currentDateTime');
+        
+        if (!startDateTime || !currentDateTime) return;
+        
+        const startTime = new Date(startDateTime.value);
+        const currentTime = new Date(currentDateTime.value);
+        
+        if (isNaN(startTime.getTime()) || isNaN(currentTime.getTime())) return;
+        
+        // 計算剩餘時間
+        const totalSeasonMs = this.currentSeason.total_day * 24 * 60 * 60 * 1000;
+        const seasonEndTime = new Date(startTime.getTime() + totalSeasonMs);
+        const remainingMs = seasonEndTime.getTime() - currentTime.getTime();
+        
+        if (remainingMs <= 0) {
+            console.warn('賽季已結束');
+            return;
+        }
+        
+        const remainingDays = Math.floor(remainingMs / (24 * 60 * 60 * 1000));
+        const remainingHours = Math.floor((remainingMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        
+        // 儲存計算結果供其他方法使用
+        this.timeData = {
+            remainingDays,
+            remainingHours,
+            totalRemainingHours: remainingDays * 24 + remainingHours
+        };
+    }
+    
+    // 體力計算方法
+    calculateStamina() {
+        if (!this.timeData) {
+            this.updateTimeCalculations();
+        }
+        
+        if (!this.timeData) return null;
+        
+        const { remainingDays, remainingHours } = this.timeData;
+        const buyDailyDeal = document.getElementById('buyDailyDeal')?.checked || false;
+        
+        // 自然恢復體力
+        const naturalStamina = (remainingDays * 24 + remainingHours) * this.constants.natural_stamina_per_hour;
+        
+        // 每日獎勵體力 (任務20 + 商店30)
+        const dailyBonusStamina = remainingDays * 50;
+        
+        // 加速體力 (每天2小時)
+        const accelerationStamina = remainingDays * this.constants.acceleration_hours_per_day * this.constants.natural_stamina_per_hour;
+        
+        // 特惠體力
+        const dealStamina = buyDailyDeal ? (remainingDays * this.constants.daily_deal_stamina) : 0;
+        
+        const totalStamina = naturalStamina + dailyBonusStamina + accelerationStamina + dealStamina;
+        
+        return {
+            natural: naturalStamina,
+            dailyBonus: dailyBonusStamina,
+            acceleration: accelerationStamina,
+            dailyDeal: dealStamina,
+            total: totalStamina,
+            remainingDays,
+            remainingHours
+        };
+    }
+    
+    // 推車產出計算
+    calculateCartProduction() {
+        if (!this.timeData) return {};
+        
+        const production = {};
+        const totalHours = this.timeData.totalRemainingHours;
+        
+        ['gold', 'refined_stone', 'hourglass', 'battle_essence', 'freeze_dried'].forEach(resourceKey => {
+            const input = document.getElementById(`cart_${resourceKey}`);
+            const hourlyRate = parseInt(input?.value) || 0;
+            
+            if (resourceKey === 'freeze_dried') {
+                // 凍乾需要轉換為經驗值
+                const normalExp = this.freezeDriedExp.types.find(type => type.key === 'normal')?.exp || 50;
+                production[resourceKey] = hourlyRate * totalHours * normalExp;
+            } else {
+                production[resourceKey] = hourlyRate * totalHours;
+            }
+        });
+        
+        return production;
+    }
+    
+    // 秘境工具產出計算
+    calculateSecretRealmProduction() {
+        const seasonId = this.currentSeason?.id;
+        if (!seasonId) return {};
+        
+        const upgradeData = this.upgrades[seasonId];
+        if (!upgradeData || !upgradeData.secret_realm) return {};
+        
+        const production = {};
+        
+        upgradeData.secret_realm.resources.forEach(resource => {
+            const input = document.getElementById(`tool_${resource.key}`);
+            const toolCount = parseInt(input?.value) || 0;
+            production[resource.key] = toolCount * resource.value;
+        });
+        
+        return production;
+    }
+    
+    // 羈絆冒險產出計算
+    calculateBondAdventureProduction() {
+        const season = this.currentSeason;
+        if (!season || !season.bond_adventure?.bond_adventure_enabled) return {};
+        
+        if (!this.timeData) return {};
+        
+        const production = { freeze_dried: 0 };
+        const remainingDays = this.timeData.remainingDays;
+        
+        if (season.bond_adventure.rewards) {
+            season.bond_adventure.rewards.forEach(reward => {
+                const input = document.getElementById(`bond_${reward.type}`);
+                const dailyAmount = parseInt(input?.value) || 0;
+                
+                const freezeDriedType = this.freezeDriedExp.types.find(type => type.key === reward.type);
+                if (freezeDriedType) {
+                    production.freeze_dried += dailyAmount * remainingDays * freezeDriedType.exp;
+                }
+            });
+        }
+        
+        return production;
+    }
+    
+    // 體力刷取產出計算
+    calculateStaminaProduction() {
+        if (!this.selectedStaminaResource) return {};
+        
+        const staminaData = this.calculateStamina();
+        if (!staminaData) return {};
+        
+        const seasonId = this.currentSeason?.id;
+        if (!seasonId) return {};
+        
+        const upgradeData = this.upgrades[seasonId];
+        if (!upgradeData || !upgradeData.stamina_production) return {};
+        
+        const resourceData = upgradeData.stamina_production.resources.find(
+            r => r.key === this.selectedStaminaResource
+        );
+        
+        if (!resourceData) return {};
+        
+        const totalRuns = Math.floor(staminaData.total / this.constants.stamina_cost_per_run);
+        const production = {};
+        production[this.selectedStaminaResource] = totalRuns * resourceData.value;
+        
+        return production;
+    }
+    
+    // 計算升級需求
+    calculateUpgradeNeeds() {
+        const seasonId = this.currentSeason?.id;
+        if (!seasonId) return {};
+        
+        const upgradeData = this.upgrades[seasonId];
+        if (!upgradeData) return {};
+        
+        const needs = {};
+        
+        Object.keys(this.categoryConfig).forEach(categoryKey => {
+            const categoryData = upgradeData.categories[categoryKey];
+            if (!categoryData) return;
+            
+            const container = document.getElementById(`${categoryKey}Items`);
+            if (!container) return;
+            
+            const startInputs = container.querySelectorAll('.start-level');
+            const targetInputs = container.querySelectorAll('.target-level');
+            
+            startInputs.forEach((startInput, index) => {
+                const startLevel = parseInt(startInput.value) || 0;
+                const targetLevel = parseInt(targetInputs[index]?.value) || 0;
+                
+                if (startLevel >= targetLevel || startLevel < 1) return;
+                
+                // 計算此項目需求
+                const itemNeeds = this.calculateSingleItemNeeds(
+                    categoryData, startLevel, targetLevel
+                );
+                
+                // 累加到總需求
+                Object.keys(itemNeeds).forEach(resourceKey => {
+                    needs[resourceKey] = (needs[resourceKey] || 0) + itemNeeds[resourceKey];
+                });
+            });
+        });
+        
+        return needs;
+    }
+    
+    calculateSingleItemNeeds(categoryData, startLevel, targetLevel) {
+        const needs = {};
+        
+        for (let level = startLevel + 1; level <= targetLevel; level++) {
+            const levelData = categoryData.levels.find(l => l.level === level);
+            if (levelData) {
+                Object.keys(levelData).forEach(resourceKey => {
+                    if (resourceKey !== 'level') {
+                        needs[resourceKey] = (needs[resourceKey] || 0) + levelData[resourceKey];
+                    }
+                });
+            }
+        }
+        
+        return needs;
+    }
+    
+    // 計算總產出
+    calculateTotalProduction() {
+        const cartProduction = this.calculateCartProduction();
+        const secretRealmProduction = this.calculateSecretRealmProduction();
+        const bondAdventureProduction = this.calculateBondAdventureProduction();
+        const staminaProduction = this.calculateStaminaProduction();
+        
+        const totalProduction = {};
+        
+        // 合併所有產出
+        [cartProduction, secretRealmProduction, bondAdventureProduction, staminaProduction].forEach(production => {
+            Object.keys(production).forEach(resourceKey => {
+                totalProduction[resourceKey] = (totalProduction[resourceKey] || 0) + production[resourceKey];
+            });
+        });
+        
+        return {
+            total: totalProduction,
+            breakdown: {
+                cart: cartProduction,
+                secretRealm: secretRealmProduction,
+                bondAdventure: bondAdventureProduction,
+                stamina: staminaProduction
+            }
+        };
+    }
+    
+    // 生成購買建議
+    generatePurchaseSuggestions(needs, production) {
+        if (!this.timeData) return {};
+        
+        const suggestions = {};
+        const seasonId = this.currentSeason?.id;
+        const upgradeData = this.upgrades[seasonId];
+        
+        if (!upgradeData || !upgradeData.secret_realm) return suggestions;
+        
+        Object.keys(needs).forEach(resourceKey => {
+            const required = needs[resourceKey] || 0;
+            const available = production.total[resourceKey] || 0;
+            const deficit = required - available;
+            
+            if (deficit > 0 && resourceKey !== 'freeze_dried') {
+                // 找到對應的秘境工具
+                const toolData = upgradeData.secret_realm.resources.find(r => r.key === resourceKey);
+                if (toolData) {
+                    const toolsNeeded = Math.ceil(deficit / toolData.value);
+                    const toolsPerDay = Math.ceil(toolsNeeded / this.timeData.remainingDays);
+                    
+                    suggestions[resourceKey] = {
+                        deficit: deficit,
+                        toolName: toolData.tool_name_zh,
+                        toolsNeeded: toolsNeeded,
+                        toolsPerDay: Math.max(1, toolsPerDay),
+                        toolValue: toolData.value
+                    };
+                }
+            }
+        });
+        
+        return suggestions;
+    }
+    
+    // 主計算方法
+    calculateAll() {
+        try {
+            if (!this.currentSeason) {
+                this.showError('請選擇賽季');
+                return;
+            }
+            
+            // 更新時間計算
+            this.updateTimeCalculations();
+            
+            if (!this.timeData) {
+                this.showError('請設置正確的時間');
+                return;
+            }
+            
+            // 執行所有計算
+            const staminaData = this.calculateStamina();
+            const productionData = this.calculateTotalProduction();
+            const upgradeNeeds = this.calculateUpgradeNeeds();
+            const purchaseSuggestions = this.generatePurchaseSuggestions(upgradeNeeds, productionData);
+            
+            // 儲存計算結果
+            this.calculationResults = {
+                stamina: staminaData,
+                production: productionData,
+                needs: upgradeNeeds,
+                suggestions: purchaseSuggestions
+            };
+            
+            // 顯示結果
+            this.displayResults();
+            
+        } catch (error) {
+            console.error('計算失敗:', error);
+            this.showError('計算過程中發生錯誤，請檢查輸入數據');
+        }
+    }
+    
+    displayResults() {
+        const resultsContainer = document.getElementById('calculationResults');
+        if (!resultsContainer || !this.calculationResults) return;
+        
+        resultsContainer.innerHTML = generateResultsHTML(this.calculationResults, this.currentSeason, this.timeData);
+        resultsContainer.style.display = 'block';
+        resultsContainer.classList.add('fade-in');
+        
+        // 滾動到結果區域
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    showError(message) {
+        // 可以用更好的UI組件替換
+        alert(message);
+    }
+    
+    // 輔助方法
+    formatDateTimeLocal(date) {
+        return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+            .toISOString()
+            .slice(0, 16);
+    }
+    
+    darkenColor(color, percent) {
+        const num = parseInt(color.replace("#", ""), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) - amt;
+        const G = (num >> 8 & 0x00FF) - amt;
+        const B = (num & 0x0000FF) - amt;
+        return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+            (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+            (B < 255 ? B < 1 ? 0 : B : 255))
+            .toString(16).slice(1);
+    }
 }
 
-// ============================================
-// 羈絆冒險預覽 Bond Adventure Preview
-// ============================================
-
-/**
- * 更新羈絆冒險預覽
- * Update bond adventure preview
- */
-function updateBondAdventurePreview(seasonId) {
-  const rewardInput = document.getElementById(`${seasonId}-bond-stage-reward`);
-  const previewContent = document.getElementById(`${seasonId}-bond-preview-content`);
-
-  if (!rewardInput || !previewContent) return;
-
-  const rewardPerRun = parseInt(rewardInput.value) || 0;
-
-  if (rewardPerRun === 0) {
-    previewContent.innerHTML = '請輸入關卡獎勵數量<br>Please enter stage reward amount';
-    return;
-  }
-
-  // 計算總獎勵
-  const constants = SEASON_CONSTANTS[seasonId];
-  if (!constants) return;
-
-  const daysRemaining = calculateDaysRemaining(seasonId);
-  const totalRuns = daysRemaining * 4; // 每天4次
-  const totalPremium = rewardPerRun * totalRuns;
-
-  // 取得優質凍乾的經驗值
-  const premiumExp = FREEZE_DRIED_EXP_DATA.types.find(t => t.type === 'premium')?.exp || 300;
-  const totalExp = totalPremium * premiumExp;
-
-  previewContent.innerHTML = `
-    <strong>每次獎勵 Per Run:</strong> ${formatNumber(rewardPerRun)} 個優質凍乾 Premium<br>
-    <strong>剩餘天數 Days:</strong> ${daysRemaining} 天 (${totalRuns} 次獎勵 runs)<br>
-    <strong>總獎勵 Total:</strong> ${formatNumber(totalPremium)} 個優質凍乾 Premium<br>
-    <strong>總經驗值 Total EXP:</strong> ${formatNumber(totalExp)} EXP
-  `;
-}
-
-// ============================================
-// 計算天數 Calculate Days
-// ============================================
-
-/**
- * 計算剩餘天數
- * Calculate remaining days
- */
-function calculateDaysRemaining(seasonId) {
-  const startDateInput = document.getElementById(`${seasonId}-start-date`);
-  const currentTimeInput = document.getElementById(`${seasonId}-current-time`);
-
-  if (!startDateInput || !currentTimeInput) return 0;
-
-  const startDate = new Date(`${startDateInput.value}T08:00:00`);
-  const currentDate = new Date(currentTimeInput.value);
-  const constants = SEASON_CONSTANTS[seasonId];
-
-  if (!constants) return 0;
-
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + constants.totalDays);
-
-  const remainingMs = endDate - currentDate;
-  const remainingDays = Math.max(0, Math.ceil(remainingMs / (1000 * 60 * 60 * 24)));
-
-  return Math.min(remainingDays, constants.totalDays);
-}
-
-// ============================================
-// 主計算函數 Main Calculation Function
-// ============================================
-
-/**
- * 計算資源 - 主函數
- * Calculate resources - Main function
- */
-function calculateResources(seasonId) {
-  console.log(`Starting calculation for ${seasonId}`);
-
-  try {
-    // 步驟 1: 計算可用體力
-    const staminaResult = calculateStamina(seasonId);
-    if (!staminaResult) {
-      alert('體力計算失敗 Stamina calculation failed');
-      return;
-    }
-
-    // 步驟 2: 檢查是否選擇體力使用優先級
-    if (!selectedStaminaUsage[seasonId]) {
-      alert('請先選擇體力使用優先級 Please select stamina usage priority first');
-      return;
-    }
-
-    // 步驟 3: 計算推車產量
-    const cartProduction = calculateCartProduction(seasonId, staminaResult.totalHours);
-
-    // 步驟 4: 計算秘境工具產量
-    const secretRealmProduction = calculateSecretRealmProduction(seasonId);
-
-    // 步驟 4.5: 計算羈絆冒險（如果啟用）
-    let bondAdventureProduction = null;
-    const season = SEASONS.find(s => s.id === seasonId);
-    if (season && season.bond_adventure_enabled) {
-      bondAdventureProduction = calculateBondAdventureProduction(seasonId, staminaResult.daysRemaining);
-    }
-
-    // 步驟 5: 計算升級需求
-    const upgradeNeeds = calculateUpgradeNeeds(seasonId);
-
-    // 計算總生產量
-    const totalProduction = calculateTotalProduction(
-      staminaResult,
-      cartProduction,
-      secretRealmProduction,
-      bondAdventureProduction,
-      selectedStaminaUsage[seasonId]
-    );
-
-    // 顯示結果
-    displayResults(seasonId, {
-      stamina: staminaResult,
-      cart: cartProduction,
-      secretRealm: secretRealmProduction,
-      bondAdventure: bondAdventureProduction,
-      upgradeNeeds: upgradeNeeds,
-      totalProduction: totalProduction,
-      staminaUsage: selectedStaminaUsage[seasonId]
+// 全局函數
+function selectStaminaResource(resourceKey) {
+    // 移除之前的選中狀態
+    document.querySelectorAll('.resource-option').forEach(option => {
+        option.classList.remove('selected');
     });
-
-  } catch (error) {
-    console.error('Calculation error:', error);
-    alert(`計算過程發生錯誤 Calculation error: ${error.message}`);
-  }
-}
-
-// ============================================
-// 步驟 1: 體力計算 Stamina Calculation
-// ============================================
-
-/**
- * 計算可用體力
- * Calculate available stamina
- */
-function calculateStamina(seasonId) {
-  const startDateInput = document.getElementById(`${seasonId}-start-date`);
-  const currentTimeInput = document.getElementById(`${seasonId}-current-time`);
-  const mallStaminaInput = document.getElementById(`${seasonId}-mall-stamina`);
-
-  if (!startDateInput || !currentTimeInput || !mallStaminaInput) {
-    console.error('Stamina inputs not found');
-    return null;
-  }
-
-  const constants = SEASON_CONSTANTS[seasonId];
-  if (!constants) {
-    console.error(`Season constants not found for ${seasonId}`);
-    return null;
-  }
-
-  // 解析日期
-  const startDate = new Date(`${startDateInput.value}T08:00:00`);
-  const currentDate = new Date(currentTimeInput.value);
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + constants.totalDays);
-
-  // 計算剩餘時間
-  const remainingMs = endDate - currentDate;
-  const remainingHours = Math.max(0, remainingMs / (1000 * 60 * 60));
-  const remainingDays = Math.max(0, Math.ceil(remainingHours / 24));
-
-  // 計算體力
-  const speedupHours = remainingDays * 2; // 每天2小時加速
-  const totalHours = Math.round(remainingHours + speedupHours);
-  const timeStamina = totalHours * 5; // 每小時5體力
-
-  const mallStamina = parseInt(mallStaminaInput.value) || 0;
-  const totalDailyStamina = constants.baseDailyStamina + mallStamina;
-  const dailyStamina = remainingDays * totalDailyStamina;
-
-  const totalStamina = timeStamina + dailyStamina;
-  const staminaPerRun = 5; // 每次消耗5體力
-  const totalRuns = Math.floor(totalStamina / staminaPerRun);
-
-  return {
-    daysRemaining: remainingDays,
-    hoursRemaining: Math.round(remainingHours),
-    speedupHours: speedupHours,
-    totalHours: totalHours,
-    timeStamina: timeStamina,
-    dailyStamina: dailyStamina,
-    totalDailyStamina: totalDailyStamina,
-    totalStamina: totalStamina,
-    totalRuns: totalRuns,
-    staminaPerRun: staminaPerRun
-  };
-}
-
-// ============================================
-// 步驟 3: 推車產量計算 Cart Production
-// ============================================
-
-/**
- * 計算推車產量
- * Calculate cart production
- */
-function calculateCartProduction(seasonId, totalHours) {
-  const goldPerHour = parseInt(document.getElementById(`${seasonId}-cart-gold`)?.value) || 0;
-  const stonePerHour = parseInt(document.getElementById(`${seasonId}-cart-stone`)?.value) || 0;
-  const hourglassPerHour = parseInt(document.getElementById(`${seasonId}-cart-hourglass`)?.value) || 0;
-  const essencePerHour = parseInt(document.getElementById(`${seasonId}-cart-essence`)?.value) || 0;
-  const driedPerHour = parseInt(document.getElementById(`${seasonId}-cart-dried`)?.value) || 0;
-
-  // 取得普通凍乾的經驗值
-  const normalExp = FREEZE_DRIED_EXP_DATA.types.find(t => t.type === 'normal')?.exp || 150;
-
-  const freeze_dried_count = driedPerHour * totalHours;
-  const freeze_dried_exp = freeze_dried_count * normalExp;
-
-  return {
-    gold: goldPerHour * totalHours,
-    refined_stone: stonePerHour * totalHours,
-    hourglass: hourglassPerHour * totalHours,
-    battle_essence: essencePerHour * totalHours,
-    freeze_dried_count: freeze_dried_count,
-    freeze_dried_exp: freeze_dried_exp,
-    rates: {
-      goldPerHour,
-      stonePerHour,
-      hourglassPerHour,
-      essencePerHour,
-      driedPerHour,
-      normalExp
+    
+    // 添加選中狀態
+    const selectedOption = document.querySelector(`[data-resource="${resourceKey}"]`);
+    if (selectedOption) {
+        selectedOption.classList.add('selected');
     }
-  };
-}
-
-// ============================================
-// 步驟 4: 秘境工具產量 Secret Realm Production
-// ============================================
-
-/**
- * 計算秘境工具產量
- * Calculate secret realm production
- */
-function calculateSecretRealmProduction(seasonId) {
-  const seasonData = SEASON_DATA[seasonId];
-  if (!seasonData || !seasonData.secret_realm) {
-    return { tools: [] };
-  }
-
-  const tools = [];
-  let totalGold = 0;
-  let totalRefinedStone = 0;
-  let totalHourglass = 0;
-  let totalBattleEssence = 0;
-
-  seasonData.secret_realm.resources.forEach(resource => {
-    const toolInput = document.getElementById(`${seasonId}-tool-${resource.key}`);
-    const toolCount = parseInt(toolInput?.value) || 0;
-
-    if (toolCount > 0) {
-      const totalProduction = resource.value * toolCount;
-
-      tools.push({
-        key: resource.key,
-        name_zh: resource.tool_name_zh,
-        name: resource.tool_name,
-        icon: resource.icon,
-        count: toolCount,
-        valuePerTool: resource.value,
-        totalProduction: totalProduction
-      });
-
-      // 累加到對應資源
-      switch (resource.key) {
-        case 'gold':
-          totalGold += totalProduction;
-          break;
-        case 'refined_stone':
-          totalRefinedStone += totalProduction;
-          break;
-        case 'hourglass':
-          totalHourglass += totalProduction;
-          break;
-        case 'battle_essence':
-          totalBattleEssence += totalProduction;
-          break;
-      }
+    
+    // 更新選中的資源
+    if (window.calculator) {
+        window.calculator.selectedStaminaResource = resourceKey;
     }
-  });
-
-  return {
-    tools,
-    gold: totalGold,
-    refined_stone: totalRefinedStone,
-    hourglass: totalHourglass,
-    battle_essence: totalBattleEssence
-  };
 }
 
-// ============================================
-// 步驟 4.5: 羈絆冒險計算 Bond Adventure
-// ============================================
-
-/**
- * 計算羈絆冒險產量
- * Calculate bond adventure production
- */
-function calculateBondAdventureProduction(seasonId, daysRemaining) {
-  const rewardInput = document.getElementById(`${seasonId}-bond-stage-reward`);
-  if (!rewardInput) return null;
-
-  const rewardPerRun = parseInt(rewardInput.value) || 0;
-  if (rewardPerRun === 0) return null;
-
-  const runsPerDay = 4; // 每天4次獎勵
-  const totalRuns = daysRemaining * runsPerDay;
-  const premiumCount = rewardPerRun * totalRuns;
-
-  // 取得優質凍乾的經驗值
-  const premiumExp = FREEZE_DRIED_EXP_DATA.types.find(t => t.type === 'premium')?.exp || 300;
-  const freeze_dried_exp = premiumCount * premiumExp;
-
-  return {
-    reward_per_run: rewardPerRun,
-    runs_per_day: runsPerDay,
-    total_runs: totalRuns,
-    premium_count: premiumCount,
-    premium_exp: premiumExp,
-    freeze_dried_exp: freeze_dried_exp
-  };
-}
-
-// ============================================
-// 步驟 5: 升級需求計算 Upgrade Needs
-// ============================================
-
-/**
- * 計算升級需求
- * Calculate upgrade needs
- */
-function calculateUpgradeNeeds(seasonId) {
-  const seasonData = SEASON_DATA[seasonId];
-  if (!seasonData) {
-    console.error(`Season data not found for ${seasonId}`);
-    return null;
-  }
-
-  const categories = ['gear', 'skill', 'relic', 'pet'];
-  const itemCounts = {
-    gear: 5,
-    skill: 8,
-    relic: 20,
-    pet: 4
-  };
-
-  let totalGold = 0;
-  let totalRefinedStone = 0;
-  let totalHourglass = 0;
-  let totalBattleEssence = 0;
-  let totalFreezeDried = 0;
-
-  const breakdown = {
-    gear: { gold: 0, refined_stone: 0, details: [] },
-    skill: { battle_essence: 0, details: [] },
-    relic: { gold: 0, hourglass: 0, details: [] },
-    pet: { freeze_dried: 0, details: [] }
-  };
-
-  categories.forEach(category => {
-    const count = itemCounts[category];
-    const categoryData = seasonData.categories[category];
-
-    if (!categoryData) {
-      console.warn(`Category data not found for ${category}`);
-      return;
+function applyResonanceLevel(categoryKey, levelType) {
+    const level = prompt(`請輸入${levelType === 'start' ? '起始' : '目標'}共鳴等級:`);
+    const levelNum = parseInt(level);
+    
+    if (isNaN(levelNum) || levelNum < 1) {
+        alert('請輸入有效的等級數字');
+        return;
     }
-
-    for (let i = 1; i <= count; i++) {
-      const fromInput = document.getElementById(`${seasonId}-${category}${i}-from`);
-      const toInput = document.getElementById(`${seasonId}-${category}${i}-to`);
-
-      if (!fromInput || !toInput) continue;
-
-      const fromLevel = parseInt(fromInput.value);
-      const toLevel = parseInt(toInput.value);
-
-      if (isNaN(fromLevel) || isNaN(toLevel) || toLevel <= fromLevel) continue;
-
-      // 計算該項目的升級成本
-      const cost = calculateUpgradeCost(categoryData, fromLevel, toLevel);
-
-      if (cost) {
-        // 累加到總需求
-        switch (category) {
-          case 'gear':
-            totalGold += cost.gold || 0;
-            totalRefinedStone += cost.refined_stone || 0;
-            breakdown.gear.gold += cost.gold || 0;
-            breakdown.gear.refined_stone += cost.refined_stone || 0;
-            breakdown.gear.details.push({
-              index: i,
-              from: fromLevel,
-              to: toLevel,
-              gold: cost.gold || 0,
-              refined_stone: cost.refined_stone || 0
-            });
-            break;
-
-          case 'skill':
-            totalBattleEssence += cost.battle_record || 0;
-            breakdown.skill.battle_essence += cost.battle_record || 0;
-            breakdown.skill.details.push({
-              index: i,
-              from: fromLevel,
-              to: toLevel,
-              battle_record: cost.battle_record || 0
-            });
-            break;
-
-          case 'relic':
-            totalGold += cost.gold || 0;
-            totalHourglass += cost.hourglass || 0;
-            breakdown.relic.gold += cost.gold || 0;
-            breakdown.relic.hourglass += cost.hourglass || 0;
-            breakdown.relic.details.push({
-              index: i,
-              from: fromLevel,
-              to: toLevel,
-              gold: cost.gold || 0,
-              hourglass: cost.hourglass || 0
-            });
-            break;
-
-          case 'pet':
-            totalFreezeDried += cost.freeze_dried || 0;
-            breakdown.pet.freeze_dried += cost.freeze_dried || 0;
-            breakdown.pet.details.push({
-              index: i,
-              from: fromLevel,
-              to: toLevel,
-              freeze_dried: cost.freeze_dried || 0
-            });
-            break;
-        }
-      }
+    
+    const container = document.getElementById(`${categoryKey}Items`);
+    if (!container) return;
+    
+    const inputs = container.querySelectorAll(levelType === 'start' ? '.start-level' : '.target-level');
+    inputs.forEach(input => {
+        input.value = levelNum;
+    });
+    
+    // 更新平均等級
+    if (window.calculator) {
+        window.calculator.updateAverageLevel(categoryKey);
     }
-  });
-
-  return {
-    needs: {
-      gold: totalGold,
-      refined_stone: totalRefinedStone,
-      hourglass: totalHourglass,
-      battle_essence: totalBattleEssence,
-      freeze_dried: totalFreezeDried
-    },
-    breakdown: breakdown
-  };
 }
 
-/**
- * 計算單一升級成本
- * Calculate single upgrade cost
- */
-function calculateUpgradeCost(categoryData, fromLevel, toLevel) {
-  if (!categoryData.levels) return null;
-
-  const cost = {
-    gold: 0,
-    refined_stone: 0,
-    hourglass: 0,
-    battle_record: 0,
-    freeze_dried: 0
-  };
-
-  for (let level = fromLevel; level < toLevel; level++) {
-    const levelData = categoryData.levels.find(l => l.level === level);
-    if (levelData) {
-      cost.gold += levelData.gold || 0;
-      cost.refined_stone += levelData.refined_stone || 0;
-      cost.hourglass += levelData.hourglass || 0;
-      cost.battle_record += levelData.battle_record || 0;
-      cost.freeze_dried += levelData.freeze_dried || 0;
+function calculateAll() {
+    if (window.calculator) {
+        window.calculator.calculateAll();
     }
-  }
-
-  return cost;
 }
 
-// ============================================
-// 計算總生產量 Calculate Total Production
-// ============================================
-
-/**
- * 計算總生產量
- * Calculate total production
- */
-function calculateTotalProduction(stamina, cart, secretRealm, bondAdventure, staminaUsageKey) {
-  const seasonData = SEASON_DATA[currentSeason];
-  if (!seasonData) return null;
-
-  // 基礎生產（推車 + 秘境）
-  let totalGold = (cart.gold || 0) + (secretRealm.gold || 0);
-  let totalRefinedStone = (cart.refined_stone || 0) + (secretRealm.refined_stone || 0);
-  let totalHourglass = (cart.hourglass || 0) + (secretRealm.hourglass || 0);
-  let totalBattleEssence = (cart.battle_essence || 0) + (secretRealm.battle_essence || 0);
-  let totalFreezeDried = (cart.freeze_dried_exp || 0);
-
-  // 添加羈絆冒險產量（如果有）
-  if (bondAdventure) {
-    totalFreezeDried += bondAdventure.freeze_dried_exp || 0;
-  }
-
-  // 計算體力刷取的資源
-  const staminaProduction = calculateStaminaProduction(stamina, staminaUsageKey);
-  if (staminaProduction) {
-    totalGold += staminaProduction.gold || 0;
-    totalRefinedStone += staminaProduction.refined_stone || 0;
-    totalHourglass += staminaProduction.hourglass || 0;
-    totalBattleEssence += staminaProduction.battle_essence || 0;
-    totalFreezeDried += staminaProduction.freeze_dried || 0;
-  }
-
-  return {
-    gold: totalGold,
-    refined_stone: totalRefinedStone,
-    hourglass: totalHourglass,
-    battle_essence: totalBattleEssence,
-    freeze_dried: totalFreezeDried,
-    stamina: staminaProduction,
-    cart: {
-      gold: cart.gold || 0,
-      refined_stone: cart.refined_stone || 0,
-      hourglass: cart.hourglass || 0,
-      battle_essence: cart.battle_essence || 0,
-      freeze_dried: cart.freeze_dried_exp || 0
-    },
-    secretRealm: {
-      gold: secretRealm.gold || 0,
-      refined_stone: secretRealm.refined_stone || 0,
-      hourglass: secretRealm.hourglass || 0,
-      battle_essence: secretRealm.battle_essence || 0
-    },
-    bondAdventure: bondAdventure ? {
-      freeze_dried: bondAdventure.freeze_dried_exp || 0
-    } : null
-  };
-}
-
-/**
- * 計算體力刷取的資源
- * Calculate stamina production
- */
-function calculateStaminaProduction(stamina, resourceKey) {
-  const seasonData = SEASON_DATA[currentSeason];
-  if (!seasonData || !resourceKey) return null;
-
-  const resource = seasonData.stamina_production.resources.find(r => r.key === resourceKey);
-  if (!resource) return null;
-
-  const totalRuns = stamina.totalRuns;
-  const production = {
-    resource_key: resourceKey,
-    runs: totalRuns,
-    gold: 0,
-    refined_stone: 0,
-    hourglass: 0,
-    battle_essence: 0,
-    freeze_dried: 0
-  };
-
-  console.log(`Calculating stamina production for ${resourceKey}:`, { totalRuns, resource });
-
-  // 根據資源類型計算產量
-  switch (resourceKey) {
-    case 'gold':
-      production.gold = totalRuns * resource.value;
-      break;
-    case 'refined_stone':
-      production.refined_stone = totalRuns * resource.value;
-      break;
-    case 'hourglass':
-      production.hourglass = totalRuns * resource.value;
-      break;
-    case 'battle_essence':
-      production.battle_essence = totalRuns * resource.value;
-      break;
-    case 'freeze_dried':
-      production.freeze_dried = totalRuns * resource.value;
-      break;
-  }
-
-  return production;
-}
-
-// ============================================
-// 顯示結果 Display Results
-// ============================================
-
-/**
- * 顯示計算結果
- * Display calculation results
- */
-function displayResults(seasonId, results) {
-  const summaryDiv = document.getElementById(`${seasonId}-calc-summary`);
-  const resultsGrid = document.getElementById(`${seasonId}-results-grid`);
-  const resultsSection = document.getElementById(`${seasonId}-results`);
-
-  if (!summaryDiv || !resultsGrid || !resultsSection) {
-    console.error('Results display elements not found');
-    return;
-  }
-
-  // 生成摘要 HTML
-  let summaryHTML = '';
-
-  // 步驟 1: 體力分析
-  summaryHTML += renderStaminaSummary(results.stamina);
-
-  // 步驟 2: 體力使用優先級
-  summaryHTML += renderStaminaUsageSummary(results.staminaUsage, results.stamina);
-
-  // 步驟 3: 推車產量
-  summaryHTML += renderCartProductionSummary(results.cart, results.stamina.totalHours);
-
-  // 步驟 4: 秘境工具產量
-  if (results.secretRealm && results.secretRealm.tools.length > 0) {
-    summaryHTML += renderSecretRealmSummary(results.secretRealm, results.stamina.totalHours);
-  }
-
-  // 步驟 4.5: 羈絆冒險產量（如果有）
-  if (results.bondAdventure) {
-    summaryHTML += renderBondAdventureSummary(results.bondAdventure, results.stamina.daysRemaining);
-  }
-
-  // 步驟 5: 升級需求 (NOW WITH totalProduction parameter)
-  summaryHTML += renderUpgradeRequirementsSummary(
-    results.upgradeNeeds.needs,
-    results.upgradeNeeds.breakdown,
-    {
-      gear: results.upgradeNeeds.breakdown.gear.details,
-      skill: results.upgradeNeeds.breakdown.skill.details,
-      relic: results.upgradeNeeds.breakdown.relic.details,
-      pet: results.upgradeNeeds.breakdown.pet.details
-    },
-    results.totalProduction  // ← ADDED THIS PARAMETER
-  );
-
-  summaryDiv.innerHTML = summaryHTML;
-
-  // 生成資源對比 HTML
-  resultsGrid.innerHTML = generateResourceComparison(results);
-
-  // 顯示結果區塊
-  resultsSection.style.display = 'block';
-
-  // 滾動到結果區
-  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  console.log('Results displayed successfully');
-}
-
-// ============================================
-// 輔助函數 Helper Functions
-// ============================================
-
-/**
- * 驗證輸入
- * Validate inputs
- */
-function validateInputs(seasonId) {
-  // 檢查體力使用選擇
-  if (!selectedStaminaUsage[seasonId]) {
-    return {
-      valid: false,
-      message: '請先選擇體力使用優先級 Please select stamina usage priority'
-    };
-  }
-
-  // 可以添加更多驗證邏輯...
-
-  return { valid: true };
-}
-
-/**
- * 重置計算器
- * Reset calculator
- */
-function resetCalculator(seasonId) {
-  // 重置所有輸入
-  document.querySelectorAll(`#${seasonId}-content input[type="number"]`).forEach(input => {
-    if (input.id.includes('-from')) {
-      const categoryMatch = input.id.match(/-(\w+)\d+-from/);
-      if (categoryMatch) {
-        const category = categoryMatch[1];
-        const seasonData = SEASON_DATA[seasonId];
-        if (seasonData && seasonData.categories[category]) {
-          input.value = seasonData.categories[category].levels[0].level;
-        }
-      }
-    } else if (input.id.includes('-to')) {
-      const categoryMatch = input.id.match(/-(\w+)\d+-to/);
-      if (categoryMatch) {
-        const category = categoryMatch[1];
-        const seasonData = SEASON_DATA[seasonId];
-        if (seasonData && seasonData.categories[category]) {
-          const levels = seasonData.categories[category].levels;
-          input.value = levels[levels.length - 1].level;
-        }
-      }
-    } else if (input.id.includes('-cart-') || input.id.includes('-tool-')) {
-      input.value = '0';
-    }
-  });
-
-  // 重置體力使用選擇
-  selectedStaminaUsage[seasonId] = null;
-  document.querySelectorAll(`#${seasonId}-stamina-options .stamina-option`).forEach(opt => {
-    opt.classList.remove('selected');
-  });
-
-  // 隱藏結果
-  const resultsSection = document.getElementById(`${seasonId}-results`);
-  if (resultsSection) {
-    resultsSection.style.display = 'none';
-  }
-
-  console.log(`Calculator reset for ${seasonId}`);
-}
-
-// ============================================
-// 頁面載入完成時執行
-// Execute when page loads
-// ============================================
+// 初始化計算器
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Upgrade calculator script loaded');
-  
-  // 設定當前時間
-  setCurrentDateTime();
-  
-  // 每分鐘更新一次時間
-  setInterval(setCurrentDateTime, 60000);
+    window.calculator = new UpgradeCalculator();
 });
-
-console.log('Upgrade Calculator JS loaded successfully');
