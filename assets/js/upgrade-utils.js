@@ -1,745 +1,954 @@
-// 資源升級計算器輔助函數庫
-// Utility Functions for Resource Upgrade Calculator
+/**
+ * 資源升級計算器 - 工具函數
+ */
 
 /**
- * 數字格式化函數 - 添加千分位分隔符
- * @param {number} num - 要格式化的數字
- * @param {number} decimals - 小數位數，默認為0
- * @returns {string} 格式化後的數字字符串
+ * 更新賽季主題
  */
-function formatNumber(num, decimals = 0) {
-    if (typeof num !== 'number' || isNaN(num)) {
-        return '0';
-    }
+function updateSeasonTheme(seasonId) {
+    // 移除所有季節主題類別
+    document.body.classList.remove('season-s1', 'season-s2', 'season-s3');
     
-    // 處理大數字的簡化顯示
-    if (num >= 1000000000) {
-        return (num / 1000000000).toFixed(1) + 'B';
-    } else if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M';
-    } else if (num >= 100000) {
-        return (num / 1000).toFixed(0) + 'K';
-    } else if (num >= 10000) {
-        return (num / 1000).toFixed(1) + 'K';
+    // 添加當前季節主題
+    if (seasonId) {
+        document.body.classList.add(`season-${seasonId}`);
+        
+        // 更新 CSS 變數
+        const season = window.seasonsData.seasons.find(s => s.id === seasonId);
+        if (season && season.theme_color) {
+            document.documentElement.style.setProperty('--season-primary', season.theme_color);
+            
+            // 生成漸層色彩
+            const gradientColor = lightenColor(season.theme_color, 20);
+            document.documentElement.style.setProperty('--season-gradient', 
+                `linear-gradient(135deg, ${season.theme_color} 0%, ${gradientColor} 100%)`);
+        }
     }
-    
-    // 標準千分位格式化
-    return num.toLocaleString('zh-TW', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals
-    });
 }
 
 /**
- * 更新賽季主題顏色
- * @param {string} seasonId - 賽季ID (s1, s2, s3, s4...)
- * @param {string} themeColor - 主題色彩值 (#hexcode)
- */
-function updateSeasonTheme(seasonId, themeColor) {
-    // 移除舊的主題類別
-    document.body.classList.remove('theme-s1', 'theme-s2', 'theme-s3', 'theme-s4');
-    
-    // 添加新的主題類別
-    document.body.classList.add(`theme-${seasonId}`);
-    
-    // 動態設置CSS自定義屬性
-    const root = document.documentElement;
-    if (themeColor) {
-        const secondaryColor = darkenColor(themeColor, 15);
-        root.style.setProperty('--primary-color', themeColor);
-        root.style.setProperty('--secondary-color', secondaryColor);
-    }
-    
-    // 添加主題切換動畫
-    document.body.style.transition = 'all 0.3s ease-in-out';
-    setTimeout(() => {
-        document.body.style.transition = '';
-    }, 300);
-}
-
-/**
- * 顏色加深函數
- * @param {string} color - 十六進制顏色值 (#hexcode)
- * @param {number} percent - 加深百分比 (0-100)
- * @returns {string} 加深後的顏色值
- */
-function darkenColor(color, percent) {
-    // 移除 # 符號
-    const hex = color.replace('#', '');
-    
-    // 轉換為RGB
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-    
-    // 計算加深後的值
-    const factor = (100 - percent) / 100;
-    const newR = Math.round(r * factor);
-    const newG = Math.round(g * factor);
-    const newB = Math.round(b * factor);
-    
-    // 轉換回十六進制
-    const toHex = (c) => {
-        const hex = c.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-    };
-    
-    return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
-}
-
-/**
- * 顏色變亮函數
- * @param {string} color - 十六進制顏色值 (#hexcode)
- * @param {number} percent - 變亮百分比 (0-100)
- * @returns {string} 變亮後的顏色值
+ * 加亮顏色
  */
 function lightenColor(color, percent) {
     const hex = color.replace('#', '');
-    
     const r = parseInt(hex.substr(0, 2), 16);
     const g = parseInt(hex.substr(2, 2), 16);
     const b = parseInt(hex.substr(4, 2), 16);
     
-    const factor = percent / 100;
-    const newR = Math.round(r + (255 - r) * factor);
-    const newG = Math.round(g + (255 - g) * factor);
-    const newB = Math.round(b + (255 - b) * factor);
+    const amount = Math.round(2.55 * percent);
     
-    const toHex = (c) => {
-        const hex = Math.min(255, c).toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-    };
+    const newR = Math.min(255, r + amount);
+    const newG = Math.min(255, g + amount);
+    const newB = Math.min(255, b + amount);
     
-    return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
 }
 
 /**
- * 獲取本地化的物品名稱
- * @param {string} category - 類別 (gear, skill, relic, pet)
- * @param {number} index - 物品索引
- * @param {string} lang - 語言 (zh, en)
- * @returns {string} 本地化名稱
+ * 變暗顏色
  */
-function getItemName(category, index, lang = 'zh') {
+function darkenColor(color, percent) {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    
+    const amount = Math.round(2.55 * percent);
+    
+    const newR = Math.max(0, r - amount);
+    const newG = Math.max(0, g - amount);
+    const newB = Math.max(0, b - amount);
+    
+    return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+}
+
+/**
+ * 數字格式化（添加千分位分隔符）
+ */
+function formatNumber(num) {
+    if (num === null || num === undefined || num === '') return '0';
+    
+    // 處理字串輸入
+    if (typeof num === 'string') {
+        num = parseFloat(num.replace(/,/g, ''));
+    }
+    
+    // 處理小數
+    const number = parseFloat(num);
+    if (isNaN(number)) return '0';
+    
+    // 處理特殊情況
+    if (number === 0) return '0';
+    if (!isFinite(number)) return '∞';
+    
+    // 如果是整數，使用千分位分隔符
+    if (Number.isInteger(number)) {
+        return number.toLocaleString('zh-TW');
+    }
+    
+    // 如果是小數，保留適當位數
+    if (Math.abs(number) >= 1) {
+        return number.toLocaleString('zh-TW', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+    } else {
+        // 小於 1 的數字，保留更多位數
+        return number.toLocaleString('zh-TW', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 4
+        });
+    }
+}
+
+/**
+ * 格式化百分比
+ */
+function formatPercentage(value, total) {
+    if (total === 0) return '0%';
+    const percentage = (value / total) * 100;
+    return `${percentage.toFixed(1)}%`;
+}
+
+/**
+ * 格式化時間
+ */
+function formatTime(hours) {
+    if (hours < 24) {
+        return `${Math.floor(hours)} 小時`;
+    }
+    
+    const days = Math.floor(hours / 24);
+    const remainingHours = Math.floor(hours % 24);
+    
+    if (remainingHours === 0) {
+        return `${days} 天`;
+    }
+    
+    return `${days} 天 ${remainingHours} 小時`;
+}
+
+/**
+ * 獲取項目名稱
+ */
+function getItemName(categoryKey, itemIndex) {
     const itemNames = {
-        zh: {
-            gear: [
-                '武器', '頭盔', '胸甲', '護腿', '靴子'
-            ],
-            skill: [
-                '基礎攻擊', '防禦技能', '治療術', '強化技能',
-                '特殊攻擊', '輔助技能', '終極技能', '被動技能'
-            ],
-            relic: [
-                '攻擊古遺物1', '攻擊古遺物2', '攻擊古遺物3', '攻擊古遺物4', '攻擊古遺物5',
-                '防禦古遺物1', '防禦古遺物2', '防禦古遺物3', '防禦古遺物4', '防禦古遺物5',
-                '輔助古遺物1', '輔助古遺物2', '輔助古遺物3', '輔助古遺物4', '輔助古遺物5',
-                '特殊古遺物1', '特殊古遺物2', '特殊古遺物3', '特殊古遺物4', '特殊古遺物5'
-            ],
-            pet: [
-                '火屬性幻獸', '水屬性幻獸', '風屬性幻獸', '土屬性幻獸'
-            ]
-        },
-        en: {
-            gear: [
-                'Weapon', 'Helmet', 'Chest Armor', 'Leg Guard', 'Boots'
-            ],
-            skill: [
-                'Basic Attack', 'Defense Skill', 'Healing', 'Enhancement',
-                'Special Attack', 'Support Skill', 'Ultimate Skill', 'Passive Skill'
-            ],
-            relic: [
-                'Attack Relic 1', 'Attack Relic 2', 'Attack Relic 3', 'Attack Relic 4', 'Attack Relic 5',
-                'Defense Relic 1', 'Defense Relic 2', 'Defense Relic 3', 'Defense Relic 4', 'Defense Relic 5',
-                'Support Relic 1', 'Support Relic 2', 'Support Relic 3', 'Support Relic 4', 'Support Relic 5',
-                'Special Relic 1', 'Special Relic 2', 'Special Relic 3', 'Special Relic 4', 'Special Relic 5'
-            ],
-            pet: [
-                'Fire Pet', 'Water Pet', 'Wind Pet', 'Earth Pet'
-            ]
-        }
+        gear: [
+            '武器', '副武器', '頭盔', '鎧甲', '戰靴'
+        ],
+        skill: [
+            '技能1', '技能2', '技能3', '技能4', 
+            '技能5', '技能6', '技能7', '技能8'
+        ],
+        relic: [
+            '古遺物1', '古遺物2', '古遺物3', '古遺物4', '古遺物5',
+            '古遺物6', '古遺物7', '古遺物8', '古遺物9', '古遺物10',
+            '古遺物11', '古遺物12', '古遺物13', '古遺物14', '古遺物15',
+            '古遺物16', '古遺物17', '古遺物18', '古遺物19', '古遺物20'
+        ],
+        pet: [
+            '幻獸1', '幻獸2', '幻獸3', '幻獸4'
+        ]
     };
     
-    const categoryNames = itemNames[lang] && itemNames[lang][category];
-    if (categoryNames && categoryNames[index - 1]) {
-        return categoryNames[index - 1];
-    }
-    
-    // 回退到默認命名
-    const categoryLabels = {
-        zh: { gear: '裝備', skill: '技能', relic: '古遺物', pet: '幻獸' },
-        en: { gear: 'Gear', skill: 'Skill', relic: 'Relic', pet: 'Pet' }
-    };
-    
-    const categoryLabel = categoryLabels[lang] && categoryLabels[lang][category] || category;
-    return `${categoryLabel} ${index}`;
+    const names = itemNames[categoryKey];
+    return names && names[itemIndex] ? names[itemIndex] : `${categoryKey}${itemIndex + 1}`;
 }
 
 /**
- * 時間格式化函數
- * @param {Date|string} date - 日期對象或字符串
- * @param {string} format - 格式 (datetime, date, time)
- * @returns {string} 格式化後的時間字符串
- */
-function formatDateTime(date, format = 'datetime') {
-    if (!date) return '';
-    
-    const dateObj = date instanceof Date ? date : new Date(date);
-    if (isNaN(dateObj.getTime())) return '';
-    
-    const options = {
-        datetime: {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        },
-        date: {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        },
-        time: {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        }
-    };
-    
-    return dateObj.toLocaleDateString('zh-TW', options[format]);
-}
-
-/**
- * 時間差計算函數
- * @param {Date|string} startDate - 開始時間
- * @param {Date|string} endDate - 結束時間
- * @returns {object} 時間差對象 {days, hours, minutes, totalHours, totalMinutes}
- */
-function calculateTimeDifference(startDate, endDate) {
-    const start = startDate instanceof Date ? startDate : new Date(startDate);
-    const end = endDate instanceof Date ? endDate : new Date(endDate);
-    
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-        return null;
-    }
-    
-    const diffMs = end.getTime() - start.getTime();
-    
-    if (diffMs < 0) {
-        return {
-            days: 0,
-            hours: 0,
-            minutes: 0,
-            totalHours: 0,
-            totalMinutes: 0,
-            isNegative: true
-        };
-    }
-    
-    const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
-    const hours = Math.floor((diffMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-    const minutes = Math.floor((diffMs % (60 * 60 * 1000)) / (60 * 1000));
-    
-    return {
-        days,
-        hours,
-        minutes,
-        totalHours: Math.floor(diffMs / (60 * 60 * 1000)),
-        totalMinutes: Math.floor(diffMs / (60 * 1000)),
-        isNegative: false
-    };
-}
-
-/**
- * 深度克隆對象
- * @param {any} obj - 要克隆的對象
- * @returns {any} 克隆後的對象
+ * 深度複製對象
  */
 function deepClone(obj) {
-    if (obj === null || typeof obj !== 'object') {
-        return obj;
-    }
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return new Date(obj);
+    if (obj instanceof Array) return obj.map(item => deepClone(item));
     
-    if (obj instanceof Date) {
-        return new Date(obj.getTime());
-    }
-    
-    if (obj instanceof Array) {
-        return obj.map(item => deepClone(item));
-    }
-    
-    if (typeof obj === 'object') {
-        const cloned = {};
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                cloned[key] = deepClone(obj[key]);
-            }
+    const cloned = {};
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            cloned[key] = deepClone(obj[key]);
         }
-        return cloned;
     }
-    
-    return obj;
+    return cloned;
 }
 
 /**
- * 本地存儲管理
+ * 驗證輸入資料
+ */
+function validateInputs() {
+    const errors = [];
+    
+    // 檢查賽季選擇
+    const seasonId = document.getElementById('seasonSelect').value;
+    if (!seasonId) {
+        errors.push('請選擇賽季');
+    }
+    
+    // 檢查日期
+    const releaseDate = document.getElementById('releaseDate').value;
+    const currentDate = document.getElementById('currentDate').value;
+    
+    if (!releaseDate) {
+        errors.push('請設定賽季開始日期');
+    }
+    
+    if (!currentDate) {
+        errors.push('請設定當前日期');
+    }
+    
+    if (releaseDate && currentDate && new Date(currentDate) < new Date(releaseDate)) {
+        errors.push('當前日期不能早於賽季開始日期');
+    }
+    
+    // 檢查體力資源選擇
+    if (!window.selectedStaminaResource) {
+        errors.push('請選擇體力刷取的資源類型');
+    }
+    
+    // 檢查數字輸入的合理性
+    const numericInputs = document.querySelectorAll('input[type="number"]');
+    numericInputs.forEach(input => {
+        const value = parseFloat(input.value);
+        if (value < 0) {
+            errors.push(`${input.previousElementSibling?.textContent || '某個欄位'} 不能為負數`);
+        }
+        if (value > 999999999) {
+            errors.push(`${input.previousElementSibling?.textContent || '某個欄位'} 數值過大`);
+        }
+    });
+    
+    return errors;
+}
+
+/**
+ * 顯示錯誤訊息
+ */
+function showErrors(errors) {
+    if (errors.length === 0) return;
+    
+    const errorMessage = errors.join('\n');
+    
+    // 嘗試使用更友善的錯誤顯示方式
+    if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            icon: 'error',
+            title: '輸入錯誤',
+            text: errorMessage,
+            confirmButtonText: '確定'
+        });
+    } else {
+        alert(`請修正以下問題：\n\n${errorMessage}`);
+    }
+}
+
+/**
+ * 清空結果
+ */
+function clearResults() {
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '';
+    resultsContainer.classList.remove('fade-in');
+}
+
+/**
+ * 滾動到元素
+ */
+function scrollToElement(elementId, offset = 80) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const elementPosition = element.offsetTop - offset;
+        window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+/**
+ * 載入中狀態
+ */
+function setLoadingState(isLoading) {
+    const button = document.getElementById('calculateBtn');
+    
+    if (isLoading) {
+        button.disabled = true;
+        button.innerHTML = '<span class="loading-spinner me-2"></span>計算中...';
+        button.classList.add('loading');
+    } else {
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-calculator me-2"></i>開始計算';
+        button.classList.remove('loading');
+    }
+}
+
+/**
+ * 本地儲存工具
  */
 const LocalStorage = {
     /**
-     * 設置本地存儲項目
-     * @param {string} key - 鍵名
-     * @param {any} value - 值
+     * 儲存資料
      */
-    set(key, value) {
+    save: function(key, data) {
         try {
-            const data = {
-                value: value,
-                timestamp: new Date().getTime()
-            };
-            localStorage.setItem(`upgrade-calc-${key}`, JSON.stringify(data));
-        } catch (error) {
-            console.warn('無法設置本地存儲:', error);
-        }
-    },
-    
-    /**
-     * 獲取本地存儲項目
-     * @param {string} key - 鍵名
-     * @param {any} defaultValue - 默認值
-     * @returns {any} 存儲的值或默認值
-     */
-    get(key, defaultValue = null) {
-        try {
-            const item = localStorage.getItem(`upgrade-calc-${key}`);
-            if (!item) return defaultValue;
-            
-            const data = JSON.parse(item);
-            return data.value;
-        } catch (error) {
-            console.warn('無法讀取本地存儲:', error);
-            return defaultValue;
-        }
-    },
-    
-    /**
-     * 移除本地存儲項目
-     * @param {string} key - 鍵名
-     */
-    remove(key) {
-        try {
-            localStorage.removeItem(`upgrade-calc-${key}`);
-        } catch (error) {
-            console.warn('無法移除本地存儲:', error);
-        }
-    },
-    
-    /**
-     * 清除所有計算器相關的本地存儲
-     */
-    clear() {
-        try {
-            const keys = Object.keys(localStorage);
-            keys.forEach(key => {
-                if (key.startsWith('upgrade-calc-')) {
-                    localStorage.removeItem(key);
-                }
-            });
-        } catch (error) {
-            console.warn('無法清除本地存儲:', error);
-        }
-    }
-};
-
-/**
- * 數據驗證函數
- */
-const Validator = {
-    /**
-     * 驗證是否為正整數
-     * @param {any} value - 要驗證的值
-     * @returns {boolean} 驗證結果
-     */
-    isPositiveInteger(value) {
-        return Number.isInteger(value) && value > 0;
-    },
-    
-    /**
-     * 驗證是否為非負整數
-     * @param {any} value - 要驗證的值
-     * @returns {boolean} 驗證結果
-     */
-    isNonNegativeInteger(value) {
-        return Number.isInteger(value) && value >= 0;
-    },
-    
-    /**
-     * 驗證等級範圍
-     * @param {number} level - 等級值
-     * @param {number} min - 最小值
-     * @param {number} max - 最大值
-     * @returns {boolean} 驗證結果
-     */
-    isValidLevel(level, min = 1, max = 999) {
-        return this.isPositiveInteger(level) && level >= min && level <= max;
-    },
-    
-    /**
-     * 驗證日期
-     * @param {any} date - 日期值
-     * @returns {boolean} 驗證結果
-     */
-    isValidDate(date) {
-        const dateObj = date instanceof Date ? date : new Date(date);
-        return !isNaN(dateObj.getTime());
-    }
-};
-
-/**
- * 動畫和UI效果函數
- */
-const UIEffects = {
-    /**
-     * 滾動到指定元素
-     * @param {string|Element} element - 元素選擇器或DOM元素
-     * @param {object} options - 滾動選項
-     */
-    scrollTo(element, options = {}) {
-        const targetElement = typeof element === 'string' 
-            ? document.querySelector(element) 
-            : element;
-            
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-                ...options
-            });
-        }
-    },
-    
-    /**
-     * 添加閃爍效果
-     * @param {string|Element} element - 元素選擇器或DOM元素
-     * @param {string} className - CSS類名
-     * @param {number} duration - 持續時間（毫秒）
-     */
-    flash(element, className = 'flash', duration = 1000) {
-        const targetElement = typeof element === 'string' 
-            ? document.querySelector(element) 
-            : element;
-            
-        if (targetElement) {
-            targetElement.classList.add(className);
-            setTimeout(() => {
-                targetElement.classList.remove(className);
-            }, duration);
-        }
-    },
-    
-    /**
-     * 顯示載入動畫
-     * @param {string|Element} element - 目標元素
-     * @param {boolean} show - 是否顯示
-     */
-    showLoading(element, show = true) {
-        const targetElement = typeof element === 'string' 
-            ? document.querySelector(element) 
-            : element;
-            
-        if (targetElement) {
-            if (show) {
-                targetElement.classList.add('loading');
-            } else {
-                targetElement.classList.remove('loading');
-            }
-        }
-    }
-};
-
-/**
- * 錯誤處理和日誌記錄
- */
-const Logger = {
-    /**
-     * 記錄訊息
-     * @param {string} message - 訊息內容
-     * @param {string} level - 日誌等級 (info, warn, error)
-     * @param {any} data - 額外數據
-     */
-    log(message, level = 'info', data = null) {
-        const timestamp = new Date().toISOString();
-        const logEntry = {
-            timestamp,
-            level,
-            message,
-            data
-        };
-        
-        // 輸出到控制台
-        switch (level) {
-            case 'warn':
-                console.warn(`[${timestamp}] ${message}`, data);
-                break;
-            case 'error':
-                console.error(`[${timestamp}] ${message}`, data);
-                break;
-            default:
-                console.log(`[${timestamp}] ${message}`, data);
-        }
-        
-        // 可以擴展為發送到服務器或本地存儲
-    },
-    
-    /**
-     * 記錄錯誤
-     * @param {Error|string} error - 錯誤對象或訊息
-     * @param {any} context - 上下文信息
-     */
-    error(error, context = null) {
-        const message = error instanceof Error ? error.message : error;
-        const data = {
-            error: error instanceof Error ? error.stack : error,
-            context
-        };
-        this.log(message, 'error', data);
-    }
-};
-
-/**
- * 數據導出/導入功能
- */
-const DataManager = {
-    /**
-     * 導出當前設定為JSON
-     * @returns {string} JSON字符串
-     */
-    exportSettings() {
-        try {
-            const settings = {
-                season: document.getElementById('seasonSelect')?.value,
-                startTime: document.getElementById('startDateTime')?.value,
-                currentTime: document.getElementById('currentDateTime')?.value,
-                buyDailyDeal: document.getElementById('buyDailyDeal')?.checked,
-                cartProduction: this.getCartSettings(),
-                toolCounts: this.getToolSettings(),
-                upgradeGoals: this.getUpgradeSettings(),
-                exportTime: new Date().toISOString()
-            };
-            
-            return JSON.stringify(settings, null, 2);
-        } catch (error) {
-            Logger.error('導出設定失敗', error);
-            return null;
-        }
-    },
-    
-    /**
-     * 從JSON導入設定
-     * @param {string} jsonString - JSON字符串
-     * @returns {boolean} 是否成功
-     */
-    importSettings(jsonString) {
-        try {
-            const settings = JSON.parse(jsonString);
-            
-            // 設置基本選項
-            if (settings.season) {
-                const seasonSelect = document.getElementById('seasonSelect');
-                if (seasonSelect) seasonSelect.value = settings.season;
-            }
-            
-            if (settings.startTime) {
-                const startDateTime = document.getElementById('startDateTime');
-                if (startDateTime) startDateTime.value = settings.startTime;
-            }
-            
-            if (settings.currentTime) {
-                const currentDateTime = document.getElementById('currentDateTime');
-                if (currentDateTime) currentDateTime.value = settings.currentTime;
-            }
-            
-            if (typeof settings.buyDailyDeal === 'boolean') {
-                const buyDailyDeal = document.getElementById('buyDailyDeal');
-                if (buyDailyDeal) buyDailyDeal.checked = settings.buyDailyDeal;
-            }
-            
-            // 設置推車產量
-            if (settings.cartProduction) {
-                this.setCartSettings(settings.cartProduction);
-            }
-            
-            // 設置工具數量
-            if (settings.toolCounts) {
-                this.setToolSettings(settings.toolCounts);
-            }
-            
-            // 設置升級目標
-            if (settings.upgradeGoals) {
-                this.setUpgradeSettings(settings.upgradeGoals);
-            }
-            
+            localStorage.setItem(`upgradeCalculator_${key}`, JSON.stringify(data));
             return true;
-        } catch (error) {
-            Logger.error('導入設定失敗', error);
+        } catch (e) {
+            console.warn('無法儲存到本地儲存:', e);
             return false;
         }
     },
     
     /**
-     * 獲取推車設定
+     * 載入資料
      */
-    getCartSettings() {
-        const settings = {};
-        ['gold', 'refined_stone', 'hourglass', 'battle_essence', 'freeze_dried'].forEach(resource => {
-            const input = document.getElementById(`cart_${resource}`);
-            if (input) settings[resource] = parseInt(input.value) || 0;
-        });
-        return settings;
+    load: function(key) {
+        try {
+            const data = localStorage.getItem(`upgradeCalculator_${key}`);
+            return data ? JSON.parse(data) : null;
+        } catch (e) {
+            console.warn('無法從本地儲存載入:', e);
+            return null;
+        }
     },
     
     /**
-     * 設置推車設定
+     * 刪除資料
      */
-    setCartSettings(settings) {
-        Object.keys(settings).forEach(resource => {
-            const input = document.getElementById(`cart_${resource}`);
-            if (input) input.value = settings[resource] || 0;
-        });
+    remove: function(key) {
+        try {
+            localStorage.removeItem(`upgradeCalculator_${key}`);
+            return true;
+        } catch (e) {
+            console.warn('無法從本地儲存刪除:', e);
+            return false;
+        }
     },
     
     /**
-     * 獲取工具設定
+     * 清空所有計算器相關資料
      */
-    getToolSettings() {
-        const settings = {};
-        ['gold', 'refined_stone', 'hourglass', 'battle_essence'].forEach(resource => {
-            const input = document.getElementById(`tool_${resource}`);
-            if (input) settings[resource] = parseInt(input.value) || 0;
-        });
-        return settings;
-    },
-    
-    /**
-     * 設置工具設定
-     */
-    setToolSettings(settings) {
-        Object.keys(settings).forEach(resource => {
-            const input = document.getElementById(`tool_${resource}`);
-            if (input) input.value = settings[resource] || 0;
-        });
-    },
-    
-    /**
-     * 獲取升級設定
-     */
-    getUpgradeSettings() {
-        const settings = {};
-        ['gear', 'skill', 'relic', 'pet'].forEach(category => {
-            const container = document.getElementById(`${category}Items`);
-            if (container) {
-                settings[category] = [];
-                const startInputs = container.querySelectorAll('.start-level');
-                const targetInputs = container.querySelectorAll('.target-level');
-                
-                startInputs.forEach((startInput, index) => {
-                    const targetInput = targetInputs[index];
-                    settings[category].push({
-                        start: parseInt(startInput.value) || 0,
-                        target: parseInt(targetInput?.value) || 0
-                    });
-                });
-            }
-        });
-        return settings;
-    },
-    
-    /**
-     * 設置升級設定
-     */
-    setUpgradeSettings(settings) {
-        Object.keys(settings).forEach(category => {
-            const container = document.getElementById(`${category}Items`);
-            if (container && settings[category]) {
-                const startInputs = container.querySelectorAll('.start-level');
-                const targetInputs = container.querySelectorAll('.target-level');
-                
-                settings[category].forEach((item, index) => {
-                    if (startInputs[index]) startInputs[index].value = item.start || 0;
-                    if (targetInputs[index]) targetInputs[index].value = item.target || 0;
-                });
-            }
-        });
+    clear: function() {
+        try {
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('upgradeCalculator_')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            return true;
+        } catch (e) {
+            console.warn('無法清空本地儲存:', e);
+            return false;
+        }
     }
 };
 
 /**
- * 瀏覽器兼容性檢查
+ * 自動儲存設定
  */
-function checkBrowserCompatibility() {
-    const features = {
-        localStorage: typeof Storage !== 'undefined',
-        jsonSupport: typeof JSON !== 'undefined',
-        dateSupport: !isNaN(new Date().getTime()),
-        es6Support: typeof Symbol !== 'undefined'
-    };
-    
-    const missingFeatures = Object.keys(features).filter(key => !features[key]);
-    
-    if (missingFeatures.length > 0) {
-        console.warn('瀏覽器可能不支援以下功能:', missingFeatures);
-        return false;
-    }
-    
-    return true;
+function autoSaveSettings() {
+    const settings = extractSettings();
+    LocalStorage.save('autoSave', settings);
 }
 
 /**
- * 初始化輔助函數
+ * 載入自動儲存的設定
  */
-function initializeUtils() {
-    // 檢查瀏覽器兼容性
-    if (!checkBrowserCompatibility()) {
-        console.warn('瀏覽器兼容性檢查失敗，部分功能可能無法正常運作');
+function loadAutoSaveSettings() {
+    const settings = LocalStorage.load('autoSave');
+    if (settings) {
+        applySettings(settings);
     }
-    
-    // 添加全局錯誤處理
-    window.addEventListener('error', function(e) {
-        Logger.error('全局錯誤', {
-            message: e.message,
-            filename: e.filename,
-            line: e.lineno,
-            column: e.colno
-        });
-    });
-    
-    // 添加未處理的Promise錯誤處理
-    window.addEventListener('unhandledrejection', function(e) {
-        Logger.error('未處理的Promise錯誤', e.reason);
-    });
 }
 
-// 自動初始化
-if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', initializeUtils);
+/**
+ * 匯出設定為 JSON
+ */
+function exportSettings() {
+    const settings = extractSettings();
+    
+    const dataStr = JSON.stringify(settings, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+    link.download = `upgrade_settings_${settings.seasonId || 'unknown'}_${timestamp}.json`;
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // 清理 URL
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
 
-// 導出函數供其他模組使用
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        formatNumber,
-        updateSeasonTheme,
-        darkenColor,
-        lightenColor,
-        getItemName,
-        formatDateTime,
-        calculateTimeDifference,
-        deepClone,
-        LocalStorage,
-        Validator,
-        UIEffects,
-        Logger,
-        DataManager
+/**
+ * 匯入設定
+ */
+function importSettings() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.style.display = 'none';
+    
+    input.onchange = function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const settings = JSON.parse(e.target.result);
+                
+                // 驗證設定檔格式
+                if (!validateSettingsFormat(settings)) {
+                    throw new Error('設定檔格式不正確');
+                }
+                
+                applySettings(settings);
+                
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '匯入成功',
+                        text: '設定已成功匯入並套用',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    alert('設定匯入成功！');
+                }
+            } catch (error) {
+                console.error('匯入設定失敗:', error);
+                
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '匯入失敗',
+                        text: '設定檔案格式錯誤或已損壞',
+                        confirmButtonText: '確定'
+                    });
+                } else {
+                    alert('設定檔案格式錯誤！');
+                }
+            }
+        };
+        reader.readAsText(file);
+    };
+    
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
+}
+
+/**
+ * 驗證設定檔格式
+ */
+function validateSettingsFormat(settings) {
+    if (!settings || typeof settings !== 'object') return false;
+    
+    const requiredFields = ['seasonId', 'releaseDate', 'currentDate'];
+    return requiredFields.every(field => settings.hasOwnProperty(field));
+}
+
+/**
+ * 提取當前設定
+ */
+function extractSettings() {
+    const settings = {
+        seasonId: document.getElementById('seasonSelect')?.value || '',
+        releaseDate: document.getElementById('releaseDate')?.value || '',
+        currentDate: document.getElementById('currentDate')?.value || '',
+        buyDailyDeal: document.getElementById('buyDailyDeal')?.checked || false,
+        selectedStaminaResource: window.selectedStaminaResource || null,
+        cartProduction: extractCartProduction(),
+        secretRealmTools: extractSecretRealmTools(),
+        bondAdventure: extractBondAdventure(),
+        upgradeGoals: extractUpgradeGoals(),
+        timestamp: new Date().toISOString()
+    };
+    
+    return settings;
+}
+
+/**
+ * 提取推車產出設定
+ */
+function extractCartProduction() {
+    return {
+        gold: document.getElementById('cartGold')?.value || '0',
+        refinedStone: document.getElementById('cartRefinedStone')?.value || '0',
+        hourglass: document.getElementById('cartHourglass')?.value || '0',
+        battleEssence: document.getElementById('cartBattleEssence')?.value || '0',
+        freezeDried: document.getElementById('cartFreezeDried')?.value || '0'
     };
 }
+
+/**
+ * 提取秘境工具設定
+ */
+function extractSecretRealmTools() {
+    const tools = {};
+    
+    if (currentUpgradeData && currentUpgradeData.secret_realm) {
+        currentUpgradeData.secret_realm.resources.forEach(resource => {
+            const element = document.getElementById(`tool${resource.key}`);
+            if (element) {
+                tools[resource.key] = element.value || '0';
+            }
+        });
+    }
+    
+    return tools;
+}
+
+/**
+ * 提取羈絆冒險設定
+ */
+function extractBondAdventure() {
+    const bondData = {};
+    
+    if (currentSeasonData && currentSeasonData.bond_adventure?.bond_adventure_enabled) {
+        currentSeasonData.bond_adventure.rewards.forEach(reward => {
+            const element = document.getElementById(`bond${reward.type}`);
+            if (element) {
+                bondData[reward.type] = element.value || '0';
+            }
+        });
+    }
+    
+    return bondData;
+}
+
+/**
+ * 提取升級目標
+ */
+function extractUpgradeGoals() {
+    const goals = {};
+    
+    if (!currentUpgradeData) return goals;
+    
+    Object.keys(currentUpgradeData.categories).forEach(categoryKey => {
+        const itemCount = getItemCount(categoryKey);
+        goals[categoryKey] = [];
+        
+        for (let i = 0; i < itemCount; i++) {
+            const startElement = document.getElementById(`${categoryKey}Item${i}Start`);
+            const endElement = document.getElementById(`${categoryKey}Item${i}End`);
+            
+            if (startElement && endElement) {
+                goals[categoryKey].push({
+                    start: parseInt(startElement.value) || 1,
+                    end: parseInt(endElement.value) || 1
+                });
+            }
+        }
+    });
+    
+    return goals;
+}
+
+/**
+ * 套用設定
+ */
+function applySettings(settings) {
+    // 套用基本設定
+    if (settings.seasonId) {
+        const seasonSelect = document.getElementById('seasonSelect');
+        if (seasonSelect) {
+            seasonSelect.value = settings.seasonId;
+            handleSeasonChange();
+        }
+    }
+    
+    if (settings.releaseDate) {
+        const releaseDateInput = document.getElementById('releaseDate');
+        if (releaseDateInput) {
+            releaseDateInput.value = settings.releaseDate;
+        }
+    }
+    
+    if (settings.currentDate) {
+        const currentDateInput = document.getElementById('currentDate');
+        if (currentDateInput) {
+            currentDateInput.value = settings.currentDate;
+        }
+    }
+    
+    if (settings.buyDailyDeal !== undefined) {
+        const buyDailyDealInput = document.getElementById('buyDailyDeal');
+        if (buyDailyDealInput) {
+            buyDailyDealInput.checked = settings.buyDailyDeal;
+        }
+    }
+    
+    // 等待 DOM 更新後套用其他設定
+    setTimeout(() => {
+        applyAdvancedSettings(settings);
+    }, 500);
+}
+
+/**
+ * 套用進階設定
+ */
+function applyAdvancedSettings(settings) {
+    // 套用體力資源選擇
+    if (settings.selectedStaminaResource) {
+        selectStaminaResource(settings.selectedStaminaResource);
+    }
+    
+    // 套用推車產出設定
+    if (settings.cartProduction) {
+        applyCartProductionSettings(settings.cartProduction);
+    }
+    
+    // 套用秘境工具設定
+    if (settings.secretRealmTools) {
+        applySecretRealmToolsSettings(settings.secretRealmTools);
+    }
+    
+    // 套用羈絆冒險設定
+    if (settings.bondAdventure) {
+        applyBondAdventureSettings(settings.bondAdventure);
+    }
+    
+    // 套用升級目標
+    if (settings.upgradeGoals) {
+        applyUpgradeGoals(settings.upgradeGoals);
+    }
+}
+
+/**
+ * 套用推車產出設定
+ */
+function applyCartProductionSettings(cartProduction) {
+    const mapping = {
+        gold: 'cartGold',
+        refinedStone: 'cartRefinedStone',
+        hourglass: 'cartHourglass',
+        battleEssence: 'cartBattleEssence',
+        freezeDried: 'cartFreezeDried'
+    };
+    
+    Object.keys(mapping).forEach(key => {
+        const element = document.getElementById(mapping[key]);
+        if (element && cartProduction[key] !== undefined) {
+            element.value = cartProduction[key];
+        }
+    });
+}
+
+/**
+ * 套用秘境工具設定
+ */
+function applySecretRealmToolsSettings(tools) {
+    Object.keys(tools).forEach(resourceKey => {
+        const element = document.getElementById(`tool${resourceKey}`);
+        if (element) {
+            element.value = tools[resourceKey];
+        }
+    });
+}
+
+/**
+ * 套用羈絆冒險設定
+ */
+function applyBondAdventureSettings(bondData) {
+    Object.keys(bondData).forEach(type => {
+        const element = document.getElementById(`bond${type}`);
+        if (element) {
+            element.value = bondData[type];
+        }
+    });
+}
+
+/**
+ * 套用升級目標
+ */
+function applyUpgradeGoals(goals) {
+    Object.keys(goals).forEach(categoryKey => {
+        const categoryGoals = goals[categoryKey];
+        
+        categoryGoals.forEach((goal, index) => {
+            const startElement = document.getElementById(`${categoryKey}Item${index}Start`);
+            const endElement = document.getElementById(`${categoryKey}Item${index}End`);
+            
+            if (startElement && endElement) {
+                startElement.value = goal.start;
+                endElement.value = goal.end;
+            }
+        });
+        
+        // 更新平均等級顯示
+        updateCategoryAverage(categoryKey);
+    });
+}
+
+/**
+ * 檢查瀏覽器相容性
+ */
+function checkBrowserCompatibility() {
+    const features = {
+        localStorage: typeof(Storage) !== 'undefined',
+        fetch: typeof(fetch) !== 'undefined',
+        flexbox: CSS.supports('display', 'flex'),
+        grid: CSS.supports('display', 'grid'),
+        arrow_functions: (() => true)(),
+        template_literals: `test` === 'test'
+    };
+    
+    const unsupported = Object.keys(features).filter(feature => !features[feature]);
+    
+    if (unsupported.length > 0) {
+        console.warn('瀏覽器不支援以下功能:', unsupported);
+        
+        // 如果是關鍵功能，顯示警告
+        if (!features.localStorage) {
+            console.warn('瀏覽器不支援本地儲存，設定將無法儲存');
+        }
+    }
+    
+    return unsupported.length === 0;
+}
+
+/**
+ * 節流函數
+ */
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+/**
+ * 防抖函數
+ */
+function debounce(func, wait, immediate) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            timeout = null;
+            if (!immediate) func(...args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func(...args);
+    };
+}
+
+/**
+ * 安全的 JSON 解析
+ */
+function safeJsonParse(str, defaultValue = null) {
+    try {
+        return JSON.parse(str);
+    } catch (e) {
+        console.warn('JSON 解析失敗:', e);
+        return defaultValue;
+    }
+}
+
+/**
+ * 生成唯一 ID
+ */
+function generateUniqueId(prefix = 'id') {
+    return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+/**
+ * 檢查是否為行動裝置
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+/**
+ * 複製文字到剪貼簿
+ */
+async function copyToClipboard(text) {
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } else {
+            // 備用方法
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            const success = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            return success;
+        }
+    } catch (error) {
+        console.error('複製到剪貼簿失敗:', error);
+        return false;
+    }
+}
+
+/**
+ * 顯示通知訊息
+ */
+function showNotification(message, type = 'info', duration = 3000) {
+    // 創建通知元素
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} notification-toast position-fixed`;
+    notification.style.cssText = `
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 300px;
+        animation: slideInRight 0.3s ease-out;
+    `;
+    notification.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+            <span>${message}</span>
+            <button type="button" class="btn-close" onclick="this.parentElement.parentElement.remove()"></button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // 自動移除
+    if (duration > 0) {
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }
+        }, duration);
+    }
+}
+
+/**
+ * 格式化日期
+ */
+function formatDate(date) {
+    if (!date || !(date instanceof Date)) return '-';
+    
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+    const weekday = weekdays[date.getDay()];
+    
+    return `${year}/${month}/${day} (${weekday})`;
+}
+
+/**
+ * 格式化日期時間
+ */
+function formatDateTime(date) {
+    if (!date || !(date instanceof Date)) return '-';
+    
+    const dateStr = formatDate(date);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    
+    return `${dateStr} ${hours}:${minutes}`;
+}
+
+/**
+ * 初始化時檢查相容性
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    checkBrowserCompatibility();
+    
+    // 載入自動儲存的設定
+    if (LocalStorage.load('enableAutoSave') !== false) {
+        loadAutoSaveSettings();
+    }
+    
+    // 綁定自動儲存事件（節流）
+    const autoSaveThrottled = throttle(autoSaveSettings, 5000);
+    
+    document.addEventListener('input', autoSaveThrottled);
+    document.addEventListener('change', autoSaveThrottled);
+});
+
+/**
+ * 處理全域錯誤
+ */
+window.addEventListener('error', function(event) {
+    console.error('全域錯誤:', event.error);
+    
+    // 在開發環境顯示詳細錯誤
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        showNotification(`發生錯誤: ${event.error.message}`, 'danger', 5000);
+    }
+});
+
+/**
+ * 處理未捕獲的 Promise 拒絕
+ */
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('未處理的 Promise 拒絕:', event.reason);
+    
+    // 防止錯誤傳播
+    event.preventDefault();
+});
+
+/**
+ * 頁面可見性變化處理
+ */
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // 頁面重新可見時，可以檢查是否需要更新時間等
+        const currentDateInput = document.getElementById('currentDate');
+        if (currentDateInput && !currentDateInput.value) {
+            setCurrentDateTime();
+        }
+    }
+});
+
+/**
+ * 鍵盤快捷鍵處理
+ */
+document.addEventListener('keydown', function(event) {
+    // Ctrl+S 或 Cmd+S 匯出設定
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        exportSettings();
+    }
+    
+    // Ctrl+O 或 Cmd+O 匯入設定
+    if ((event.ctrlKey || event.metaKey) && event.key === 'o') {
+        event.preventDefault();
+        importSettings();
+    }
+    
+    // Enter 鍵觸發計算（如果焦點在計算器範圍內）
+    if (event.key === 'Enter' && event.target.closest('.upgrade-calculator')) {
+        const calculateBtn = document.getElementById('calculateBtn');
+        if (calculateBtn && !calculateBtn.disabled) {
+            calculateBtn.click();
+        }
+    }
+});
+
+// 為全域使用導出一些工具函數
+window.UpgradeUtils = {
+    formatNumber,
+    formatPercentage,
+    formatTime,
+    showNotification,
+    copyToClipboard,
+    exportSettings,
+    importSettings,
+    LocalStorage
+};

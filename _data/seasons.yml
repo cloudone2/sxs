@@ -57,30 +57,9 @@ seasons:
     score_pet: 6
     star_start: 65
     theme_color: '#505096'
-    total_day: 114
+    total_day: 113
     bond_adventure:
       bond_adventure_enabled: true
       rewards:
         - type: "premium"
           amount: 160
-
-  - id: 's4'
-    title: 'S4: 蛤~~~'
-    season_number: 4
-    release_date: 2026-02-12
-    fixed_level: 200
-    fixed_relics_level: 20
-    score_level: 100
-    score_div: 6
-    score_gear: 7
-    score_skill: 3
-    score_relics: 13
-    score_pet: 3
-    star_start: 80
-    theme_color: '#FF7538'
-    total_day: 98
-    bond_adventure:
-      bond_adventure_enabled: true
-      rewards:
-        - type: "deluxe"
-          amount: 200

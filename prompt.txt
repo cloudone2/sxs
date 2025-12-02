@@ -6,22 +6,24 @@
 如果不足，推薦需要 購買多少道具
 🗂️ 檔案結構
 1. 資料檔案（_data/ YAML 格式）
+
 _season.yml
 儲存每個賽季的配置：
-
 賽季元資料（標題、開始日期、總天數）
 固定等級（角色/古遺物）
 評分係數
 主題色彩
 羈絆冒險獎勵
+
+_data\upgrades\s{n}.yml
 資源產出速率：
 秘境（🏰）：金幣、粗煉石、時之砂、歷戰精華
 體力產出（⚡）：每 5 體力可獲得的資源量(金幣、粗煉石、時之砂、歷戰精華)
 每日獎勵體力：任務 + 商店 + 每日特惠
 升級成本表
+
 freeze_dried_exp.yml
 定義寵物食物的經驗值：
-
 普通凍乾（🥩）：50 EXP
 優質凍乾（⭐）：400 EXP
 精品凍乾（💎）：2000 EXP
@@ -95,7 +97,7 @@ getItemName()：返回本地化裝備/技能名稱
 
 🎮 使用流程 - upgrade.md(直接在 HTML 中嵌入yml資料)
 選擇賽季（S1/S2/S3/S4....）[droupdown style]→ UI 主題變色, (如沒有賽季yml[may be add on future], 不顯示介面), default season[_season.yml:current_season <- seasons.id]
-輸入: [當前日期/時間 → 自動計算剩餘天數], [賽季開始日期/時間(default to season.yml:release_date )],  [ask for 會不會購 買每日特惠]
+輸入: [賽季開始日期/時間(default to season.yml:release_date )], [當前日期/時間 → 自動計算剩餘天數],  [ask for 會不會購 買每日特惠]
 選擇體力優先刷取 → 點擊資源類型（金幣、粗煉石、時之砂、歷戰精華[show the 資源產量]）
 輸入產出速率：
 推車掛機產量（每小時）(金幣、粗煉石、時之砂、歷戰精華、普通凍乾)
@@ -107,7 +109,11 @@ upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the fetu
 點擊「計算」 → 生成完整報告(show more detail information資源計算)：
 可用總體力(來源明細)
 可產出總資源[體力刷取產出（選定資源）,推車掛機產量,秘境工具數量,羈絆冒險獎勵](來源明細)
-需求總資源(來源明細), eg. 裝備-升級需求table
+需求總資源(來源明細), 
+eg. 裝備-升級需求table
+|粗煉石										|金幣
+|裝備(3) Lv161 -> 170 = 271300*3 = 813900	|Lv161 -> 170 = 271300*3 = 1629000
+|裝備(2) Lv162 -> 175 = 271300*2 = 781400 	|Lv162 -> 175 = 271300*2 = 1564000
 每種資源的盈餘/赤字
 購買建議（每天需買多少工具[建議購買工具數目/賽季剩餘天數], 金幣、粗煉石、時之砂、歷戰精華 → 顯示秘境工具購買建議[鐵礦錘(粗煉石), 金礦鎬(金幣), 砂礦鏟(時之砂), 拳套(歷戰精華)], 凍乾[無法購買工具]）
 
@@ -124,6 +130,8 @@ upgrades/s2.yml 和 s3.yml 和 s4.yml(s1 no data,  will add s5/s6....in the fetu
 ✅ all data on YAML 格式, no json file
 ✅ each section can collapse
 ✅ no 商店 concept, 可以購買秘境工具
+✅ no need 數字和格式化
+✅ no need 動畫效果
 
 計算公式
 體力計算公式
