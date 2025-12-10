@@ -126,10 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const [r1, l1] = curr.split('|');
     const [r2, l2] = targ.split('|');
-    const idx1 = SKILLS.rarityOrder.indexOf(r1);
-    const idx2 = SKILLS.rarityOrder.indexOf(r2);
-    const lv1 = parseInt(l1);
-    const lv2 = parseInt(l2);
+    let idx1 = SKILLS.rarityOrder.indexOf(r1);
+    let idx2 = SKILLS.rarityOrder.indexOf(r2); 
+    let lv1 = parseInt(l1);
+    let lv2 = parseInt(l2); 
+
+    // Adjust for 0-based indexing
+    //lv1 = lv1 === 0 ? 0 : lv1 - 1;
+    if( r1 !== r2 && lv2 === 0 ) {
+      idx2 = SKILLS.rarityOrder.indexOf(SKILLS.rarityOrder[idx2 - 1]);
+      lv2 = SKILLS.specs[SKILLS.rarityOrder[idx2]].levels.length - 1; 
+    }else{
+      lv2 = lv2 === 0 ? 0 : lv2 - 1;
+    }
+
+    console.log("current-level-select: " + idx1 + "|" + lv1 + ",target-level-select: " + idx2 + "|" + lv2);
 
     let cost = 0, upgrades = 0;
     const qualities = new Set();
@@ -137,13 +148,17 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = idx1; i <= idx2; i++) {
       const r = SKILLS.rarityOrder[i];
       const spec = SKILLS.specs[r];
-      const start = i === idx1 ? lv1 + 1 : 0;
+      const start = i === idx1 ? lv1 : 0;
       const end = i === idx2 ? lv2 : spec.levels.length - 1;
+
+      console.log(`Calculating ${spec.name_c} from level ${start} to ${end}`);
       
       for (let j = start; j <= end; j++) {
         cost += spec.levels[j];
         upgrades++;
         qualities.add(spec.name_c);
+
+        console.log(`  Level ${j}: +${spec.levels[j]} fragments (Total: ${cost})`);
       }
     }
 
