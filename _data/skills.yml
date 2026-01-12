@@ -169,8 +169,8 @@ resources:
 season_fragments:
   - season: S3
     class_level: 五轉
-    total: 810
-    breakdown: "(秘寶180×3 + 賽季任務90×3)"
+    total: 990
+    breakdown: "(秘寶180×4 + 賽季任務90×3)"
     badge_color: "primary"
   - season: S2
     class_level: 四轉
