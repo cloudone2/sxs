@@ -167,6 +167,11 @@ resources:
 # SEASON REFERENCE DATA
 # ========================================
 season_fragments:
+  - season: S4
+    class_level: 六轉
+    total: 990
+    breakdown: "(秘寶180×4 + 賽季任務90×3)"
+    badge_color: "primary"
   - season: S3
     class_level: 五轉
     total: 990
