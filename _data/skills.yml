@@ -173,17 +173,17 @@ season_fragments:
     class_level: 六轉
     total: 990
     breakdown: "(秘寶180×4 + 賽季任務90×3)"
-    badge_color: "primary"
+    badge_color: "danger"
   - season: S3
     class_level: 五轉
     total: 990
     breakdown: "(秘寶180×4 + 賽季任務90×3)"
-    badge_color: "primary"
+    badge_color: "info"
   - season: S2
     class_level: 四轉
     total: 720
     breakdown: "(秘寶180×3 + 賽季任務90×2)"
-    badge_color: "secondary"
+    badge_color: "success"
 
 # ========================================
 # SKILL LIST
