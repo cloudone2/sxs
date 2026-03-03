@@ -23,26 +23,6 @@ title: 技能升級計算器
           </h5>
         </div>
         <div class="card-body">
-          <!-- Season Reference -->
-          <div class="alert alert-info border-0 mb-3" role="alert">
-            <div class="d-flex align-items-start gap-2 mb-2">
-              <span class="fs-5">💡</span>
-              <div class="flex-grow-1">
-                <div class="fw-bold mb-2">賽季碎片獲取(白嫖)參考：</div>
-                <div class="season-info-grid">
-                  {% for season in site.data.skills.season_fragments %}
-                  <div class="season-item">
-                    <span class="badge bg-{{ season.badge_color }} me-2">{{ season.season }}</span>
-                    <span class="fw-semibold">{{ season.class_level }}</span>
-                    <span class="text-primary fw-bold">{{ season.total }}碎片</span>
-                    <span class="text-muted small d-block d-md-inline ms-0 ms-md-2">{{ season.breakdown }}</span>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Resource Inputs -->
           <div class="row g-3">
             <div class="col-md-6">
@@ -206,6 +186,26 @@ title: 技能升級計算器
             <p class="empty-state-text">尚未選擇任何升級</p>
             <p class="empty-state-subtext">點擊「新增技能」開始計算</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Season Reference -->
+  <div class="alert alert-info border-0 mb-3" role="alert">
+    <div class="d-flex align-items-start gap-2 mb-2">
+      <span class="fs-5">💡</span>
+      <div class="flex-grow-1">
+        <div class="fw-bold mb-2">賽季碎片獲取(白嫖)參考：</div>
+        <div class="season-info-grid">
+          {% for season in site.data.skills.season_fragments %}
+          <div class="season-item">
+            <span class="badge bg-{{ season.badge_color }} me-2">{{ season.season }}</span>
+            <span class="fw-semibold">{{ season.class_level }}</span>
+            <span class="text-primary fw-bold">{{ season.total }}碎片</span>
+            <span class="text-muted small d-block d-md-inline ms-0 ms-md-2">{{ season.breakdown }}</span>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
