@@ -74,6 +74,21 @@ tiers:
   - start: 4120
     increment: 80
     index: 15
-  - start: 4765
-    increment: 85
+  - start: 4770
+    increment: 90
     index: 16
+  - start: 5500
+    increment: 100
+    index: 17
+  - start: 6310
+    increment: 110
+    index: 18
+  - start: 7200
+    increment: 120
+    index: 19
+  - start: 8170
+    increment: 130
+    index: 20
+  - start: 9220
+    increment: 140
+    index: 21

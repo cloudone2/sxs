@@ -205,7 +205,7 @@ title: 原初之星
             </div>
 
             <!-- Progress to Next Milestone -->
-            <div class="milestone-card mb-4" id="milestone-display">
+            <div class="milestone-card mb-4" id="milestone-display" style="visibility: hidden; display: none;">
               <div class="milestone-header mb-2">
                 <span class="milestone-title">
                   <i class="fas fa-bullseye me-2"></i>{{ ui.results.next_milestone }}
