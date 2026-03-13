@@ -7,7 +7,7 @@
  */
 function updateSeasonTheme(seasonId) {
     // 移除所有季節主題類別
-    document.body.classList.remove('season-s1', 'season-s2', 'season-s3');
+    document.body.classList.remove('season-s1', 'season-s2', 'season-s3', 'season-s4');
     
     // 添加當前季節主題
     if (seasonId) {

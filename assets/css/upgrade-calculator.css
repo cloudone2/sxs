@@ -27,6 +27,11 @@
   --season-gradient: linear-gradient(135deg, #505096 0%, #7a7bc1 100%);
 }
 
+.season-s4 {
+  --season-primary: #95314b;
+  --season-gradient: linear-gradient(135deg, #95314b 0%, #c25a74 100%);
+}
+
 /* 全域樣式 */
 .upgrade-calculator {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
