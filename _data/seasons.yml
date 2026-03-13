@@ -57,7 +57,7 @@ seasons:
     score_pet: 6
     star_start: 65
     theme_color: '#505096'
-    total_day: 115
+    total_day: 101
     bond_adventure:
       bond_adventure_enabled: true
       rewards:
@@ -67,7 +67,7 @@ seasons:
   - id: 's4'
     title: 'S4: 哈帕迪'
     season_number: 4
-    release_date: 2026-02-28
+    release_date: 2026-02-14
     fixed_level: 190
     fixed_relics_level: 19
     score_level: 100
@@ -78,7 +78,7 @@ seasons:
     score_pet: 11
     star_start: 120
     theme_color: '#95314b'
-    total_day: 115
+    total_day: 101
     bond_adventure:
       bond_adventure_enabled: true
       rewards:
