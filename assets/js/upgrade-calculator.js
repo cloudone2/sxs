@@ -79,6 +79,9 @@ function bindEventListeners() {
     // 賽季選擇
     document.getElementById('seasonSelect').addEventListener('change', handleSeasonChange);
     
+    // 賽季開始日期變更時重新計算結束日期
+    document.getElementById('releaseDate').addEventListener('change', updateEndDate);
+    
     // 計算按鈕
     document.getElementById('calculateBtn').addEventListener('click', handleCalculate);
     
@@ -87,6 +90,23 @@ function bindEventListeners() {
     
     // 類別摺疊
     document.addEventListener('click', handleCategoryToggle);
+}
+
+/**
+ * 更新賽季結束日期（開始日期 + total_day）
+ */
+function updateEndDate() {
+    const releaseDateValue = document.getElementById('releaseDate').value;
+    const endDateInput = document.getElementById('endDate');
+    if (!releaseDateValue || !currentSeasonData?.total_day) return;
+    
+    const end = new Date(new Date(releaseDateValue).getTime() + currentSeasonData.total_day * 24 * 60 * 60 * 1000);
+    const year = end.getFullYear();
+    const month = (end.getMonth() + 1).toString().padStart(2, '0');
+    const day = end.getDate().toString().padStart(2, '0');
+    const hours = end.getHours().toString().padStart(2, '0');
+    const minutes = end.getMinutes().toString().padStart(2, '0');
+    endDateInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
 /**
@@ -129,6 +149,7 @@ function handleSeasonChange() {
         // Create date and force it to be interpreted in UTC+8
         releaseDate.value = currentSeasonData.release_date + 'T08:00:00';
     }
+    updateEndDate();
     
     // 顯示並載入各區塊
     showStaminaCard();
@@ -311,8 +332,8 @@ function createUpgradeCategorySection(categoryKey, category) {
         <div class="category-header" data-bs-toggle="collapse" data-bs-target="#${categoryKey}Content">
             <h6>
                 <span>
-                    <i class="${category.icon} me-2"></i>
-                    ${category.name} (${itemCount}項)
+                    <span class="me-1">${category.icon}</span>
+                    ${category.name_zh} ${category.name} (${itemCount}項)
                     <small class="text-muted">平均等級: <span id="${categoryKey}AvgLevel">--</span></small>
                 </span>
                 <i class="fas fa-chevron-down"></i>
@@ -348,8 +369,8 @@ function createResonanceControls(categoryKey, category, fixedLevel) {
                     <label class="form-label">目標等級</label>
                     <input type="number" class="form-control" id="${categoryKey}EndResonance" value="${category.suggested_level}" min="1">
                 </div>
-                <div class="col-md-4 mb-2">
-                    <button class="btn btn-outline-primary mt-4" onclick="applyResonance('${categoryKey}')">
+                <div class="col-md-4 mb-2 d-flex align-items-end">
+                    <button class="btn btn-outline-primary w-100" onclick="applyResonance('${categoryKey}')">
                         <i class="fas fa-magic me-2"></i>
                         套用共鳴
                     </button>
@@ -370,7 +391,7 @@ function createItemInputs(categoryKey, category, itemCount, fixedLevel) {
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="item-input-group">
                     <h6 class="mb-2">
-                        <i class="${category.icon} me-2"></i>
+                        <span class="me-1">${category.icon}</span>
                         ${getItemName(categoryKey, i)}
                     </h6>
                     <div class="row">
@@ -564,22 +585,24 @@ function calculateStamina() {
     const currentDate = new Date(document.getElementById('currentDate').value);
     const buyDailyDeal = document.getElementById('buyDailyDeal').checked;
     
-    // 計算剩餘時間
-    const timeDiff = currentDate - releaseDate;
-    const totalDays = currentSeasonData.total_day;
-    const elapsedDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const remainingDays = Math.max(0, totalDays - elapsedDays);
-    const remainingHours = Math.max(0, 24 - (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // 計算剩餘時間（從賽季結束倒推）
+    const endDateValue = document.getElementById('endDate').value;
+    const endDate = endDateValue
+        ? new Date(endDateValue)
+        : new Date(releaseDate.getTime() + currentSeasonData.total_day * 24 * 60 * 60 * 1000);
+    const remainingMs = Math.max(0, endDate - currentDate);
+    const remainingDays = Math.floor(remainingMs / (24 * 60 * 60 * 1000));
+    const remainingHours = Math.floor((remainingMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
     
     // 計算各項體力
-    const naturalStamina = remainingDays * 24 * 5 + Math.floor(remainingHours * 5);
+    const naturalStamina = remainingDays * 24 * 5 + remainingHours * 5;
     const dailyStamina = currentUpgradeData.daily_stamina.total * remainingDays;
     const accelerationStamina = remainingDays * 2 * 5; // 每天2小時加速
     const dealStamina = buyDailyDeal ? 10 * remainingDays : 0;
     
     return {
         remainingDays,
-        remainingHours: Math.floor(remainingHours),
+        remainingHours,
         naturalStamina,
         dailyStamina,
         accelerationStamina,
@@ -595,9 +618,9 @@ function calculateProduction() {
     const staminaResult = calculationResults?.stamina || calculateStamina();
     
     return {
-        cart: calculateCartProduction(),
+        cart: calculateCartProduction(staminaResult),
         secretRealm: calculateSecretRealmProduction(),
-        bondAdventure: calculateBondAdventureProduction(),
+        bondAdventure: calculateBondAdventureProduction(staminaResult),
         staminaUsage: calculateStaminaUsageProduction(staminaResult)
     };
 }
@@ -605,9 +628,8 @@ function calculateProduction() {
 /**
  * 計算推車產出
  */
-function calculateCartProduction() {
-    const totalHours = calculationResults?.stamina?.remainingDays * 24 + 
-                      calculationResults?.stamina?.remainingHours || 0;
+function calculateCartProduction(staminaResult) {
+    const totalHours = (staminaResult?.remainingDays || 0) * 24 + (staminaResult?.remainingHours || 0);
     
     return {
         gold: (parseInt(document.getElementById('cartGold').value) || 0) * totalHours,
@@ -640,14 +662,14 @@ function calculateSecretRealmProduction() {
 /**
  * 計算羈絆冒險產出
  */
-function calculateBondAdventureProduction() {
+function calculateBondAdventureProduction(staminaResult) {
     const production = { freeze_dried: 0 };
     
     if (!currentSeasonData.bond_adventure?.bond_adventure_enabled) {
         return production;
     }
     
-    const remainingDays = calculationResults?.stamina?.remainingDays || 0;
+    const remainingDays = staminaResult?.remainingDays || 0;
     const numberOfRewardTimes = 4;  //每日獎勵次數
     
     currentSeasonData.bond_adventure.rewards.forEach(reward => {

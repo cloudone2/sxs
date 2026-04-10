@@ -88,6 +88,7 @@ daily_stamina:
 categories:
   gear:
     name: "Gear Upgrades"
+    name_zh: "裝備升級"
     icon: "⚔️"
     suggested_level: 190
     resources:
@@ -251,6 +252,7 @@ categories:
 
   relic:
     name: "Relic Upgrades"
+    name_zh: "古遺物升級"
     icon: "✨"
     suggested_level: 19
     resources:
@@ -273,6 +275,7 @@ categories:
 
   skill:
     name: "Skill Upgrades"
+    name_zh: "技能升級"
     icon: "📚"
     suggested_level: 175
     resources:
@@ -343,6 +346,7 @@ categories:
 
   pet:
     name: "Pet Upgrades"
+    name_zh: "幻獸升級"
     icon: "🐾"
     suggested_level: 171
     resources:

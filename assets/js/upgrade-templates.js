@@ -6,9 +6,12 @@
  * 渲染體力計算摘要
  */
 function renderStaminaSummary(staminaData) {
-    // 計算結束日期
     const releaseDate = new Date(document.getElementById('releaseDate').value);
-    const endDate = new Date(releaseDate.getTime() + (currentSeasonData.total_day * 24 * 60 * 60 * 1000));
+    const endDateValue = document.getElementById('endDate').value;
+    const endDate = endDateValue
+        ? new Date(endDateValue)
+        : new Date(releaseDate.getTime() + (currentSeasonData.total_day * 24 * 60 * 60 * 1000));
+    const actualTotalDays = Math.round((endDate - releaseDate) / (24 * 60 * 60 * 1000));
     
     const card = document.createElement('div');
     card.className = 'card result-card info mb-4';
@@ -27,7 +30,7 @@ function renderStaminaSummary(staminaData) {
                     <ul class="list-unstyled">
                         <li><strong>賽季開始:</strong> ${formatDate(releaseDate)}</li>
                         <li><strong>賽季結束:</strong> ${formatDate(endDate)}</li>
-                        <li><strong>總賽季天數:</strong> ${currentSeasonData.total_day} 天</li>
+                        <li><strong>總賽季天數:</strong> ${actualTotalDays} 天 <small class="text-muted">(預計 ${currentSeasonData.total_day} 天)</small></li>
                         <li class="mt-2 pt-2 border-top">
                             <strong>剩餘天數:</strong> <span class="text-primary">${staminaData.remainingDays} 天</span>
                         </li>
@@ -50,13 +53,13 @@ function renderStaminaSummary(staminaData) {
             <div class="mt-3">
                 <div class="d-flex justify-content-between small mb-1">
                     <span>賽季進度</span>
-                    <span>${formatPercentage(currentSeasonData.total_day - staminaData.remainingDays, currentSeasonData.total_day)}</span>
+                    <span>${formatPercentage(actualTotalDays - staminaData.remainingDays, actualTotalDays)}</span>
                 </div>
                 <div class="progress" style="height: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
                         role="progressbar"
-                        style="width: ${((currentSeasonData.total_day - staminaData.remainingDays) / currentSeasonData.total_day * 100)}%"
-                        aria-valuenow="${((currentSeasonData.total_day - staminaData.remainingDays) / currentSeasonData.total_day * 100)}"
+                        style="width: ${((actualTotalDays - staminaData.remainingDays) / actualTotalDays * 100)}%"
+                        aria-valuenow="${((actualTotalDays - staminaData.remainingDays) / actualTotalDays * 100)}"
                         aria-valuemin="0" 
                         aria-valuemax="100">
                     </div>
@@ -91,14 +94,14 @@ function renderStaminaUsageSummary(staminaUsageData) {
         </div>
         <div class="card-body">
             <div class="alert alert-info">
-                <h6><i class="${resource.icon} me-2"></i>選擇資源: ${resource.name_zh}</h6>
+                <h6><span class="me-1">${resource.icon}</span>選擇資源: ${resource.name_zh}</h6>
                 <p class="mb-2">每 5 體力可獲得: <strong class="number">${formatNumber(resource.value)}</strong></p>
                 <p class="mb-0">總共可刷取: <strong class="number">${totalRuns}</strong> 次</p>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="text-center p-3 bg-primary bg-opacity-10 rounded">
-                        <div class="display-6">${resource.icon}</div>
+                        <div class="display-6"><span class="me-1">${resource.icon}</span></div>
                         <h5 class="mt-2">${resource.name_zh}</h5>
                         <h4 class="text-primary number">${formatNumber(staminaUsageData[staminaUsageData.selectedResource])}</h4>
                     </div>
@@ -185,7 +188,7 @@ function renderTotalProductionTable(productionData) {
         
         tableHTML += `
             <tr>
-                <td><i class="${resource.icon} me-2"></i>${resource.name}</td>
+                <td><span class="me-1">${resource.icon}</span>${resource.name}</td>
                 <td class="text-center number">${formatNumber(cart)}</td>
                 <td class="text-center number">${formatNumber(secretRealm)}</td>
                 <td class="text-center number">${formatNumber(stamina)}</td>
@@ -353,7 +356,7 @@ function renderUpgradeDetails(upgradeNeeds) {
         
         html += `
             <div class="mb-4">
-                <h6><i class="${category.icon} me-2"></i>${category.name}</h6>
+                <h6><span class="me-1">${category.icon}</span>${category.name}</h6>
                 ${renderCategoryUpgradeTable(categoryNeeds)}
             </div>
         `;
@@ -533,7 +536,7 @@ function renderComparisonTable(comparison) {
         html += `
             <tr>
                 <td>
-                    <i class="${resourceInfo.icon} me-2"></i>
+                    <span class="me-1">${resourceInfo.icon}</span>
                     <strong>${resourceInfo.name}</strong>
                 </td>
                 <td class="text-end number">${formatNumber(comp.produced)}</td>
@@ -586,7 +589,7 @@ function renderPurchaseRecommendations(comparison) {
                     <div class="card border-warning">
                         <div class="card-body p-3">
                             <h6 class="card-title mb-2">
-                                <i class="🥩 me-2"></i>凍乾 EXP
+                                <span class="me-1">🥩</span>凍乾 EXP
                             </h6>
                             <p class="text-danger mb-2">
                                 <strong>不足: ${formatNumber(Math.abs(comparison[resource].balance))}</strong>
@@ -611,7 +614,7 @@ function renderPurchaseRecommendations(comparison) {
                     <div class="card border-warning">
                         <div class="card-body p-3">
                             <h6 class="card-title mb-2">
-                                <i class="${tool.icon} me-2"></i>${tool.name}
+                                <span class="me-1">${tool.icon}</span>${tool.name}
                             </h6>
                             <p class="text-danger mb-2">
                                 <strong>不足: ${formatNumber(shortage)}</strong>

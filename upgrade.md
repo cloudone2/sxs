@@ -58,11 +58,17 @@ description: "計算賽季內的資源產出與升級需求"
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
+          <label for="endDate" class="form-label">賽季結束日期時間</label>
+          <input type="datetime-local" class="form-control" id="endDate">
+        </div>
+        <div class="col-md-6 mb-3">
           <label for="currentDate" class="form-label">當前日期時間</label>
           <input type="datetime-local" class="form-control" id="currentDate">
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-6 mb-3">
-          <div class="form-check mt-4">
+          <div class="form-check mt-2">
             <input class="form-check-input" type="checkbox" id="buyDailyDeal">
             <label class="form-check-label" for="buyDailyDeal">
               會購買每日特惠 (10體力/299代金券)

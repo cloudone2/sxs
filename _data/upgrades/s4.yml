@@ -88,6 +88,7 @@ daily_stamina:
 categories:
   gear:
     name: "Gear Upgrades"
+    name_zh: "裝備升級"
     icon: "⚔️"
     suggested_level: 280
     resources:
@@ -255,7 +256,7 @@ categories:
         refined_stone: 86070
         gold: 172140
       - level: 243
-        refined_step: 86640
+        refined_stone: 86640
         gold: 173280
       - level: 244
         refined_stone: 87210
@@ -551,6 +552,7 @@ categories:
 
   relic:
     name: "Relic Upgrades"
+    name_zh: "古遺物升級"
     icon: "✨"
     suggested_level: 28
     resources:
@@ -612,6 +614,7 @@ categories:
 
   skill:
     name: "Skill Upgrades"
+    name_zh: "技能升級"
     icon: "📚"
     suggested_level: 280
     resources:
@@ -922,6 +925,7 @@ categories:
 
   pet:
     name: "Pet Upgrades"
+    name_zh: "幻獸升級"
     icon: "🐾"
     suggested_level: 280
     resources:
