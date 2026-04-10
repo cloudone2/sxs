@@ -51,7 +51,7 @@
 }
 
 /* 卡片樣式 */
-.card {
+.upgrade-calculator .card {
   border: none;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -59,12 +59,11 @@
   overflow: hidden;
 }
 
-.card:hover {
-  transform: translateY(-2px);
+.upgrade-calculator .card:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card-header {
+.upgrade-calculator .card-header {
   background: var(--season-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%));
   color: white;
   border: none;
@@ -72,18 +71,19 @@
   font-weight: 600;
 }
 
-.card-header h5 {
+.upgrade-calculator .card-header h5 {
   margin: 0;
   font-size: 1.1rem;
 }
 
-.card-body {
+.upgrade-calculator .card-body {
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.95);
 }
 
 /* 表單控件 */
-.form-control, .form-select {
+.upgrade-calculator .form-control,
+.upgrade-calculator .form-select {
   border: 2px solid #e9ecef;
   border-radius: 10px;
   padding: 0.75rem 1rem;
@@ -91,12 +91,13 @@
   font-size: 0.95rem;
 }
 
-.form-control:focus, .form-select:focus {
+.upgrade-calculator .form-control:focus,
+.upgrade-calculator .form-select:focus {
   border-color: var(--season-primary, var(--primary-color));
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--season-primary, var(--primary-color)) 25%, transparent);
 }
 
-.form-label {
+.upgrade-calculator .form-label {
   font-weight: 600;
   color: var(--dark-color);
   margin-bottom: 0.5rem;
@@ -104,23 +105,23 @@
 }
 
 /* 按鈕樣式 */
-.btn {
+.upgrade-calculator .btn {
   border-radius: 10px;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-primary {
+.upgrade-calculator .btn-primary {
   background: var(--season-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%));
+  border: none;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+.upgrade-calculator .btn-primary:hover {
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--season-primary, var(--primary-color)) 40%, transparent);
 }
 
-.btn-lg {
+.upgrade-calculator .btn-lg {
   padding: 1rem 2rem;
   font-size: 1.1rem;
   border-radius: 15px;
@@ -142,7 +143,6 @@
 }
 
 .resource-btn:hover {
-  transform: translateY(-3px);
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
   border-color: var(--season-primary, var(--primary-color));
   color: var(--dark-color);
@@ -153,7 +153,7 @@
   background: var(--season-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%));
   color: white;
   border-color: transparent;
-  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 25px color-mix(in srgb, var(--season-primary, var(--primary-color)) 40%, transparent);
 }
 
 .resource-btn .icon {
@@ -197,6 +197,12 @@
   color: white;
 }
 
+.category-header:hover .text-muted,
+.category-header:hover small,
+.category-header:hover i {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
 .category-header h6 {
   margin: 0;
   font-weight: 600;
@@ -211,10 +217,33 @@
 }
 
 .resonance-controls {
-  background: rgba(102, 126, 234, 0.05);
+  background: color-mix(in srgb, var(--season-primary, var(--primary-color)) 8%, transparent);
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
+  border: 1px solid color-mix(in srgb, var(--season-primary, var(--primary-color)) 15%, transparent);
+}
+
+/* 個別升級項目卡片 */
+.item-input-group {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 0.75rem;
+  height: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-input-group:hover {
+  border-color: var(--season-primary, var(--primary-color));
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--season-primary, var(--primary-color)) 15%, transparent);
+}
+
+.item-input-group h6 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
 }
 
 /* 結果區域 */
@@ -249,7 +278,7 @@
 }
 
 /* 摺疊動畫 */
-.collapsing {
+.upgrade-calculator .collapsing {
   transition: height 0.35s ease;
 }
 
@@ -267,45 +296,32 @@
 }
 
 /* 進度條 */
-.progress {
+.upgrade-calculator .progress {
   border-radius: 10px;
   height: 8px;
   background: rgba(0, 0, 0, 0.1);
 }
 
-.progress-bar {
+.upgrade-calculator .progress-bar {
   border-radius: 10px;
   background: var(--season-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%));
 }
 
 /* 徽章 */
-.badge {
+.upgrade-calculator .badge {
   border-radius: 8px;
   padding: 0.5rem 0.75rem;
   font-weight: 600;
 }
 
-.badge.success {
-  background: var(--success-color);
-}
-
-.badge.danger {
-  background: var(--danger-color);
-}
-
-.badge.warning {
-  background: var(--warning-color);
-  color: var(--dark-color);
-}
-
 /* 表格 */
-.table {
+.upgrade-calculator .table-responsive {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.table th {
+.upgrade-calculator .table th {
   background: var(--season-gradient, linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%));
   color: white;
   border: none;
@@ -313,7 +329,7 @@
   padding: 1rem;
 }
 
-.table td {
+.upgrade-calculator .table td {
   padding: 0.75rem 1rem;
   vertical-align: middle;
 }
@@ -324,7 +340,7 @@
     font-size: 2rem;
   }
   
-  .card-body {
+  .upgrade-calculator .card-body {
     padding: 1rem;
   }
   
@@ -336,7 +352,7 @@
     font-size: 1.5rem;
   }
   
-  .btn-lg {
+  .upgrade-calculator .btn-lg {
     padding: 0.875rem 1.5rem;
     font-size: 1rem;
   }
@@ -347,7 +363,7 @@
     padding: 0 0.5rem;
   }
   
-  .card-body {
+  .upgrade-calculator .card-body {
     padding: 0.75rem;
   }
   
