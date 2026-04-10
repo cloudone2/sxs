@@ -89,7 +89,7 @@ categories:
   gear:
     name: "Gear Upgrades"
     icon: "⚔️"
-    suggested_level: 300
+    suggested_level: 280
     resources:
       - name: "Refined Stone"
         name_zh: "粗煉石"
@@ -552,7 +552,7 @@ categories:
   relic:
     name: "Relic Upgrades"
     icon: "✨"
-    suggested_level: 30
+    suggested_level: 28
     resources:
       - name: "Hourglass"
         name_zh: "時之砂"
@@ -613,7 +613,7 @@ categories:
   skill:
     name: "Skill Upgrades"
     icon: "📚"
-    suggested_level: 300
+    suggested_level: 280
     resources:
       - name: "Battle Essence"
         name_zh: "歷戰精華"
@@ -923,7 +923,7 @@ categories:
   pet:
     name: "Pet Upgrades"
     icon: "🐾"
-    suggested_level: 300
+    suggested_level: 280
     resources:
       - name: "Freeze-Dried Food"
         name_zh: "凍乾"

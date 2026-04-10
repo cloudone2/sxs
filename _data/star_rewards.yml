@@ -92,3 +92,6 @@ tiers:
   - start: 9220
     increment: 140
     index: 21
+  - start: 10350
+    increment: 150
+    index: 22
