@@ -78,7 +78,7 @@ seasons:
     score_pet: 11
     star_start: 120
     theme_color: '#95314b'
-    total_day: 101
+    total_day: 115
     bond_adventure:
       bond_adventure_enabled: true
       rewards:
