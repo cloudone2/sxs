@@ -154,6 +154,7 @@ function handleSeasonChange() {
     // 顯示並載入各區塊
     showStaminaCard();
     showProductionCard();
+    showCurrentResourcesCard();
     showUpgradeCard();
     showCalculateButton();
 }
@@ -164,6 +165,7 @@ function handleSeasonChange() {
 function hideAllCards() {
     document.getElementById('staminaCard').style.display = 'none';
     document.getElementById('productionCard').style.display = 'none';
+    document.getElementById('currentResourcesCard').style.display = 'none';
     document.getElementById('upgradeCard').style.display = 'none';
     document.getElementById('calculateSection').style.display = 'none';
     document.getElementById('results').innerHTML = '';
@@ -237,6 +239,15 @@ function showProductionCard() {
     
     productionCard.style.display = 'block';
     productionCard.classList.add('fade-in');
+}
+
+/**
+ * 顯示現有資源卡片
+ */
+function showCurrentResourcesCard() {
+    const currentResourcesCard = document.getElementById('currentResourcesCard');
+    currentResourcesCard.style.display = 'block';
+    currentResourcesCard.classList.add('fade-in');
 }
 
 /**
@@ -803,9 +814,38 @@ function calculateItemNeeds(category, startLevel, endLevel) {
 }
 
 /**
+ * 讀取現有資源輸入
+ */
+function getCurrentResources() {
+    const types = window.freezeDriedData?.types || [];
+    const normalExp = types.find(t => t.key === 'normal')?.exp || 50;
+    const premiumExp = types.find(t => t.key === 'premium')?.exp || 400;
+    const deluxeExp = types.find(t => t.key === 'deluxe')?.exp || 2000;
+
+    const normalCount = parseInt(document.getElementById('currentFreezeDriedNormal')?.value) || 0;
+    const premiumCount = parseInt(document.getElementById('currentFreezeDriedPremium')?.value) || 0;
+    const deluxeCount = parseInt(document.getElementById('currentFreezeDriedDeluxe')?.value) || 0;
+
+    const rareCount = parseInt(document.getElementById('currentHourglassRare')?.value) || 0;
+    const epicCount = parseInt(document.getElementById('currentHourglassEpic')?.value) || 0;
+
+    return {
+        gold: parseInt(document.getElementById('currentGold')?.value) || 0,
+        refined_stone: parseInt(document.getElementById('currentRefinedStone')?.value) || 0,
+        hourglass: (parseInt(document.getElementById('currentHourglass')?.value) || 0) +
+                   (rareCount * 5) +
+                   (epicCount * 25),
+        battle_essence: parseInt(document.getElementById('currentBattleEssence')?.value) || 0,
+        freeze_dried: (normalCount * normalExp) + (premiumCount * premiumExp) + (deluxeCount * deluxeExp)
+    };
+}
+
+/**
  * 計算資源對比
  */
 function calculateResourceComparison(production, needs) {
+    const currentResources = getCurrentResources();
+
     const totalProduction = {
         gold: (production.cart.gold || 0) + (production.secretRealm.gold || 0) + (production.staminaUsage.gold || 0),
         refined_stone: (production.cart.refined_stone || 0) + (production.secretRealm.refined_stone || 0) + (production.staminaUsage.refined_stone || 0),
@@ -820,11 +860,13 @@ function calculateResourceComparison(production, needs) {
         if (resource === 'details') return;
         
         const produced = totalProduction[resource] || 0;
+        const currentStock = currentResources[resource] || 0;
         const needed = needs[resource] || 0;
-        const balance = produced - needed;
+        const balance = produced + currentStock - needed;
         
         comparison[resource] = {
             produced,
+            currentStock,
             needed,
             balance,
             sufficient: balance >= 0

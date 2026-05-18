@@ -465,11 +465,29 @@ function extractSettings() {
         cartProduction: extractCartProduction(),
         secretRealmTools: extractSecretRealmTools(),
         bondAdventure: extractBondAdventure(),
+        currentResources: extractCurrentResources(),
         upgradeGoals: extractUpgradeGoals(),
         timestamp: new Date().toISOString()
     };
     
     return settings;
+}
+
+/**
+ * 提取現有資源設定
+ */
+function extractCurrentResources() {
+    return {
+        gold: document.getElementById('currentGold')?.value || '0',
+        refinedStone: document.getElementById('currentRefinedStone')?.value || '0',
+        hourglass: document.getElementById('currentHourglass')?.value || '0',
+        hourglassRare: document.getElementById('currentHourglassRare')?.value || '0',
+        hourglassEpic: document.getElementById('currentHourglassEpic')?.value || '0',
+        battleEssence: document.getElementById('currentBattleEssence')?.value || '0',
+        freezeDriedNormal: document.getElementById('currentFreezeDriedNormal')?.value || '0',
+        freezeDriedPremium: document.getElementById('currentFreezeDriedPremium')?.value || '0',
+        freezeDriedDeluxe: document.getElementById('currentFreezeDriedDeluxe')?.value || '0'
+    };
 }
 
 /**
@@ -613,10 +631,39 @@ function applyAdvancedSettings(settings) {
         applyBondAdventureSettings(settings.bondAdventure);
     }
     
+    // 套用現有資源設定
+    if (settings.currentResources) {
+        applyCurrentResourcesSettings(settings.currentResources);
+    }
+
     // 套用升級目標
     if (settings.upgradeGoals) {
         applyUpgradeGoals(settings.upgradeGoals);
     }
+}
+
+/**
+ * 套用現有資源設定
+ */
+function applyCurrentResourcesSettings(currentResources) {
+    const mapping = {
+        gold: 'currentGold',
+        refinedStone: 'currentRefinedStone',
+        hourglass: 'currentHourglass',
+        hourglassRare: 'currentHourglassRare',
+        hourglassEpic: 'currentHourglassEpic',
+        battleEssence: 'currentBattleEssence',
+        freezeDriedNormal: 'currentFreezeDriedNormal',
+        freezeDriedPremium: 'currentFreezeDriedPremium',
+        freezeDriedDeluxe: 'currentFreezeDriedDeluxe'
+    };
+
+    Object.keys(mapping).forEach(key => {
+        const element = document.getElementById(mapping[key]);
+        if (element && currentResources[key] !== undefined) {
+            element.value = currentResources[key];
+        }
+    });
 }
 
 /**

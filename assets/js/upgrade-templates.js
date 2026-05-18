@@ -516,9 +516,10 @@ function renderComparisonTable(comparison) {
                 <thead>
                     <tr>
                         <th>資源</th>
-                        <th class="text-end">可產出</th>
-                        <th class="text-end">需求量</th>
-                        <th class="text-end">盈餘/赤字</th>
+                        <th class="text-end">現有資源</th>
+                        <th class="text-end">未來產出</th>
+                        <th class="text-end">升級需求</th>
+                        <th class="text-end">差額</th>
                         <th class="text-center">狀態</th>
                     </tr>
                 </thead>
@@ -539,6 +540,7 @@ function renderComparisonTable(comparison) {
                     <span class="me-1">${resourceInfo.icon}</span>
                     <strong>${resourceInfo.name}</strong>
                 </td>
+                <td class="text-end number">${formatNumber(comp.currentStock || 0)}</td>
                 <td class="text-end number">${formatNumber(comp.produced)}</td>
                 <td class="text-end number">${formatNumber(comp.needed)}</td>
                 <td class="text-end number ${balanceClass}">

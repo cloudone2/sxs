@@ -156,6 +156,66 @@ description: "計算賽季內的資源產出與升級需求"
     </div>
   </div>
 
+  <!-- Current Resources -->
+  <div class="card mb-4" id="currentResourcesCard" style="display: none;">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <i class="fas fa-box-open me-2"></i>
+        現有資源
+      </h5>
+      <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#currentResourcesSettings">
+        <i class="fas fa-chevron-down"></i>
+      </button>
+    </div>
+    <div class="collapse show" id="currentResourcesSettings">
+      <div class="card-body">
+        <p class="text-muted mb-3">輸入目前手上持有的資源數量（凍乾填寫個數，將自動換算為 EXP）</p>
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <label class="form-label">💰 金幣</label>
+            <input type="number" class="form-control" id="currentGold" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">🪨 粗煉石</label>
+            <input type="number" class="form-control" id="currentRefinedStone" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">📖 歷戰精華</label>
+            <input type="number" class="form-control" id="currentBattleEssence" value="0" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <label class="form-label">⏳ 時之砂</label>
+            <input type="number" class="form-control" id="currentHourglass" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">⭐ 稀有時之砂 <small class="text-muted">(= 5 時之砂)</small></label>
+            <input type="number" class="form-control" id="currentHourglassRare" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">💎 史詩時之砂 <small class="text-muted">(= 25 時之砂)</small></label>
+            <input type="number" class="form-control" id="currentHourglassEpic" value="0" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <label class="form-label">🥩 普通凍乾 <small class="text-muted">(50 EXP/個)</small></label>
+            <input type="number" class="form-control" id="currentFreezeDriedNormal" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">⭐ 優質凍乾 <small class="text-muted">(400 EXP/個)</small></label>
+            <input type="number" class="form-control" id="currentFreezeDriedPremium" value="0" min="0">
+          </div>
+          <div class="col-md-4 mb-2">
+            <label class="form-label">💎 精品凍乾 <small class="text-muted">(2000 EXP/個)</small></label>
+            <input type="number" class="form-control" id="currentFreezeDriedDeluxe" value="0" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Upgrade Goals -->
   <div class="card mb-4" id="upgradeCard" style="display: none;">
     <div class="card-header d-flex justify-content-between align-items-center">
