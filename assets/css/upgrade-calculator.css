@@ -39,9 +39,20 @@
 
 /* 全域樣式 */
 .upgrade-calculator {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: var(--dark-color);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  text-align: center;
+}
+
+.header-section p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* 頁面標題 */
@@ -142,6 +153,10 @@
   --bs-btn-active-color: #ffffff;
   --bs-btn-active-bg: rgba(255, 255, 255, 0.26);
   --bs-btn-active-border-color: #ffffff;
+}
+
+.upgrade-calculator .card-header .btn {
+  min-height: 38px;
 }
 
 /* 資源按鈕 */
@@ -373,6 +388,10 @@
     padding: 0.875rem 1.5rem;
     font-size: 1rem;
   }
+
+  .upgrade-calculator .card-header {
+    padding: 0.95rem 1rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -390,6 +409,11 @@
   
   .resource-btn .value {
     font-size: 0.8rem;
+  }
+
+  .upgrade-calculator .card-header .btn {
+    min-width: 42px;
+    padding: 0.4rem 0.65rem;
   }
 }
 

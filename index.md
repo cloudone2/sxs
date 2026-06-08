@@ -3,14 +3,15 @@ layout: default
 title: 原初之星
 ---
 
+<link rel="stylesheet" href="{{ '/assets/css/calculator-common.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/star-calculator.css' | relative_url }}">
 
 {% assign ui = site.data['star-calculator_ui_text'] %}
 {% assign help = site.data['star-calculator_help_content'] %}
 
-<section class="container py-4" id="container-home">
+<section class="container py-4 calculator-shell" id="container-home">
   <!-- Page Header -->
-  <div class="text-center mb-5">
+  <div class="text-center mb-5 page-header">
     <h1 class="display-4 fw-bold mb-3">
       <span class="gradient-text">⭐ {{ ui.page_title }}</span>
     </h1>

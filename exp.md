@@ -27,10 +27,11 @@ title: 經驗時間計算器
 {{ site.data._exps.s5 | jsonify }}
 {% endcapture %}
 
+<link rel="stylesheet" href="{{ '/assets/css/calculator-common.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/exp-calculator.css' | relative_url }}">
 
-<section class="container py-4" id="container-exp">
-  <div class="text-center mb-5">
+<section class="container py-4 calculator-shell" id="container-exp">
+  <div class="text-center mb-5 page-header">
     <h1 class="display-5 fw-bold mb-3">
       <span class="gradient-text"><i class="fas fa-hourglass-half me-2"></i>經驗時間計算器</span>
     </h1>

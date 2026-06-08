@@ -19,6 +19,8 @@ body {
 
 #container-exp {
   color: var(--color-text-primary);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .gradient-text {
@@ -79,6 +81,7 @@ body {
 .header-actions .btn {
   border-radius: 999px;
   font-weight: 600;
+  min-height: 38px;
 }
 
 .section-title {
@@ -171,7 +174,7 @@ body {
 }
 
 @media (max-width: 991.98px) {
-  .card-body {
+  #container-exp .card-body {
     padding: 1rem;
   }
 
@@ -193,6 +196,7 @@ body {
 
   .header-actions .btn {
     flex: 1 1 auto;
+    border-radius: 10px;
   }
 
   .unit-select {

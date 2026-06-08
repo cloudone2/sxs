@@ -29,12 +29,11 @@ description: "計算賽季內的資源產出與升級需求"
 {{ site.data.freeze_dried_exp | jsonify }}
 {% endcapture %}
 
-<div class="upgrade-calculator">
+<div class="upgrade-calculator calculator-shell">
   <!-- Header -->
   <div class="header-section">
     <h1 class="text-center mb-4">
-      <i class="fa-brands fa-sourcetree me-3"></i>
-      資源升級計算器
+      <span class="gradient-text"><i class="fa-brands fa-sourcetree me-3"></i>資源升級計算器</span>
     </h1>
     <p class="text-center text-muted">計算賽季內可用體力、資源產出與升級需求</p>
   </div>
@@ -255,6 +254,7 @@ description: "計算賽季內的資源產出與升級需求"
 </div>
 
 <!-- 載入 CSS 和 JavaScript -->
+<link rel="stylesheet" href="{{ '/assets/css/calculator-common.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/upgrade-calculator.css' | relative_url }}">
 
 <script>

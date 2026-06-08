@@ -3,20 +3,21 @@ layout: default
 title: 技能升級計算器
 ---
 
+<link rel="stylesheet" href="{{ '/assets/css/calculator-common.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/skills-calculator.css' | relative_url }}">
 
-<section class="container py-4" id="container-skill-table">
-  <div class="calculator-header mb-4">
+<section class="container py-4 calculator-shell" id="container-skill-table">
+  <div class="calculator-header mb-4 page-header">
     <!-- Page Title -->
     <div class="text-center mb-4">
-      <h1 class="display-5 fw-bold text-primary mb-2">🎯 技能升級計算器</h1>
-      <p class="text-muted mb-0">Skill Upgrade Calculator</p>
+      <h1 class="display-5 fw-bold mb-2"><span class="gradient-text">🎯 技能升級計算器</span></h1>
+      <p class="text-muted mb-0">簡潔版技能升級規劃與資源換算</p>
     </div>
     
     <!-- Inventory Section -->
     <div class="inventory-section mb-4">
       <div class="card border-0 shadow-sm">
-        <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="card-header gradient-header text-white">
           <h5 class="mb-0 d-flex align-items-center gap-2">
             <span>📋</span>
             <span>己有資源 / Current Inventory</span>
@@ -94,8 +95,8 @@ title: 技能升級計算器
 
   <!-- Summary Panel -->
   <div class="summary-panel mb-4">
-    <div class="card border-0 shadow">
-      <div class="card-header bg-light border-bottom">
+      <div class="card border-0 shadow">
+        <div class="card-header gradient-header text-white">
         <h3 class="mb-0 d-flex align-items-center gap-2">
           <span>📊</span>
           <span>總計概覽 / Total Summary</span>
@@ -213,19 +214,19 @@ title: 技能升級計算器
 
   <!-- Reference Table -->
   <div class="reference-panel">
-    <div class="card border-0 shadow">
-      <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+      <div class="card border-0 shadow">
+        <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
         <h3 class="mb-0 d-flex align-items-center gap-2">
           <span>📊</span>
           <span>技能升級碎片消耗表</span>
         </h3>
-        <button class="btn btn-sm btn-outline-secondary" id="toggle-info-btn">
+        <button class="btn btn-sm btn-outline-light collapsed" id="toggle-info-btn" aria-expanded="false" aria-controls="info-content">
           <span class="toggle-icon">▼</span>
           <span class="ms-1">展開/收合</span>
         </button>
       </div>
       
-      <div id="info-content" class="card-body">
+      <div id="info-content" class="card-body collapsed">
         <div class="table-responsive">
           <table class="table table-bordered text-center reference-table">
             <thead>
@@ -282,8 +283,8 @@ title: 技能升級計算器
   <div class="skill-card">
     <div class="skill-card-header">
       <div class="skill-card-number"></div>
-      <button class="btn-remove" title="刪除此技能">
-        <span>×</span>
+      <button class="btn-remove" title="刪除此技能" aria-label="刪除此技能">
+        <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     

@@ -401,6 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = $('#info-content');
     content.classList.toggle('collapsed');
     this.classList.toggle('collapsed');
+    this.setAttribute('aria-expanded', String(!content.classList.contains('collapsed')));
   };
 
   $('#global-class-select').onchange = function() {
