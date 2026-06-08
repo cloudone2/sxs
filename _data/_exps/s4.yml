@@ -1,0 +1,801 @@
+levels:
+  - level: 1
+    exp: 80
+  - level: 2
+    exp: 90
+  - level: 3
+    exp: 90
+  - level: 4
+    exp: 90
+  - level: 5
+    exp: 90
+  - level: 6
+    exp: 90
+  - level: 7
+    exp: 90
+  - level: 8
+    exp: 90
+  - level: 9
+    exp: 100
+  - level: 10
+    exp: 350
+  - level: 11
+    exp: 355
+  - level: 12
+    exp: 360
+  - level: 13
+    exp: 370
+  - level: 14
+    exp: 375
+  - level: 15
+    exp: 390
+  - level: 16
+    exp: 400
+  - level: 17
+    exp: 450
+  - level: 18
+    exp: 500
+  - level: 19
+    exp: 500
+  - level: 20
+    exp: 1483
+  - level: 21
+    exp: 1844
+  - level: 22
+    exp: 1865
+  - level: 23
+    exp: 1916
+  - level: 24
+    exp: 2043
+  - level: 25
+    exp: 2067
+  - level: 26
+    exp: 2169
+  - level: 27
+    exp: 2437
+  - level: 28
+    exp: 2536
+  - level: 29
+    exp: 2860
+  - level: 30
+    exp: 2995
+  - level: 31
+    exp: 3607
+  - level: 32
+    exp: 3794
+  - level: 33
+    exp: 3876
+  - level: 34
+    exp: 3996
+  - level: 35
+    exp: 4261
+  - level: 36
+    exp: 4289
+  - level: 37
+    exp: 4510
+  - level: 38
+    exp: 4928
+  - level: 39
+    exp: 5086
+  - level: 40
+    exp: 17203
+  - level: 41
+    exp: 19189
+  - level: 42
+    exp: 21484
+  - level: 43
+    exp: 21509
+  - level: 44
+    exp: 23052
+  - level: 45
+    exp: 24627
+  - level: 46
+    exp: 25480
+  - level: 47
+    exp: 26852
+  - level: 48
+    exp: 29068
+  - level: 49
+    exp: 32008
+  - level: 50
+    exp: 33168
+  - level: 51
+    exp: 33332
+  - level: 52
+    exp: 34095
+  - level: 53
+    exp: 35628
+  - level: 54
+    exp: 35929
+  - level: 55
+    exp: 37680
+  - level: 56
+    exp: 38331
+  - level: 57
+    exp: 38878
+  - level: 58
+    exp: 39016
+  - level: 59
+    exp: 41731
+  - level: 60
+    exp: 43128
+  - level: 61
+    exp: 45042
+  - level: 62
+    exp: 45412
+  - level: 63
+    exp: 47152
+  - level: 64
+    exp: 47282
+  - level: 65
+    exp: 47340
+  - level: 66
+    exp: 50487
+  - level: 67
+    exp: 53076
+  - level: 68
+    exp: 54257
+  - level: 69
+    exp: 54405
+  - level: 70
+    exp: 197114
+  - level: 71
+    exp: 310414
+  - level: 72
+    exp: 330204
+  - level: 73
+    exp: 334735
+  - level: 74
+    exp: 348791
+  - level: 75
+    exp: 360389
+  - level: 76
+    exp: 360701
+  - level: 77
+    exp: 362826
+  - level: 78
+    exp: 378632
+  - level: 79
+    exp: 379059
+  - level: 80
+    exp: 408765
+  - level: 81
+    exp: 440713
+  - level: 82
+    exp: 464670
+  - level: 83
+    exp: 467234
+  - level: 84
+    exp: 477970
+  - level: 85
+    exp: 484690
+  - level: 86
+    exp: 509874
+  - level: 87
+    exp: 513879
+  - level: 88
+    exp: 527583
+  - level: 89
+    exp: 532378
+  - level: 90
+    exp: 583801
+  - level: 91
+    exp: 612907
+  - level: 92
+    exp: 643189
+  - level: 93
+    exp: 644274
+  - level: 94
+    exp: 670957
+  - level: 95
+    exp: 678226
+  - level: 96
+    exp: 706678
+  - level: 97
+    exp: 712891
+  - level: 98
+    exp: 749807
+  - level: 99
+    exp: 751452
+  - level: 100
+    exp: 2904398
+  - level: 101
+    exp: 3027527
+  - level: 102
+    exp: 3032011
+  - level: 103
+    exp: 3117883
+  - level: 104
+    exp: 3191855
+  - level: 105
+    exp: 3220513
+  - level: 106
+    exp: 3258763
+  - level: 107
+    exp: 3346658
+  - level: 108
+    exp: 3389858
+  - level: 109
+    exp: 3548753
+  - level: 110
+    exp: 3631694
+  - level: 111
+    exp: 3771824
+  - level: 112
+    exp: 3796167
+  - level: 113
+    exp: 3866624
+  - level: 114
+    exp: 3924404
+  - level: 115
+    exp: 4029348
+  - level: 116
+    exp: 4101565
+  - level: 117
+    exp: 4245434
+  - level: 118
+    exp: 4245686
+  - level: 119
+    exp: 4514881
+  - level: 120
+    exp: 4566377
+  - level: 121
+    exp: 4752888
+  - level: 122
+    exp: 4866448
+  - level: 123
+    exp: 5012377
+  - level: 124
+    exp: 5016341
+  - level: 125
+    exp: 5178619
+  - level: 126
+    exp: 5229563
+  - level: 127
+    exp: 5423881
+  - level: 128
+    exp: 5459728
+  - level: 129
+    exp: 6335318
+  - level: 130
+    exp: 22859655
+  - level: 131
+    exp: 23541185
+  - level: 132
+    exp: 23587156
+  - level: 133
+    exp: 24290510
+  - level: 134
+    exp: 24337860
+  - level: 135
+    exp: 25112507
+  - level: 136
+    exp: 25161277
+  - level: 137
+    exp: 25962089
+  - level: 138
+    exp: 26062556
+  - level: 139
+    exp: 26920314
+  - level: 140
+    exp: 27780149
+  - level: 141
+    exp: 28608441
+  - level: 142
+    exp: 28773140
+  - level: 143
+    exp: 29687769
+  - level: 144
+    exp: 29800863
+  - level: 145
+    exp: 30864506
+  - level: 146
+    exp: 30980992
+  - level: 147
+    exp: 32025290
+  - level: 148
+    exp: 32205262
+  - level: 149
+    exp: 33270698
+  - level: 150
+    exp: 34387276
+  - level: 151
+    exp: 35609150
+  - level: 152
+    exp: 35871344
+  - level: 153
+    exp: 37143639
+  - level: 154
+    exp: 37211154
+  - level: 155
+    exp: 38460179
+  - level: 156
+    exp: 38529719
+  - level: 157
+    exp: 39822474
+  - level: 158
+    exp: 40037353
+  - level: 159
+    exp: 43248083
+  - level: 160
+    exp: 384397189
+  - level: 161
+    exp: 395865205
+  - level: 162
+    exp: 396350698
+  - level: 163
+    exp: 409177436
+  - level: 164
+    exp: 409177436
+  - level: 165
+    exp: 422418979
+  - level: 166
+    exp: 422934039
+  - level: 167
+    exp: 437149695
+  - level: 168
+    exp: 438210719
+  - level: 169
+    exp: 453833849
+  - level: 170
+    exp: 468396986
+  - level: 171
+    exp: 484113075
+  - level: 172
+    exp: 485851805
+  - level: 173
+    exp: 502143700
+  - level: 174
+    exp: 503337628
+  - level: 175
+    exp: 519592952
+  - level: 176
+    exp: 520822698
+  - level: 177
+    exp: 538272785
+  - level: 178
+    exp: 540172742
+  - level: 179
+    exp: 557963011
+  - level: 180
+    exp: 576777448
+  - level: 181
+    exp: 595380011
+  - level: 182
+    exp: 596764450
+  - level: 183
+    exp: 617434129
+  - level: 184
+    exp: 620286073
+  - level: 185
+    exp: 641012583
+  - level: 186
+    exp: 642481335
+  - level: 187
+    exp: 663183389
+  - level: 188
+    exp: 665452610
+  - level: 189
+    exp: 744690971
+  - level: 190
+    exp: 804233453
+  - level: 191
+    exp: 864436925
+  - level: 192
+    exp: 925029631
+  - level: 193
+    exp: 986011570
+  - level: 194
+    exp: 1047382743
+  - level: 195
+    exp: 1110376404
+  - level: 196
+    exp: 1173889043
+  - level: 197
+    exp: 1235194660
+  - level: 198
+    exp: 1298187639
+  - level: 199
+    exp: 1302471254
+  - level: 200
+    exp: 1305533399
+  - level: 201
+    exp: 1306961497
+  - level: 202
+    exp: 1309817693
+  - level: 203
+    exp: 1312673889
+  - level: 204
+    exp: 1315530085
+  - level: 205
+    exp: 1318386280
+  - level: 206
+    exp: 1321242476
+  - level: 207
+    exp: 1322670574
+  - level: 208
+    exp: 1325526770
+  - level: 209
+    exp: 1328382966
+  - level: 210
+    exp: 1331308702
+  - level: 211
+    exp: 1334165048
+  - level: 212
+    exp: 1337021393
+  - level: 213
+    exp: 1339877738
+  - level: 214
+    exp: 1342734083
+  - level: 215
+    exp: 1345590428
+  - level: 216
+    exp: 1348446774
+  - level: 217
+    exp: 1351303119
+  - level: 218
+    exp: 1354159464
+  - level: 219
+    exp: 1357015809
+  - level: 220
+    exp: 1359833971
+  - level: 221
+    exp: 1362690236
+  - level: 222
+    exp: 1365546501
+  - level: 223
+    exp: 1368402766
+  - level: 224
+    exp: 1369830899
+  - level: 225
+    exp: 1372687164
+  - level: 226
+    exp: 1375543428
+  - level: 227
+    exp: 1378399693
+  - level: 228
+    exp: 1381255958
+  - level: 229
+    exp: 1384112223
+  - level: 230
+    exp: 1385490351
+  - level: 231
+    exp: 1388346513
+  - level: 232
+    exp: 1391202675
+  - level: 233
+    exp: 1392630756
+  - level: 234
+    exp: 1395486917
+  - level: 235
+    exp: 1398343079
+  - level: 236
+    exp: 1401199241
+  - level: 237
+    exp: 1404055402
+  - level: 238
+    exp: 1406911564
+  - level: 239
+    exp: 1408339645
+  - level: 240
+    exp: 1411302011
+  - level: 241
+    exp: 1414158388
+  - level: 242
+    exp: 1417014765
+  - level: 243
+    exp: 1419871142
+  - level: 244
+    exp: 1422727519
+  - level: 245
+    exp: 1425583895
+  - level: 246
+    exp: 1427012084
+  - level: 247
+    exp: 1429868461
+  - level: 248
+    exp: 1432724838
+  - level: 249
+    exp: 1435581215
+  - level: 250
+    exp: 1436995360
+  - level: 251
+    exp: 1439851709
+  - level: 252
+    exp: 1442708058
+  - level: 253
+    exp: 1445564407
+  - level: 254
+    exp: 1448420756
+  - level: 255
+    exp: 1451277105
+  - level: 256
+    exp: 1454133454
+  - level: 257
+    exp: 1455561628
+  - level: 258
+    exp: 1458417977
+  - level: 259
+    exp: 1461274326
+  - level: 260
+    exp: 1463946577
+  - level: 261
+    exp: 1466802567
+  - level: 262
+    exp: 1469658556
+  - level: 263
+    exp: 1472514546
+  - level: 264
+    exp: 1473942540
+  - level: 265
+    exp: 1476798530
+  - level: 266
+    exp: 1479654519
+  - level: 267
+    exp: 1482510509
+  - level: 268
+    exp: 1485366498
+  - level: 269
+    exp: 1488222487
+  - level: 270
+    exp: 1491390587
+  - level: 271
+    exp: 1494247175
+  - level: 272
+    exp: 1497103763
+  - level: 273
+    exp: 1498532057
+  - level: 274
+    exp: 1501388645
+  - level: 275
+    exp: 1504245233
+  - level: 276
+    exp: 1507101820
+  - level: 277
+    exp: 1509958408
+  - level: 278
+    exp: 1511386702
+  - level: 279
+    exp: 1514243290
+  - level: 280
+    exp: 1516329564
+  - level: 281
+    exp: 1519184700
+  - level: 282
+    exp: 1522039835
+  - level: 283
+    exp: 1522039835
+  - level: 284
+    exp: 1522039835
+  - level: 285
+    exp: 1522039835
+  - level: 286
+    exp: 1522039835
+  - level: 287
+    exp: 1522039835
+  - level: 288
+    exp: 1522039835
+  - level: 289
+    exp: 1522039835
+  - level: 290
+    exp: 1522039835
+  - level: 291
+    exp: 1522039835
+  - level: 292
+    exp: 1522039835
+  - level: 293
+    exp: 1522039835
+  - level: 294
+    exp: 1522039835
+  - level: 295
+    exp: 1522039835
+  - level: 296
+    exp: 1522039835
+  - level: 297
+    exp: 1522039835
+  - level: 298
+    exp: 1522039835
+  - level: 299
+    exp: 1522039835
+  - level: 300
+    exp: 1522039835
+  - level: 301
+    exp: 1522039835
+  - level: 302
+    exp: 1522039835
+  - level: 303
+    exp: 1522039835
+  - level: 304
+    exp: 1522039835
+  - level: 305
+    exp: 1522039835
+  - level: 306
+    exp: 1522039835
+  - level: 307
+    exp: 1522039835
+  - level: 308
+    exp: 1522039835
+  - level: 309
+    exp: 1522039835
+  - level: 310
+    exp: 1522039835
+  - level: 311
+    exp: 1522039835
+  - level: 312
+    exp: 1522039835
+  - level: 313
+    exp: 1522039835
+  - level: 314
+    exp: 1522039835
+  - level: 315
+    exp: 1522039835
+  - level: 316
+    exp: 1522039835
+  - level: 317
+    exp: 1522039835
+  - level: 318
+    exp: 1522039835
+  - level: 319
+    exp: 1522039835
+  - level: 320
+    exp: 1522039835
+  - level: 321
+    exp: 1522039835
+  - level: 322
+    exp: 1522039835
+  - level: 323
+    exp: 1522039835
+  - level: 324
+    exp: 1522039835
+  - level: 325
+    exp: 1522039835
+  - level: 326
+    exp: 1522039835
+  - level: 327
+    exp: 1522039835
+  - level: 328
+    exp: 1522039835
+  - level: 329
+    exp: 1522039835
+  - level: 330
+    exp: 1522039835
+  - level: 331
+    exp: 1522039835
+  - level: 332
+    exp: 1522039835
+  - level: 333
+    exp: 1522039835
+  - level: 334
+    exp: 1522039835
+  - level: 335
+    exp: 1522039835
+  - level: 336
+    exp: 1522039835
+  - level: 337
+    exp: 1522039835
+  - level: 338
+    exp: 1522039835
+  - level: 339
+    exp: 1522039835
+  - level: 340
+    exp: 1522039835
+  - level: 341
+    exp: 1522039835
+  - level: 342
+    exp: 1522039835
+  - level: 343
+    exp: 1522039835
+  - level: 344
+    exp: 1522039835
+  - level: 345
+    exp: 1522039835
+  - level: 346
+    exp: 1522039835
+  - level: 347
+    exp: 1522039835
+  - level: 348
+    exp: 1522039835
+  - level: 349
+    exp: 1522039835
+  - level: 350
+    exp: 1522039835
+  - level: 351
+    exp: 1522039835
+  - level: 352
+    exp: 1522039835
+  - level: 353
+    exp: 1522039835
+  - level: 354
+    exp: 1522039835
+  - level: 355
+    exp: 1522039835
+  - level: 356
+    exp: 1522039835
+  - level: 357
+    exp: 1522039835
+  - level: 358
+    exp: 1522039835
+  - level: 359
+    exp: 1522039835
+  - level: 360
+    exp: 1522039835
+  - level: 361
+    exp: 1522039835
+  - level: 362
+    exp: 1522039835
+  - level: 363
+    exp: 1522039835
+  - level: 364
+    exp: 1522039835
+  - level: 365
+    exp: 1522039835
+  - level: 366
+    exp: 1522039835
+  - level: 367
+    exp: 1522039835
+  - level: 368
+    exp: 1522039835
+  - level: 369
+    exp: 1522039835
+  - level: 370
+    exp: 1522039835
+  - level: 371
+    exp: 1522039835
+  - level: 372
+    exp: 1522039835
+  - level: 373
+    exp: 1522039835
+  - level: 374
+    exp: 1522039835
+  - level: 375
+    exp: 1522039835
+  - level: 376
+    exp: 1522039835
+  - level: 377
+    exp: 1522039835
+  - level: 378
+    exp: 1522039835
+  - level: 379
+    exp: 1522039835
+  - level: 380
+    exp: 1522039835
+  - level: 381
+    exp: 1522039835
+  - level: 382
+    exp: 1522039835
+  - level: 383
+    exp: 1522039835
+  - level: 384
+    exp: 1522039835
+  - level: 385
+    exp: 1522039835
+  - level: 386
+    exp: 1522039835
+  - level: 387
+    exp: 1522039835
+  - level: 388
+    exp: 1522039835
+  - level: 389
+    exp: 1522039835
+  - level: 390
+    exp: 1522039835
+  - level: 391
+    exp: 1522039835
+  - level: 392
+    exp: 1522039835
+  - level: 393
+    exp: 1522039835
+  - level: 394
+    exp: 1522039835
+  - level: 395
+    exp: 1522039835
+  - level: 396
+    exp: 1522039835
+  - level: 397
+    exp: 1522039835
+  - level: 398
+    exp: 1522039835
+  - level: 399
+    exp: 1522039835
+  - level: 400
+    exp: 1522039835

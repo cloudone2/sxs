@@ -84,3 +84,25 @@ seasons:
       rewards:
         - type: "premium"
           amount: 160
+
+  - id: 's5'
+    title: 'S5: 伊格尼斯'
+    season_number: 5
+    release_date: 2026-06-09
+    fixed_level: 220
+    fixed_relics_level: 22
+    score_level: 100
+    score_div: 4
+    score_gear: 18
+    score_skill: 6
+    score_relics: 30
+    score_pet: 12
+    star_start: 150
+    theme_color: '#25358d'
+    theme_gradient: 'linear-gradient(135deg, #25358d 0%, #75222c 100%)'
+    total_day: 115
+    bond_adventure:
+      bond_adventure_enabled: true
+      rewards:
+        - type: "premium"
+          amount: 160

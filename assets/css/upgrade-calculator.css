@@ -32,6 +32,11 @@
   --season-gradient: linear-gradient(135deg, #95314b 0%, #c25a74 100%);
 }
 
+.season-s5 {
+  --season-primary: #25358d;
+  --season-gradient: linear-gradient(135deg, #25358d 0%, #75222c 100%);
+}
+
 /* 全域樣式 */
 .upgrade-calculator {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -125,6 +130,18 @@
   padding: 1rem 2rem;
   font-size: 1.1rem;
   border-radius: 15px;
+}
+
+.upgrade-calculator .card-header .btn-outline-secondary {
+  --bs-btn-color: rgba(255, 255, 255, 0.95);
+  --bs-btn-border-color: rgba(255, 255, 255, 0.65);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: rgba(255, 255, 255, 0.18);
+  --bs-btn-hover-border-color: rgba(255, 255, 255, 0.9);
+  --bs-btn-focus-shadow-rgb: 255, 255, 255;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: rgba(255, 255, 255, 0.26);
+  --bs-btn-active-border-color: #ffffff;
 }
 
 /* 資源按鈕 */

@@ -1,0 +1,1229 @@
+season: 5
+
+# Secret Realm Production Rates
+secret_realm:
+  name: "Secret Realm Production"
+  name_zh: "秘境產量"
+  icon: "🏰"
+  description: "Estimated production per run"
+  description_zh: "粗估值/單次產量"
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 37200
+      icon: "💰"
+      tool_name: "Gold Pickaxe"
+      tool_name_zh: "金礦鎬"
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 3755
+      icon: "🪨"
+      tool_name: "Iron Hammer"
+      tool_name_zh: "鐵礦錘"
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 3276
+      icon: "⏳"
+      tool_name: "Sand Shovel"
+      tool_name_zh: "砂礦鏟"
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 6750
+      icon: "📖"
+      tool_name: "Glove"
+      tool_name_zh: "拳套"
+
+# Stamina Production Rates
+stamina_production:
+  name: "Stamina Production"
+  name_zh: "體力產量"
+  icon: "⚡"
+  description: "Estimated production per 5 stamina"
+  description_zh: "粗估值/單次產量(5體力)"
+  stamina_cost: 5
+  resources:
+    - name: "Gold"
+      name_zh: "金幣"
+      key: "gold"
+      value: 53650
+      icon: "💰"
+    - name: "Refined Stone"
+      name_zh: "粗煉石"
+      key: "refined_stone"
+      value: 5400
+      icon: "🪨"
+    - name: "Hourglass"
+      name_zh: "時之砂"
+      key: "hourglass"
+      value: 4500
+      icon: "⏳"
+    - name: "Battle Essence"
+      name_zh: "歷戰精華"
+      key: "battle_essence"
+      value: 6750
+      icon: "📖"
+
+# Daily Bonus Stamina
+daily_stamina:
+  name: "Daily Bonus Stamina"
+  name_zh: "每日額外體力"
+  icon: "📅"
+  description: "Additional stamina sources per day"
+  description_zh: "每日額外體力來源"
+  sources:
+    - name: "Daily Missions"
+      name_zh: "每日任務"
+      key: "daily_missions"
+      amount: 20
+    - name: "Shop Treasury"
+      name_zh: "商店寶庫"
+      key: "shop_treasury"
+      amount: 30
+  total: 50
+
+categories:
+  gear:
+    name: "Gear Upgrades"
+    name_zh: "裝備升級"
+    icon: "⚔️"
+    suggested_level: 310
+    resources:
+      - name: "Refined Stone"
+        name_zh: "粗煉石"
+        key: "refined_stone"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 221
+        refined_stone: 101000
+        gold: 202000
+      - level: 222
+        refined_stone: 102010
+        gold: 204020
+      - level: 223
+        refined_stone: 103020
+        gold: 206040
+      - level: 224
+        refined_stone: 104030
+        gold: 208060
+      - level: 225
+        refined_stone: 105040
+        gold: 210080
+      - level: 226
+        refined_stone: 106050
+        gold: 212100
+      - level: 227
+        refined_stone: 107060
+        gold: 214120
+      - level: 228
+        refined_stone: 108070
+        gold: 216140
+      - level: 229
+        refined_stone: 109080
+        gold: 218160
+      - level: 230
+        refined_stone: 110090
+        gold: 220180
+      - level: 231
+        refined_stone: 111100
+        gold: 222200
+      - level: 232
+        refined_stone: 112110
+        gold: 224220
+      - level: 233
+        refined_stone: 113120
+        gold: 226240
+      - level: 234
+        refined_stone: 114130
+        gold: 228260
+      - level: 235
+        refined_stone: 115140
+        gold: 230280
+      - level: 236
+        refined_stone: 116150
+        gold: 232300
+      - level: 237
+        refined_stone: 117160
+        gold: 234320
+      - level: 238
+        refined_stone: 118170
+        gold: 236340
+      - level: 239
+        refined_stone: 119180
+        gold: 238360
+      - level: 240
+        refined_stone: 120190
+        gold: 240380
+      - level: 241
+        refined_stone: 121200
+        gold: 242400
+      - level: 242
+        refined_stone: 122210
+        gold: 244420
+      - level: 243
+        refined_stone: 123220
+        gold: 246440
+      - level: 244
+        refined_stone: 124230
+        gold: 248460
+      - level: 245
+        refined_stone: 125240
+        gold: 250480
+      - level: 246
+        refined_stone: 126250
+        gold: 252500
+      - level: 247
+        refined_stone: 127260
+        gold: 254520
+      - level: 248
+        refined_stone: 128270
+        gold: 256540
+      - level: 249
+        refined_stone: 129280
+        gold: 258560
+      - level: 250
+        refined_stone: 130290
+        gold: 260580
+      - level: 251
+        refined_stone: 131300
+        gold: 262600
+      - level: 252
+        refined_stone: 132310
+        gold: 264620
+      - level: 253
+        refined_stone: 133320
+        gold: 266640
+      - level: 254
+        refined_stone: 134330
+        gold: 268660
+      - level: 255
+        refined_stone: 135340
+        gold: 270680
+      - level: 256
+        refined_stone: 136350
+        gold: 272700
+      - level: 257
+        refined_stone: 137360
+        gold: 274720
+      - level: 258
+        refined_stone: 138370
+        gold: 276740
+      - level: 259
+        refined_stone: 139380
+        gold: 278760
+      - level: 260
+        refined_stone: 140390
+        gold: 280780
+      - level: 261
+        refined_stone: 141400
+        gold: 282800
+      - level: 262
+        refined_stone: 142410
+        gold: 284820
+      - level: 263
+        refined_stone: 143420
+        gold: 286840
+      - level: 264
+        refined_stone: 144430
+        gold: 288860
+      - level: 265
+        refined_stone: 145440
+        gold: 290880
+      - level: 266
+        refined_stone: 146450
+        gold: 292900
+      - level: 267
+        refined_stone: 147460
+        gold: 294920
+      - level: 268
+        refined_stone: 148470
+        gold: 296940
+      - level: 269
+        refined_stone: 149480
+        gold: 298960
+      - level: 270
+        refined_stone: 150490
+        gold: 300980
+      - level: 271
+        refined_stone: 151500
+        gold: 303000
+      - level: 272
+        refined_stone: 152510
+        gold: 305020
+      - level: 273
+        refined_stone: 153520
+        gold: 307040
+      - level: 274
+        refined_stone: 154530
+        gold: 309060
+      - level: 275
+        refined_stone: 155540
+        gold: 311080
+      - level: 276
+        refined_stone: 156550
+        gold: 313100
+      - level: 277
+        refined_stone: 157560
+        gold: 315120
+      - level: 278
+        refined_stone: 158570
+        gold: 317140
+      - level: 279
+        refined_stone: 159580
+        gold: 319160
+      - level: 280
+        refined_stone: 160590
+        gold: 321180
+      - level: 281
+        refined_stone: 161600
+        gold: 323200
+      - level: 282
+        refined_stone: 162610
+        gold: 325220
+      - level: 283
+        refined_stone: 163620
+        gold: 327240
+      - level: 284
+        refined_stone: 164630
+        gold: 329260
+      - level: 285
+        refined_stone: 165640
+        gold: 331280
+      - level: 286
+        refined_stone: 166650
+        gold: 333300
+      - level: 287
+        refined_stone: 167660
+        gold: 335320
+      - level: 288
+        refined_stone: 168670
+        gold: 337340
+      - level: 289
+        refined_stone: 169680
+        gold: 339360
+      - level: 290
+        refined_stone: 170690
+        gold: 341380
+      - level: 291
+        refined_stone: 171700
+        gold: 343400
+      - level: 292
+        refined_stone: 172710
+        gold: 345420
+      - level: 293
+        refined_stone: 173720
+        gold: 347440
+      - level: 294
+        refined_stone: 174730
+        gold: 349460
+      - level: 295
+        refined_stone: 175740
+        gold: 351480
+      - level: 296
+        refined_stone: 176750
+        gold: 353500
+      - level: 297
+        refined_stone: 177760
+        gold: 355520
+      - level: 298
+        refined_stone: 178770
+        gold: 357540
+      - level: 299
+        refined_stone: 179780
+        gold: 359560
+      - level: 300
+        refined_stone: 180790
+        gold: 361580
+      - level: 301
+        refined_stone: 181800
+        gold: 363600
+      - level: 302
+        refined_stone: 182810
+        gold: 365620
+      - level: 303
+        refined_stone: 183820
+        gold: 367640
+      - level: 304
+        refined_stone: 184830
+        gold: 369660
+      - level: 305
+        refined_stone: 185840
+        gold: 371680
+      - level: 306
+        refined_stone: 186850
+        gold: 373700
+      - level: 307
+        refined_stone: 187860
+        gold: 375720
+      - level: 308
+        refined_stone: 188870
+        gold: 377740
+      - level: 309
+        refined_stone: 189880
+        gold: 379760
+      - level: 310
+        refined_stone: 190890
+        gold: 381780
+      - level: 311
+        refined_stone: 191900
+        gold: 383800
+      - level: 312
+        refined_stone: 192910
+        gold: 385820
+      - level: 313
+        refined_stone: 193920
+        gold: 387840
+      - level: 314
+        refined_stone: 194930
+        gold: 389860
+      - level: 315
+        refined_stone: 195940
+        gold: 391880
+      - level: 316
+        refined_stone: 196950
+        gold: 393900
+      - level: 317
+        refined_stone: 197960
+        gold: 395920
+      - level: 318
+        refined_stone: 198970
+        gold: 397940
+      - level: 319
+        refined_stone: 199980
+        gold: 399960
+      - level: 320
+        refined_stone: 200990
+        gold: 401980
+      - level: 321
+        refined_stone: 202000
+        gold: 404000
+      - level: 322
+        refined_stone: 203010
+        gold: 406020
+      - level: 323
+        refined_stone: 204020
+        gold: 408040
+      - level: 324
+        refined_stone: 205030
+        gold: 410060
+      - level: 325
+        refined_stone: 206040
+        gold: 412080
+      - level: 326
+        refined_stone: 207050
+        gold: 414100
+      - level: 327
+        refined_stone: 208060
+        gold: 416120
+      - level: 328
+        refined_stone: 209070
+        gold: 418140
+      - level: 329
+        refined_stone: 210080
+        gold: 420160
+      - level: 330
+        refined_stone: 211090
+        gold: 422180
+      - level: 331
+        refined_stone: 212100
+        gold: 424200
+      - level: 332
+        refined_stone: 213110
+        gold: 426220
+      - level: 333
+        refined_stone: 214120
+        gold: 428240
+      - level: 334
+        refined_stone: 215130
+        gold: 430260
+      - level: 335
+        refined_stone: 216140
+        gold: 432280
+      - level: 336
+        refined_stone: 217150
+        gold: 434300
+      - level: 337
+        refined_stone: 218160
+        gold: 436320
+      - level: 338
+        refined_stone: 219170
+        gold: 438340
+      - level: 339
+        refined_stone: 220180
+        gold: 440360
+      - level: 340
+        refined_stone: 221190
+        gold: 442380
+      - level: 341
+        refined_stone: 222200
+        gold: 444400
+      - level: 342
+        refined_stone: 223210
+        gold: 446420
+      - level: 343
+        refined_stone: 224220
+        gold: 448440
+      - level: 344
+        refined_stone: 225230
+        gold: 450460
+      - level: 345
+        refined_stone: 226240
+        gold: 452480
+      - level: 346
+        refined_stone: 227250
+        gold: 454500
+      - level: 347
+        refined_stone: 228260
+        gold: 456520
+      - level: 348
+        refined_stone: 229270
+        gold: 458540
+      - level: 349
+        refined_stone: 230280
+        gold: 460560
+      - level: 350
+        refined_stone: 231290
+        gold: 462580
+      - level: 351
+        refined_stone: 232300
+        gold: 464600
+      - level: 352
+        refined_stone: 233310
+        gold: 466620
+      - level: 353
+        refined_stone: 234320
+        gold: 468640
+      - level: 354
+        refined_stone: 235330
+        gold: 470660
+      - level: 355
+        refined_stone: 236340
+        gold: 472680
+      - level: 356
+        refined_stone: 237350
+        gold: 474700
+      - level: 357
+        refined_stone: 238360
+        gold: 476720
+      - level: 358
+        refined_stone: 239370
+        gold: 478740
+      - level: 359
+        refined_stone: 240380
+        gold: 480760
+      - level: 360
+        refined_stone: 241390
+        gold: 482780
+      - level: 361
+        refined_stone: 242400
+        gold: 484800
+      - level: 362
+        refined_stone: 243410
+        gold: 486820
+      - level: 363
+        refined_stone: 244420
+        gold: 488840
+      - level: 364
+        refined_stone: 245430
+        gold: 490860
+      - level: 365
+        refined_stone: 246440
+        gold: 492880
+      - level: 366
+        refined_stone: 247450
+        gold: 494900
+      - level: 367
+        refined_stone: 248460
+        gold: 496920
+      - level: 368
+        refined_stone: 249470
+        gold: 498940
+      - level: 369
+        refined_stone: 250480
+        gold: 500960
+      - level: 370
+        refined_stone: 251490
+        gold: 502980
+      - level: 371
+        refined_stone: 251490
+        gold: 502980
+      - level: 372
+        refined_stone: 251490
+        gold: 502980
+      - level: 373
+        refined_stone: 251490
+        gold: 502980
+      - level: 374
+        refined_stone: 251490
+        gold: 502980
+      - level: 375
+        refined_stone: 251490
+        gold: 502980
+      - level: 376
+        refined_stone: 251490
+        gold: 502980
+      - level: 377
+        refined_stone: 251490
+        gold: 502980
+      - level: 378
+        refined_stone: 251490
+        gold: 502980
+      - level: 379
+        refined_stone: 251490
+        gold: 502980
+      - level: 380
+        refined_stone: 251490
+        gold: 502980
+
+
+  relic:
+    name: "Relic Upgrades"
+    name_zh: "古遺物升級"
+    icon: "✨"
+    suggested_level: 31
+    resources:
+      - name: "Hourglass"
+        name_zh: "時之砂"
+        key: "hourglass"
+      - name: "Gold"
+        name_zh: "金幣"
+        key: "gold"
+    levels:
+      - level: 22
+        hourglass: 200000
+        gold: 360000
+      - level: 23
+        hourglass: 220000
+        gold: 396000
+      - level: 24
+        hourglass: 240000
+        gold: 432000
+      - level: 25
+        hourglass: 260000
+        gold: 468000
+      - level: 26
+        hourglass: 280000
+        gold: 504000
+      - level: 27
+        hourglass: 300000
+        gold: 540000
+      - level: 28
+        hourglass: 320000
+        gold: 576000
+      - level: 29
+        hourglass: 340000
+        gold: 612000
+      - level: 30
+        hourglass: 360000
+        gold: 648000
+      - level: 31
+        hourglass: 380000
+        gold: 684000
+      - level: 32
+        hourglass: 400000
+        gold: 720000
+      - level: 33
+        hourglass: 420000
+        gold: 756000
+      - level: 34
+        hourglass: 440000
+        gold: 792000
+      - level: 35
+        hourglass: 460000
+        gold: 828000
+      - level: 36
+        hourglass: 480000
+        gold: 864000
+      - level: 37
+        hourglass: 500000
+        gold: 900000
+      - level: 38
+        hourglass: 520000
+        gold: 936000
+
+  skill:
+    name: "Skill Upgrades"
+    name_zh: "技能升級"
+    icon: "📚"
+    suggested_level: 310
+    resources:
+      - name: "Battle Essence"
+        name_zh: "歷戰精華"
+        key: "battle_essence"
+    levels:
+      - level: 221
+        battle_essence: 65425
+      - level: 222
+        battle_essence: 66080
+      - level: 223
+        battle_essence: 66735
+      - level: 224
+        battle_essence: 67390
+      - level: 225
+        battle_essence: 68040
+      - level: 226
+        battle_essence: 68695
+      - level: 227
+        battle_essence: 69350
+      - level: 228
+        battle_essence: 70005
+      - level: 229
+        battle_essence: 70660
+      - level: 230
+        battle_essence: 71315
+      - level: 231
+        battle_essence: 71970
+      - level: 232
+        battle_essence: 72625
+      - level: 233
+        battle_essence: 73280
+      - level: 234
+        battle_essence: 73930
+      - level: 235
+        battle_essence: 74585
+      - level: 236
+        battle_essence: 75240
+      - level: 237
+        battle_essence: 75895
+      - level: 238
+        battle_essence: 76550
+      - level: 239
+        battle_essence: 77200
+      - level: 240
+        battle_essence: 77855
+      - level: 241
+        battle_essence: 78510
+      - level: 242
+        battle_essence: 79165
+      - level: 243
+        battle_essence: 79820
+      - level: 244
+        battle_essence: 80470
+      - level: 245
+        battle_essence: 81125
+      - level: 246
+        battle_essence: 81780
+      - level: 247
+        battle_essence: 82435
+      - level: 248
+        battle_essence: 83090
+      - level: 249
+        battle_essence: 83745
+      - level: 250
+        battle_essence: 84400
+      - level: 251
+        battle_essence: 85055
+      - level: 252
+        battle_essence: 85705
+      - level: 253
+        battle_essence: 86360
+      - level: 254
+        battle_essence: 87015
+      - level: 255
+        battle_essence: 87670
+      - level: 256
+        battle_essence: 88325
+      - level: 257
+        battle_essence: 88980
+      - level: 258
+        battle_essence: 89630
+      - level: 259
+        battle_essence: 90285
+      - level: 260
+        battle_essence: 90940
+      - level: 261
+        battle_essence: 91595
+      - level: 262
+        battle_essence: 92250
+      - level: 263
+        battle_essence: 92905
+      - level: 264
+        battle_essence: 93555
+      - level: 265
+        battle_essence: 94210
+      - level: 266
+        battle_essence: 94865
+      - level: 267
+        battle_essence: 95520
+      - level: 268
+        battle_essence: 96175
+      - level: 269
+        battle_essence: 96830
+      - level: 270
+        battle_essence: 97485
+      - level: 271
+        battle_essence: 98140
+      - level: 272
+        battle_essence: 98795
+      - level: 273
+        battle_essence: 99445
+      - level: 274
+        battle_essence: 100100
+      - level: 275
+        battle_essence: 100755
+      - level: 276
+        battle_essence: 101410
+      - level: 277
+        battle_essence: 102065
+      - level: 278
+        battle_essence: 102720
+      - level: 279
+        battle_essence: 103370
+      - level: 280
+        battle_essence: 104025
+      - level: 281
+        battle_essence: 104680
+      - level: 282
+        battle_essence: 105335
+      - level: 283
+        battle_essence: 105990
+      - level: 284
+        battle_essence: 106645
+      - level: 285
+        battle_essence: 107300
+      - level: 286
+        battle_essence: 107955
+      - level: 287
+        battle_essence: 108610
+      - level: 288
+        battle_essence: 109265
+      - level: 289
+        battle_essence: 109915
+      - level: 290
+        battle_essence: 110570
+      - level: 291
+        battle_essence: 111225
+      - level: 292
+        battle_essence: 111880
+      - level: 293
+        battle_essence: 112535
+      - level: 294
+        battle_essence: 113185
+      - level: 295
+        battle_essence: 113840
+      - level: 296
+        battle_essence: 114495
+      - level: 297
+        battle_essence: 115150
+      - level: 298
+        battle_essence: 115800
+      - level: 299
+        battle_essence: 116455
+      - level: 300
+        battle_essence: 117110
+      - level: 301
+        battle_essence: 117765
+      - level: 302
+        battle_essence: 118420
+      - level: 303
+        battle_essence: 119075
+      - level: 304
+        battle_essence: 119725
+      - level: 305
+        battle_essence: 120380
+      - level: 306
+        battle_essence: 121035
+      - level: 307
+        battle_essence: 121690
+      - level: 308
+        battle_essence: 122345
+      - level: 309
+        battle_essence: 123000
+      - level: 310
+        battle_essence: 123655
+      - level: 311
+        battle_essence: 124310
+      - level: 312
+        battle_essence: 124965
+      - level: 313
+        battle_essence: 125615
+      - level: 314
+        battle_essence: 126270
+      - level: 315
+        battle_essence: 126925
+      - level: 316
+        battle_essence: 127580
+      - level: 317
+        battle_essence: 128235
+      - level: 318
+        battle_essence: 128885
+      - level: 319
+        battle_essence: 129540
+      - level: 320
+        battle_essence: 130195
+      - level: 321
+        battle_essence: 130850
+      - level: 322
+        battle_essence: 131505
+      - level: 323
+        battle_essence: 132155
+      - level: 324
+        battle_essence: 132810
+      - level: 325
+        battle_essence: 133465
+      - level: 326
+        battle_essence: 134120
+      - level: 327
+        battle_essence: 134775
+      - level: 328
+        battle_essence: 135430
+      - level: 329
+        battle_essence: 136080
+      - level: 330
+        battle_essence: 136735
+      - level: 331
+        battle_essence: 137390
+      - level: 332
+        battle_essence: 138045
+      - level: 333
+        battle_essence: 138700
+      - level: 334
+        battle_essence: 139355
+      - level: 335
+        battle_essence: 140005
+      - level: 336
+        battle_essence: 140660
+      - level: 337
+        battle_essence: 141315
+      - level: 338
+        battle_essence: 141970
+      - level: 339
+        battle_essence: 142625
+      - level: 340
+        battle_essence: 143280
+      - level: 341
+        battle_essence: 143935
+      - level: 342
+        battle_essence: 144590
+      - level: 343
+        battle_essence: 145245
+      - level: 344
+        battle_essence: 145895
+      - level: 345
+        battle_essence: 146550
+      - level: 346
+        battle_essence: 147205
+      - level: 347
+        battle_essence: 147860
+      - level: 348
+        battle_essence: 148515
+      - level: 349
+        battle_essence: 149170
+      - level: 350
+        battle_essence: 149825
+      - level: 351
+        battle_essence: 150480
+      - level: 352
+        battle_essence: 151130
+      - level: 353
+        battle_essence: 151785
+      - level: 354
+        battle_essence: 152440
+      - level: 355
+        battle_essence: 153095
+      - level: 356
+        battle_essence: 153750
+      - level: 357
+        battle_essence: 154405
+      - level: 358
+        battle_essence: 155060
+      - level: 359
+        battle_essence: 155710
+      - level: 360
+        battle_essence: 156365
+      - level: 361
+        battle_essence: 157020
+      - level: 362
+        battle_essence: 157675
+      - level: 363
+        battle_essence: 158330
+      - level: 364
+        battle_essence: 158985
+      - level: 365
+        battle_essence: 159635
+      - level: 366
+        battle_essence: 160290
+      - level: 367
+        battle_essence: 160945
+      - level: 368
+        battle_essence: 161600
+      - level: 369
+        battle_essence: 162255
+      - level: 370
+        battle_essence: 162910
+
+  pet:
+    name: "Pet Upgrades"
+    name_zh: "幻獸升級"
+    icon: "🐾"
+    suggested_level: 310
+    resources:
+      - name: "Freeze-Dried Food"
+        name_zh: "凍乾"
+        key: "freeze_dried"
+    levels:
+      - level: 221
+        freeze_dried: 531000
+      - level: 222
+        freeze_dried: 542000
+      - level: 223
+        freeze_dried: 553000
+      - level: 224
+        freeze_dried: 563000
+      - level: 225
+        freeze_dried: 574000
+      - level: 226
+        freeze_dried: 585000
+      - level: 227
+        freeze_dried: 595000
+      - level: 228
+        freeze_dried: 606000
+      - level: 229
+        freeze_dried: 617000
+      - level: 230
+        freeze_dried: 627000
+      - level: 231
+        freeze_dried: 638000
+      - level: 232
+        freeze_dried: 648000
+      - level: 233
+        freeze_dried: 659000
+      - level: 234
+        freeze_dried: 670000
+      - level: 235
+        freeze_dried: 680000
+      - level: 236
+        freeze_dried: 691000
+      - level: 237
+        freeze_dried: 702000
+      - level: 238
+        freeze_dried: 712000
+      - level: 239
+        freeze_dried: 723000
+      - level: 240
+        freeze_dried: 734000
+      - level: 241
+        freeze_dried: 744000
+      - level: 242
+        freeze_dried: 755000
+      - level: 243
+        freeze_dried: 766000
+      - level: 244
+        freeze_dried: 776000
+      - level: 245
+        freeze_dried: 787000
+      - level: 246
+        freeze_dried: 798000
+      - level: 247
+        freeze_dried: 808000
+      - level: 248
+        freeze_dried: 819000
+      - level: 249
+        freeze_dried: 829000
+      - level: 250
+        freeze_dried: 840000
+      - level: 251
+        freeze_dried: 851000
+      - level: 252
+        freeze_dried: 861000
+      - level: 253
+        freeze_dried: 872000
+      - level: 254
+        freeze_dried: 883000
+      - level: 255
+        freeze_dried: 893000
+      - level: 256
+        freeze_dried: 904000
+      - level: 257
+        freeze_dried: 914000
+      - level: 258
+        freeze_dried: 925000
+      - level: 259
+        freeze_dried: 936000
+      - level: 260
+        freeze_dried: 946000
+      - level: 261
+        freeze_dried: 957000
+      - level: 262
+        freeze_dried: 968000
+      - level: 263
+        freeze_dried: 978000
+      - level: 264
+        freeze_dried: 989000
+      - level: 265
+        freeze_dried: 999000
+      - level: 266
+        freeze_dried: 1010000
+      - level: 267
+        freeze_dried: 1020000
+      - level: 268
+        freeze_dried: 1030000
+      - level: 269
+        freeze_dried: 1040000
+      - level: 270
+        freeze_dried: 1040000
+      - level: 271
+        freeze_dried: 1050000
+      - level: 272
+        freeze_dried: 1060000
+      - level: 273
+        freeze_dried: 1070000
+      - level: 274
+        freeze_dried: 1080000
+      - level: 275
+        freeze_dried: 1080000
+      - level: 276
+        freeze_dried: 1090000
+      - level: 277
+        freeze_dried: 1090000
+      - level: 278
+        freeze_dried: 1100000
+      - level: 279
+        freeze_dried: 1100000
+      - level: 280
+        freeze_dried: 1110000
+      - level: 281
+        freeze_dried: 1110000
+      - level: 282
+        freeze_dried: 1120000
+      - level: 283
+        freeze_dried: 1120000
+      - level: 284
+        freeze_dried: 1130000
+      - level: 285
+        freeze_dried: 1130000
+      - level: 286
+        freeze_dried: 1140000
+      - level: 287
+        freeze_dried: 1140000
+      - level: 288
+        freeze_dried: 1150000
+      - level: 289
+        freeze_dried: 1150000
+      - level: 290
+        freeze_dried: 1160000
+      - level: 291
+        freeze_dried: 1160000
+      - level: 292
+        freeze_dried: 1170000
+      - level: 293
+        freeze_dried: 1170000
+      - level: 294
+        freeze_dried: 1180000
+      - level: 295
+        freeze_dried: 1190000
+      - level: 296
+        freeze_dried: 1190000
+      - level: 297
+        freeze_dried: 1200000
+      - level: 298
+        freeze_dried: 1200000
+      - level: 299
+        freeze_dried: 1210000
+      - level: 300
+        freeze_dried: 1210000
+      - level: 301
+        freeze_dried: 1220000
+      - level: 302
+        freeze_dried: 1220000
+      - level: 303
+        freeze_dried: 1220000
+      - level: 304
+        freeze_dried: 1230000
+      - level: 305
+        freeze_dried: 1230000
+      - level: 306
+        freeze_dried: 1240000
+      - level: 307
+        freeze_dried: 1240000
+      - level: 308
+        freeze_dried: 1250000
+      - level: 309
+        freeze_dried: 1250000
+      - level: 310
+        freeze_dried: 1260000
+      - level: 311
+        freeze_dried: 1270000
+      - level: 312
+        freeze_dried: 1280000
+      - level: 313
+        freeze_dried: 1280000
+      - level: 314
+        freeze_dried: 1290000
+      - level: 315
+        freeze_dried: 1290000
+      - level: 316
+        freeze_dried: 1300000
+      - level: 317
+        freeze_dried: 1300000
+      - level: 318
+        freeze_dried: 1310000
+      - level: 319
+        freeze_dried: 1310000
+      - level: 320
+        freeze_dried: 1320000
+      - level: 321
+        freeze_dried: 1320000
+      - level: 322
+        freeze_dried: 1330000
+      - level: 323
+        freeze_dried: 1330000
+      - level: 324
+        freeze_dried: 1340000
+      - level: 325
+        freeze_dried: 1340000
+      - level: 326
+        freeze_dried: 1350000
+      - level: 327
+        freeze_dried: 1350000
+      - level: 328
+        freeze_dried: 1360000
+      - level: 329
+        freeze_dried: 1360000
+      - level: 330
+        freeze_dried: 1370000
+      - level: 331
+        freeze_dried: 1370000
+      - level: 332
+        freeze_dried: 1380000
+      - level: 333
+        freeze_dried: 1380000
+      - level: 334
+        freeze_dried: 1390000
+      - level: 335
+        freeze_dried: 1390000
+      - level: 336
+        freeze_dried: 1400000
+      - level: 337
+        freeze_dried: 1400000
+      - level: 338
+        freeze_dried: 1410000
+      - level: 339
+        freeze_dried: 1410000
+      - level: 340
+        freeze_dried: 1420000
+      - level: 341
+        freeze_dried: 1420000
+      - level: 342
+        freeze_dried: 1430000
+      - level: 343
+        freeze_dried: 1430000
+      - level: 344
+        freeze_dried: 1440000
+      - level: 345
+        freeze_dried: 1440000
+      - level: 346
+        freeze_dried: 1450000
+      - level: 347
+        freeze_dried: 1450000
+      - level: 348
+        freeze_dried: 1460000
+      - level: 349
+        freeze_dried: 1460000
+      - level: 350
+        freeze_dried: 1470000

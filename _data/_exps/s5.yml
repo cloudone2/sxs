@@ -1,0 +1,1001 @@
+levels:
+  - level: 1
+    exp: 80
+  - level: 2
+    exp: 90
+  - level: 3
+    exp: 90
+  - level: 4
+    exp: 90
+  - level: 5
+    exp: 90
+  - level: 6
+    exp: 90
+  - level: 7
+    exp: 90
+  - level: 8
+    exp: 90
+  - level: 9
+    exp: 100
+  - level: 10
+    exp: 350
+  - level: 11
+    exp: 355
+  - level: 12
+    exp: 360
+  - level: 13
+    exp: 370
+  - level: 14
+    exp: 375
+  - level: 15
+    exp: 390
+  - level: 16
+    exp: 400
+  - level: 17
+    exp: 450
+  - level: 18
+    exp: 500
+  - level: 19
+    exp: 500
+  - level: 20
+    exp: 1483
+  - level: 21
+    exp: 1844
+  - level: 22
+    exp: 1865
+  - level: 23
+    exp: 1916
+  - level: 24
+    exp: 2043
+  - level: 25
+    exp: 2067
+  - level: 26
+    exp: 2169
+  - level: 27
+    exp: 2437
+  - level: 28
+    exp: 2536
+  - level: 29
+    exp: 2860
+  - level: 30
+    exp: 2995
+  - level: 31
+    exp: 3607
+  - level: 32
+    exp: 3794
+  - level: 33
+    exp: 3876
+  - level: 34
+    exp: 3996
+  - level: 35
+    exp: 4261
+  - level: 36
+    exp: 4289
+  - level: 37
+    exp: 4510
+  - level: 38
+    exp: 4928
+  - level: 39
+    exp: 5086
+  - level: 40
+    exp: 17203
+  - level: 41
+    exp: 19189
+  - level: 42
+    exp: 21484
+  - level: 43
+    exp: 21509
+  - level: 44
+    exp: 23052
+  - level: 45
+    exp: 24627
+  - level: 46
+    exp: 25480
+  - level: 47
+    exp: 26852
+  - level: 48
+    exp: 29068
+  - level: 49
+    exp: 32008
+  - level: 50
+    exp: 33168
+  - level: 51
+    exp: 33332
+  - level: 52
+    exp: 34095
+  - level: 53
+    exp: 35628
+  - level: 54
+    exp: 35929
+  - level: 55
+    exp: 37680
+  - level: 56
+    exp: 38331
+  - level: 57
+    exp: 38878
+  - level: 58
+    exp: 39016
+  - level: 59
+    exp: 41731
+  - level: 60
+    exp: 43128
+  - level: 61
+    exp: 45042
+  - level: 62
+    exp: 45412
+  - level: 63
+    exp: 47152
+  - level: 64
+    exp: 47282
+  - level: 65
+    exp: 47340
+  - level: 66
+    exp: 50487
+  - level: 67
+    exp: 53076
+  - level: 68
+    exp: 54257
+  - level: 69
+    exp: 54405
+  - level: 70
+    exp: 197114
+  - level: 71
+    exp: 310414
+  - level: 72
+    exp: 330204
+  - level: 73
+    exp: 334735
+  - level: 74
+    exp: 348791
+  - level: 75
+    exp: 360389
+  - level: 76
+    exp: 360701
+  - level: 77
+    exp: 362826
+  - level: 78
+    exp: 378632
+  - level: 79
+    exp: 379059
+  - level: 80
+    exp: 408765
+  - level: 81
+    exp: 440713
+  - level: 82
+    exp: 464670
+  - level: 83
+    exp: 467234
+  - level: 84
+    exp: 477970
+  - level: 85
+    exp: 484690
+  - level: 86
+    exp: 509874
+  - level: 87
+    exp: 513879
+  - level: 88
+    exp: 527583
+  - level: 89
+    exp: 532378
+  - level: 90
+    exp: 583801
+  - level: 91
+    exp: 612907
+  - level: 92
+    exp: 643189
+  - level: 93
+    exp: 644274
+  - level: 94
+    exp: 670957
+  - level: 95
+    exp: 678226
+  - level: 96
+    exp: 706678
+  - level: 97
+    exp: 712891
+  - level: 98
+    exp: 749807
+  - level: 99
+    exp: 751452
+  - level: 100
+    exp: 2904398
+  - level: 101
+    exp: 3027527
+  - level: 102
+    exp: 3032011
+  - level: 103
+    exp: 3117883
+  - level: 104
+    exp: 3191855
+  - level: 105
+    exp: 3220513
+  - level: 106
+    exp: 3258763
+  - level: 107
+    exp: 3346658
+  - level: 108
+    exp: 3389858
+  - level: 109
+    exp: 3548753
+  - level: 110
+    exp: 3631694
+  - level: 111
+    exp: 3771824
+  - level: 112
+    exp: 3796167
+  - level: 113
+    exp: 3866624
+  - level: 114
+    exp: 3924404
+  - level: 115
+    exp: 4029348
+  - level: 116
+    exp: 4101565
+  - level: 117
+    exp: 4245434
+  - level: 118
+    exp: 4245686
+  - level: 119
+    exp: 4514881
+  - level: 120
+    exp: 4566377
+  - level: 121
+    exp: 4752888
+  - level: 122
+    exp: 4866448
+  - level: 123
+    exp: 5012377
+  - level: 124
+    exp: 5016341
+  - level: 125
+    exp: 5178619
+  - level: 126
+    exp: 5229563
+  - level: 127
+    exp: 5423881
+  - level: 128
+    exp: 5459728
+  - level: 129
+    exp: 6335318
+  - level: 130
+    exp: 22859655
+  - level: 131
+    exp: 23541185
+  - level: 132
+    exp: 23587156
+  - level: 133
+    exp: 24290510
+  - level: 134
+    exp: 24337860
+  - level: 135
+    exp: 25112507
+  - level: 136
+    exp: 25161277
+  - level: 137
+    exp: 25962089
+  - level: 138
+    exp: 26062556
+  - level: 139
+    exp: 26920314
+  - level: 140
+    exp: 27780149
+  - level: 141
+    exp: 28608441
+  - level: 142
+    exp: 28773140
+  - level: 143
+    exp: 29687769
+  - level: 144
+    exp: 29800863
+  - level: 145
+    exp: 30864506
+  - level: 146
+    exp: 30980992
+  - level: 147
+    exp: 32025290
+  - level: 148
+    exp: 32205262
+  - level: 149
+    exp: 33270698
+  - level: 150
+    exp: 34387276
+  - level: 151
+    exp: 35609150
+  - level: 152
+    exp: 35871344
+  - level: 153
+    exp: 37143639
+  - level: 154
+    exp: 37211154
+  - level: 155
+    exp: 38460179
+  - level: 156
+    exp: 38529719
+  - level: 157
+    exp: 39822474
+  - level: 158
+    exp: 40037353
+  - level: 159
+    exp: 43248083
+  - level: 160
+    exp: 384397189
+  - level: 161
+    exp: 395865205
+  - level: 162
+    exp: 396350698
+  - level: 163
+    exp: 409177436
+  - level: 164
+    exp: 409177436
+  - level: 165
+    exp: 422418979
+  - level: 166
+    exp: 422934039
+  - level: 167
+    exp: 437149695
+  - level: 168
+    exp: 438210719
+  - level: 169
+    exp: 453833849
+  - level: 170
+    exp: 468396986
+  - level: 171
+    exp: 484113075
+  - level: 172
+    exp: 485851805
+  - level: 173
+    exp: 502143700
+  - level: 174
+    exp: 503337628
+  - level: 175
+    exp: 519592952
+  - level: 176
+    exp: 520822698
+  - level: 177
+    exp: 538272785
+  - level: 178
+    exp: 540172742
+  - level: 179
+    exp: 557963011
+  - level: 180
+    exp: 576777448
+  - level: 181
+    exp: 595380011
+  - level: 182
+    exp: 596764450
+  - level: 183
+    exp: 617434129
+  - level: 184
+    exp: 620286073
+  - level: 185
+    exp: 641012583
+  - level: 186
+    exp: 642481335
+  - level: 187
+    exp: 663183389
+  - level: 188
+    exp: 665452610
+  - level: 189
+    exp: 744690971
+  - level: 190
+    exp: 2620000000
+  - level: 191
+    exp: 2700000000
+  - level: 192
+    exp: 2700000000
+  - level: 193
+    exp: 2790000000
+  - level: 194
+    exp: 2790000000
+  - level: 195
+    exp: 2880000000
+  - level: 196
+    exp: 2880000000
+  - level: 197
+    exp: 2980000000
+  - level: 198
+    exp: 2980000000
+  - level: 199
+    exp: 3090000000
+  - level: 200
+    exp: 3190000000
+  - level: 201
+    exp: 3290000000
+  - level: 202
+    exp: 3300000000
+  - level: 203
+    exp: 3400000000
+  - level: 204
+    exp: 3400000000
+  - level: 205
+    exp: 3520000000
+  - level: 206
+    exp: 3520000000
+  - level: 207
+    exp: 3630000000
+  - level: 208
+    exp: 3630000000
+  - level: 209
+    exp: 3760000000
+  - level: 210
+    exp: 3870000000
+  - level: 211
+    exp: 3990000000
+  - level: 212
+    exp: 4000000000
+  - level: 213
+    exp: 4120000000
+  - level: 214
+    exp: 4120000000
+  - level: 215
+    exp: 4260000000
+  - level: 216
+    exp: 4260000000
+  - level: 217
+    exp: 4610000000
+  - level: 218
+    exp: 4810000000
+  - level: 219
+    exp: 5240000000
+  - level: 220
+    exp: 5460000000
+  - level: 221
+    exp: 5890000000
+  - level: 222
+    exp: 6330000000
+  - level: 223
+    exp: 6770000000
+  - level: 224
+    exp: 7190000000
+  - level: 225
+    exp: 7640000000
+  - level: 226
+    exp: 8090000000
+  - level: 227
+    exp: 8550000000
+  - level: 228
+    exp: 9010000000
+  - level: 229
+    exp: 9450000000
+  - level: 230
+    exp: 9470000000
+  - level: 231
+    exp: 9480000000
+  - level: 232
+    exp: 9480000000
+  - level: 233
+    exp: 9480000000
+  - level: 234
+    exp: 9500000000
+  - level: 235
+    exp: 9550000000
+  - level: 236
+    exp: 9560000000
+  - level: 237
+    exp: 9560000000
+  - level: 238
+    exp: 9570000000
+  - level: 239
+    exp: 9570000000
+  - level: 240
+    exp: 9590000000
+  - level: 241
+    exp: 9590000000
+  - level: 242
+    exp: 9590000000
+  - level: 243
+    exp: 9590000000
+  - level: 244
+    exp: 9600000000
+  - level: 245
+    exp: 9600000000
+  - level: 246
+    exp: 9600000000
+  - level: 247
+    exp: 9600000000
+  - level: 248
+    exp: 9610000000
+  - level: 249
+    exp: 9610000000
+  - level: 250
+    exp: 9630000000
+  - level: 251
+    exp: 9690000000
+  - level: 252
+    exp: 9700000000
+  - level: 253
+    exp: 9710000000
+  - level: 254
+    exp: 9710000000
+  - level: 255
+    exp: 9720000000
+  - level: 256
+    exp: 9730000000
+  - level: 257
+    exp: 9750000000
+  - level: 258
+    exp: 9750000000
+  - level: 259
+    exp: 9750000000
+  - level: 260
+    exp: 9780000000
+  - level: 261
+    exp: 9800000000
+  - level: 262
+    exp: 9800000000
+  - level: 263
+    exp: 9820000000
+  - level: 264
+    exp: 9840000000
+  - level: 265
+    exp: 9870000000
+  - level: 266
+    exp: 9890000000
+  - level: 267
+    exp: 9940000000
+  - level: 268
+    exp: 9950000000
+  - level: 269
+    exp: 9960000000
+  - level: 270
+    exp: 9960000000
+  - level: 271
+    exp: 9970000000
+  - level: 272
+    exp: 9980000000
+  - level: 273
+    exp: 9980000000
+  - level: 274
+    exp: 9990000000
+  - level: 275
+    exp: 9990000000
+  - level: 276
+    exp: 9990000000
+  - level: 277
+    exp: 9990000000
+  - level: 278
+    exp: 9990000000
+  - level: 279
+    exp: 9990000000
+  - level: 280
+    exp: 9990000000
+  - level: 281
+    exp: 9990000000
+  - level: 282
+    exp: 9990000000
+  - level: 283
+    exp: 9990000000
+  - level: 284
+    exp: 10000000000
+  - level: 285
+    exp: 10000000000
+  - level: 286
+    exp: 10000000000
+  - level: 287
+    exp: 10100000000
+  - level: 288
+    exp: 10100000000
+  - level: 289
+    exp: 10100000000
+  - level: 290
+    exp: 10100000000
+  - level: 291
+    exp: 10100000000
+  - level: 292
+    exp: 10100000000
+  - level: 293
+    exp: 10100000000
+  - level: 294
+    exp: 10100000000
+  - level: 295
+    exp: 10200000000
+  - level: 296
+    exp: 10200000000
+  - level: 297
+    exp: 10200000000
+  - level: 298
+    exp: 10200000000
+  - level: 299
+    exp: 10200000000
+  - level: 300
+    exp: 10200000000
+  - level: 301
+    exp: 10200000000
+  - level: 302
+    exp: 10200000000
+  - level: 303
+    exp: 10200000000
+  - level: 304
+    exp: 10200000000
+  - level: 305
+    exp: 10200000000
+  - level: 306
+    exp: 10200000000
+  - level: 307
+    exp: 10200000000
+  - level: 308
+    exp: 10200000000
+  - level: 309
+    exp: 10200000000
+  - level: 310
+    exp: 10200000000
+  - level: 311
+    exp: 10200000000
+  - level: 312
+    exp: 10200000000
+  - level: 313
+    exp: 10200000000
+  - level: 314
+    exp: 10200000000
+  - level: 315
+    exp: 10200000000
+  - level: 316
+    exp: 10200000000
+  - level: 317
+    exp: 10200000000
+  - level: 318
+    exp: 10200000000
+  - level: 319
+    exp: 10200000000
+  - level: 320
+    exp: 10200000000
+  - level: 321
+    exp: 10200000000
+  - level: 322
+    exp: 10200000000
+  - level: 323
+    exp: 10200000000
+  - level: 324
+    exp: 10200000000
+  - level: 325
+    exp: 10200000000
+  - level: 326
+    exp: 10200000000
+  - level: 327
+    exp: 10200000000
+  - level: 328
+    exp: 10200000000
+  - level: 329
+    exp: 10200000000
+  - level: 330
+    exp: 10200000000
+  - level: 331
+    exp: 10200000000
+  - level: 332
+    exp: 10200000000
+  - level: 333
+    exp: 10200000000
+  - level: 334
+    exp: 10200000000
+  - level: 335
+    exp: 10200000000
+  - level: 336
+    exp: 10200000000
+  - level: 337
+    exp: 10200000000
+  - level: 338
+    exp: 10200000000
+  - level: 339
+    exp: 10200000000
+  - level: 340
+    exp: 10200000000
+  - level: 341
+    exp: 10200000000
+  - level: 342
+    exp: 10200000000
+  - level: 343
+    exp: 10200000000
+  - level: 344
+    exp: 10200000000
+  - level: 345
+    exp: 10200000000
+  - level: 346
+    exp: 10200000000
+  - level: 347
+    exp: 10200000000
+  - level: 348
+    exp: 10200000000
+  - level: 349
+    exp: 10200000000
+  - level: 350
+    exp: 10200000000
+  - level: 351
+    exp: 10200000000
+  - level: 352
+    exp: 10200000000
+  - level: 353
+    exp: 10200000000
+  - level: 354
+    exp: 10200000000
+  - level: 355
+    exp: 10200000000
+  - level: 356
+    exp: 10200000000
+  - level: 357
+    exp: 10200000000
+  - level: 358
+    exp: 10200000000
+  - level: 359
+    exp: 10200000000
+  - level: 360
+    exp: 10200000000
+  - level: 361
+    exp: 10200000000
+  - level: 362
+    exp: 10200000000
+  - level: 363
+    exp: 10200000000
+  - level: 364
+    exp: 10200000000
+  - level: 365
+    exp: 10200000000
+  - level: 366
+    exp: 10200000000
+  - level: 367
+    exp: 10200000000
+  - level: 368
+    exp: 10200000000
+  - level: 369
+    exp: 10200000000
+  - level: 370
+    exp: 10200000000
+  - level: 371
+    exp: 10200000000
+  - level: 372
+    exp: 10200000000
+  - level: 373
+    exp: 10200000000
+  - level: 374
+    exp: 10200000000
+  - level: 375
+    exp: 10200000000
+  - level: 376
+    exp: 10200000000
+  - level: 377
+    exp: 10200000000
+  - level: 378
+    exp: 10200000000
+  - level: 379
+    exp: 10200000000
+  - level: 380
+    exp: 10200000000
+  - level: 381
+    exp: 10200000000
+  - level: 382
+    exp: 10200000000
+  - level: 383
+    exp: 10200000000
+  - level: 384
+    exp: 10200000000
+  - level: 385
+    exp: 10200000000
+  - level: 386
+    exp: 10200000000
+  - level: 387
+    exp: 10200000000
+  - level: 388
+    exp: 10200000000
+  - level: 389
+    exp: 10200000000
+  - level: 390
+    exp: 10200000000
+  - level: 391
+    exp: 10200000000
+  - level: 392
+    exp: 10200000000
+  - level: 393
+    exp: 10200000000
+  - level: 394
+    exp: 10200000000
+  - level: 395
+    exp: 10200000000
+  - level: 396
+    exp: 10200000000
+  - level: 397
+    exp: 10200000000
+  - level: 398
+    exp: 10200000000
+  - level: 399
+    exp: 10200000000
+  - level: 400
+    exp: 10200000000
+  - level: 401
+    exp: 10200000000
+  - level: 402
+    exp: 10200000000
+  - level: 403
+    exp: 10200000000
+  - level: 404
+    exp: 10200000000
+  - level: 405
+    exp: 10200000000
+  - level: 406
+    exp: 10200000000
+  - level: 407
+    exp: 10200000000
+  - level: 408
+    exp: 10200000000
+  - level: 409
+    exp: 10200000000
+  - level: 410
+    exp: 10200000000
+  - level: 411
+    exp: 10200000000
+  - level: 412
+    exp: 10200000000
+  - level: 413
+    exp: 10200000000
+  - level: 414
+    exp: 10200000000
+  - level: 415
+    exp: 10200000000
+  - level: 416
+    exp: 10200000000
+  - level: 417
+    exp: 10200000000
+  - level: 418
+    exp: 10200000000
+  - level: 419
+    exp: 10200000000
+  - level: 420
+    exp: 10200000000
+  - level: 421
+    exp: 10200000000
+  - level: 422
+    exp: 10200000000
+  - level: 423
+    exp: 10200000000
+  - level: 424
+    exp: 10200000000
+  - level: 425
+    exp: 10200000000
+  - level: 426
+    exp: 10200000000
+  - level: 427
+    exp: 10200000000
+  - level: 428
+    exp: 10200000000
+  - level: 429
+    exp: 10200000000
+  - level: 430
+    exp: 10200000000
+  - level: 431
+    exp: 10200000000
+  - level: 432
+    exp: 10200000000
+  - level: 433
+    exp: 10200000000
+  - level: 434
+    exp: 10200000000
+  - level: 435
+    exp: 10200000000
+  - level: 436
+    exp: 10200000000
+  - level: 437
+    exp: 10200000000
+  - level: 438
+    exp: 10200000000
+  - level: 439
+    exp: 10200000000
+  - level: 440
+    exp: 10200000000
+  - level: 441
+    exp: 10200000000
+  - level: 442
+    exp: 10200000000
+  - level: 443
+    exp: 10200000000
+  - level: 444
+    exp: 10200000000
+  - level: 445
+    exp: 10200000000
+  - level: 446
+    exp: 10200000000
+  - level: 447
+    exp: 10200000000
+  - level: 448
+    exp: 10200000000
+  - level: 449
+    exp: 10200000000
+  - level: 450
+    exp: 10200000000
+  - level: 451
+    exp: 10200000000
+  - level: 452
+    exp: 10200000000
+  - level: 453
+    exp: 10200000000
+  - level: 454
+    exp: 10200000000
+  - level: 455
+    exp: 10200000000
+  - level: 456
+    exp: 10200000000
+  - level: 457
+    exp: 10200000000
+  - level: 458
+    exp: 10200000000
+  - level: 459
+    exp: 10200000000
+  - level: 460
+    exp: 10200000000
+  - level: 461
+    exp: 10200000000
+  - level: 462
+    exp: 10200000000
+  - level: 463
+    exp: 10200000000
+  - level: 464
+    exp: 10200000000
+  - level: 465
+    exp: 10200000000
+  - level: 466
+    exp: 10200000000
+  - level: 467
+    exp: 10200000000
+  - level: 468
+    exp: 10200000000
+  - level: 469
+    exp: 10200000000
+  - level: 470
+    exp: 10200000000
+  - level: 471
+    exp: 10200000000
+  - level: 472
+    exp: 10200000000
+  - level: 473
+    exp: 10200000000
+  - level: 474
+    exp: 10200000000
+  - level: 475
+    exp: 10200000000
+  - level: 476
+    exp: 10200000000
+  - level: 477
+    exp: 10200000000
+  - level: 478
+    exp: 10200000000
+  - level: 479
+    exp: 10200000000
+  - level: 480
+    exp: 10200000000
+  - level: 481
+    exp: 10200000000
+  - level: 482
+    exp: 10200000000
+  - level: 483
+    exp: 10200000000
+  - level: 484
+    exp: 10200000000
+  - level: 485
+    exp: 10200000000
+  - level: 486
+    exp: 10200000000
+  - level: 487
+    exp: 10200000000
+  - level: 488
+    exp: 10200000000
+  - level: 489
+    exp: 10200000000
+  - level: 490
+    exp: 10200000000
+  - level: 491
+    exp: 10200000000
+  - level: 492
+    exp: 10200000000
+  - level: 493
+    exp: 10200000000
+  - level: 494
+    exp: 10200000000
+  - level: 495
+    exp: 10200000000
+  - level: 496
+    exp: 10200000000
+  - level: 497
+    exp: 10200000000
+  - level: 498
+    exp: 10200000000
+  - level: 499
+    exp: 10200000000
+  - level: 500
+    exp: 10200000000

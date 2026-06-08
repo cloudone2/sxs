@@ -7,7 +7,7 @@
  */
 function updateSeasonTheme(seasonId) {
     // 移除所有季節主題類別
-    document.body.classList.remove('season-s1', 'season-s2', 'season-s3', 'season-s4');
+    document.body.classList.remove('season-s1', 'season-s2', 'season-s3', 'season-s4', 'season-s5');
     
     // 添加當前季節主題
     if (seasonId) {
@@ -18,10 +18,14 @@ function updateSeasonTheme(seasonId) {
         if (season && season.theme_color) {
             document.documentElement.style.setProperty('--season-primary', season.theme_color);
             
-            // 生成漸層色彩
-            const gradientColor = lightenColor(season.theme_color, 20);
-            document.documentElement.style.setProperty('--season-gradient', 
-                `linear-gradient(135deg, ${season.theme_color} 0%, ${gradientColor} 100%)`);
+            if (season.theme_gradient) {
+                document.documentElement.style.setProperty('--season-gradient', season.theme_gradient);
+            } else {
+                // 生成漸層色彩
+                const gradientColor = lightenColor(season.theme_color, 20);
+                document.documentElement.style.setProperty('--season-gradient', 
+                    `linear-gradient(135deg, ${season.theme_color} 0%, ${gradientColor} 100%)`);
+            }
         }
     }
 }

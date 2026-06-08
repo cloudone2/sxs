@@ -21,6 +21,10 @@ description: "計算賽季內的資源產出與升級需求"
 {{ site.data.upgrades.s4 | jsonify }}
 {% endcapture %}
 
+{% capture s5_data %}
+{{ site.data.upgrades.s5 | jsonify }}
+{% endcapture %}
+
 {% capture freeze_dried_data %}
 {{ site.data.freeze_dried_exp | jsonify }}
 {% endcapture %}
@@ -259,6 +263,7 @@ description: "計算賽季內的資源產出與升級需求"
   window.s2Data = {{ s2_data }};
   window.s3Data = {{ s3_data }};
   window.s4Data = {{ s4_data }};
+  window.s5Data = {{ s5_data }};
   window.freezeDriedData = {{ freeze_dried_data }};
 </script>
 

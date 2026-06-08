@@ -226,6 +226,7 @@
         }
         
         const primaryColor = season_data.theme_color || '#667eea';
+        const themeGradient = season_data.theme_gradient || null;
         
         const lightColor = lightenColor(primaryColor, 20);
         const darkColor = darkenColor(primaryColor, 10);
@@ -241,8 +242,13 @@
         document.documentElement.style.setProperty('--season-color-secondary', secondaryColor);
         document.documentElement.style.setProperty('--season-color-tertiary', tertiaryColor);
         document.documentElement.style.setProperty('--season-color-rgb', rgbString);
+        if (themeGradient) {
+            document.documentElement.style.setProperty('--season-gradient', themeGradient);
+        } else {
+            document.documentElement.style.removeProperty('--season-gradient');
+        }
         
-        applyHeaderColors(primaryColor, lightColor, secondaryColor, tertiaryColor);
+        applyHeaderColors(primaryColor, lightColor, secondaryColor, tertiaryColor, themeGradient);
         
         const select = document.getElementById('target-season');
         if (select) {
@@ -257,14 +263,15 @@
             dark: darkColor,
             secondary: secondaryColor,
             tertiary: tertiaryColor,
-            rgb: rgbString
+            rgb: rgbString,
+            gradient: themeGradient
         });
     }
 
-    function applyHeaderColors(primary, light, secondary, tertiary) {
+    function applyHeaderColors(primary, light, secondary, tertiary, themeGradient) {
         const mainHeader = document.querySelector('.gradient-header');
         if (mainHeader) {
-            mainHeader.style.background = `linear-gradient(135deg, ${primary} 0%, ${light} 100%)`;
+            mainHeader.style.background = themeGradient || `linear-gradient(135deg, ${primary} 0%, ${light} 100%)`;
         }
         
         const rewardsHeader = document.querySelector('.gradient-header-secondary');
