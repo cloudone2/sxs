@@ -65,7 +65,7 @@ seasons:
           amount: 160
 
   - id: 's4'
-    title: 'S4: 哈帕迪'
+    title: 'S4: 怪誕劇場'
     season_number: 4
     release_date: 2026-02-14
     fixed_level: 190
@@ -86,7 +86,7 @@ seasons:
           amount: 160
 
   - id: 's5'
-    title: 'S5: 伊格尼斯'
+    title: 'S5: 霜焰之歌'
     season_number: 5
     release_date: 2026-06-09
     fixed_level: 220
