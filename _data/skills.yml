@@ -122,18 +122,20 @@ class_info:
 # CLASS LEVEL ORDER
 # ========================================
 class_levels:
-  - name: 六轉
+  - name: 七轉
     order: 0
-  - name: 五轉
+  - name: 六轉
     order: 1
-  - name: 四轉
+  - name: 五轉
     order: 2
-  - name: 三轉
+  - name: 四轉
     order: 3
-  - name: 二轉
+  - name: 三轉
     order: 4
-  - name: 一轉
+  - name: 二轉
     order: 5
+  - name: 一轉
+    order: 6
 
 # ========================================
 # SKILL TYPE CONFIGURATION
@@ -169,6 +171,11 @@ resources:
 # SEASON REFERENCE DATA
 # ========================================
 season_fragments:
+  - season: S4
+    class_level: 七轉
+    total: 1170
+    breakdown: "(秘寶180×5 + 賽季任務90×3)"
+    badge_color: "primary"
   - season: S4
     class_level: 六轉
     total: 990
@@ -2278,5 +2285,325 @@ skill_list:
     name_c: 光耀聚變
     class: 術士
     class_level: 六轉
+    rarity: rare
+    type: 秘法
+
+  # 鬥士 (Fighter) - 七轉 - 戰技 - legendary
+  - name: void_cleave
+    name_c: 破空斬
+    class: 鬥士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  - name: stellar_flame_annihilation
+    name_c: 星炎燼滅
+    class: 鬥士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  # 鬥士 (Fighter) - 七轉 - 戰技 - epic
+  - name: qi_gathering_wind_focus
+    name_c: 聚氣凝風
+    class: 鬥士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  - name: dark_soul_shadow_devour
+    name_c: 暗魂噬影
+    class: 鬥士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  # 鬥士 (Fighter) - 七轉 - 戰技 - rare
+  - name: spinning_blade_edge
+    name_c: 迴旋鋒刃
+    class: 鬥士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+  - name: scorching_flame_assault
+    name_c: 灼炎閃襲
+    class: 鬥士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+
+  # 鬥士 (Fighter) - 七轉 - 秘法 - legendary
+  - name: instant_surge_force
+    name_c: 迅時之力
+    class: 鬥士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  - name: shadow_stealth
+    name_c: 暗影潛行
+    class: 鬥士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  # 鬥士 (Fighter) - 七轉 - 秘法 - epic
+  - name: starfire_sword_will
+    name_c: 星火劍意
+    class: 鬥士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  - name: berserk_blood_battle_will
+    name_c: 狂血戰意
+    class: 鬥士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  # 鬥士 (Fighter) - 七轉 - 秘法 - rare
+  - name: iron_resilience_body
+    name_c: 剛韌之驅
+    class: 鬥士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+  - name: phantom_wound_break
+    name_c: 掠影傷破
+    class: 鬥士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+
+  # 術士 (Sorcerer) - 七轉 - 戰技 - legendary
+  - name: raging_storm_feather
+    name_c: 狂嵐烈羽
+    class: 術士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  - name: thunder_lightning_net
+    name_c: 驚雷電網
+    class: 術士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  # 術士 (Sorcerer) - 七轉 - 戰技 - epic
+  - name: wildfire_flames
+    name_c: 燎原之焰
+    class: 術士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  - name: void_light_surge
+    name_c: 虛空光瀾
+    class: 術士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  # 術士 (Sorcerer) - 七轉 - 戰技 - rare
+  - name: frost_ice_shatter
+    name_c: 冰寒霜破
+    class: 術士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+  - name: reverse_cyclone_strike
+    name_c: 逆旋風襲
+    class: 術士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+
+  # 術士 (Sorcerer) - 七轉 - 秘法 - legendary
+  - name: frost_cold_dark_surge
+    name_c: 霜寒暗湧
+    class: 術士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  - name: reborn_in_flames
+    name_c: 浴火重生
+    class: 術士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  # 術士 (Sorcerer) - 七轉 - 秘法 - epic
+  - name: void_wind_surge
+    name_c: 虛空風湧
+    class: 術士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  - name: arcane_rune_merge
+    name_c: 魔紋通合
+    class: 術士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  # 術士 (Sorcerer) - 七轉 - 秘法 - rare
+  - name: scorching_fire_resonance
+    name_c: 灼火共鳴
+    class: 術士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+  - name: fierce_wind_mark
+    name_c: 烈風之痕
+    class: 術士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+
+  # 騎士 (Knight) - 七轉 - 戰技 - legendary
+  - name: hundred_battle_edge
+    name_c: 百戰之鋒
+    class: 騎士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  - name: charged_light_roar
+    name_c: 蓄能光嘯
+    class: 騎士
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  # 騎士 (Knight) - 七轉 - 戰技 - epic
+  - name: counter_stance
+    name_c: 反打勢
+    class: 騎士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  - name: charged_slash
+    name_c: 蓄能斬
+    class: 騎士
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  # 騎士 (Knight) - 七轉 - 戰技 - rare
+  - name: wild_dance_strike
+    name_c: 亂舞擊
+    class: 騎士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+  - name: frost_condensed_guard
+    name_c: 凝霜守護
+    class: 騎士
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+
+  # 騎士 (Knight) - 七轉 - 秘法 - legendary
+  - name: holy_covenant_guard
+    name_c: 聖約守護
+    class: 騎士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  - name: frost_domain
+    name_c: 冰霜領域
+    class: 騎士
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  # 騎士 (Knight) - 七轉 - 秘法 - epic
+  - name: defensive_stance
+    name_c: 守御之勢
+    class: 騎士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  - name: energy_circulation
+    name_c: 能量流轉
+    class: 騎士
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  # 騎士 (Knight) - 七轉 - 秘法 - rare
+  - name: united_iron_wall
+    name_c: 同心鐵壁
+    class: 騎士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+  - name: divine_steadfast_body
+    name_c: 神固之軀
+    class: 騎士
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+
+  # 賢者 (Sage) - 七轉 - 戰技 - legendary
+  - name: summon_flower_fairy
+    name_c: 喚靈:花仙
+    class: 賢者
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  - name: frenzied_devour_curse
+    name_c: 狂噬咒文
+    class: 賢者
+    class_level: 七轉
+    rarity: legendary
+    type: 戰技
+  # 賢者 (Sage) - 七轉 - 戰技 - epic
+  - name: summon_spirit_armor
+    name_c: 喚靈:靈鎧
+    class: 賢者
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  - name: dark_erosion_burst
+    name_c: 暗蝕瞬爆
+    class: 賢者
+    class_level: 七轉
+    rarity: epic
+    type: 戰技
+  # 賢者 (Sage) - 七轉 - 戰技 - rare
+  - name: night_shadow_wandering_soul
+    name_c: 夜影遊魂
+    class: 賢者
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+  - name: benevolent_wish
+    name_c: 仁心之願
+    class: 賢者
+    class_level: 七轉
+    rarity: rare
+    type: 戰技
+
+  # 賢者 (Sage) - 七轉 - 秘法 - legendary
+  - name: soul_invade_bone_erosion
+    name_c: 侵魂蝕骨
+    class: 賢者
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  - name: guardian_totem
+    name_c: 守護圖騰
+    class: 賢者
+    class_level: 七轉
+    rarity: legendary
+    type: 秘法
+  # 賢者 (Sage) - 七轉 - 秘法 - epic
+  - name: summon_soul_condensation
+    name_c: 喚靈凝魂
+    class: 賢者
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  - name: spirit_fluid_mastery
+    name_c: 靈液專精
+    class: 賢者
+    class_level: 七轉
+    rarity: epic
+    type: 秘法
+  # 賢者 (Sage) - 七轉 - 秘法 - rare
+  - name: summon_death_rattle
+    name_c: 喚靈亡語
+    class: 賢者
+    class_level: 七轉
+    rarity: rare
+    type: 秘法
+  - name: curse_shadow_synergy
+    name_c: 咒影連攜
+    class: 賢者
+    class_level: 七轉
     rarity: rare
     type: 秘法
