@@ -208,8 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#total-skills').textContent = state.wrappers.length;
     $('#total-upgrades').textContent = totals.upgrades;
     $('#grand-total').textContent = totals.cost;
+    $('#total-missing').textContent = totals.net;
 
-    updateBalance(skills, totals.net);
+    const totalMissingAfterResources = updateBalance(skills, totals.net);
+    $('#total-missing-after-resources').textContent = totalMissingAfterResources;
     updateSummary(skills);
   }
 
@@ -219,6 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let remVouchers = ownedVouchers;
     let remBoxes = ownedBoxes;
+
+    let totalAfterResources = 0;
 
     skills.forEach(s => {
       let stillNeeded = s.net;
@@ -254,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const fragPerDraw = get.rarity(s.rarity).fragmentCost || 10;
       const drawsNeeded = stillNeeded > 0 ? Math.ceil(stillNeeded / fragPerDraw) : 0;
       $('.skill-draws', s.wrapper).textContent = drawsNeeded;
+
+      totalAfterResources += stillNeeded;
     });
 
     // Calculate voucher and box needs based on total net
@@ -262,6 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#voucher-count').textContent = vouchersNeeded;
     $('#box-count').textContent = boxesNeeded;
+
+    return totalAfterResources;
   }
 
   function updateSummary(skills) {
@@ -399,6 +407,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================
   $('#toggle-info-btn').onclick = function() {
     const content = $('#info-content');
+    content.classList.toggle('collapsed');
+    this.classList.toggle('collapsed');
+    this.setAttribute('aria-expanded', String(!content.classList.contains('collapsed')));
+  };
+
+  $('#toggle-summary-btn').onclick = function() {
+    const content = $('#summary-content-panel');
     content.classList.toggle('collapsed');
     this.classList.toggle('collapsed');
     this.setAttribute('aria-expanded', String(!content.classList.contains('collapsed')));

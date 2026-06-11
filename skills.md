@@ -96,34 +96,52 @@ title: 技能升級計算器
   <!-- Summary Panel -->
   <div class="summary-panel mb-4">
       <div class="card border-0 shadow">
-        <div class="card-header gradient-header text-white">
+        <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
         <h3 class="mb-0 d-flex align-items-center gap-2">
           <span>📊</span>
           <span>總計概覽 / Total Summary</span>
         </h3>
+        <button class="btn btn-sm btn-outline-light collapsed" id="toggle-summary-btn" aria-expanded="false" aria-controls="summary-content-panel">
+          <span class="toggle-icon">▼</span>
+          <span class="ms-1">展開/收合</span>
+        </button>
       </div>
-      <div class="card-body">
+      <div id="summary-content-panel" class="card-body collapsed">
         <!-- Stats Cards -->
         <div class="row g-3 mb-4">
-          <div class="col-md-4">
+          <div class="col-sm-6 col-lg-4">
             <div class="stat-card stat-card-primary">
               <div class="stat-label">技能數量</div>
               <div class="stat-value" id="total-skills">0</div>
               <div class="stat-icon">🎯</div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-sm-6 col-lg-4">
             <div class="stat-card stat-card-info">
               <div class="stat-label">升級次數</div>
               <div class="stat-value" id="total-upgrades">0</div>
               <div class="stat-icon">⚡</div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-sm-6 col-lg-4">
             <div class="stat-card stat-card-warning">
               <div class="stat-label">總消耗碎片</div>
               <div class="stat-value" id="grand-total">0</div>
               <div class="stat-icon">💎</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="stat-card stat-card-danger">
+              <div class="stat-label">共缺碎片</div>
+              <div class="stat-value" id="total-missing">0</div>
+              <div class="stat-icon">❗</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4">
+            <div class="stat-card stat-card-secondary">
+              <div class="stat-label">扣資源後共缺碎片</div>
+              <div class="stat-value" id="total-missing-after-resources">0</div>
+              <div class="stat-icon">🧮</div>
             </div>
           </div>
         </div>

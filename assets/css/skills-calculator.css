@@ -353,6 +353,24 @@
   background: #fff;
 }
 
+.stat-card-danger {
+  background: #fff5f5;
+  border-color: #fecaca;
+}
+
+.stat-card-danger .stat-value {
+  color: #b91c1c;
+}
+
+.stat-card-secondary {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.stat-card-secondary .stat-value {
+  color: #0f172a;
+}
+
 .stat-card .stat-label {
   font-size: 1rem;
   font-weight: 700;
@@ -639,6 +657,32 @@
 }
 
 /* ========================================
+   TOGGLE SUMMARY
+   ======================================== */
+#summary-content-panel {
+  max-height: 4000px;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.2s ease;
+  opacity: 1;
+}
+
+#summary-content-panel.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#toggle-summary-btn .toggle-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+#toggle-summary-btn.collapsed .toggle-icon {
+  transform: rotate(-90deg);
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 @media (max-width: 991.98px) {
@@ -716,7 +760,8 @@
   .btn-remove,
   #add-skill-btn,
   #reset-all-btn,
-  #toggle-info-btn {
+  #toggle-info-btn,
+  #toggle-summary-btn {
     display: none;
   }
   
@@ -733,7 +778,6 @@
   }
 }
 
-.summary-panel{
-  opacity: 0;
-  max-height: 0px;
+.summary-panel {
+  opacity: 1;
 }
