@@ -171,7 +171,7 @@ resources:
 # SEASON REFERENCE DATA
 # ========================================
 season_fragments:
-  - season: S4
+  - season: S5
     class_level: 七轉
     total: 1170
     breakdown: "(秘寶180×5 + 賽季任務90×3)"
