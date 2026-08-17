@@ -104,3 +104,18 @@ tiers:
   - start: 14220
     increment: 180
     index: 25
+  - start: 15680
+    increment: 200
+    index: 26
+  - start: 17300
+    increment: 220
+    index: 27
+  - start: 19080
+    increment: 240
+    index: 28
+  - start: 21020
+    increment: 260
+    index: 29
+  - start: 23120
+    increment: 280
+    index: 30
